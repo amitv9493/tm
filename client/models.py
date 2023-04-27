@@ -66,7 +66,7 @@ class Plant(models.Model):
         return ",".join([str(i) for i in self.plantentrance_address.all()])
         
     def __str__(self):
-       return self.plant_location
+       return self.plant_name
        
 
 
