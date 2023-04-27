@@ -24,10 +24,26 @@ class Part(models.Model):
     notes = models.TextField(blank=True,null=True)
 
     upload_file = models.FileField(upload_to='media/images/general_parts', null=True, blank=True)
-    weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
     price  = models.PositiveIntegerField(_("Price"), null=True, blank=True)
-    dimension = models.CharField(_("Dimension"), max_length=100, null=True, blank=True)
+    
+    class WeightChoices(models.TextChoices):
+        KG = 'KG'
+        LBS = 'LBS'
+    weight_unit = models.CharField(_("Unit for Weight"),null=True,blank=True, max_length=50, choices=WeightChoices.choices)
+    weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
+    
+    # Dimension     
+    class LengthDimensionChoices(models.TextChoices):
+        CM = 'CM'
+        MM = 'MM'
+        INCH = 'INCH'
+    length = models.PositiveIntegerField(blank=True,null=True,)
+    breadth  = models.PositiveIntegerField(blank=True,null=True,)
+    height  = models.PositiveIntegerField(blank=True,null=True,)
 
+    dimension_unit = models.CharField(_("Unit for Dimensions"),choices= LengthDimensionChoices.choices,blank=True,null=True, max_length=50)
+    
+    
 
     class is_this_part_of_set(models.TextChoices):
          YES='YES',('YES')
@@ -71,10 +87,27 @@ class Supply_orifice(models.Model):
     packaging=models.CharField(max_length=128,blank=True)
     notes = models.TextField(blank=True,null=True)
     upload_file = models.FileField(upload_to='media/images/general_parts', null=True, blank=True)
-    weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
     price  = models.PositiveIntegerField(_("Price"), null=True, blank=True)
-    dimension = models.CharField(_("Dimension"), max_length=100, null=True, blank=True)
+    
+    class WeightChoices(models.TextChoices):
+        KG = 'KG'
+        LBS = 'LBS'
+    weight_unit = models.CharField(_("Unit for Weight"),null=True,blank=True, max_length=50, choices=WeightChoices.choices)
+    weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
 
+
+
+    # Dimension     
+    class LengthDimensionChoices(models.TextChoices):
+        CM = 'CM'
+        MM = 'MM'
+        INCH = 'INCH'
+    length = models.PositiveIntegerField(blank=True,null=True,)
+    breadth  = models.PositiveIntegerField(blank=True,null=True,)
+    height  = models.PositiveIntegerField(blank=True,null=True,)
+
+    dimension_unit = models.CharField(_("Unit for Dimensions"),choices= LengthDimensionChoices.choices,blank=True,null=True, max_length=50)
+    
      
     def __str__(self):
        return str(self.serial_number)
@@ -104,9 +137,25 @@ class Pressure_sensor(models.Model):
     packaging=models.CharField(max_length=128,blank=True)
     notes = models.TextField(blank=True,null=True)
     upload_file = models.FileField(upload_to='media/images/general_parts', null=True, blank=True)
+    
+    class WeightChoices(models.TextChoices):
+        KG = 'KG'
+        LBS = 'LBS'
+    weight_unit = models.CharField(_("Unit for Weight"),null=True,blank=True, max_length=50, choices=WeightChoices.choices)
     weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
     price  = models.PositiveIntegerField(_("Price"), null=True, blank=True)
-    dimension = models.CharField(_("Dimension"), max_length=100, null=True, blank=True)
+
+    # Dimension     
+    class LengthDimensionChoices(models.TextChoices):
+        CM = 'CM'
+        MM = 'MM'
+        INCH = 'INCH'
+    length = models.PositiveIntegerField(blank=True,null=True,)
+    breadth  = models.PositiveIntegerField(blank=True,null=True,)
+    height  = models.PositiveIntegerField(blank=True,null=True,)
+
+    dimension_unit = models.CharField(_("Unit for Dimensions"),choices= LengthDimensionChoices.choices,blank=True,null=True, max_length=50)
+    
 
 
 
@@ -138,9 +187,25 @@ class TTD_tube_seal_rack(models.Model):
     packaging=models.CharField(max_length=128,blank=True)
     notes = models.TextField(blank=True,null=True)
     upload_file = models.FileField(upload_to='media/images/general_parts', null=True, blank=True)
-    weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
+
     price  = models.PositiveIntegerField(_("Price"), null=True, blank=True)
-    dimension = models.CharField(_("Dimension"), max_length=100, null=True, blank=True)
+ 
+    class WeightChoices(models.TextChoices):
+        KG = 'KG'
+        LBS = 'LBS'
+    weight_unit = models.CharField(_("Unit for Weight"),null=True,blank=True, max_length=50, choices=WeightChoices.choices)
+    weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
+    # Dimension     
+    class LengthDimensionChoices(models.TextChoices):
+        CM = 'CM'
+        MM = 'MM'
+        INCH = 'INCH'
+    length = models.PositiveIntegerField(blank=True,null=True,)
+    breadth  = models.PositiveIntegerField(blank=True,null=True,)
+    height  = models.PositiveIntegerField(blank=True,null=True,)
+
+    dimension_unit = models.CharField(_("Unit for Dimensions"),choices= LengthDimensionChoices.choices,blank=True,null=True, max_length=50)
+    
 
 
 
@@ -171,9 +236,25 @@ class BDD_tube_seal_rack(models.Model):
     packaging=models.CharField(max_length=128,blank=True)
     notes = models.TextField(blank=True,null=True)
     upload_file = models.FileField(upload_to='media/images/general_parts', null=True, blank=True)
-    weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
+
     price  = models.PositiveIntegerField(_("Price"), null=True, blank=True)
-    dimension = models.CharField(_("Dimension"), max_length=100, null=True, blank=True)
+
+    # Dimension     
+    class LengthDimensionChoices(models.TextChoices):
+        CM = 'CM'
+        MM = 'MM'
+        INCH = 'INCH'
+    length = models.PositiveIntegerField(blank=True,null=True,)
+    breadth  = models.PositiveIntegerField(blank=True,null=True,)
+    height  = models.PositiveIntegerField(blank=True,null=True,)
+
+    dimension_unit = models.CharField(_("Unit for Dimensions"),choices= LengthDimensionChoices.choices,blank=True,null=True, max_length=50)
+ 
+    class WeightChoices(models.TextChoices):
+        KG = 'KG'
+        LBS = 'LBS'
+    weight_unit = models.CharField(_("Unit for Weight"),null=True,blank=True, max_length=50, choices=WeightChoices.choices)
+    weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
 
 
 
@@ -205,11 +286,27 @@ class Calibration_orifice(models.Model):
     packaging=models.CharField(max_length=128,blank=True)
     notes = models.TextField(blank=True,null=True)
     upload_file = models.FileField(upload_to='media/images/general_parts', null=True, blank=True)
-    weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
+
     price  = models.PositiveIntegerField(_("Price"), null=True, blank=True)
-    dimension = models.CharField(_("Dimension"), max_length=100, null=True, blank=True)
 
+    # Dimension     
+    class LengthDimensionChoices(models.TextChoices):
+        CM = 'CM'
+        MM = 'MM'
+        INCH = 'INCH'
+    length = models.PositiveIntegerField(blank=True,null=True,)
+    breadth  = models.PositiveIntegerField(blank=True,null=True,)
+    height  = models.PositiveIntegerField(blank=True,null=True,)
 
+    dimension_unit = models.CharField(_("Unit for Dimensions"),choices= LengthDimensionChoices.choices,blank=True,null=True, max_length=50)
+    
+
+ 
+    class WeightChoices(models.TextChoices):
+        KG = 'KG'
+        LBS = 'LBS'
+    weight_unit = models.CharField(_("Unit for Weight"),null=True,blank=True, max_length=50, choices=WeightChoices.choices)
+    weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
 
     def __str__(self):
        return str(self.serial_number)  
@@ -238,10 +335,25 @@ class SwabMasterTSR(models.Model):
     packaging=models.CharField(max_length=128,blank=True)
     notes = models.TextField(blank=True,null=True)
     upload_file = models.FileField(upload_to='media/images/general_parts', null=True, blank=True)
-    weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
     price  = models.PositiveIntegerField(_("Price"), null=True, blank=True)
-    dimension = models.CharField(_("Dimension"), max_length=100, null=True, blank=True)
 
+    # Dimension     
+    class LengthDimensionChoices(models.TextChoices):
+        CM = 'CM'
+        MM = 'MM'
+        INCH = 'INCH'
+    length = models.PositiveIntegerField(blank=True,null=True,)
+    breadth  = models.PositiveIntegerField(blank=True,null=True,)
+    height  = models.PositiveIntegerField(blank=True,null=True,)
+
+    dimension_unit = models.CharField(_("Unit for Dimensions"),choices= LengthDimensionChoices.choices,blank=True,null=True, max_length=50)
+    
+ 
+    class WeightChoices(models.TextChoices):
+        KG = 'KG'
+        LBS = 'LBS'
+    weight_unit = models.CharField(_("Unit for Weight"),null=True,blank=True, max_length=50, choices=WeightChoices.choices)
+    weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
 
 
     def __str__(self):
@@ -271,10 +383,26 @@ class DeviceHose(models.Model):
     packaging=models.CharField(max_length=128,blank=True)
     notes = models.TextField(blank=True,null=True)
     upload_file = models.FileField(upload_to='media/images/general_parts', null=True, blank=True)
-    weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
-    price  = models.PositiveIntegerField(_("Price"), null=True, blank=True)
-    dimension = models.CharField(_("Dimension"), max_length=100, null=True, blank=True)
 
+    price  = models.PositiveIntegerField(_("Price"), null=True, blank=True)
+
+    # Dimension     
+    class LengthDimensionChoices(models.TextChoices):
+        CM = 'CM'
+        MM = 'MM'
+        INCH = 'INCH'
+    length = models.PositiveIntegerField(blank=True,null=True,)
+    breadth  = models.PositiveIntegerField(blank=True,null=True,)
+    height  = models.PositiveIntegerField(blank=True,null=True,)
+
+    dimension_unit = models.CharField(_("Unit for Dimensions"),choices= LengthDimensionChoices.choices,blank=True,null=True, max_length=50)
+    
+ 
+    class WeightChoices(models.TextChoices):
+        KG = 'KG'
+        LBS = 'LBS'
+    weight_unit = models.CharField(_("Unit for Weight"),null=True,blank=True, max_length=50, choices=WeightChoices.choices)
+    weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
 
 
     def __str__(self) -> str:
@@ -286,7 +414,6 @@ class DeviceHose(models.Model):
 
 class AirHose(models.Model):
     serial_number =  models.CharField(max_length=999,null=True, blank=True)
-    length = models.DecimalField(max_digits=6, decimal_places=3,null=True, blank=True)
     colour_code = models.CharField(max_length=50,null=True, blank=True)
     warehouse = models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE,null=True, blank=True)
     
@@ -310,8 +437,25 @@ class AirHose(models.Model):
     packaging=models.CharField(max_length=128,blank=True)
     notes = models.TextField(blank=True,null=True)
     upload_file = models.FileField(upload_to='media/images/general_parts', null=True, blank=True)
-    weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
+
     price  = models.PositiveIntegerField(_("Price"), null=True, blank=True)
-    dimension = models.CharField(_("Dimension"), max_length=100, null=True, blank=True)
+
+    # Dimension     
+    class LengthDimensionChoices(models.TextChoices):
+        CM = 'CM'
+        MM = 'MM'
+        INCH = 'INCH'
+    length = models.PositiveIntegerField(blank=True,null=True,)
+    breadth  = models.PositiveIntegerField(blank=True,null=True,)
+    height  = models.PositiveIntegerField(blank=True,null=True,)
+
+    dimension_unit = models.CharField(_("Unit for Dimensions"),choices= LengthDimensionChoices.choices,blank=True,null=True, max_length=50)
+    
 
 
+ 
+    class WeightChoices(models.TextChoices):
+        KG = 'KG'
+        LBS = 'LBS'
+    weight_unit = models.CharField(_("Unit for Weight"),null=True,blank=True, max_length=50, choices=WeightChoices.choices)
+    weight  = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
