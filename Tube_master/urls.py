@@ -17,6 +17,7 @@ from project.views import projectview
 from rest_framework_simplejwt.views import TokenRefreshView
 from client.views import front
 from tm_api.views import *
+from part.views import *
 
 urlpatterns = [
     path("",front, name="front"),
@@ -176,6 +177,12 @@ urlpatterns = [
     path("api/get/project/<int:pk>/", getlList_Id_Project.as_view(), name='getproject'),
     
     path("api/alllist/patchproject/<int:pk>/", AallList_Id_Patch_Project.as_view(), name='alllistproject'),
+
+#######################################################################
+#                     Part API ENDPOINTS
+#######################################################################
+
+    path("api/get/supplyorificepart/", SupplyOrificeViewPart.as_view(), name='supplyorificepart'),
  
 ] 
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))

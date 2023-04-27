@@ -258,7 +258,7 @@ class CalibrationStandView(ListAPIView):
         return (CALIBRATIONSTAND_qs)
     
 ################################################################################
-#            Part API View
+#                        Part API View
 ################################################################################    
 
 class PartView(ListAPIView):
@@ -385,6 +385,7 @@ class CalibrationOrificeView(ListAPIView):
 ################################################################################
 #            swabmaster API View
 ################################################################################ 
+
 class SwabMasterView(ListAPIView):
     queryset  = SwabMasterTSR.objects.all()
     permission_classes = [DjangoModelPermissions, IsAdminUser]
