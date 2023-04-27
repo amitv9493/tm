@@ -1,0 +1,1669 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>Contact Profile | Tube Master</title>
+    <link rel="icon" type="image/x-icon" href="{% static 't_assets/src/assets/img/favicon.ico' %}">
+    <link href="{% static 't_assets/layouts/vertical-dark-menu/css/light/loader.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 't_assets/layouts/vertical-dark-menu/css/dark/loader.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 't_assets/layouts/vertical-dark-menu/loader.js"></script>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link href="{% static 't_assets/src/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 't_assets/layouts/vertical-dark-menu/css/light/plugins.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 't_assets/layouts/vertical-dark-menu/css/dark/plugins.css' %}" rel="stylesheet" type="text/css">
+    <!-- END GLOBAL MANDATORY STYLES -->
+
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="{% static 't_assets/src/assets/css/light/components/modal.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 't_assets/src/assets/css/light/apps/contacts.css' %}" rel="stylesheet" type="text/css">
+
+    <link href="{% static 't_assets/src/assets/css/dark/components/modal.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 't_assets/src/assets/css/dark/apps/contacts.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- END PAGE LEVEL STYLES -->    
+</head>
+  <body class="dark layout-boxed">
+    <!--  BEGIN NAVBAR  -->
+    <div class="header-container container-xxl">
+      <header class="header navbar navbar-expand-sm expand-header">
+        <a href="javascript:void(0);" class="sidebarCollapse">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"
+          ><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </a>
+
+        <div class="search-animated toggle-search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+            <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <form class="form-inline search-full form-inline search" role="search">
+            <div class="search-bar">
+              <input type="text" class="form-control search-form-control ml-lg-auto" placeholder="Search..."/>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x search-close"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </div>
+          </form>
+          <span class="badge badge-secondary">Ctrl + /</span>
+        </div>
+
+        <ul class="navbar-item flex-row ms-lg-auto ms-0">
+          <li class="nav-item theme-toggle-item">
+            <a href="javascript:void(0);" class="nav-link theme-toggle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon dark-mode" >
+                <path
+                  d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                ></path>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun light-mode"
+              > <circle cx="12" cy="12" r="5"></circle> <line x1="12" y1="1" x2="12" y2="3"></line> <line x1="12" y1="21" x2="12" y2="23"></line> <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line> <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line> <line x1="1" y1="12" x2="3" y2="12"></line> <line x1="21" y1="12" x2="23" y2="12"></line> <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line> <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </a>
+          </li>
+
+          <li class="nav-item dropdown notification-dropdown">
+            <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="notificationDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell" > <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path> <path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg><span class="badge badge-success"></span></a>
+            <div class="dropdown-menu position-absolute" aria-labelledby="notificationDropdown">
+              <div class="drodpown-title message">
+                <h6 class="d-flex justify-content-between"><span class="align-self-center">Messages</span><span class="badge badge-primary">9 Unread</span>
+                </h6>
+              </div>
+              <div class="notification-scroll">
+                <div class="dropdown-item">
+                  <div class="media server-log">
+                    <img src="../src/assets/img/profile-16.jpeg" class="img-fluid me-2" alt="avatar"/>
+                    <div class="media-body">
+                      <div class="data-info">
+                        <h6 class="">Kara Young</h6>
+                        <p class="">1 hr ago</p>
+                      </div>
+                      <div class="icon-status">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="dropdown-item">
+                  <div class="media">
+                    <img src="../src/assets/img/profile-15.jpeg" class="img-fluid me-2" alt="avatar"
+                    />
+                    <div class="media-body">
+                      <div class="data-info">
+                        <h6 class="">Daisy Anderson</h6>
+                        <p class="">8 hrs ago</p>
+                      </div>
+
+                      <div class="icon-status">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"
+                        > <line x1="18" y1="6" x2="6" y2="18"></line> <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="dropdown-item">
+                  <div class="media file-upload">
+                    <img
+                      src="../src/assets/img/profile-21.jpeg"
+                      class="img-fluid me-2"
+                      alt="avatar"
+                    />
+                    <div class="media-body">
+                      <div class="data-info">
+                        <h6 class="">Oscar Garner</h6>
+                        <p class="">14 hrs ago</p>
+                      </div>
+
+                      <div class="icon-status">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"
+                        > <line x1="18" y1="6" x2="6" y2="18"></line> <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="drodpown-title notification mt-2">
+                  <h6 class="d-flex justify-content-between">
+                    <span class="align-self-center">Notifications</span>
+                    <span class="badge badge-secondary">16 New</span>
+                  </h6>
+                </div>
+
+                <div class="dropdown-item">
+                  <div class="media server-log">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-server"
+                    >
+                      <rect
+                        x="2"
+                        y="2"
+                        width="20"
+                        height="8"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <rect
+                        x="2"
+                        y="14"
+                        width="20"
+                        height="8"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <line x1="6" y1="6" x2="6" y2="6"></line>
+                      <line x1="6" y1="18" x2="6" y2="18"></line>
+                    </svg>
+                    <div class="media-body">
+                      <div class="data-info">
+                        <h6 class="">Server Rebooted</h6>
+                        <p class="">45 min ago</p>
+                      </div>
+
+                      <div class="icon-status">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"
+                        > <line x1="18" y1="6" x2="6" y2="18"></line> <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="dropdown-item">
+                  <div class="media file-upload">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-file-text"
+                    >
+                      <path
+                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                      ></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <line x1="16" y1="13" x2="8" y2="13"></line>
+                      <line x1="16" y1="17" x2="8" y2="17"></line>
+                      <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <div class="media-body">
+                      <div class="data-info">
+                        <h6 class="">Kelly Portfolio.pdf</h6>
+                        <p class="">670 kb</p>
+                      </div>
+
+                      <div class="icon-status">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="feather feather-x"
+                        >
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="dropdown-item">
+                  <div class="media">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-heart"
+                    >
+                      <path
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                      ></path>
+                    </svg>
+                    <div class="media-body">
+                      <div class="data-info">
+                        <h6 class="">Licence Expiring Soon</h6>
+                        <p class="">8 hrs ago</p>
+                      </div>
+
+                      <div class="icon-status">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="feather feather-x"
+                        >
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li
+            class="nav-item dropdown user-profile-dropdown order-lg-0 order-1"
+          >
+            <a
+              href="javascript:void(0);"
+              class="nav-link dropdown-toggle user"
+              id="userProfileDropdown"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <div class="avatar-container">
+                <div class="avatar avatar-sm avatar-indicators avatar-online">
+                  <img
+                    alt="avatar"
+                    src="../src/assets/img/profile-30.png"
+                    class="rounded-circle"
+                  />
+                </div>
+              </div>
+            </a>
+
+            <div
+              class="dropdown-menu position-absolute"
+              aria-labelledby="userProfileDropdown"
+            >
+              <div class="user-profile-section">
+                <div class="media mx-auto">
+                  <div class="emoji me-2">&#x1F44B;</div>
+                  <div class="media-body">
+                    <h5>Shaun Park</h5>
+                    <p>Project Leader</p>
+                  </div>
+                </div>
+              </div>
+              <div class="dropdown-item">
+                <a href="user-profile.html">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-user"
+                  >
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  <span>Profile</span>
+                </a>
+              </div>
+              <div class="dropdown-item">
+                <a href="app-mailbox.html">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-inbox"
+                  >
+                    <polyline
+                      points="22 12 16 12 14 15 10 15 8 12 2 12"
+                    ></polyline>
+                    <path
+                      d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"
+                    ></path>
+                  </svg>
+                  <span>Inbox</span>
+                </a>
+              </div>
+              <div class="dropdown-item">
+                <a href="auth-boxed-lockscreen.html">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-lock"
+                  >
+                    <rect
+                      x="3"
+                      y="11"
+                      width="18"
+                      height="11"
+                      rx="2"
+                      ry="2"
+                    ></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <span>Lock Screen</span>
+                </a>
+              </div>
+              <div class="dropdown-item">
+                <a href="auth-boxed-signin.html">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-log-out"
+                  >
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                  </svg>
+                  <span>Log Out</span>
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </header>
+    </div>
+    <!--  END NAVBAR  -->
+
+    <!--  BEGIN MAIN CONTAINER  -->
+    <div class="main-container" id="container">
+        <div class="overlay"></div>
+        <div class="search-overlay"></div>
+      <!--  BEGIN SIDEBAR  -->
+      <div class="sidebar-wrapper sidebar-theme">
+        <nav id="sidebar">
+          <div class="navbar-nav theme-brand flex-row text-center">
+            <div class="nav-logo">
+              <div class="nav-item theme-logo"></div>
+              <div class="nav-item theme-text">
+                <a href="{% url 'index' %}" class="nav-link"> Tube Master</a>
+              </div>
+            </div>
+            <div class="nav-item sidebar-toggle">
+              <div class="btn-toggle sidebarCollapse">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-left"
+                ><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="shadow-bottom"></div>
+          <ul class="list-unstyled menu-categories" id="accordionExample">
+            <li class="menu">
+              <a
+                href="#dashboard"
+                data-bs-toggle="collapse"
+                aria-expanded="false"
+                class="dropdown-toggle"
+              >
+                <div class="">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"
+                  > <path   d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" ></path> <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                  </svg>
+                  <span>Dashboard</span>
+                </div>
+                <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"
+                  > <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </div>
+              </a>
+            </li>
+
+            <li class="menu menu-heading">
+              <div class="heading">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-minus"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"></line></svg ><span>APPLICATIONS</span>
+              </div>
+            </li>
+
+            <li class="menu">
+              <a
+                href="{% url 'clients' %}"
+                aria-expanded="false"
+                class="dropdown-toggle"
+              >
+                <div class="">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-calendar"
+                  >
+                    <rect
+                      x="3"
+                      y="4"
+                      width="18"
+                      height="18"
+                      rx="2"
+                      ry="2"
+                    ></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  <span>Clients</span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!--  END SIDEBAR  -->
+
+        <!--  BEGIN CONTENT AREA  -->
+        <div id="content" class="main-content">
+            <div class="layout-px-spacing">
+
+                <div class="middle-content container-xxl p-0">
+                  <!-- mail popup -->
+                    <div class="row layout-spacing layout-top-spacing" id="cancel-row1">
+                        <div class="col-lg-12">
+                            <div class="widget-content searchable-container list">
+    
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end pop -->
+                    <div class="row">
+                      <!-- profile part -->
+                      <div class="account-settings-container layout-top-spacing">
+                        <div class="account-content">
+                          <div class="row mb-3">
+                            <div class="col-md-12">
+                              <h2>Dashboard</h2>
+                              <div class="animated-underline-content">
+                                <ul class="nav nav-tabs" id="animateLine" role="tablist">
+                                  <li class="nav-item">
+                                    <a class="nav-link active" id="animated-underline-home-tab" data-bs-toggle="tab" href="#animated-underline-home" role="tab" aria-controls="animated-underline-home" aria-selected="true"
+                                      ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                      </svg>
+                                      Profile</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" id="animated-underline-profile-tab" data-bs-toggle="tab" href="#animated-underline-profile" role="tab" aria-controls="animated-underline-profile" aria-selected="false">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"
+                                      > <polygon   points="12 2 2 7 12 12 22 7 12 2" ></polygon> <polyline points="2 17 12 22 22 17"></polyline> <polyline points="2 12 12 17 22 12"></polyline>
+                                      </svg>Plant List</a
+                                    >
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" id="animated-underline-preferences-tab" data-bs-toggle="tab" href="#animated-underline-preferences" role="tab" aria-controls="animated-underline-preferences" aria-selected="false"
+                                      ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
+                                      </svg> Unit List
+                                    </a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a
+                                      class="nav-link" id="animated-underline-contact-tab" data-bs-toggle="tab" href="#animated-underline-contact" role="tab" aria-controls="animated-underline-contact" aria-selected="false" ><svg   xmlns="http://www.w3.org/2000/svg"   width="24"   height="24"   viewBox="0 0 24 24"   fill="none"   stroke="currentColor"   stroke-width="2"   stroke-linecap="round"   stroke-linejoin="round"   class="feather feather-layout">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="3" y1="9" x2="21" y2="9"></line>
+                                        <line x1="9" y1="21" x2="9" y2="9"></line>
+                                      </svg>
+                                      Reactor</a
+                                    >
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+          
+                          <div class="tab-content" id="animateLineContent-4">
+                            <div class="tab-pane " id="animated-underline-home" role="tabpanel" aria-labelledby="animated-underline-home-tab">
+                              <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                  <form class="section general-info" action="show/{{ mymember.id }}">
+                                    <div class="info">
+                                      <h6 class="">General Information</h6>
+                                      <div class="row">
+                                        <div class="col-lg-11 mx-auto">
+                                          <div class="row">
+                                            <div class="col-xl-2 col-lg-12 col-md-4">
+                                              <div class="profile-image mt-4 pe-md-4">
+                                                <div class="img-uploader-content">
+                                                  <input
+                                                    type="file"
+                                                    class="filepond"
+                                                    name="filepond"
+                                                    accept="image/png, image/jpeg, image/gif"
+                                                  />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="col-xl-10 col-lg-12 col-md-8 mt-md-0 mt-4"
+                                            >
+                                              <div class="form">
+                                                <div class="row">
+                                                  <div class="col-md-6">
+                                                    <div class="form-group">
+                                                      <label for="fullName"
+                                                        >Full Name</label
+                                                      >
+                                                      <input
+                                                        type="text"
+                                                        class="form-control mb-3"
+                                                        id="fullName"
+                                                        value="{{ mymember.official_name}}"
+                                                        disabled
+                                                      />
+                                                    </div>
+                                                  </div>
+          
+                                                  <div class="col-md-6">
+                                                    <div class="form-group">
+                                                      <label for="Commanname"
+                                                        >Comman name</label
+                                                      >
+                                                      <input
+                                                        type="text"
+                                                        class="form-control mb-3"
+                                                        id="Comman Name"
+                                                        value="{{ mymember.comman_name}}"
+                                                         disabled
+                                                      />
+                                                    </div>
+                                                  </div>
+          
+          
+                                                  <div class="col-md-6">
+                                                    <div class="form-group">
+                                                      <label for="Parent company"
+                                                        >Parent company</label
+                                                      >
+                                                      <input
+                                                        type="text"
+                                                        class="form-control mb-3"
+                                                        id="Parent company"
+                                                        value="{{ mymember.parent_company}}"
+                                                         disabled
+                                                      />
+                                                    </div>
+                                                  </div>
+                                                 
+                                                  <div class="col-md-6">
+                                                    <div class="form-group">
+                                                      <label for="Alternate Name"
+                                                        >Alternate Name</label
+                                                      >
+                                                      <input
+                                                        type="text"
+                                                        class="form-control mb-3"
+                                                        id="Alternate Name"
+                                                        value="{{ mymember.alternate_name}}"
+                                                         disabled
+                                                      />
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-md-6">
+                                                    <div class="form-group">
+                                                      <label for="Former name"
+                                                        >Former name</label
+                                                      >
+                                                      <input
+                                                        type="text"
+                                                        class="form-control mb-3"
+                                                        id="Former name"
+                                                        value="{{ mymember.former_name}}"
+                                                         disabled
+                                                      />
+                                                    </div>
+                                                  </div>
+          
+                                                  <!--<div class="col-md-12 mt-1">-->
+                                                  <!--    <div class="form-check">-->
+                                                  <!--        <input class="form-check-input" type="checkbox" value="" id="customCheck1">-->
+                                                  <!--        <label class="form-check-label" for="customCheck1">Make this my default address</label>-->
+                                                  <!--    </div>-->
+                                                  <!--</div>-->
+          
+                                                  <div class="col-md-12 mt-1">
+                                                    <div class="form-group text-end">
+                                                      <!--<button class="btn btn-secondary">Save</button>-->
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="tab-pane fade" id="animated-underline-profile" role="tabpanel" aria-labelledby="animated-underline-profile-tab">
+                             <!-- plant list start-->
+                              <div class="row">
+                                <!-- table 2 -->
+                                <div class="middle-content container-xxl p-0">
+                                  <!-- new popuu -->
+                                    <!-- mail popup -->
+                                    <div class="row layout-spacing layout-top-spacing" id="cancel-row">
+                                      <div class="col-lg-12">
+                                          <div class="widget-content searchable-container list">
+                                            <div class="row">
+                                                <div class="col-xl-4 col-lg-5 col-md-5 col-sm-7 filtered-list-search layout-spacing align-self-center">
+                                                    <form class="form-inline my-2 my-lg-0">
+                                                        <div class="">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                                            <input type="text" class="form-control product-search" id="input-search" placeholder="Search Contacts...">
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                                <div class="col-xl-8 col-lg-7 col-md-7 col-sm-5 text-sm-right text-center layout-spacing align-self-center">
+                                                    <div class="d-flex justify-content-sm-end justify-content-center">
+                                                        <!-- stacking starts -->
+                                                            <!-- stacked -->
+                                                              <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                  <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                      <h5 class="modal-title" id="exampleModalToggleLabel">Add Plant Details</h5>
+                                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                      <!-- start plant modal form -->
+                                                                      <div class="tab-content" id="rounded-pills-icon-tabContent">
+                                                                        <div class="tab-pane fade show active" id="rounded-pills-icon-home" role="tabpanel" aria-labelledby="rounded-pills-icon-home-tab">
+                                                                          <form method="POST">
+                                                                            <div class="row mb-4">
+                                                                              <div class="col-sm-12">
+                                                                                <input type="text" class="form-control" id="inputEmail1" placeholder="Plant location *"/>
+                                                                              </div>
+                                                                            </div>
+                                                                            <div class="row mb-4">
+                                                                              <div class="col-sm-12">
+                                                                                <input type="text" class="form-control" id="inputPassword1" placeholder="Plant contact *"
+                                                                                />
+                                                                              </div>
+                                                                            </div>
+                                                                           
+                                                                          </form>
+                                                                        </div>
+                                                                      </div>
+                                                                      <!-- end plant modal form -->
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                      <button type="submit" class="btn btn-success"> Save</button>
+                                                                      <!-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal"><svg xmlns="http://www.w3.org/2000/svg" width="24"  height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus" > <line x1="12" y1="5" x2="12" y2="19" ></line><line x1="5" y1="12" x2="19" y2="12" ></line></svg> Add Unit</button> -->
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                              <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                  <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                      <h5 class="modal-title" id="exampleModalToggleLabel2">Add Unit Details </h5>
+                                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                      <!-- start Unit modal form -->
+                                                                      <div class="tab-content" id="rounded-pills-icon-tabContent">
+                                                                      <div class="tab-pane fade show active" id="rounded-pills-icon-home" role="tabpanel" aria-labelledby="rounded-pills-icon-home-tab">
+                                                                        <form method="POST">
+                                                                          <div class="row mb-4">
+                                                                            <div class="col-sm-12">
+                                                                              <select id="selectProgrammingLanguage" class="form-control"> 
+                                                                                <option value="0">Select name of plant</option> 
+                                                                                <option value="">plant A</option> 
+                                                                                <option value="">plant B</option> 
+                                                                                <option value="">plant C</option> 
+                                                                                <option value="">plant D</option> 
+                                                                                <option value="">plant E</option>
+                                                                              </select>
+                                                                            </div>
+                                                                          <div class="row mb-4">
+                                                                            <div class="col-sm-12">
+                                                                              <input type="text" class="form-control" id="" placeholder="Name of Unit *"/>
+                                                                            </div>
+                                                                          </div>
+                                                                          <div class="row mb-4">
+                                                                            <div class="col-sm-12">
+                                                                              <input type="text" class="form-control" id="" placeholder="Chemical being manufactured by this unit *"/>
+                                                                            </div>
+                                                                          </div>
+                                                                         
+                                                                            <div class="col-sm-6">
+                                                                              <!-- <button class="btn btn-primary mb-2 me-4" onclick="add-plant.html"
+                                                                              > <svg   xmlns="http://www.w3.org/2000/svg"   width="24"   height="24"   viewBox="0 0 24 24"   fill="none"   stroke="currentColor"   stroke-width="2"   stroke-linecap="round"   stroke-linejoin="round"   class="feather feather-plus" >   <line     x1="12"     y1="5"     x2="12"     y2="19"   ></line>   <line     x1="5"     y1="12"     x2="19"     y2="12"   ></line> </svg>   <a href="{% url 'units' %}">     <span class="btn-text-inner"       >Add Unit</span     ></a   >
+                                                                              </button> -->
+                                                                            </div>
+                                                                          </div>
+                                                                        </form>
+                                                                      </div>
+                                                                    </div>
+                                                                    <!-- end Unit modal form -->
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                      <button type="submit" class="btn btn-success"> Save</button>
+                                                                      <button class="btn btn-primary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" data-bs-dismiss="modal"><svg xmlns="http://www.w3.org/2000/svg" width="24"  height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus" > <line x1="12" y1="5" x2="12" y2="19" ></line><line x1="5" y1="12" x2="19" y2="12" ></line></svg> Add Reacter</button>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                              <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                                                                Add New plant</a>
+                                                            <!-- end stacked -->
+                                                        <!-- end stacking -->
+                                                        <div class="switch align-self-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list view-list active-view"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3" y2="6"></line><line x1="3" y1="12" x2="3" y2="12"></line><line x1="3" y1="18" x2="3" y2="18"></line></svg>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid view-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Modal -->
+                                                    <!-- end modal -->
+                                                </div>
+                                            </div>
+                                          </div>
+                                      </div>
+                                      <div class="row"><h5> Plant Details</h5>
+                                        <!-- plant table list -->
+                                        <div class="items">
+                                          <div class="item-content">
+                                            <!-- table -->
+                                            <div class="table-responsive">
+                                              <table class="table table-hover table-striped table-bordered">
+                                                <thead>
+                                                  <tr>
+                                                    <th scope="col" width="5%">
+                                                      <div class="form-check form-check-primary">
+                                                        <input class="form-check-input" id="custom_mixed_parent_all" type="checkbox">
+                                                      </div>
+                                                    </th>
+                                                    <th scope="col">Plant Location</th>
+                                                    <th scope="col">Plant Contact</th>
+                                                    <th class="text-center" scope="col">Name of Unit *</th>
+                                                    <th class="text-center" scope="col">Action</th>
+                                                  </tr>
+                                                  <tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>
+                                                </thead>
+                                                <tbody>
+                                                     
+                                                        
+                                                  <tr>
+                                                    <td>
+                                                      <div class="form-check form-check-primary">
+                                                        <input class="form-check-input custom_mixed_child" type="checkbox">
+                                                      </div>
+                                                    </td>
+                                                    <td>
+                                                      <div class="media">
+                                                        <div class="media-body align-self-center"> 
+                                                          <h6 class="mb-0"> Plant2 </h6><!-- <span>shaun.park@mail.com</span> -->
+                                                        </div>
+                                                      </div>
+                                                    </td>
+                                                    <td><p class="mb-0">benzene</p>
+                                                    </td>
+                                                    <td class="text-center">
+                                                      <p class="mb-0">Unit2</p>
+                                                    </td>
+                                                    <td class="text-center">
+                                                      <div class="action-btns">
+                                                        <a href="javascript:void(0);" class="action-btn btn-view bs-tooltip me-2" data-toggle="tooltip" data-placement="top" title="View"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"> <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path> <circle cx="12" cy="12" r="3"></circle> </svg></a>
+                                                        <a href="javascript:void(0);" class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip" data-placement="top" title="Edit"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"> <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path> </svg></a>
+                                                        <a href="javascript:void(0);" class="action-btn btn-delete bs-tooltip" data-toggle="tooltip" data-placement="top" title="Delete"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"> <polyline points="3 6 5 6 21 6"></polyline> <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path> <line x1="10" y1="11" x2="10" y2="17"></line> <line x1="14" y1="11" x2="14" y2="17"></line> </svg></a>
+                                                      </div>
+                                                    </td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>
+                                                      <div class="form-check form-check-primary">
+                                                        <input class="form-check-input custom_mixed_child" type="checkbox">
+                                                      </div>
+                                                    </td>
+                                                    <td>
+                                                      <div class="media">
+                                                        <div class="media-body align-self-center"> 
+                                                          <h6 class="mb-0"> unit5 </h6><!-- <span>shaun.park@mail.com</span> -->
+                                                        </div>
+                                                      </div>
+                                                    </td>
+                                                    <td><p class="mb-0">benzene</p>
+                                                    </td>
+                                                    <td class="text-center">
+                                                      <p class="mb-0">Unit 2</p>
+                                                    </td>
+                                                    <td class="text-center">
+                                                      <div class="action-btns">
+                                                        <a href="javascript:void(0);" class="action-btn btn-view bs-tooltip me-2" data-toggle="tooltip" data-placement="top" title="View">
+                                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"> <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path> <circle cx="12" cy="12" r="3"></circle></svg>
+                                                        </a>
+                                                        <a href="javascript:void(0);" class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip" data-placement="top" title="Edit"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"> <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path> </svg>
+                                                        </a>
+                                                        <a href="javascript:void(0);" class="action-btn btn-delete bs-tooltip" data-toggle="tooltip" data-placement="top" title="Delete"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"> <polyline points="3 6 5 6 21 6"></polyline> <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path> <line x1="10" y1="11" x2="10" y2="17"></line> <line x1="14" y1="11" x2="14" y2="17"></line> </svg>
+                                                        </a>
+                                                      </div>
+                                                    </td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>
+                                                      <div class="form-check form-check-primary">
+                                                        <input class="form-check-input custom_mixed_child" type="checkbox">
+                                                      </div>
+                                                    </td>
+                                                    <td>
+                                                      <div class="media">
+                                                        <div class="media-body align-self-center"> 
+                                                          <h6 class="mb-0"> Unit2 </h6><!-- <span>shaun.park@mail.com</span> -->
+                                                        </div>
+                                                      </div>
+                                                    </td>
+                                                    <td><p class="mb-0">Methanol</p>
+                                                    </td>
+                                                    <td class="text-center">
+                                                      <p class="mb-0">reactor2</p>
+                                                    </td>
+                                                    <td class="text-center">
+                                                      <div class="action-btns">
+                                                        <a href="javascript:void(0);" class="action-btn btn-view bs-tooltip me-2" data-toggle="tooltip" data-placement="top" title="View">
+                                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"> <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path> <circle cx="12" cy="12" r="3"></circle>
+                                                          </svg>
+                                                        </a>
+                                                        <a href="javascript:void(0);" class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip" data-placement="top" title="Edit"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"> <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path> </svg>
+                                                        </a>
+                                                        <a href="javascript:void(0);" class="action-btn btn-delete bs-tooltip" data-toggle="tooltip" data-placement="top" title="Delete"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"> <polyline points="3 6 5 6 21 6"></polyline> <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path> <line x1="10" y1="11" x2="10" y2="17"></line> <line x1="14" y1="11" x2="14" y2="17"></line> </svg>
+                                                        </a>
+                                                      </div>
+                                                    </td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>
+                                                      <div class="form-check form-check-primary">
+                                                        <input class="form-check-input custom_mixed_child" type="checkbox">
+                                                      </div>
+                                                    </td>
+                                                    <td>
+                                                      <div class="media">
+                                                        <div class="media-body align-self-center"> 
+                                                          <h6 class="mb-0"> unit4 </h6><!-- <span>shaun.park@mail.com</span> -->
+                                                        </div>
+                                                      </div>
+                                                    </td>
+                                                    <td><p class="mb-0">benzene</p>
+                                                    </td>
+                                                    <td class="text-center">
+                                                      <p class="mb-0">reactor1</p>
+                                                    </td>
+                                                    <td class="text-center">
+                                                      <div class="action-btns">
+                                                        <a href="javascript:void(0);" class="action-btn btn-view bs-tooltip me-2" data-toggle="tooltip" data-placement="top" title="View">
+                                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"> <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path> <circle cx="12" cy="12" r="3"></circle>
+                                                          </svg>
+                                                        </a>
+                                                        <a href="javascript:void(0);" class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip" data-placement="top" title="Edit"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"> <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path> </svg>
+                                                        </a>
+                                                        <a href="javascript:void(0);" class="action-btn btn-delete bs-tooltip" data-toggle="tooltip" data-placement="top" title="Delete"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"> <polyline points="3 6 5 6 21 6"></polyline> <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path> <line x1="10" y1="11" x2="10" y2="17"></line> <line x1="14" y1="11" x2="14" y2="17"></line> </svg>
+                                                        </a>
+                                                      </div>
+                                                    </td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <!-- end plant table list -->
+                                      </div>
+                                  </div>
+                                  <!-- end pop up -->
+                                  <!-- end popuu -->
+                                </div>
+                                <!-- end of table 2 -->
+                              </div>
+                              <!-- plant list end -->
+                            </div>
+                            <div class="tab-pane fade" id="animated-underline-preferences" role="tabpanel" aria-labelledby="animated-underline-preferences-tab">
+                              <!-- Unit List -->
+                              <div class="row">
+                                <!-- table 2 -->
+                                <div class="middle-content container-xxl p-0">
+                                    <div class="col-lg-12">
+                                      <div class="widget-content searchable-container list" >
+                                        <div class="searchable-items list">
+                                          <!-- new table -->
+                                          <div class="col-lg-12">
+                                            <div class="widget-content searchable-container list">
+                                              <div class="row">
+                                                  <div class="col-xl-4 col-lg-5 col-md-5 col-sm-7 filtered-list-search layout-spacing align-self-center">
+                                                      <form class="form-inline my-2 my-lg-0">
+                                                          <div class="">
+                                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                                              <input type="text" class="form-control product-search" id="input-search" placeholder="Search Contacts...">
+                                                          </div>
+                                                      </form>
+                                                  </div>
+  
+                                                  <div class="col-xl-8 col-lg-7 col-md-7 col-sm-5 text-sm-right text-center layout-spacing align-self-center">
+                                                      <div class="d-flex justify-content-sm-end justify-content-center">
+                                                          <!-- stacking starts -->
+                                                              <!-- stacked -->
+                                                                <div class="modal fade" id="exampleModalToggle" aria-labelledby="exampleModalToggleLabel" tabindex="-1" style="display: none;" aria-hidden="true">
+                                                                  <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content">
+                                                                      <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalToggleLabel">Add Plant Details</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                      </div>
+                                                                      <div class="modal-body">
+                                                                        <!-- start plant modal form -->
+                                                                        <div class="tab-content" id="rounded-pills-icon-tabContent">
+                                                                          <div class="tab-pane fade show active" id="rounded-pills-icon-home" role="tabpanel" aria-labelledby="rounded-pills-icon-home-tab">
+                                                                            <form method="POST">
+                                                                              <div class="row mb-4">
+                                                                                <div class="col-sm-12">
+                                                                                  <input type="text" class="form-control" id="inputEmail1" placeholder="Plant location *">
+                                                                                </div>
+                                                                              </div>
+                                                                              <div class="row mb-4">
+                                                                                <div class="col-sm-12">
+                                                                                  <input type="text" class="form-control" id="inputPassword1" placeholder="Plant contact *">
+                                                                                </div>
+                                                                              </div>
+                                                                              <div class="row mb-4">
+                                                                                <div class="col-sm-12">
+                                                                                  <select id="selectProgrammingLanguage" class="form-control"> 
+                                                                                    <option value="0">Name of Unit</option> 
+                                                                                    <option value="">Unit A</option> 
+                                                                                    <option value="">Unit B</option> 
+                                                                                    <option value="">Unit C</option> 
+                                                                                    <option value="">Unit D</option> 
+                                                                                    <option value="">Unit E</option>
+                                                                                  </select>
+                                                                                </div>
+                                                                                <div class="col-sm-6">
+                                                                                  <!-- <button class="btn btn-primary mb-2 me-4" onclick="add-plant.html"
+                                                                                  > <svg   xmlns="http://www.w3.org/2000/svg"   width="24"   height="24"   viewBox="0 0 24 24"   fill="none"   stroke="currentColor"   stroke-width="2"   stroke-linecap="round"   stroke-linejoin="round"   class="feather feather-plus" >   <line     x1="12"     y1="5"     x2="12"     y2="19"   ></line>   <line     x1="5"     y1="12"     x2="19"     y2="12"   ></line> </svg>   <a href="/tm/units/">     <span class="btn-text-inner"       >Add Unit</span     ></a   >
+                                                                                  </button> -->
+                                                                                </div>
+                                                                              </div>
+                                                                            </form>
+                                                                          </div>
+                                                                        </div>
+                                                                        <!-- end plant modal form -->
+                                                                      </div>
+                                                                      <div class="modal-footer">
+                                                                        <button type="submit" class="btn btn-success"> Save</button>
+                                                                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"> <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Add Unit</button>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                                <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                                                                  <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content">
+                                                                      <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalToggleLabel2">Add Unit Details </h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                      </div>
+                                                                      <div class="modal-body">
+                                                                        <!-- start Unit modal form -->
+                                                                        <div class="tab-content" id="rounded-pills-icon-tabContent">
+                                                                        <div class="tab-pane fade show active" id="rounded-pills-icon-home" role="tabpanel" aria-labelledby="rounded-pills-icon-home-tab">
+                                                                          <form method="POST">
+                                                                            <div class="row mb-4">
+                                                                              <div class="col-sm-12">
+                                                                                <input type="text" class="form-control" id="" placeholder="Name of Unit *">
+                                                                              </div>
+                                                                            </div>
+                                                                            <div class="row mb-4">
+                                                                              <div class="col-sm-12">
+                                                                                <input type="text" class="form-control" id="" placeholder="Chemical being manufactured by this unit *">
+                                                                              </div>
+                                                                            </div>
+                                                                            <div class="row mb-4">
+                                                                              <div class="col-sm-12">
+                                                                                <select id="selectProgrammingLanguage" class="form-control"> 
+                                                                                  <option value="0">Reacter Per Each Unit</option> 
+                                                                                  <option value="">reacter A</option> 
+                                                                                  <option value="">reacter B</option> 
+                                                                                  <option value="">reacter C</option> 
+                                                                                  <option value="">reacter D</option> 
+                                                                                  <option value="">reacter E</option>
+                                                                                </select>
+                                                                              </div>
+                                                                              <div class="col-sm-6">
+                                                                                <!-- <button class="btn btn-primary mb-2 me-4" onclick="add-plant.html"
+                                                                                > <svg   xmlns="http://www.w3.org/2000/svg"   width="24"   height="24"   viewBox="0 0 24 24"   fill="none"   stroke="currentColor"   stroke-width="2"   stroke-linecap="round"   stroke-linejoin="round"   class="feather feather-plus" >   <line     x1="12"     y1="5"     x2="12"     y2="19"   ></line>   <line     x1="5"     y1="12"     x2="19"     y2="12"   ></line> </svg>   <a href="/tm/units/">     <span class="btn-text-inner"       >Add Unit</span     ></a   >
+                                                                                </button> -->
+                                                                              </div>
+                                                                            </div>
+                                                                          </form>
+                                                                        </div>
+                                                                      </div>
+                                                                      <!-- end Unit modal form -->
+                                                                      </div>
+                                                                      <div class="modal-footer">
+                                                                        <button type="submit" class="btn btn-success"> Save</button>
+                                                                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" data-bs-dismiss="modal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"> <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Add Reacter</button>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                                <div class="modal fade" id="exampleModalToggle3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
+                                                                  <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content">
+                                                                      <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalToggleLabel3">Add Reacter Details</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                      </div>
+                                                                      <div class="modal-body">
+                                                                        <!-- start reacter form -->
+                                                                        <div class="tab-content" id="rounded-pills-icon-tabContent">
+                                                                          <div class="tab-pane fade show active" id="rounded-pills-icon-home" role="tabpanel" aria-labelledby="rounded-pills-icon-home-tab">
+                                                                            <form method="POST">
+                                                                              <div class="row mb-4">
+                                                                                <div class="col-sm-12">
+                                                                                  <input type="text" class="form-control" id="" placeholder="Name of Unit *">
+                                                                                </div>
+                                                                              </div>
+                                                                              <div class="row mb-4">
+                                                                                <div class="col-sm-12">
+                                                                                  <input type="text" class="form-control" id="" placeholder="Chemical being manufactured by this unit *">
+                                                                                </div>
+                                                                              </div>
+                                                                              <div class="row mb-4">
+                                                                                <div class="col-sm-12">
+                                                                                  <select id="selectProgrammingLanguage" class="form-control"> 
+                                                                                    <option value="0">Reacter Per Each Unit</option> 
+                                                                                    <option value="">reacter A</option> 
+                                                                                    <option value="">reacter B</option> 
+                                                                                    <option value="">reacter C</option> 
+                                                                                    <option value="">reacter D</option> 
+                                                                                    <option value="">reacter E</option>
+                                                                                  </select>
+                                                                                </div>
+                                                                                <div class="col-sm-6">
+                                                                                  <!-- <button class="btn btn-primary mb-2 me-4" onclick="add-plant.html"
+                                                                                  > <svg   xmlns="http://www.w3.org/2000/svg"   width="24"   height="24"   viewBox="0 0 24 24"   fill="none"   stroke="currentColor"   stroke-width="2"   stroke-linecap="round"   stroke-linejoin="round"   class="feather feather-plus" >   <line     x1="12"     y1="5"     x2="12"     y2="19"   ></line>   <line     x1="5"     y1="12"     x2="19"     y2="12"   ></line> </svg>   <a href="/tm/units/">     <span class="btn-text-inner"       >Add Unit</span     ></a   >
+                                                                                  </button> -->
+                                                                                </div>
+                                                                              </div>
+                                                                            </form>
+                                                                          </div>
+                                                                        </div>
+                                                                        <!-- end reacter form -->
+                                                                      </div>
+                                                                      <div class="modal-footer"> 
+                                                                        <button type="submit" class="btn btn-success"> Save</button>
+                                                                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Back Unit</button>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                                <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle2" role="button">
+                                                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                                                                  Add New Unit</a>
+                                                              <!-- end stacked -->
+                                
+                                                          <!-- end stacking -->
+                                                          <div class="switch align-self-center">
+                                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list view-list active-view"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3" y2="6"></line><line x1="3" y1="12" x2="3" y2="12"></line><line x1="3" y1="18" x2="3" y2="18"></line></svg>
+                                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid view-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                                                          </div>
+                                                      </div>
+  
+                                                      <!-- Modal -->
+                                                    
+                                                      <!-- end modal -->
+                                                  </div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                          <!-- end table -->
+                                          <!-- <div class="items items-header-section">
+                                                <div class="item-content">
+                                                    <div class="d-inline-flex">
+                                                        <div class="n-chk align-self-center text-center">
+                                                            <div class="form-check form-check-primary me-0 mb-0">
+                                                                <input class="form-check-input inbox-chkbox" id="contact-check-all" type="checkbox" id="checkBox" onclick="FillAddressInput()" >
+                                                            </div>
+                                                        </div>
+                                                        <h4>Name of the unit</h4>
+                                                    </div>
+
+                                                    <div class="user-commonname">
+                                                        <h4>Plant contact</h4>
+                                                    </div>
+                                                    <div class="user-alternate-name">
+                                                        <h4>Name of Unit</h4>
+                                                    </div>
+                                                    <div class="user-alternate-name">
+                                                        <h4>Parent Company</h4>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2  delete-multiple"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                                    </div>
+                                                </div>
+                                              </div> -->
+
+                                          <div class="items">
+                                            <div class="item-content">
+                                              <!-- table -->
+                                              <div class="table-responsive">
+                                                <table
+                                                  class="table table-hover table-striped table-bordered">
+                                                  <thead>
+                                                    <tr>
+                                                      <th scope="col" width="5%">
+                                                        <div class="form-check form-check-primary">
+                                                          <input class="form-check-input" id="custom_mixed_parent_all" type="checkbox"/>
+                                                        </div>
+                                                      </th>
+                                                      <th scope="col">Name of the unit</th>
+                                                      <th scope="col">Chemical being manufactured by this unit</th>
+                                                      <th class="text-center" scope="col">Reactor per each unit *</th>
+                                                      <th class="text-center" scope="col">Action</th>
+                                                    </tr>
+                                                    <tr aria-hidden="true" class="mt-3 d-block table-row-hidden" ></tr>
+                                                  </thead>
+                                                  <tbody>
+                                                       {% for mymember in mymember.plant.all %}
+                                                          {% for mymember in mymember.name_of_unit.all %}
+                                                    <tr>
+                                                      <td>
+                                                        <div
+                                                          class="form-check form-check-primary">
+                                                          <input class="form-check-input custom_mixed_child" type="checkbox"/>
+                                                        </div>
+                                                      </td>
+                                                      <td>
+                                                        <div class="media">
+                                                          <div class="media-body align-self-center"> 
+                                                            <h6 class="mb-0"> {{mymember.name_of_the_unit}} </h6><!-- <span>shaun.park@mail.com</span> -->
+                                                          </div>
+                                                        </div>
+                                                      </td>
+                                                      <td><p class="mb-0">{{mymember.chemical_being_manufactured_by_this_unit}}</p>
+                                                      </td>
+                                                      <td class="text-center">
+                                                        <p class="mb-0">{% for mymember in mymember.reactor_per_each_unit.all %}{{mymember.reactor_name}}{% endfor %}</p>
+                                                      </td>
+                                                      <td class="text-center">
+                                                        <div class="action-btns">
+                                                          <a href="javascript:void(0);" class="action-btn btn-view bs-tooltip me-2" data-toggle="tooltip" data-placement="top" title="View">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"> <path   d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" ></path> <circle   cx="12"   cy="12"   r="3" ></circle>
+                                                            </svg>
+                                                          </a>
+                                                          <a href="javascript:void(0);" class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip" data-placement="top" title="Edit"
+                                                          > <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2" > <path   d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" ></path> </svg>
+                                                          </a>
+                                                          <a href="javascript:void(0);" class="action-btn btn-delete bs-tooltip" data-toggle="tooltip" data-placement="top" title="Delete"
+                                                          > <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2" > <polyline   points="3 6 5 6 21 6" ></polyline> <path   d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" ></path> <line   x1="10"   y1="11"   x2="10"   y2="17" ></line> <line   x1="14"   y1="11"   x2="14"   y2="17" ></line> </svg>
+                                                          </a>
+                                                        </div>
+                                                      </td>
+                                                    </tr>
+                                                     {% endfor %}
+                                                    {% endfor %}
+                                                  </tbody>
+                                                </table>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- end of table 2 -->
+                              </div>
+                              <!-- end of unit list -->
+                            </div>
+                            <div class="tab-pane fade" id="animated-underline-contact" role="tabpanel" aria-labelledby="animated-underline-contact-tab">
+                              <!-- Reacter list start -->
+                              <!-- table 3 -->
+                              <div class="row">
+                                <!-- table 2 -->
+                                <div class="middle-content container-xxl p-0">
+                                  <div
+                                    class="row layout-spacing layout-top-spacing"
+                                    id="cancel-row">
+                                    <div class="col-lg-12">
+                                      <div
+                                        class="widget-content searchable-container list" >
+                                        <div class="searchable-items list">
+                                          <!-- <div class="items items-header-section">
+                                                <div class="item-content">
+                                                    <div class="d-inline-flex">
+                                                        <div class="n-chk align-self-center text-center">
+                                                            <div class="form-check form-check-primary me-0 mb-0">   <input class="form-check-input inbox-chkbox" id="contact-check-all" type="checkbox" id="checkBox" onclick="FillAddressInput()" >
+                                                            </div>
+                                                        </div>
+                                                        <h4>Plant location</h4>
+                                                    </div>
+
+                                                    <div class="user-commonname">
+                                                        <h4>Plant contact</h4>
+                                                    </div>
+                                                    <div class="user-alternate-name">
+                                                        <h4>Name of Unit</h4>
+                                                    </div>
+                                                    <div class="user-alternate-name">
+                                                        <h4>Parent Company</h4>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2  delete-multiple"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+          
+                                          <div class="items">
+                                            <div class="item-content">
+                                              <!-- table -->
+                                              <div class="table-responsive">
+                                                <table class="table table-hover table-striped table-bordered">
+                                                  <thead>
+                                                    <tr>
+                                                      <th scope="col" width="5%">
+                                                        <div class="form-check form-check-primary">
+                                                          <input class="form-check-input" id="custom_mixed_parent_all" type="checkbox"/>
+                                                        </div>
+                                                      </th>
+                                                      <th scope="col">Reactor Name</th>
+                                                      <th scope="col">Tube Id</th>
+                                                      <th class="text-center" scope="col">
+                                                        Reactor per each unit *
+                                                      </th>
+                                                      <!--<th class="text-center" scope="col">Parent Company</th>-->
+                                                      <th class="text-center" scope="col">
+                                                        Action
+                                                      </th>
+                                                    </tr>
+                                                    <tr
+                                                      aria-hidden="true"
+                                                      class="mt-3 d-block table-row-hidden"
+                                                    ></tr>
+                                                  </thead>
+                                                  <tbody>
+                                                  {% for mymember in mymember.plant.all %}
+                                                      {% for mymember in mymember.name_of_unit.all %}
+                                                            {% for mymember in mymember.reactor_per_each_unit.all %}
+                                                    <tr>
+                                                      <td>
+                                                        <div
+                                                          class="form-check form-check-primary"
+                                                        >
+                                                          <input
+                                                            class="form-check-input custom_mixed_child"
+                                                            type="checkbox"
+                                                          />
+                                                        </div>
+                                                      </td>
+                                                      <td>
+                                                        <div class="media">
+                                                          <div
+                                                            class="media-body align-self-center"
+                                                          >
+                                                            <h6 class="mb-0"> {{mymember.reactor_name}}
+                                                            </h6>
+                                                            <!-- <span>shaun.park@mail.com</span> -->
+                                                          </div>
+                                                        </div>
+                                                      </td>
+                                                      <td>
+                                                        <p class="mb-0">CEO</p>
+                                                        <!-- <span class="text-success">Management</span> -->
+                                                      </td>
+                                                      <td class="text-center">
+                                                        <p class="mb-0">xyz</p>
+                                                      </td>
+                                                      <td class="text-center">
+                                                        <p class="mb-0">lorem</p>
+                                                      </td>
+                                                      <td class="text-center">
+                                                        <div class="action-btns">
+                                                          <a
+                                                            href="javascript:void(0);"
+                                                            class="action-btn btn-view bs-tooltip me-2"
+                                                            data-toggle="tooltip"
+                                                            data-placement="top"
+                                                            title="View"
+                                                          >
+                                                            <svg
+                                                              xmlns="http://www.w3.org/2000/svg"
+                                                              width="24"
+                                                              height="24"
+                                                              viewBox="0 0 24 24"
+                                                              fill="none"
+                                                              stroke="currentColor"
+                                                              stroke-width="2"
+                                                              stroke-linecap="round"
+                                                              stroke-linejoin="round"
+                                                              class="feather feather-eye"
+                                                            >
+                                                              <path
+                                                                d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                                                              ></path>
+                                                              <circle
+                                                                cx="12"
+                                                                cy="12"
+                                                                r="3"
+                                                              ></circle>
+                                                            </svg>
+                                                          </a>
+                                                          <a
+                                                            href="javascript:void(0);"
+                                                            class="action-btn btn-edit bs-tooltip me-2"
+                                                            data-toggle="tooltip"
+                                                            data-placement="top"
+                                                            title="Edit"
+                                                          >
+                                                            <svg
+                                                              xmlns="http://www.w3.org/2000/svg"
+                                                              width="24"
+                                                              height="24"
+                                                              viewBox="0 0 24 24"
+                                                              fill="none"
+                                                              stroke="currentColor"
+                                                              stroke-width="2"
+                                                              stroke-linecap="round"
+                                                              stroke-linejoin="round"
+                                                              class="feather feather-edit-2"
+                                                            >
+                                                              <path
+                                                                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                                              ></path>
+                                                            </svg>
+                                                          </a>
+                                                          <a
+                                                            href="javascript:void(0);"
+                                                            class="action-btn btn-delete bs-tooltip"
+                                                            data-toggle="tooltip"
+                                                            data-placement="top"
+                                                            title="Delete"
+                                                          >
+                                                            <svg
+                                                              xmlns="http://www.w3.org/2000/svg"
+                                                              width="24"
+                                                              height="24"
+                                                              viewBox="0 0 24 24"
+                                                              fill="none"
+                                                              stroke="currentColor"
+                                                              stroke-width="2"
+                                                              stroke-linecap="round"
+                                                              stroke-linejoin="round"
+                                                              class="feather feather-trash-2"
+                                                            >
+                                                              <polyline
+                                                                points="3 6 5 6 21 6"
+                                                              ></polyline>
+                                                              <path
+                                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                                              ></path>
+                                                              <line
+                                                                x1="10"
+                                                                y1="11"
+                                                                x2="10"
+                                                                y2="17"
+                                                              ></line>
+                                                              <line
+                                                                x1="14"
+                                                                y1="11"
+                                                                x2="14"
+                                                                y2="17"
+                                                              ></line>
+                                                            </svg>
+                                                          </a>
+                                                        </div>
+                                                      </td>
+                                                    </tr>
+                                                      {% endfor %}
+                                                    {% endfor %}
+                                                  {% endfor %}
+                                                 
+                                                      <td>
+                                                        <div
+                                                          class="form-check form-check-primary"
+                                                        >
+                                                          <input
+                                                            class="form-check-input custom_mixed_child"
+                                                            type="checkbox"
+                                                          />
+                                                        </div>
+                                                      </td>
+                                                      <td>
+                                                        <div class="media">
+                                                        
+                                                          <div
+                                                            class="media-body align-self-center">
+                                                            <h6 class="mb-0">
+                                                              Shaun Park
+                                                            </h6>
+                                                            <!-- <span>shaun.park@mail.com</span> -->
+                                                          </div>
+                                                        </div>
+                                                      </td>
+                                                      <td>
+                                                        <p class="mb-0">CEO</p>
+                                                        <!-- <span class="text-success">Management</span> -->
+                                                      </td>
+                                                      <td class="text-center">
+                                                        <p class="mb-0">xyz</p>
+                                                      </td>
+                                                      <td class="text-center">
+                                                        <p class="mb-0">lorem</p>
+                                                      </td>
+                                                      <td class="text-center">
+                                                        <div class="action-btns">
+                                                          <a
+                                                            href="javascript:void(0);"
+                                                            class="action-btn btn-view bs-tooltip me-2"
+                                                            data-toggle="tooltip"
+                                                            data-placement="top"
+                                                            title="View"
+                                                          >
+                                                            <svg
+                                                              xmlns="http://www.w3.org/2000/svg"
+                                                              width="24"
+                                                              height="24"
+                                                              viewBox="0 0 24 24"
+                                                              fill="none"
+                                                              stroke="currentColor"
+                                                              stroke-width="2"
+                                                              stroke-linecap="round"
+                                                              stroke-linejoin="round"
+                                                              class="feather feather-eye"
+                                                            >
+                                                              <path
+                                                                d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                                                              ></path>
+                                                              <circle
+                                                                cx="12"
+                                                                cy="12"
+                                                                r="3"
+                                                              ></circle>
+                                                            </svg>
+                                                          </a>
+                                                          <a
+                                                            href="javascript:void(0);"
+                                                            class="action-btn btn-edit bs-tooltip me-2"
+                                                            data-toggle="tooltip"
+                                                            data-placement="top"
+                                                            title="Edit"
+                                                          >
+                                                            <svg
+                                                              xmlns="http://www.w3.org/2000/svg"
+                                                              width="24"
+                                                              height="24"
+                                                              viewBox="0 0 24 24"
+                                                              fill="none"
+                                                              stroke="currentColor"
+                                                              stroke-width="2"
+                                                              stroke-linecap="round"
+                                                              stroke-linejoin="round"
+                                                              class="feather feather-edit-2"
+                                                            >
+                                                              <path
+                                                                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                                                              ></path>
+                                                            </svg>
+                                                          </a>
+                                                          <a
+                                                            href="javascript:void(0);"
+                                                            class="action-btn btn-delete bs-tooltip"
+                                                            data-toggle="tooltip"
+                                                            data-placement="top"
+                                                            title="Delete"
+                                                          >
+                                                            <svg
+                                                              xmlns="http://www.w3.org/2000/svg"
+                                                              width="24"
+                                                              height="24"
+                                                              viewBox="0 0 24 24"
+                                                              fill="none"
+                                                              stroke="currentColor"
+                                                              stroke-width="2"
+                                                              stroke-linecap="round"
+                                                              stroke-linejoin="round"
+                                                              class="feather feather-trash-2"
+                                                            >
+                                                              <polyline
+                                                                points="3 6 5 6 21 6"
+                                                              ></polyline>
+                                                              <path
+                                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                                              ></path>
+                                                              <line
+                                                                x1="10"
+                                                                y1="11"
+                                                                x2="10"
+                                                                y2="17"
+                                                              ></line>
+                                                              <line
+                                                                x1="14"
+                                                                y1="11"
+                                                                x2="14"
+                                                                y2="17"
+                                                              ></line>
+                                                            </svg>
+                                                          </a>
+                                                        </div>
+                                                      </td>
+                                                    </tr>
+                                                  </tbody>
+                                                </table>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- end of table 2 -->
+                              </div>
+                              <!-- end of table 3 -->
+                              <!-- end of reacter list -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end profile -->
+                    </div>
+                </div>  
+            </div>
+
+            <!--  BEGIN FOOTER  -->
+            <div class="footer-wrapper mt-0">
+                <div class="footer-section f-section-1">
+                    <p class="">Copyright © <span class="dynamic-year">2022</span> <a target="_blank" href="https://designreset.com/cork-admin/">DesignReset</a>, All rights reserved.</p>
+                </div>
+                <div class="footer-section f-section-2">
+                    <p class="">Coded with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></p>
+                </div>
+            </div>
+            <!--  END FOOTER  -->
+        </div>
+        <!--  END CONTENT AREA  -->
+    </div>
+        <!-- END MAIN CONTAINER -->
+    
+    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+    <script src="{% static 't_assets/src/plugins/src/global/vendors.min.js' %}"></script>
+    <script src="{% static 't_assets/src/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 't_assets/src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 't_assets/src/plugins/src/mousetrap/mousetrap.min.js' %}"></script>
+    <script src="{% static 't_assets/layouts/vertical-dark-menu/app.js' %}"></script>
+    <script src="{% static 't_assets/src/assets/js/custom.js' %}"></script>
+    <!-- END GLOBAL MANDATORY SCRIPTS -->
+    <script src="{% static 't_assets/src/plugins/src/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 't_assets/src/assets/js/apps/contact.js' %}"></script>
+
+</body>
+</html>

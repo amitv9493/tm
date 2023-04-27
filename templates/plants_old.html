@@ -1,0 +1,245 @@
+
+{% extends "layouts/base.html" %} {% block title %} UI Tables {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+
+
+
+
+
+{% endblock stylesheets %} {% block content %}
+
+ <div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Add Plants</h4>
+       
+      </div>
+      <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+          <div class="row">
+            
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="bmd-label-floating">Plant Loctaion</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="warehouse_name"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="bmd-label-floating">Plant Contact</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="warehouse_location"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="bmd-label-floating">No of Unit</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="warehouse_contact"
+                />
+              </div>
+            </div>
+         
+          
+          </div>
+         
+           <a href="/tm/reactors" class="btn btn-primary pull-right">Next</a>   
+           
+          <div class="clearfix"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+ 
+</div>
+                
+               
+           
+    
+         
+  <div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Plant Table</h4>
+        <p class="card-category">Here is a Plant's Details</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="text-primary">
+              <th>ID</th>
+              <th>Location</th>
+              <th>Contact</th>
+            
+             
+            </thead>
+            <tbody>
+                  {% for plant in plant %}
+                
+              <tr>
+               <td> {{plant.id}}</td>
+                <td> {{plant.plant_location}}</td>
+                <td> {{plant.plant_contact}}</td>
+              
+              </tr>
+         
+             {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock content %}
+
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script type="text/javascript">
+      function FillAddressInput() {
+        let checkBox = document.getElementById("checkBox");
+        
+        let pAddressLine1 = document.getElementById("pAddressLine1");
+        let pAddressLine2 = document.getElementById("pAddressLine2");
+        let pLandmark = document.getElementById("pLandmark");
+        let pZipcode = document.getElementById("pZipcode");
+        let pCity = document.getElementById("pCity");
+        let pState = document.getElementById("pState");
+        let pCountry = document.getElementById("pCountry");
+        
+
+        
+        let curAddressLine1 = document.getElementById("curAddressLine1");
+        let curAddressLine2 = document.getElementById("curAddressLine2");
+        let curLandmark = document.getElementById("curLandmark");
+        let curZipcode = document.getElementById("curZipcode");
+        let curCity = document.getElementById("curCity");
+        let curState = document.getElementById("curState");
+        let curCountry = document.getElementById("curCountry");
+        
+      if (checkBox.checked == true) {
+          let pAddressLine1Value = pAddressLine1.value;
+          let pAddressLine2Value = pAddressLine2.value;
+          let pLandmarkValue = pLandmark.value;
+          let pZipcodeValue = pZipcode.value;
+          let pCityValue = pCity.value;
+          let pStateValue = pState.value;
+          let pCountryValue = pCountry.value;
+
+          curAddressLine1.value = pAddressLine1Value;
+          curAddressLine2.value = pAddressLine2Value;
+          curLandmark.value = pLandmarkValue;
+          curZipcode.value = pZipcodeValue;
+          curCity.value = pCityValue;
+          curState.value = pStateValue;
+          curCountry.value = pCountryValue;
+        } else {
+          curAddressLine1.value = "";
+          curAddressLine2.value = "";
+          curLandmark.value = "";
+          curZipcode.value = "";
+          curCity.value = "";
+          curState.value = "";
+          curCountry.value = "";
+        }
+      }
+       function Fill1() {
+        let check1 = document.getElementById("check1");
+        
+        let curAddressLine1 = document.getElementById("curAddressLine1");
+        let curAddressLine2 = document.getElementById("curAddressLine2");
+        let curLandmark = document.getElementById("curLandmark");
+        let curZipcode = document.getElementById("curZipcode");
+        let curCity = document.getElementById("curCity");
+        let curState = document.getElementById("curState");
+        let curCountry = document.getElementById("curCountry");
+        
+        let palAddressLine1 = document.getElementById("palAddressLine1");
+        let palAddressLine2 = document.getElementById("palAddressLine2");
+        let palLandmark = document.getElementById("palLandmark");
+        let palZipcode = document.getElementById("palZipcode");
+        let palCity = document.getElementById("palCity");
+        let palState = document.getElementById("palState");
+        let palCountry = document.getElementById("palCountry");
+        
+         if (check1.checked == true) {
+          let curAddressLine1Value = curAddressLine1.value;
+          let curAddressLine2Value = curAddressLine2.value;
+          let curLandmarkValue = curLandmark.value;
+          let curZipcodeValue = curZipcode.value;
+          let curCityValue = curCity.value;
+          let curStateValue =curState.value;
+          let curCountryValue = curCountry.value;
+
+          palAddressLine1.value = curAddressLine1Value;
+          palAddressLine2.value = curAddressLine2Value;
+          palLandmark.value = curLandmarkValue;
+          palZipcode.value = curZipcodeValue;
+          palCity.value = curCityValue;
+          palState.value = curStateValue;
+          palCountry.value = curCountryValue;
+        } else {
+          palAddressLine1.value = "";
+          palAddressLine2.value = "";
+          palLandmark.value = "";
+          palZipcode.value = "";
+          palCity.value = "";
+          palState.value = "";
+          palCountry.value = "";
+        }
+      }
+     
+      
+       
+    </script>
+
+
+
+
+  <script>
+$(document).ready(function(){
+
+   $("#check").on('click',function(){
+      message.style.display = "block";
+   });
+     $("#check2").on('click',function(){
+      message.style.display = "block";
+   });
+  // document.getElementByClassName("button").addEventListener('click',function(){
+  //   alert("Hello World");
+  // });
+
+ });</script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    // Javascript method's body can be found in assets/js/demos.js
+    md.initDashboardPageCharts();
+  });
+</script>
+
+{% endblock javascripts %}

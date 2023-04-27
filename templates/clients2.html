@@ -1,0 +1,251 @@
+
+{% extends "layouts/base.html" %} {% block title %} UI Tables {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+<style>
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.table1{
+   display:none;
+    position:absolute;
+}
+.table1 td{
+ border:1px solid red;   
+}
+</style>
+{% endblock stylesheets %} {% block content %}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Add Client</h4>
+       
+      </div>
+      <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+          <div class="row">
+            <div class="col-md-5">
+              <div class="form-group">
+                <label class="bmd-label-floating">Official Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="official_name"
+             
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="bmd-label-floating">Comman Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="comman_name"
+                />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="bmd-label-floating">Alternate Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="alternate_name"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+        
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="bmd-label-floating">Parent Company</label>
+                <input type="text" class="form-control" name="parent_company" />
+              </div>
+            </div>
+     
+           <div class="col-md-6">
+              <div class="form-group">
+                <label class="bmd-label-floating">Former Name</label>
+                <input type="text" class="form-control" name="former_name" />
+              </div>
+            </div>
+        </div>  
+        
+         
+
+           
+  
+        
+           <a href="/tm/address" class="btn btn-primary pull-right">Next</a>      
+       
+      
+        </form>
+      </div>
+
+      
+       </div>
+         
+    </div>
+</div>
+    
+         
+      
+ <div class="row">
+         <div class="col-md-12">
+            <div class="card">
+            <div class="card-header card-header-primary">
+        <h4 class="card-title">Client Table</h4>
+        <p class="card-category">Here is a Client's Details</p>
+      </div>
+     <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="text-primary">
+              <th>ID</th>
+              <th>Official Name</th>
+              <th>Comman Name</th>
+              <th>Alternate Name</th>
+           
+              <th>Parent Company</th>
+              <th>Former Name Of Client</th>
+              <th>Official Address</th>
+              <th>Shipping Address</th>
+              <th>Plant Entrance Address</th>
+              <th>Plant</th>
+              <th>Contact Person</th>
+             
+            </thead>
+            <tbody>
+                  {% for client,my_plant,my_reactor,my_address,my_contact in info %}
+           
+              <tr>
+             
+               <td>{{client.id}}</td>
+               <td><a href="{% url 'client_profile' %}">{{client.official_name}}</a></td>
+               <td>{{client.comman_name}}</td>
+               <td>{{client.alternate_name}}</td>
+            
+               <td>{{client.parent_company}}</td>
+              
+               
+               <td>{{client.former_name}}</td>
+               
+          
+               <td>{{client.official_address}}<br/> 
+               <a href="" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+  View More
+</a>
+
+               <td>{{client.shipping_address}}<br/>  
+<a href="" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+  View More
+</a>
+
+
+                <td>{{client.plantentrance_address}}<br/> 
+<a href="" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+  View More
+</a>   
+               
+               <td>{% for my_plant in my_plant.plant.all %}{{my_plant.plant_location}}<br/>{% endfor %}</td><br/>
+              <td>{% for my_contact in my_contact.contact_person.all %}{{my_contact.first_name}}<br/>{% endfor %}</td><br/>
+             
+             
+              </tr>
+         
+             {% endfor %}
+             
+                
+            </tbody>
+          </table>
+         
+
+        </div>
+      </div>
+            </div>
+         </div>
+</div>
+     
+{% endblock content %}
+
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+
+ 
+<script>
+  $(document).ready(function () {
+    // Javascript method's body can be found in assets/js/demos.js
+    md.initDashboardPageCharts();
+  });
+</script>
+<script>
+
+$(".step").click(function () {
+  $(this).addClass("active").prevAll().addClass("active");
+  $(this).nextAll().removeClass("active");
+});
+
+$(".step01").click(function () {
+  $("#line-progress").css("width", "8%");
+  $(".step1").addClass("active").siblings().removeClass("active");
+});
+
+$(".step02").click(function () {
+  $("#line-progress").css("width", "50%");
+  $(".step2").addClass("active").siblings().removeClass("active");
+});
+
+$(".step03").click(function () {
+  $("#line-progress").css("width", "100%");
+  $(".step3").addClass("active").siblings().removeClass("active");
+});
+  
+</script>
+<script>
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+<!--<script>$('a').hover(function(ev){-->
+<!--    $('.table1').stop(true,true).fadeIn(); -->
+<!--},function(ev){-->
+<!--    $('.table1').stop(true,true).fadeOut();-->
+<!--}).mousemove(function(ev){-->
+<!--    $('.table1').css({left:ev.layerX+10,top:ev.layerY+10});-->
+<!--});</script>-->
+{% endblock javascripts %}

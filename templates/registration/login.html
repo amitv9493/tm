@@ -1,0 +1,207 @@
+
+
+<!--new head-->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+{% include 'header.html' %}
+
+<!--end head-->
+
+<body class="form">
+
+
+
+    <!-- BEGIN LOADER -->
+
+    <div id="load_screen"> <div class="loader"> <div class="loader-content">
+
+        <div class="spinner-grow align-self-center"></div>
+
+    </div></div></div>
+
+    <!--  END LOADER -->
+
+
+
+    <div class="auth-container d-flex">
+
+
+
+        <div class="container mx-auto align-self-center" style="margin-top:200px;">
+
+    
+
+            <div class="row">
+
+    
+
+                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-12 d-flex flex-column align-self-center mx-auto">
+
+                    <div class="card mt-3 mb-3">
+
+                        <div class="card-body">
+
+    
+
+                            <div class="row">
+
+                                <div class="col-md-12 mb-3 text-center">
+
+                                    
+
+                                    <h2 >Sign In</h2>
+
+                                    <p>Enter your Credentials</p>
+
+                                    
+
+                                </div>
+
+                                <form role="form" method="post" action="">
+
+              
+
+                                {% csrf_token %} 
+
+                                <div class="col-md-12">
+
+                                    <div class="mb-3">
+
+                                        <label class="form-label">Username</label>
+
+                                        <input type="text" class="form-control" name="username">
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-12">
+
+                                    <div class="mb-4">
+
+                                        <label class="form-label">Password</label>
+
+                                        <input type="password" class="form-control" name="password">
+
+                                    </div>
+
+                                </div>
+                                <div class="col-12 text-center">
+
+                                    <div class="mb-4">
+
+                                        <button type="submit" name="login" class="btn btn-primary pull-left">Login</button>
+
+                                    </div>
+
+                                </div>
+                            
+                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                          
+
+                                
+
+                      
+
+                            
+
+
+
+
+        
+
+     
+
+     
+
+  
+
+    
+
+        <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+
+    <script src="/static/t_assets/src/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/static/t_assets/src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+
+    <script src="/static/t_assets/src/plugins/src/mousetrap/mousetrap.min.js"></script>
+
+    <script src="/static/t_assets/layouts/vertical-dark-menu/app.js"></script>
+
+    <script src="/static/t_assets/src/plugins/src/highlight/highlight.pack.js"></script>
+
+    <!-- END GLOBAL MANDATORY SCRIPTS -->
+
+    <script src="/static/t_assets/src/assets/js/scrollspyNav.js"></script>
+
+
+
+    <script src="/static/t_assets/src/plugins/src/global/vendors.min.js"></script>
+
+    <script src="/static/t_assets/src/assets/js/custom.js"></script>
+
+    <!-- END GLOBAL MANDATORY SCRIPTS -->
+
+    <script src="/static/t_assets/src/plugins/src/jquery-ui/jquery-ui.min.js"></script>
+
+    <script src="/static/t_assets/src/assets/js/apps/contact.js"></script>
+
+
+
+
+
+    <script>
+
+    window.addEventListener('load', function() {
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+
+        var forms = document.getElementsByClassName('needs-validation');
+
+        // Loop over them and prevent submission
+
+        var validation = Array.prototype.filter.call(forms, function(form) {
+
+        form.addEventListener('submit', function(event) {
+
+            if (form.checkValidity() === false) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            }
+
+            form.classList.add('was-validated');
+
+        }, false);
+
+        });
+
+    }, false);
+
+    </script>
+
+    <script>
+
+        checkall('todoAll', 'todochkbox');
+
+            $('[data-toggle="tooltip"]').tooltip()
+
+    
+
+    </script>
+
+</body>
+
+</html>

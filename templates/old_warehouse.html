@@ -1,0 +1,204 @@
+
+{% extends "layouts/base.html" %} {% block title %} UI Tables {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+<style>
+ 
+    
+        .form-container {
+            background-color: #2d3638;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            position:relative;
+          padding: 40px;
+          color: #fff;
+        }
+        .close-button {
+          background:none;
+          color: #fff;
+          width: 40px;
+          height: 40px;
+          position: absolute;
+          top: 0;
+          right: 0;
+          border: solid 1px #fff;
+        }
+        
+     
+         
+</style>
+{% endblock stylesheets %} {% block content %}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Add Warehouse</h4>
+       
+      </div>
+      <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+          <div class="row">
+            
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="bmd-label-floating">Warehouse Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="warehouse_name"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="bmd-label-floating">Warehouse Location</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="warehouse_location"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="bmd-label-floating">Warehouse Contact</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="warehouse_contact"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="bmd-label-floating">Warehouse Email</label>
+                <input type="email" class="form-control" name="warehouse_email" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="bmd-label-floating">Warehouse Manager</label>
+                <input type="text" class="form-control"name="warehouse_manager" />
+              </div>
+            </div>
+           
+          
+          </div>
+         
+          <button type="submit" class="btn btn-primary pull-right" >
+            Add Warehouse
+          </button>
+          <div class="clearfix"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+ 
+</div>
+
+
+<div class="row">
+      
+    <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Warehouse Table</h4>
+        <p class="card-category">Here is a warehouse's Details</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="text-primary">
+              <th>ID</th>
+              <th>Warehouse Name</th>
+              <th>Warehose Location</th>
+              <th>Warehose Contact</th>
+              <th>Warehose Email</th>
+               <th>Warehose Manager</th>
+              <th>Warehose Equipments</th>
+              <th></th>
+              <th>Warehose Parts</th>
+              
+            </thead>
+            <tbody>
+                  {% for warehouse,my_e,my_p in info %}
+                
+              <tr>
+                <td>{{warehouse.id}}</td>
+                <td>{{warehouse.warehouse_name}}</td>
+               <td>{{warehouse.warehouse_location}}</td>
+               <td>{{warehouse.warehouse_contact}}</td>
+               <td>{{warehouse.warehouse_email}}</td>
+               <td>{{warehouse.warehouse_manager}}</td>
+               <!--<td>{{warehouse.warehouse_equipments.all}}</td>-->
+               <!--<td>{{warehouse.warehouse_parts.all}}</td>-->
+                  {% for my_e in my_e.warehouse_equipments.all %}
+               <td>{{ my_e.equipment_name }},{{my_e.asset_number}},{{my_e.serial_number}}
+               {% endfor %}</td>
+                {% for my_p in my_p.warehouse_parts.all %}
+               <td>{{ my_p.part_name}},</td>
+               {% endfor %}
+               
+              </tr>
+         
+             {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+   
+</div>
+
+{% endblock content %}
+
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script>
+  $(document).ready(function () {
+    // Javascript method's body can be found in assets/js/demos.js
+    md.initDashboardPageCharts();
+  });
+</script>
+<script>
+
+$(".step").click(function () {
+  $(this).addClass("active").prevAll().addClass("active");
+  $(this).nextAll().removeClass("active");
+});
+
+$(".step01").click(function () {
+  $("#line-progress").css("width", "8%");
+  $(".step1").addClass("active").siblings().removeClass("active");
+});
+
+$(".step02").click(function () {
+  $("#line-progress").css("width", "50%");
+  $(".step2").addClass("active").siblings().removeClass("active");
+});
+
+$(".step03").click(function () {
+  $("#line-progress").css("width", "100%");
+  $(".step3").addClass("active").siblings().removeClass("active");
+});
+  
+</script>
+{% endblock javascripts %}

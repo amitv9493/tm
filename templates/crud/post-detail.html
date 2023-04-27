@@ -1,0 +1,22 @@
+{% extends 'crud/base.html' %} {% block content %}
+<div class="container" style="padding: 40px">
+  <div class="row">
+    <div class="col-8">
+      <p class="h2">{{post.title}}</p>
+    </div>
+    <div class="col-4">
+      <a href="/"><button type="button" class="btn btn-info">Back</button></a> |
+      <a href="{% url 'edit' post.pk %}"
+        ><button type="button" class="btn btn-info">Edit</button></a
+      >
+      |
+      <a href="{% url 'delete' post.pk %}"
+        ><button type="button" class="btn btn-danger">Delete</button></a
+      >
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">{{post.message}}</div>
+  </div>
+</div>
+{% endblock %}

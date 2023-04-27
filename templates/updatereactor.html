@@ -1,0 +1,794 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header.html' %}
+  <style>
+    @media (min-width: 576px) {
+      .client-dialog {
+        max-width: 60%;
+        margin: 1.75rem auto;
+      }
+    }
+    body.dark .modal-content .modal-body a:not(.btn) {
+      color: #fbfbfb;
+      font-weight: 600;
+    }
+  </style>
+  <body
+    class="dark layout-boxed"
+    data-bs-spy="scroll"
+    data-bs-target="#navSection"
+    data-bs-offset="100"
+  >
+    <!-- BEGIN LOADER -->
+    <div id="load_screen">
+      <div class="loader">
+        <div class="loader-content">
+          <div class="spinner-grow align-self-center"></div>
+        </div>
+      </div>
+    </div>
+    <!--  END LOADER -->
+
+    <!--  BEGIN NAVBAR  -->
+
+    <!--  END NAVBAR  -->
+
+    <!--  BEGIN MAIN CONTAINER  -->
+    <div class="main-container" id="container">
+      <div class="overlay"></div>
+      <div class="cs-overlay"></div>
+      <div class="search-overlay"></div>
+      <!--  BEGIN SIDEBAR  -->
+      <div class="sidebar-wrapper sidebar-theme">
+         <nav id="sidebar">
+          <div class="navbar-nav theme-brand flex-row text-center">
+            <div class="nav-logo">
+                         <div class="nav-item theme-logo">
+                            <a href="{% url 'index' %}">
+                         <img src="{% static 'assets/images/tubemasterlogo.png' %}" class="logo" alt="logo">
+                            </a>
+                        </div> 
+                       
+              </div>
+          
+            <div class="nav-item sidebar-toggle">
+              <div class="btn-toggle sidebarCollapse">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-chevrons-left"
+                >
+                  <polyline points="11 17 6 12 11 7"></polyline>
+                  <polyline points="18 17 13 12 18 7"></polyline>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!--<div class="shadow-bottom"></div>-->
+          <ul class="list-unstyled menu-categories" id="accordionExample">
+              <li class="menu">
+              <a
+                href="{% url 'index' %}"
+                aria-expanded="false"
+                class="dropdown-toggle"
+              >
+                <div class="nav-item theme-text">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-home"
+                  >
+                    <path
+                      d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                    ></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                  </svg>
+             <span> Dashboard</span>
+                </div>
+                </a>
+            </li>
+
+            <li class="menu menu-heading">
+              <div class="heading">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-minus"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"></line></svg
+                ><span>APPLICATIONS</span>
+              </div>
+            </li>
+
+            <li class="menu">
+              <a
+                href="{% url 'clients' %}"
+                aria-expanded="false"
+                class="dropdown-toggle"
+              >
+                <div class="">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-calendar"
+                  >
+                    <rect
+                      x="3"
+                      y="4"
+                      width="18"
+                      height="18"
+                      rx="2"
+                      ry="2"
+                    ></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  <span>Clients</span>
+                </div>
+              </a>
+            </li>
+              <li class="menu">
+              <a
+                href="{% url 'warehouse' %}"
+                aria-expanded="false"
+                class="dropdown-toggle"
+              >
+                <div class="">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-calendar"
+                  >
+                    <rect
+                      x="3"
+                      y="4"
+                      width="18"
+                      height="18"
+                      rx="2"
+                      ry="2"
+                    ></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  <span>Warehouse</span>
+                </div>
+              </a>
+            </li>
+             <li class="menu">
+              <a href="{% url 'projects' %}" aria-expanded="false" class="dropdown-toggle">
+                <div class="">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect  x="3"  y="4"  width="18"  height="18"  rx="2"  ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <span>Projects</span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!--  END SIDEBAR  -->
+
+
+        <!--  BEGIN CONTENT AREA  -->
+
+        <div id="content" class="main-content">
+
+            <div class="container">
+
+                <div class="container">
+
+                    <!-- BREADCRUMB -->
+
+                    <div class="page-meta">
+
+                        <nav class="breadcrumb-style-one" aria-label="breadcrumb">
+
+                            <!--<ol class="breadcrumb">-->
+
+                            <!--    <li class="breadcrumb-item"><a href="#">Client</a></li>-->
+
+                            <!--    <li class="breadcrumb-item active" aria-current="page">Client Details</li>-->
+
+                            <!--</ol>-->
+
+                        </nav>
+
+                    </div>
+
+                    <!-- /BREADCRUMB -->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title add-title" id="addContactModalTitleLabel1">Edit Reactor Details</h5>
+                          <h5 class="modal-title edit-title" id="addContactModalTitleLabel2" style="display: none;">Edit Reactor Details</h5>
+   <a href="{% url 'clients' %}"><button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close">
+
+                                                                  <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+
+                                                                </button></a>  
+                      </div>
+
+                      <div class="modal-body">
+
+                          <div class="add-contact-box">
+
+                              <div class="add-contact-content">
+                                <!-- Main Form -->
+                                  <form id="addContactModalTitle" action="updatereactorrecord/{{myreactor.id}}" method="POST" enctype="multipart/form-data">
+                                  
+                                    {% csrf_token %}  
+                                        <div class="card card-layout">
+                                                        
+                                                        <!-- row for reacter & Unit  -->
+                                                     
+                                                        <!-- end of reacter & Unit  -->
+                                                        <div class="row mb-4">
+                                                             <div class="col-sm-12">
+                                                            <div class="text-left"><label>Reactor Name</label>
+                                                              <input type="text" class="form-control" name="reactor_name" placeholder="Reactor Name *" value="{{myreactor.reactor_name}} "/>
+                                                            </div>
+                                                          </div>
+                                                          <div class="col-sm-6"><label>Tube Id</label>
+                                                            <select class="form-control tube" name="tube_id" value="{{myreactor.tube_id}} "> 
+                                                              <option value="INCH" > Tube inch</option> 
+                                                              <option value="MM"> Tube mm</option> 
+                                                            </select>
+                                                               <!--<label class="radio-inline">-->
+                                                               <!--   <input type="radio" name="tube_id" class="mg" value="inch">Inch-->
+                                                               <!-- </label>-->
+                                                               <!-- <label class="radio-inline">-->
+                                                               <!--   <input type="radio" name="tube_id" class="mg" value="mm">MM-->
+                                                               <!-- </label>-->
+
+                                                          
+                                                          </div>
+                                                          <div class="col-sm-6 output">
+                                                            <div class="INCH">
+                                                              <label>Enter Tube inch/mm</label>
+                                                              <input type="number" class="form-control" placeholder="Enter Tube inch/mm *" name="input_tubeid" value="{{myreactor.input_tubeid}} "/>
+                                                            </div>
+                                                            
+
+                                                            <!--<div class="MM box">-->
+                                                            <!--  <label>Enter Tube mm</label>-->
+                                                            <!--  <input type="number" class="form-control" placeholder="Enter Tube mm *" name="input_tubeid" value="mm"/>-->
+                                                            <!--</div>-->
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                      <!-- end form box 1 -->
+                                                      <!-- form box 2 -->
+                                                      <div class="card card-layout">
+                                                        <div class="bg-select">
+                                                          <div class="row mb-4">
+                                                              <div class="col-sm-12"><label>Is there ferrule insert in tube?</label>
+                                                              <select class="form-control is_ferrule" name="is_there_ferrule_insert_in_tube" value="{{myreactor.is_there_ferrule_insert_in_tube}}"> 
+                                                                  <option value="select">Is there ferrule insert in tube?</option> 
+                                                                  <option value="YES">Yes</option> 
+                                                                  <option value="NO">No</option>  
+                                                              </select>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row mb-4 ferrule_length">
+                                                              <div class="col-sm-6 button dropdown"><label>Ferrule Length</label>
+                                                                  <select class="form-control ferrule" name="ferrule_length" value="{{myreactor.ferrule_length}}"> 
+                                                                      <option value="INCH"> Ferrule inch</option> 
+                                                                      <option value="MM"> Ferrule mm</option>  
+                                                                  </select>
+                                                               
+                                                              </div>
+                                                              <div class="col-sm-6 output">
+                                                                <div class="INCH">
+                                                                  <label>Enter Ferrule inch/mm</label>
+                                                                  <input type="number" class="form-control" placeholder="Enter Ferrule inch/mm *" name="input_ferrulelength" value="{{myreactor.input_ferrulelength}}"/>
+                                                                </div>
+                                                                <!--<div class="MM ferrule_length_box">-->
+                                                                <!--  <label>Enter Ferrule mm</label>-->
+                                                                <!--  <input type="text" class="form-control" placeholder="Enter Ferrule mm *"/>-->
+                                                                <!--</div>-->
+                                                              </div>
+                                                          </div>
+                                                          <div class="row mb-4 ferrule_id">
+                                                            <div class="col-sm-6"><label>Ferrule Id</label>
+                                                            <select class="form-control ferrule1" name="ferrule_id" value="{{myreactor.ferrule_id}}"> 
+                                                                <option value="INCH"> Ferrule Id inch</option> 
+                                                                <option value="MM"> Ferrule Id mm</option>  
+                                                            </select>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                              <div class="INCH">
+                                                                <label>Enter Ferrule id inch/mm</label>
+                                                                <input type="number" class="form-control" placeholder="Enter Ferrule Id inch/mm *"  name="input_ferruleid" value="{{myreactor.input_ferruleid}}"/>
+                                                              </div>
+                                                              <!--<div class="ferrule_id_mm ferrule_id_box">-->
+                                                              <!--  <label>Enter Ferrule id mm</label>-->
+                                                              <!--  <input type="text" class="form-control" placeholder="Enter Ferrule Id mm *"/>-->
+                                                              <!--</div>-->
+                                                            </div>
+                                                          </div>
+                                                          <div class="row mb-4">
+                                                              <div class="col-sm-4"><label>Number of tubes</label>
+                                                              <input type="number" class="form-control" placeholder="Number of tubes *" name="tube_material_of_tubes" value="{{myreactor.tube_material_of_tubes}}"/>
+                                                              </div>
+                                                              <div class="col-sm-4"><label>Number of Raws</label>
+                                                              <input type="number" class="form-control" placeholder="Number of Raws *" name="tube_material_of_raws" value="{{myreactor.tube_material_of_raws}}"/>
+                                                              </div>
+                                                              <div class="col-sm-4"><label>Number of Thermo</label>
+                                                                  <input type="number" class="form-control" placeholder="Number of Thermo *" name="tube_material_of_thermo" value="{{myreactor.tube_material_of_thermo}}"/>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row mb-4 text-left">
+                                                              <div class="col-sm-4"><label>Number of Supports</label>
+                                                              <input type="number" class="form-control" id="" placeholder="Number of Supports *" name="tube_material_of_supports" value="{{myreactor.tube_material_of_supports}}" />
+                                                              </div>
+                                                              <div class="col-sm-4"><label>Number of Plugs</label>
+                                                                  <input type="number" class="form-control" id="" placeholder="Number of Plugs *" name="tube_material_of_plugs" value="{{myreactor.tube_material_of_plugs}}" />
+                                                              </div>
+                                                              <div class="col-sm-4"><label>Number of coolant Tubes</label>
+                                                                  <input type="number" class="form-control" id="" placeholder="Number of coolant Tubes *" name="tube_material_of_coolent_tubes" value="{{myreactor.tube_material_of_coolent_tubes}}"/>
+                                                              </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                        <!-- end form box 2 -->
+                                                        <!-- form box 3 -->
+                                                        <div class="card card-layout">
+                                                          <div class="row mb-4">
+                                                            <div class="col-sm-6 button dropdown"><label>Tube Spacing Or Pitch</label>
+                                                              <select class="form-control tube_spacing" name="tube_spacing_or_pitch" value="{{myreactor.tube_spacing_or_pitch}}"> 
+                                                                <option value="INCH">Tube Spacing inch</option> 
+                                                                <option value="MM">Tube Spacing mm</option>  
+                                                              </select>
+                                                            </div>
+                                                            <div class="col-sm-6 output">
+                                                              <div class="INCH">
+                                                                <label>Enter Tube Spacing Or Pitch</label>
+                                                                <input type="number" class="form-control" placeholder="Enter Tube Spacing inch *" name="input_tubespacing" value="{{myreactor.input_tubespacing}}"/>
+                                                              </div>
+                                                              <!--<div class="tube_spacing_mm tube_spacing_box">-->
+                                                              <!--  <label>Enter Tube Spacing mm</label>-->
+                                                              <!--  <input type="text" class="form-control" placeholder="Enter Tube Spacing mm *" name="mm3"/>-->
+                                                              <!--</div>-->
+                                                            </div>
+                                                          </div>
+                                                          <div class="row mb-4">
+                                                            <div class="col-sm-6 button dropdown"><label>Total Tube Length</label>
+                                                              <select class="form-control total_tube" name="total_tube_length" value="{{myreactor.total_tube_length}}"> 
+                                                                <option value="INCH">Total Tube inch</option> 
+                                                                <option value="MM">Total Tube mm</option>  
+                                                              </select>
+                                                            </div>
+                                                            <div class="col-sm-6 output">
+                                                              <div class="INCH">
+                                                                <label>Enter Total Tube Length inch/mm</label>
+                                                                <input type="number" class="form-control " placeholder="Enter Total Tube Length inch/mm *" name="input_totaltube" value="{{myreactor.input_totaltube}}"/>
+                                                              </div>
+                                                              <!--<div class="total_tube_mm total_tube_box">-->
+                                                              <!--  <label>Enter Total Tube Length mm</label>-->
+                                                              <!--  <input type="text" class="form-control " placeholder="Enter Total Tube Length mm *" name="mm4"/>-->
+                                                              <!--</div>-->
+                                                            </div>
+                                                          </div>
+                                                          <div class="row mb-4">
+                                                            <div class="col-sm-6 button dropdown"><label>Top Tube sheet Thickness</label>
+                                                              <select class="form-control top_tube" name="top_tube_sheet_thickness" value="{{myreactor.top_tube_sheet_thickness}}"> 
+                                                                <option value="INCH">Tube sheet inch</option> 
+                                                                <option value="MM">Tube sheet mm</option>  
+                                                              </select>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                              <div class="INCH">
+                                                                <label>Enter Tube sheet inch/mm </label>
+                                                                <input type="number" class="form-control" placeholder="Enter Tube sheet inch/mm *" name="input_toptube" value="{{myreactor.input_toptube}}"/>
+                                                              </div>
+                                                              <!--<div class="tube_sheet_mm tube_sheet_box">-->
+                                                              <!--  <label>Enter Tube sheet mm</label>-->
+                                                              <!--  <input type="text" class="form-control" placeholder="Enter Tube sheet mm *" name="mm5"/>-->
+                                                              <!--</div>-->
+                                                            </div>
+                                                          </div>
+                                                          <div class="row mb-4">
+                                                            <div class="col-sm-6"><label>Bottom Tube sheet Thinkness</label>
+                                                              <select class="form-control bottom_tube" name="bottom_tube_sheet_thickness" value="{{myreactor.bottom_tube_sheet_thickness}}"> 
+                                                                <option value="INCH">Bottom Tube sheet inch</option> 
+                                                                <option value="MM">Bottom Tube sheet mm</option>  
+                                                              </select>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                              <div class="INCH bottom_tube_box">
+                                                                <label>Enter Bottom Tube sheet Thinkness inch/mm </label>
+                                                                <input type="number" class="form-control " placeholder="Bottom Tube sheet Thinkness inch/mm *" name="input_bottomtube" value="{{myreactor.input_bottomtube}}"/>
+                                                              </div>
+                                                              <!--<div class="bottom_tube_mm bottom_tube_box">-->
+                                                              <!--  <label>Enter Bottom Tube sheet Thinkness mm</label>-->
+                                                              <!--  <input type="text" class="form-control" placeholder="Bottom Tube sheet Thinkness mm *" name="mm6"/>-->
+                                                              <!--</div>-->
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                         <!--end form box 3 -->
+                                                         <!--start form box 4 -->
+                                                        <div class="card card-layout">
+                                                           <!--new top protutue -->
+                                                          <div class="bg-select">
+                                                            <div class="row mb-4">
+                                                                <div class="col-sm-12"><label>Tube Protude Out of Top Tube Sheet</label>
+                                                                <select class="form-control is_protude" name="tube_protude_out_of_top_tube_sheet" value="{{myreactor.tube_protude_out_of_top_tube_sheet}}"> 
+                                                                    <option value="YES">Yes</option> 
+                                                                    <option value="NO">No</option>  
+                                                                </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-4 top_protude_sheet">
+                                                              <div class="col-sm-6 button dropdown"><label>Select inch or mm</label>
+                                                                <select class="form-control protude" name="select_tube_protude_top" value="{{myreactor.select_tube_protude_top}}"> 
+                                                                  <option value="INCH"> inch</option> 
+                                                                  <option value="MM"> mm</option>  
+                                                                </select>
+                                                              </div>
+                                                              <div class="col-sm-6 output">
+                                                                <div class="INCH Protude_box">
+                                                                  <label>Enter inch/mm</label>
+                                                                  <input type="number" class="form-control" placeholder="Enter inch/mm *" name="input_tubeprotude_top" value="{{myreactor.input_tubeprotude_top}}"/>
+                                                                </div>
+                                                                <!--<div class="protude_mm Protude_box">-->
+                                                                <!--  <label>Enter mm </label>-->
+                                                                <!--  <input type="number" class="form-control" placeholder="Enter mm *" name="mm7"/>-->
+                                                                <!--</div>-->
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                           <!--end of top protute -->
+                                                           <!--new bottom protute-->
+                                                          <div class="bg-select">
+                                                              <div class="row mb-4">
+                                                                  <div class="col-sm-12"><label>Tube Protude Out of Bottom Tube Sheet</label>
+                                                                  <select class="form-control is_protude_bottom" name="tube_protude_out_of_bottom_tube_sheet" value="{{myreactor.tube_protude_out_of_bottom_tube_sheet}}"> 
+                                                                      <option value="YES">Yes</option> 
+                                                                      <option value="NO">No</option>  
+                                                                  </select>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="row mb-4 bottom_protude_sheet">
+                                                                  <div class="col-sm-6 button dropdown"><label>Select inch or mm </label>
+                                                                      <select class="form-control protude_bottom" name="select_tube_protude_bottom" value="{{myreactor.select_tube_protude_bottom}}"> 
+                                                                          <option value="INCH"> inch</option> 
+                                                                          <option value="MM"> mm</option>  
+                                                                      </select>
+                                                                  </div>
+                                                                  <div class="col-sm-6 output">
+                                                                    <div class="INCH protude_bottom_box">
+                                                                      <label>Enter  inch/mm</label>
+                                                                      <input type="number" class="form-control" placeholder="Enter inch/mm *" name="input_tubeprotude_bottom" value="{{myreactor.input_tubeprotude_bottom}}"/>
+                                                                    </div>
+                                                                    <!--<div class="protude_bottom_mm protude_bottom_box">-->
+                                                                    <!--  <label>Enter mm</label>-->
+                                                                    <!--  <input type="number" class="form-control"  placeholder="Enter mm *" name="mm8"/>-->
+                                                                    <!--</div>-->
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                           <!--end of bottom protute -->
+                                                          <div class="row mb-4">
+                                                            <div class="col-sm-4 button dropdown"><label>Top Dom Removable</label>
+                                                              <select class="form-control top_dom" name="top_dome_removable" value="{{myreactor.top_dome_removable}}"> 
+                                                                <option value="YES">Yes</option> 
+                                                                <option value="NO">No</option>  
+                                                              </select>
+                                                            </div>
+                                                             <div class="col-sm-4"><label>Top Inlet Accessible</label>
+                                                              <select id="" name="top_inlet_accessible" class="form-control" value="{{myreactor.top_inlet_accessible}}"> 
+                                                                <option value="YES">Yes</option> 
+                                                                <option value="NO">No</option>  
+                                                              </select>
+                                                            </div>
+                                                          
+                                                            <div class="col-sm-4"><label>Top Inlet Impingment Plate</label>
+                                                              <select id="" name="top_inlet_impingment_plate" class="form-control" value="{{myreactor.top_inlet_impingment_plate}}"> 
+                                                                <option value="YES">Yes</option> 
+                                                                <option value="NO">No</option>  
+                                                              </select>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                        <!-- end form box 4 -->
+                                                         <!-- start form box 5 -->
+                                                         <div class="card card-layout">
+                                                           <div class="row mb-4">
+                                                             <div class="col-sm-6"><label>Any projections on tube sheet-describe</label>
+                                                               <input type="text" class="form-control" id="" placeholder="Any projections on tube sheet-describe*" name="any_projections_on_tube_sheet_describe" value="{{myreactor.any_projections_on_tube_sheet_describe}}"/>
+                                                             </div>
+                                                             <div class="col-sm-6"><label>Tube sheet Material</label>
+                                                               <input type="text" class="form-control" id="" placeholder="Tube sheet Material*" name="tube_sheet_material" value="{{myreactor.tube_sheet_material}}"/>
+                                                             </div>
+                                                           </div>
+                                                           <div class="row mb-4">
+                                                             <div class="col-sm-12"><label>Dom Material</label>
+                                                               <input type="text" class="form-control" id="" placeholder="Dom Material *" name="dom_material" value="{{myreactor.dom_material}}"/>
+                                                             </div>
+                                                           </div>
+                                                           <div class="row mb-4">
+                                                             <div class="col-sm-6 text-left"><label>Tube Spacing Proof Document </label>
+                                                               <input type="file" class="form-control" id="" placeholder="Tube Spacing Proof Document *" name="tube_spacing_proof_document" value="{{myreactor.tube_spacing_proof_document}}"/>
+                                                             </div>
+                                                             <div class="col-sm-6 text-left"><label>Reactor Tube Sheet Drawings </label>
+                                                               <input type="file" class="form-control" id="" placeholder="Reactor Tube Sheet Drawings  *" name="reactor_tube_sheet_drawings" value="{{myreactor.reactor_tube_sheet_drawings}}"/>
+                                                             </div>
+                                                           </div>
+                                                           <div class="row mb-4">
+                                                             <div class="col-sm-6 text-left">
+                                                                 <label>Reactor Elevation View Drawings</label>
+                                                                 <input type="file" class="form-control" id="" placeholder="Reactor Elevation View Drawings *" name="reactor_elevation_view_drawings" value="{{myreactor.reactor_elevation_view_drawings}}"/>
+                                                             </div>
+                                                             <div class="col-sm-6 text-left">
+                                                                 <label>Other Drawings </label>
+                                                                 <input type="file" class="form-control" id="" placeholder="Other Drawings *" name="other_drawings" value="{{myreactor.other_drawings}}"/>
+                                                             </div>
+                                                           </div>
+                                                         </div>
+                                                       <!-- end form box 5 -->
+                                                      <input type="hidden" name="next3" value="{{ request.path }}">
+                                                     
+                                                        <button type="submit" class="btn btn-success" name="add_reactor"> Save</button>
+               
+                                  </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+
+            <!--  BEGIN FOOTER  -->
+
+            <!-- <div class="footer-wrapper">
+
+                <div class="footer-section f-section-1">
+
+                    <p class="">Copyright © <span class="dynamic-year">2022</span> <a target="_blank"
+
+                            href="">ASC</a>, All rights reserved.</p>
+
+                </div>
+
+                <div class="footer-section f-section-2">
+
+                    <p class="">Coded with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+
+                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
+
+                            <path
+
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+
+                            </path>
+
+                        </svg></p>
+
+                </div>
+
+            </div> -->
+
+            <!--  END FOOTER  -->
+
+
+
+        </div>
+
+        <!--  END CONTENT AREA  -->
+
+    </div>
+
+    <!-- END MAIN CONTAINER -->
+
+    
+
+
+
+    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+
+    <script src="{% static 't_assets/src/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 't_assets/src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+
+    <script src="{% static 't_assets/src/plugins/src/mousetrap/mousetrap.min.js' %}"></script>
+
+    <script src="{% static 't_assets/layouts/vertical-dark-menu/app.js' %}"></script>
+
+    <script src="{% static 't_assets/src/plugins/src/highlight/highlight.pack.js' %}"></script>
+
+    <!-- END GLOBAL MANDATORY SCRIPTS -->
+
+    <script src="{% static 't_assets/src/assets/js/scrollspyNav.js' %}"></script>
+
+
+
+    <script src="{% static 't_assets/src/plugins/src/global/vendors.min.js' %}"></script>
+
+    <script src="{% static 't_assets/src/assets/js/custom.js' %}"></script>
+
+    <!-- END GLOBAL MANDATORY SCRIPTS -->
+
+    <script src="{% static 't_assets/src/plugins/src/jquery-ui/jquery-ui.min.js' %}"></script>
+
+    <script src="{% static 't_assets/src/assets/js/apps/contact.js' %}"></script>
+
+
+
+
+
+    <script>
+
+    window.addEventListener('load', function() {
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+
+        var forms = document.getElementsByClassName('needs-validation');
+
+        // Loop over them and prevent submission
+
+        var validation = Array.prototype.filter.call(forms, function(form) {
+
+        form.addEventListener('submit', function(event) {
+
+            if (form.checkValidity() === false) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            }
+
+            form.classList.add('was-validated');
+
+        }, false);
+
+        });
+
+    }, false);
+
+    </script>
+
+    <script>
+
+        checkall('todoAll', 'todochkbox');
+
+            $('[data-toggle="tooltip"]').tooltip()
+
+    
+
+    </script>
+ <script>
+
+$('.close').click(function() {
+   $(".modal-content").fadeOut(300);
+});
+
+</script>
+  <script>
+        // jquery for reacter details form fields
+        $(document).ready(function() {
+          $('.box').hide(); $('.tube_inch').show();
+          $('.ferrule_length_box').hide(); $('.ferrule_id_box').hide(); 
+          $('.tube_spacing_box').hide(); $('.tube_spacing_inch').show();
+
+        });
+
+        $('.tube').change(function() { 
+                $('.box').hide(); 
+                $('.' + $(this).val()).show(); 
+        });
+        // yes no option  
+        $('.ferrule').change(function() { 
+                $('.ferrule_length_box').hide(); 
+                $('.' + $(this).val()).show(500); 
+        });
+        $('.ferrule1').change(function() { 
+                $('.ferrule_id_box').hide(); 
+                $('.' + $(this).val()).show(500); 
+        });
+
+        $('.ferrule_length').hide(); 
+        $('.ferrule_id').hide(); 
+        $('.is_ferrule').change(function(){
+            if($('.is_ferrule').val() == 'yes') {
+                $('.ferrule_length').show(1000); 
+                $('.ferrule_id').show(1000); 
+            } else {
+                $('.ferrule_length').hide(800); 
+                $('.ferrule_id').hide(800); 
+            } 
+        });
+        // end yes - no
+        $('.tube_spacing').change(function() {
+            $('.tube_spacing_box').hide();
+            $('.' + $(this).val()).show();
+        });
+        $('.total_tube_box').hide();$('.total_tube_mm').show(); 
+        $('.total_tube').change(function() {
+            $('.total_tube_box').hide();
+            $('.' + $(this).val()).show();
+        });
+         $('.tube_sheet_box').hide(); $('.tube_sheet_mm').show();
+        $(".top_tube").change(function(){
+            $('.tube_sheet_box').hide();
+            $('.' + $(this).val()).show();
+        });
+        $('.bottom_tube_box').hide(); $('.bottom_tube_mm').show();
+        $(".bottom_tube").change(function(){
+            $('.bottom_tube_box').hide();
+            $('.' + $(this).val()).show();
+        });
+        // yes no option for top protude
+        $('.protude_sheet').hide();
+        $('.is_protude').change(function(){
+            if($('.is_protude').val() == 'protude_yes') {
+                $('.top_protude_sheet').show(1000); 
+            } else {
+                $('.top_protude_sheet').hide(800); 
+            } 
+        });
+        $('.Protude_box').hide(); $('.protude_inch').show();  
+        $('.protude').change(function() { 
+                $('.Protude_box').hide(); 
+                $('.' + $(this).val()).show(500); 
+        });
+        // yes no option for bottom protude
+        $('.protude_bottom_inch').show();
+        $('.is_protude_bottom').change(function(){
+            if($('.is_protude_bottom').val() == 'protude_bottom_yes') {
+                $('.bottom_protude_sheet').show(1000); 
+            } else {
+                $('.bottom_protude_sheet').hide(800); 
+            } 
+        });
+        $('.protude_bottom_box').hide(); $('.protude_bottom_inch').show(); 
+        $('.protude_bottom').change(function() { 
+                $('.protude_bottom_box').hide(); 
+                $('.' + $(this).val()).show(500); 
+        });
+        // end of jquery for reacter details form fields
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends 'crud/base.html' %} {% load widget_tweaks %} {% block content %}
+<div class="container" style="padding: 40px">
+  <div class="row">
+    <div class="col-10">
+      <h6 style="text-align: center">
+        <font color="red"> All fields are required</font>
+      </h6>
+    </div>
+    <div class="col-10">
+      <form method="post" novalidate>
+        {% csrf_token %} {% for hidden_field in form.hidden_fields %} {{
+        hidden_field }} {% endfor %} {% for field in form.visible_fields %}
+        <div class="form-group">
+          {{ field.label_tag }} {% render_field field class="form-control" %} {%
+          {% if field.help_text %}
+          <small class="form-text text-muted">{{ field.help_text }}</small>
+          {% endif %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Add New Post</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

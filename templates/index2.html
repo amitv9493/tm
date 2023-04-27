@@ -1,0 +1,262 @@
+{% extends "layouts/base.html" %} {% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
+
+<div class="row">
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-header card-header-warning card-header-icon">
+        <div class="card-icon">
+          <i class="material-icons">home</i>
+        </div>
+        <p class="card-category">Clients</p>
+        <h3 class="card-title">
+          49
+          <!--<small>GB</small>-->
+        </h3>
+      </div>
+      <div class="card-footer">
+        <div class="stats">
+          <!--<i class="material-icons text-danger">warning</i>-->
+          <!--<a href="#pablo">Get More Space...</a>-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-header card-header-success card-header-icon">
+        <div class="card-icon">
+          <i class="material-icons">store</i>
+        </div>
+        <p class="card-category">On Going Projects</p>
+        <h3 class="card-title">34</h3>
+      </div>
+      <div class="card-footer">
+        <div class="stats">
+          <!--<i class="material-icons">date_range</i> Last 24 Hours-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-header card-header-danger card-header-icon">
+        <div class="card-icon">
+          <i class="material-icons">info_outline</i>
+        </div>
+        <p class="card-category">Upcoming Projects</p>
+        <h3 class="card-title">75</h3>
+      </div>
+      <div class="card-footer">
+        <div class="stats">
+          <!--<i class="material-icons">local_offer</i> Tracked from Github-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-header card-header-info card-header-icon">
+        <div class="card-icon">
+          <i class="fa fa-twitter"></i>
+        </div>
+        <p class="card-category">Equipment's Detail</p>
+        <h3 class="card-title">+245</h3>
+      </div>
+      <div class="card-footer">
+        <div class="stats">
+          <!--<i class="material-icons">update</i> Just Updated-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+ 
+  <div class="col-lg-6 col-md-12">
+       <div class="card">
+      <div class="card-header card-header-info">
+        <h4 class="card-title">Clients</h4>
+        <p class="card-category"></p>
+      </div>
+      <div class="card-body table-responsive">
+        <table class="table table-hover">
+         <thead class="text-primary">
+              <th>ID</th>
+              <th>Official Name</th>
+              <th>Comman Name</th>
+              <th>Alternate Name</th>
+              <th>Key Contact</th>
+              <th>Parent Company</th>
+              <th>Chemical</th>
+              <th>Reactor Name</th>
+              <th>Former Name</th>
+              <th>Official Address</th>
+              <th>Shipping Address</th>
+              <th>Plant Entrance Address</th>
+            </thead>
+            <tbody>
+                  {% for client in client %}
+                
+              <tr>
+             
+               <td>{{client.id}}</td>
+               <td><a href="{% url 'client_profile' %}">{{client.official_name}}</a></td>
+               <td>{{client.comman_name}}</td>
+               <td>{{client.alternate_name}}</td>
+               <td>{{client.key_contact}}</td>
+               <td>{{client.parent_company}}</td>
+               <td>{{client.chemical}}</td>
+               <td>{{client.reactor_name}}</td>
+               <td>{{client.former_name}}</td>
+               <td>{{client.official_address}}<br/><a href="{% url 'address'%}
+                       ">View More</a></td>
+               <td>{{client.shipping_address}}<br/><a href={{client.id}}>View More</a></td>
+               <td>{{client.plantentrance_address}}<br/><a href={{client.id}}>View More</a></td>
+               
+                    
+              <td>
+                 <a
+                href="#"
+                class="btn btn-primary btn-link btn-sm"
+                id="{{user.id}}"
+                > <i class="material-icons">edit</i></a>
+                 
+             
+              </td>
+              <td>
+                   <a
+                href="#"
+                class="btn btn-danger btn-link btn-sm"
+                id="{{user.id}}"
+                > <i class="material-icons">close</i></a>
+              
+           
+              </td>
+         
+             
+              </tr>
+         
+             {% endfor %}
+            </tbody>
+        </table>
+          
+      </div>
+    </div>
+  
+  </div>
+   <div class="col-lg-6 col-md-12">
+    <div class="card">
+      <div class="card-header card-header-info">
+        <h4 class="card-title">Equipments</h4>
+        <p class="card-category"></p>
+      </div>
+      <div class="card-body table-responsive">
+        <table class="table table-hover">
+          <thead class="text-primary">
+              <th>ID</th>
+              <th>Equipment Name</th>
+              <th>Abbreviation</th>
+              <th>Alternate Name</th>
+              <th>Serial Number</th>
+              <th>Asset Number</th>
+              <th>Pm Status</th>
+              <th>Location For Warehouse</th>
+              <th>Location For Storage</th>
+              <th>Packaging</th>
+              <th>Is this Part Of Set</th>
+              <th>If yes How Many in a set</th>
+              <th>Is It An Assembly</th>
+              <th>Allow to add sub parts</th>
+            </thead>
+            <tbody>
+                  {% for equipment in equipment %}
+                
+              <tr>
+             
+               <td>{{equipment.id}}</td>
+               <td>{{equipment.equipment_name}}</a></td>
+               <td>{{equipment.abbreviation}}</td>
+               <td>{{equipment.alternate_name}}</td>
+               <td>{{equipment.serial_number}}</td>
+               <td>{{equipment.asset_number}}</td>
+               <td>{{equipment.pm_status}}</td>
+               <td>{{equipment.location_for_warehouse}}</td>
+               <td>{{equipment.location_for_storage}}</td>
+               <td>{{equipment.packaging}}</td>
+               <td>{{equipment.is_this_part_of_set}}</td>
+               <td>{{equipment.if_yes_how_many_in_a_set}}</td>
+               <td>{{equipment.is_it_an_assembly}}</td>
+               <td>{{equipment.allow_to_add_sub_parts}}</td>
+             
+              </tr>
+         
+             {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+
+ <div class="col-lg-6 col-md-12">
+    <div class="card">
+      <div class="card-header card-header-info">
+        <h4 class="card-title">Projects</h4>
+        <p class="card-category"></p>
+      </div>
+      <div class="card-body table-responsive">
+        <table class="table table-hover">
+          <thead class="text-primary">
+              <th>ID</th>
+              <th>Project Name</th>
+             
+            </thead>
+            <tbody>
+                  {% for project in project  %}
+                
+              <tr>
+             
+               <!--<td>{{equipment.id}}</td>-->
+               <!--<td>{{equipment.equipment_name}}</a></td>-->
+               <!--<td>{{equipment.abbreviation}}</td>-->
+               <!--<td>{{equipment.alternate_name}}</td>-->
+               <!--<td>{{equipment.serial_number}}</td>-->
+               <!--<td>{{equipment.asset_number}}</td>-->
+               <!--<td>{{equipment.pm_status}}</td>-->
+               <!--<td>{{equipment.location_for_warehouse}}</td>-->
+               <!--<td>{{equipment.location_for_storage}}</td>-->
+               <!--<td>{{equipment.packaging}}</td>-->
+               <!--<td>{{equipment.is_this_part_of_set}}</td>-->
+               <!--<td>{{equipment.if_yes_how_many_in_a_set}}</td>-->
+               <!--<td>{{equipment.is_it_an_assembly}}</td>-->
+               <!--<td>{{equipment.allow_to_add_sub_parts}}</td>-->
+             
+              </tr>
+         
+             {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+ 
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script>
+  $(document).ready(function () {
+    // Javascript method's body can be found in assets/js/demos.js
+    md.initDashboardPageCharts();
+  });
+</script>
+
+{% endblock javascripts %}

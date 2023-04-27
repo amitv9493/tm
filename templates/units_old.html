@@ -1,0 +1,178 @@
+
+{% extends "layouts/base.html" %} {% block title %} UI Tables {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+<style>
+ 
+    
+        .form-container {
+            background-color: #2d3638;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            position:relative;
+          padding: 40px;
+          color: #fff;
+        }
+        .close-button {
+          background:none;
+          color: #fff;
+          width: 40px;
+          height: 40px;
+          position: absolute;
+          top: 0;
+          right: 0;
+          border: solid 1px #fff;
+        }
+        
+     
+         
+</style>
+{% endblock stylesheets %} {% block content %}
+
+<!--<div class="row">-->
+<!--  <div class="col-md-12">-->
+<!--    <div class="card">-->
+<!--      <div class="card-header card-header-primary">-->
+<!--        <h4 class="card-title">Add Parts</h4>-->
+       
+<!--      </div>-->
+<!--      <div class="card-body">-->
+<!--        <form method="post">-->
+<!--            {% csrf_token %}-->
+<!--          <div class="row">-->
+            
+<!--            <div class="col-md-6">-->
+<!--              <div class="form-group">-->
+<!--                <label class="bmd-label-floating">Part Name</label>-->
+<!--                <input-->
+<!--                  type="text"-->
+<!--                  class="form-control"-->
+<!--                  name="part_name"-->
+<!--                />-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-6">-->
+<!--              <div class="form-group">-->
+<!--                <label class="bmd-label-floating">Part Number</label>-->
+<!--                <input-->
+<!--                  type="text"-->
+<!--                  class="form-control"-->
+<!--                  name="part_number"-->
+<!--                />-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <div class="col-md-6">-->
+<!--              <div class="form-group">-->
+<!--                <label class="bmd-label-floating">Part Function</label>-->
+<!--                <input-->
+<!--                  type="text"-->
+<!--                  class="form-control"-->
+<!--                  name="part_function"-->
+<!--                />-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            
+           
+          
+<!--          </div>-->
+         
+<!--          <button type="submit" class="btn btn-primary pull-right" >-->
+<!--            Add Parts-->
+<!--          </button>-->
+<!--          <div class="clearfix"></div>-->
+<!--        </form>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+ 
+<!--</div>-->
+
+
+<div class="row">
+      
+    <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Unit Table</h4>
+        <p class="card-category">Here is a Unit's Details</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="text-primary">
+              <th>ID</th>
+              <th>client Id</th>
+              <th>Name of the unit</th>
+              <th>Chemical being manufactured by this unit</th>
+              <th>Reactor per each unit </th>
+             </thead>
+            <tbody>
+                  {% for unit,my_r in info %}
+                
+              <tr>
+                <td>{{unit.id}}</td>
+                <!--<td>{{client.id}}</td>-->
+                <td>{{unit.name_of_the_unit}}</td>
+               <td>{{unit.chemical_being_manufactured_by_this_unit}}</td>
+                
+               <td><a href="/tm/reactors">{% for my_r in my_r.reactor_per_each_unit.all %}{{my_r.reactor_name}} {% endfor %}</a></td>
+               
+              </tr>
+       
+             {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+   
+</div>
+
+{% endblock content %}
+
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script>
+  $(document).ready(function () {
+    // Javascript method's body can be found in assets/js/demos.js
+    md.initDashboardPageCharts();
+  });
+</script>
+<script>
+
+$(".step").click(function () {
+  $(this).addClass("active").prevAll().addClass("active");
+  $(this).nextAll().removeClass("active");
+});
+
+$(".step01").click(function () {
+  $("#line-progress").css("width", "8%");
+  $(".step1").addClass("active").siblings().removeClass("active");
+});
+
+$(".step02").click(function () {
+  $("#line-progress").css("width", "50%");
+  $(".step2").addClass("active").siblings().removeClass("active");
+});
+
+$(".step03").click(function () {
+  $("#line-progress").css("width", "100%");
+  $(".step3").addClass("active").siblings().removeClass("active");
+});
+  
+</script>
+{% endblock javascripts %}
