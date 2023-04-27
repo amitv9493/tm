@@ -18,7 +18,7 @@ class Part(models.Model):
         BLUE= 'BLUE', ('BLUE')
         GREEN= 'GREEN', ('GREEN')
     pm_status = models.CharField(max_length=20,choices=pm_status.choices, null=True, blank=True)
-    # location_for_warehouse=models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE, null=True, blank=True)
+    location_for_warehouse=models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE, null=True, blank=True)
     location_for_storage=models.CharField(max_length=128,blank=True)
     packaging=models.CharField(max_length=128,blank=True)
     notes = models.TextField(blank=True,null=True)

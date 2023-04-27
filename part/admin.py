@@ -34,7 +34,7 @@ class ExportCsvMixin:
 class PartAdmin(admin.ModelAdmin,ExportCsvMixin):
     list_filter=['part_name']
     list_display = ('part_name', 'name_of_abbreviation', 'serial_number', 'asset_number', 'pm_status'
-    , 'location_for_storage', 'packaging','notes','upload_file','weight','price',)
+    , 'location_for_storage','location_for_warehouse', 'packaging','notes','upload_file','weight','price',)
     search_fields = ['part_name']
    
     actions = ["export_as_csv"]
@@ -45,6 +45,39 @@ class PartAdmin(admin.ModelAdmin,ExportCsvMixin):
         "dimension_unit": admin.HORIZONTAL,
         "weight_unit": admin.HORIZONTAL,
         } 
+    
+    fieldsets = (
+        ('General Info', {
+            "fields": (
+            'part_name',
+            'name_of_abbreviation',
+            'serial_number',
+            'asset_number',
+            'pm_status',
+            'location_for_warehouse',
+            'location_for_storage',
+            'packaging',
+            'notes',
+            'upload_file',
+            'price',
+            ),
+        }),
+        ('weight', {
+            'fields': (
+                'weight_unit',
+                'weight',
+            )
+        }),
+        ('Dimensions', {
+            'fields': (
+                'dimension_unit',
+                'length',
+                'breadth',
+                'height',
+            )
+        }),
+    )
+    
 admin.site.register(Part,PartAdmin)
 
 @admin.register(Supply_orifice)
@@ -68,12 +101,12 @@ class Supply_orificeAdmin(admin.ModelAdmin):
     fieldsets = (
         ("General", {
             "fields": (
-                'serial_number',
-                'location_for_warehouse',
                 'part_name',
                 'name_of_abbreviation',
+                'serial_number',
                 'asset_number',
                 'pm_status',
+                'location_for_warehouse',
                 'location_for_storage',                
                 'packaging',
                 'notes',
@@ -126,12 +159,12 @@ class BDD_tube_seal_rackAdmin(admin.ModelAdmin):
     fieldsets = (
         ("General", {
             "fields": (
-                'serial_number',
-                'location_for_warehouse',
                 'part_name',
                 'name_of_abbreviation',
+                'serial_number',
                 'asset_number',
                 'pm_status',
+                'location_for_warehouse',
                 'location_for_storage',                
                 'packaging',
                 'notes',
@@ -192,12 +225,12 @@ class Pressure_sensorAdmin(admin.ModelAdmin):
     fieldsets = (
         ("General", {
             "fields": (
-                'serial_number',
-                'location_for_warehouse',
                 'part_name',
                 'name_of_abbreviation',
+                'serial_number',
                 'asset_number',
                 'pm_status',
+                'location_for_warehouse',
                 'location_for_storage',                
                 'packaging',
                 'notes',
@@ -258,12 +291,12 @@ class TTD_tube_seal_rackAdmin(admin.ModelAdmin):
     fieldsets = (
         ("General", {
             "fields": (
-                'serial_number',
-                'location_for_warehouse',
                 'part_name',
                 'name_of_abbreviation',
+                'serial_number',
                 'asset_number',
                 'pm_status',
+                'location_for_warehouse',
                 'location_for_storage',                
                 'packaging',
                 'notes',
@@ -346,12 +379,12 @@ class Calibration_orificeAdmin(admin.ModelAdmin):
     fieldsets = (
         ("General", {
             "fields": (
-                'serial_number',
-                'location_for_warehouse',
                 'part_name',
                 'name_of_abbreviation',
+                'serial_number',
                 'asset_number',
                 'pm_status',
+                'location_for_warehouse',
                 'location_for_storage',                
                 'packaging',
                 'notes',
@@ -401,12 +434,12 @@ class SwabMaster_TSRadmin(admin.ModelAdmin):
     fieldsets = (
         ("General", {
             "fields": (
-                'serial_number',
-                'location_for_warehouse',
                 'part_name',
                 'name_of_abbreviation',
+                'serial_number',
                 'asset_number',
                 'pm_status',
+                'location_for_warehouse',
                 'location_for_storage',                
                 'packaging',
                 'notes',
@@ -453,12 +486,12 @@ class DeviceHoseAdmin(admin.ModelAdmin):
     fieldsets = (
         ("General", {
             "fields": (
-                    "warehouse",
-                    "serial_number",
                     "part_name",
                     "name_of_abbreviation",
+                    "serial_number",
                     "asset_number",
                     "pm_status",
+                    "warehouse",
                     "location_for_storage",
                     "packaging",
                     "notes",
@@ -497,56 +530,16 @@ class AirHosesAdmin(admin.ModelAdmin):
         "dimension_unit": admin.HORIZONTAL,
         "weight_unit": admin.HORIZONTAL,
         } 
-    # fieldsets = (
-        
-    #     (
-    #         "General",
-    #         {
-    #             "fields": (
-    #                 "warehouse",
-    #                 "serial_number",
-    #                 "part_name",
-    #                 "name_of_abbreviation",
-    #                 "asset_number",
-    #                 "pm_status",
-    #                 "location_for_storage",
-    #                 "packaging",
-    #                 "notes",
-    #                 "upload_file",
-    #                 "weight",
-    #                 "price",
-    #             ),
-    #         },
-    #     ),
-    #     (
-    #         "Specific Info",
-    #         {
-    #             "fields": (
-    #                 "length",
-    #                 "colour_code",
-    #             ),
-    #         },
-    #     ),
-    #     ("Dimensions", {
-    #         "fields": (
-    #             'dimension_unit',
-    #             'length',
-    #             'breadth',
-    #             'height',
-    #         )
-    #     }),
-
-    # )
     
     fieldsets = (
         ('General', {
             "fields": (
-                "warehouse",
-                "serial_number",
                 "part_name",
                 "name_of_abbreviation",
+                "serial_number",
                 "asset_number",
                 "pm_status",
+                "warehouse",
                 "location_for_storage",
                 "packaging",
                 "notes",
