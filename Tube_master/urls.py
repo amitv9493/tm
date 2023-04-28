@@ -183,7 +183,20 @@ urlpatterns = [
 #######################################################################
 
     path("api/get/supplyorificepart/", SupplyOrificeViewPart.as_view(), name='supplyorificepart'),
+
+    path("api/get/pressuresensorpart/", PressureSensorViewPart.as_view(), name='pressuresensorpart'),
+
+    path("api/get/ttdtubesealrackpart/", TTDTubeSealRackViewPart.as_view(), name='ttdtubesealrackpart'),
+
+    path("api/get/bddtubesealrackpart/", BDDTubeSealRackViewPart.as_view(), name='bddtubesealrackpart'),
+
+    path("api/get/swabmastertsrpart/", SwabMasterTSRViewPart.as_view(), name='swabmastertsrpart'),
+
+    path("api/get/devicehoserpart/", DeviceHoseRViewPart.as_view(), name='devicehoserpart'),
+
+    path("api/get/airhosepart/", AirHoseViewPart.as_view(), name='airhosepart'),
  
+    
 ] 
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 if settings.DEBUG:

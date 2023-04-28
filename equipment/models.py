@@ -109,7 +109,7 @@ class BDD(models.Model):
      frame=models.CharField(max_length=128,blank=True)
      image=models.ImageField(upload_to='uploads/bdd/',default="",blank=True)
      
-
+    
      def __str__(self):
       return f"{self.serial_number} - {self.pm_status} - {self.location_for_warehouse}"
      
