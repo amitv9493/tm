@@ -34,16 +34,58 @@ class ExportCsvMixin:
 class PartAdmin(admin.ModelAdmin,ExportCsvMixin):
     list_filter=['part_name']
     list_display = ('part_name', 'name_of_abbreviation', 'serial_number', 'asset_number', 'pm_status'
-    , 'location_for_storage', 'packaging','notes','upload_file','weight','price','dimension',)
+    , 'location_for_storage','location_for_warehouse', 'packaging','notes','upload_file','weight','price',)
     search_fields = ['part_name']
    
     actions = ["export_as_csv"]
     # radio_fields={'pm_status':admin.HORIZONTAL} 
     
+    radio_fields={
+        'pm_status':admin.HORIZONTAL,
+        "dimension_unit": admin.HORIZONTAL,
+        "weight_unit": admin.HORIZONTAL,
+        } 
+    
+    fieldsets = (
+        ('General Info', {
+            "fields": (
+            'part_name',
+            'name_of_abbreviation',
+            'serial_number',
+            'asset_number',
+            'pm_status',
+            'location_for_warehouse',
+            'location_for_storage',
+            'packaging',
+            'notes',
+            'upload_file',
+            'price',
+            ),
+        }),
+        ('weight', {
+            'fields': (
+                'weight_unit',
+                'weight',
+            )
+        }),
+        ('Dimensions', {
+            'fields': (
+                'dimension_unit',
+                'length',
+                'breadth',
+                'height',
+            )
+        }),
+    )
+    
 admin.site.register(Part,PartAdmin)
 
 @admin.register(Supply_orifice)
 class Supply_orificeAdmin(admin.ModelAdmin):
+    radio_fields={
+        "dimension_unit": admin.HORIZONTAL,
+        "weight_unit": admin.HORIZONTAL,
+        } 
 
     def Is_used(self, obj):
             try:
@@ -59,19 +101,17 @@ class Supply_orificeAdmin(admin.ModelAdmin):
     fieldsets = (
         ("General", {
             "fields": (
-                'serial_number',
-                'location_for_warehouse',
                 'part_name',
                 'name_of_abbreviation',
+                'serial_number',
                 'asset_number',
                 'pm_status',
+                'location_for_warehouse',
                 'location_for_storage',                
                 'packaging',
                 'notes',
                 'upload_file',
-                'weight',
                 'price',
-                'dimension', 
             ),
         }),
         ("Specific Info", {
@@ -81,13 +121,30 @@ class Supply_orificeAdmin(admin.ModelAdmin):
                 'orifice_in_each_set',
                 'storage_case',
             )
-        })
+        }),
+        ("Dimensions", {
+            "fields": (
+                'dimension_unit',
+                'length',
+                'breadth',
+                'height',
+            )
+        }),
+        ("Weight", {
+            "fields":(
+                "weight_unit",
+                "weight",
+            )
+        }),
     )
     
     
 @admin.register(BDD_tube_seal_rack)
 class BDD_tube_seal_rackAdmin(admin.ModelAdmin):
-
+    radio_fields={
+        "dimension_unit": admin.HORIZONTAL,
+        "weight_unit": admin.HORIZONTAL,
+        } 
     def Is_used(self, obj):
             try:
                 if obj.bdd:
@@ -102,19 +159,17 @@ class BDD_tube_seal_rackAdmin(admin.ModelAdmin):
     fieldsets = (
         ("General", {
             "fields": (
-                'serial_number',
-                'location_for_warehouse',
                 'part_name',
                 'name_of_abbreviation',
+                'serial_number',
                 'asset_number',
                 'pm_status',
+                'location_for_warehouse',
                 'location_for_storage',                
                 'packaging',
                 'notes',
                 'upload_file',
-                'weight',
                 'price',
-                'dimension', 
             ),
         }),
         ("Specific Info", {
@@ -122,14 +177,31 @@ class BDD_tube_seal_rackAdmin(admin.ModelAdmin):
                 'size',
                 'number_of_tubes',
             )
-        })
+        }),
+        ("Dimensions", {
+            "fields": (
+                'dimension_unit',
+                'length',
+                'breadth',
+                'height',
+            )
+        }),
+        ("Weight", {
+            "fields":(
+                "weight_unit",
+                "weight",
+            )
+        }),
     )
     
   
 
 @admin.register(Pressure_sensor)
 class Pressure_sensorAdmin(admin.ModelAdmin):
-
+    radio_fields={
+        "dimension_unit": admin.HORIZONTAL,
+        "weight_unit": admin.HORIZONTAL,
+        } 
     def Is_used(self, obj):
             try:
                 if obj.TTD:
@@ -153,19 +225,17 @@ class Pressure_sensorAdmin(admin.ModelAdmin):
     fieldsets = (
         ("General", {
             "fields": (
-                'serial_number',
-                'location_for_warehouse',
                 'part_name',
                 'name_of_abbreviation',
+                'serial_number',
                 'asset_number',
                 'pm_status',
+                'location_for_warehouse',
                 'location_for_storage',                
                 'packaging',
                 'notes',
                 'upload_file',
-                'weight',
                 'price',
-                'dimension', 
             ),
         }),
         ("Specific Info", {
@@ -173,13 +243,30 @@ class Pressure_sensorAdmin(admin.ModelAdmin):
                 'range',
                 'quantity',
             )
-        })
+        }),
+        ("Dimensions", {
+            "fields": (
+                'dimension_unit',
+                'length',
+                'breadth',
+                'height',
+            )
+        }),
+        ("Weight", {
+            "fields":(
+                "weight_unit",
+                "weight",
+            )
+        }),
     )
     
   
 @admin.register(TTD_tube_seal_rack)
 class TTD_tube_seal_rackAdmin(admin.ModelAdmin):
-
+    radio_fields={
+        "dimension_unit": admin.HORIZONTAL,
+        "weight_unit": admin.HORIZONTAL,
+        } 
     def Is_used(self, obj):
             try:
                 if obj.TTD:
@@ -204,19 +291,17 @@ class TTD_tube_seal_rackAdmin(admin.ModelAdmin):
     fieldsets = (
         ("General", {
             "fields": (
-                'serial_number',
-                'location_for_warehouse',
                 'part_name',
                 'name_of_abbreviation',
+                'serial_number',
                 'asset_number',
                 'pm_status',
+                'location_for_warehouse',
                 'location_for_storage',                
                 'packaging',
                 'notes',
                 'upload_file',
-                'weight',
                 'price',
-                'dimension', 
             ),
         }),
         ("Specific Info", {
@@ -226,7 +311,21 @@ class TTD_tube_seal_rackAdmin(admin.ModelAdmin):
                 'tube_seal_rack',
                 
             )
-        })
+        }),
+        ("Dimensions", {
+            "fields": (
+                'dimension_unit',
+                'length',
+                'breadth',
+                'height',
+            )
+        }),
+        ("Weight", {
+            "fields":(
+                "weight_unit",
+                "weight",
+            )
+        }),
     )
     
   
@@ -234,7 +333,10 @@ class TTD_tube_seal_rackAdmin(admin.ModelAdmin):
 
 @admin.register(Calibration_orifice)
 class Calibration_orificeAdmin(admin.ModelAdmin):
-
+    radio_fields={
+        "dimension_unit": admin.HORIZONTAL,
+        "weight_unit": admin.HORIZONTAL,
+        } 
     def Is_used(self,obj):
          try:
             if obj.TTD:
@@ -277,19 +379,17 @@ class Calibration_orificeAdmin(admin.ModelAdmin):
     fieldsets = (
         ("General", {
             "fields": (
-                'serial_number',
-                'location_for_warehouse',
                 'part_name',
                 'name_of_abbreviation',
+                'serial_number',
                 'asset_number',
                 'pm_status',
+                'location_for_warehouse',
                 'location_for_storage',                
                 'packaging',
                 'notes',
                 'upload_file',
-                'weight',
                 'price',
-                'dimension', 
             ),
         }),
         ("Specific Info", {
@@ -299,7 +399,21 @@ class Calibration_orificeAdmin(admin.ModelAdmin):
                 'in_sets',
                 
             )
-        })
+        }),
+        ("Dimensions", {
+            "fields": (
+                'dimension_unit',
+                'length',
+                'breadth',
+                'height',
+            )
+        }),
+        ("Weight", {
+            "fields":(
+                "weight_unit",
+                "weight",
+            )
+        }),
     )
     
   
@@ -308,6 +422,10 @@ from .models import *
 
 @admin.register(SwabMasterTSR)
 class SwabMaster_TSRadmin(admin.ModelAdmin):
+    radio_fields={
+        "dimension_unit": admin.HORIZONTAL,
+        "weight_unit": admin.HORIZONTAL,
+        } 
     list_display = ['serial_number','size','qty_rack','tube_seal_rack','location_for_warehouse']
     search_fields=['serial_number']
     list_filter = ['serial_number', 'size']
@@ -316,19 +434,17 @@ class SwabMaster_TSRadmin(admin.ModelAdmin):
     fieldsets = (
         ("General", {
             "fields": (
-                'serial_number',
-                'location_for_warehouse',
                 'part_name',
                 'name_of_abbreviation',
+                'serial_number',
                 'asset_number',
                 'pm_status',
+                'location_for_warehouse',
                 'location_for_storage',                
                 'packaging',
                 'notes',
                 'upload_file',
-                'weight',
                 'price',
-                'dimension', 
             ),
         }),
         ("Specific Info", {
@@ -338,13 +454,31 @@ class SwabMaster_TSRadmin(admin.ModelAdmin):
                 'tube_seal_rack',
                 
             )
-        })
+        }),
+        ("Dimensions", {
+            "fields": (
+                'dimension_unit',
+                'length',
+                'breadth',
+                'height',
+            )
+        }),
+        ("Weight", {
+            "fields":(
+                "weight_unit",
+                "weight",
+            )
+        }),
     )
     
   
   
 @admin.register(DeviceHose)
 class DeviceHoseAdmin(admin.ModelAdmin):
+    radio_fields={
+        "dimension_unit": admin.HORIZONTAL,
+        "weight_unit": admin.HORIZONTAL,
+        } 
     # list_filter= ['serial_number','colour_code','warehouse']
     # search_fields=['serial_number','colour_code','warehouse']
     # list_display= ['serial_number','length','colour_code','warehouse']
@@ -352,27 +486,38 @@ class DeviceHoseAdmin(admin.ModelAdmin):
     fieldsets = (
         ("General", {
             "fields": (
-                    "warehouse",
-                    "serial_number",
                     "part_name",
                     "name_of_abbreviation",
+                    "serial_number",
                     "asset_number",
                     "pm_status",
+                    "warehouse",
                     "location_for_storage",
                     "packaging",
                     "notes",
                     "upload_file",
-                    "weight",
                     "price",
-                    "dimension",
                 
             ),
         }),
         ( "Specific Info", {
             'fields': (
-                'length',
                 'colour_code',
                 
+            )
+        }),
+        ("Dimensions", {
+            "fields": (
+                'dimension_unit',
+                'length',
+                'breadth',
+                'height',
+            )
+        }),
+        ("Weight", {
+            "fields":(
+                "weight_unit",
+                "weight",
             )
         }),
 
@@ -381,38 +526,52 @@ class DeviceHoseAdmin(admin.ModelAdmin):
 
 @admin.register(AirHose)
 class AirHosesAdmin(admin.ModelAdmin):
+    radio_fields={
+        "dimension_unit": admin.HORIZONTAL,
+        "weight_unit": admin.HORIZONTAL,
+        } 
+    
     fieldsets = (
-        
-        (
-            "General",
-            {
-                "fields": (
-                    "warehouse",
-                    "serial_number",
-                    "part_name",
-                    "name_of_abbreviation",
-                    "asset_number",
-                    "pm_status",
-                    "location_for_storage",
-                    "packaging",
-                    "notes",
-                    "upload_file",
-                    "weight",
-                    "price",
-                    "dimension",
-                ),
-            },
-        ),
+        ('General', {
+            "fields": (
+                "part_name",
+                "name_of_abbreviation",
+                "serial_number",
+                "asset_number",
+                "pm_status",
+                "warehouse",
+                "location_for_storage",
+                "packaging",
+                "notes",
+                "upload_file",
+                "price",
+                
+            ),
+        }),
         (
             "Specific Info",
             {
                 "fields": (
-                    "length",
                     "colour_code",
                 ),
             },
         ),
+        ("Dimensions", {
+            "fields": (
+                'dimension_unit',
+                'length',
+                'breadth',
+                'height',
+            )
+        }),
+            ("Weight", {
+            "fields":(
+                "weight_unit",
+                "weight",
+            )
+        }),
     )
+    
 
     list_filter = ["serial_number", "colour_code", "warehouse"]
     search_fields = [
