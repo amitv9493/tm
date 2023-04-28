@@ -88,8 +88,15 @@ class BDDTubeSealRackViewPart(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
 
     serializer_class = BDDTubeSealRackSerializer
-    queryset = BDD_tube_seal_rack.objects.all()
-
+    # queryset = BDD_tube_seal_rack.objects.all()
+    
+    # serializer_class = TTDTubeSealRackSerializer
+    def get_queryset(self):
+        so = set()
+        for ttd in BDD.objects.all():
+            so.add(ttd.BDD_tube_seal_rack.id)
+        so_qs = BDD_tube_seal_rack.objects.exclude(id__in = so)
+        return so_qs
 
 ################################################################################
 #                SwabMaster View
@@ -127,3 +134,6 @@ class AirHoseViewPart(generics.ListAPIView):
 ################################################################################
 #                AirHose View
 ################################################################################
+
+
+# class 

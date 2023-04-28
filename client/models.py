@@ -9,50 +9,6 @@ from smart_selects.db_fields import ChainedManyToManyField
 from smart_selects.db_fields import GroupedForeignKey
 from django_countries.fields import CountryField
 
-class Client(models.Model):
-   
-    official_name=models.CharField(max_length=128,verbose_name="Client Name", blank=True)
-    comman_name=models.CharField(max_length=128,blank=True,verbose_name="Comman Name")
-    alternate_name=models.CharField(max_length=128,blank=True,verbose_name="Alternate Name")
-   
-    parent_company=models.CharField(max_length=128,blank=True,verbose_name="Parent Company")
-    former_name=models.CharField(max_length=128,blank=True,verbose_name="Former Name") 
-    official_address = models.ManyToManyField("Address",related_name="official_address",verbose_name="Official Adrress", blank=True)
-    shipping_address =models.ManyToManyField("Address",related_name="shipping_address",verbose_name="Shipping Address", blank=True)
-    plantentrance_address =models.ManyToManyField("Address",related_name="plantentrance_address",verbose_name="Plant Entrance Address", blank=True)
-    contact_person=models.CharField(max_length=128,blank=True,verbose_name="Contact Person")
-    contact_person_phone=PhoneNumberField(max_length=128,blank=True,verbose_name="Contact Person Phone")
-    contact_person_email=models.EmailField(max_length=128,blank=True,verbose_name="Contact Person Email")
-    # plant=models.ManyToManyField("Plant",related_name="client Plant+") 
-    country = CountryField(null=True, blank=True, default = "")
-    def Official_Address(self):
-        return ",".join([str(i) for i in self.official_address.all()])
-        
-    def Shipping_Address(self):
-        return ",".join([str(i) for i in self.shipping_address.all()])
-        
-    def Plantentrance_address(self):
-        return ",".join([str(i) for i in self.plantentrance_address.all()])
-        
-    
-    def __str__(self):
-       return self.official_name
-
-# class Contact(models.Model):
-#    client= models.ForeignKey(Client,on_delete=models.SET_NULL,null=True,related_name="Client Contact+")
-#    first_name=models.CharField(max_length=128,blank=True)
-#    last_name=models.CharField(max_length=128,blank=True)
-#    title=models.CharField(max_length=128,blank=True)
-#    company=models.CharField(max_length=128,blank=True)
-#    phone_office=PhoneNumberField(max_length=128,blank=True)
-#    phone_cell=PhoneNumberField(max_length=128,blank=True)
-#    phone_direct=PhoneNumberField(max_length=128,blank=True)
-#    fax= PhoneNumberField(max_length=128,blank=True)
-#    email=models.CharField(max_length=128,blank=True)
-#    def __str__(self):
-#       return self.first_name
-   
-   
 class Address(models.Model):
     # client= models.ForeignKey(Client,on_delete=models.SET_NULL,null=True,related_name="Client Address+")
     addressline1=models.CharField(max_length=128,blank=True)
@@ -71,16 +27,46 @@ CHOICES_TOP_DOME_REMOVABLE = (
     (True, ('yes')),
     (False, ('No'))
 )
+class Client(models.Model):
+   
+    official_name=models.CharField(max_length=128,verbose_name="Client Name", blank=True)
+    comman_name=models.CharField(max_length=128,blank=True,verbose_name="Comman Name")
+    parent_company=models.CharField(max_length=128,blank=True,verbose_name="Parent Company")
+    former_name=models.CharField(max_length=128,blank=True,verbose_name="Former Name") 
+
+    
+    def __str__(self):
+       return self.official_name
+
 
 class Plant(models.Model):
 
-   client= models.ForeignKey(Client,on_delete=models.SET_NULL,null=True,related_name="clientplant+", blank=True)
-   plant_location=models.CharField(max_length=128,blank=True,verbose_name="Plant Location")
-   plant_contact=PhoneNumberField(max_length=128,blank=True,verbose_name="Plant Contact")
-#   name_of_unit=models.ManyToManyField("Unit",related_name="plant Unit+") 
- 
-   def __str__(self):
-       return self.plant_location
+    client= models.ForeignKey(Client,on_delete=models.SET_NULL,null=True,related_name="clientplant+", blank=True)
+    plant_name=models.CharField(max_length=128,blank=True,verbose_name="Plant Name")
+    plant_common_name=models.CharField(max_length=128,blank=True,verbose_name="Plant Common Name")
+    
+    # Adress 
+    official_address = models.ManyToManyField("Address",related_name="official_address",verbose_name="Official Adrress", blank=True)
+    shipping_address =models.ManyToManyField("Address",related_name="shipping_address",verbose_name="Shipping Address", blank=True)
+    plantentrance_address =models.ManyToManyField("Address",related_name="plantentrance_address",verbose_name="Plant Entrance Address", blank=True)
+
+    # Contact 
+    contact_person=models.CharField(max_length=128,blank=True,verbose_name="Contact Person")
+    contact_person_phone=PhoneNumberField(max_length=128,blank=True,verbose_name="Contact Person Phone")
+    contact_person_email=models.EmailField(max_length=128,blank=True,verbose_name="Contact Person Email")
+    country = CountryField(null=True, blank=True, default = "")
+
+    def Official_Address(self):
+        return ",".join([str(i) for i in self.official_address.all()])
+        
+    def Shipping_Address(self):
+        return ",".join([str(i) for i in self.shipping_address.all()])
+        
+    def Plantentrance_address(self):
+        return ",".join([str(i) for i in self.plantentrance_address.all()])
+        
+    def __str__(self):
+       return self.plant_name
        
 
 
