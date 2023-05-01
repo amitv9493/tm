@@ -3,16 +3,13 @@ from django.contrib import admin
 from django.urls import path
 from tube import views
 from django.conf import settings
-from django.urls import path, include, reverse
+from django.urls import path, include
 from django.conf.urls.static import static
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from tube.views import WarehouseSerialzer, index, HttpResponseRedirect
+from tube.views import WarehouseSerialzer
 from django.contrib.auth import views as auth_views
-from django.urls import re_path as url
 from django.conf.urls.i18n import i18n_patterns
 from client.views import (
     ReactorAutocomplete,
-    notification,
     UnitAutocomplete,
     PlantAutocomplete,
 )

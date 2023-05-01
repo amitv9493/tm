@@ -1697,5 +1697,5 @@ from .serializers import WarehouseSerializer
 
 
 class WarehouseSerialzer(generics.ListCreateAPIView):
-    queryset = warehouse.objects.all()
+    queryset = Warehouse.objects.all()
     serializer_class = WarehouseSerializer
