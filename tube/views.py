@@ -1693,8 +1693,11 @@ def address(request):
 
 from rest_framework import generics, status
 from .models import Warehouse
+from django.http import Http404
 from .serializers import WarehouseSerializer
-from rest_framework.exceptions import NotFound
+from django.core.exceptions import ObjectDoesNotExist
+
+from rest_framework.response import Response
 
 
 class WarehouseView(generics.ListCreateAPIView):
@@ -1707,7 +1710,10 @@ class WarehouseIDView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = WarehouseSerializer
 
     def handle_exception(self, exc):
-        if isinstance(exc, NotFound):
-            response_data = {"detail": "Sorry, the requested item was not found."}
-            return self.exception_response(response_data, status.HTTP_404_NOT_FOUND)
+        if isinstance(exc, Http404):
+            if "No Warehouse matches the given query." in exc.args:
+                message = "The requested resource was not found."
+                return Response({"message": message}, status=204)
+
+        # For all other exceptions, use the default DRF exception handler
         return super().handle_exception(exc)
