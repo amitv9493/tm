@@ -33,7 +33,7 @@ class LoginSerializer(serializers.ModelSerializer):
 class ClientSerializer(CountryFieldMixin, serializers.ModelSerializer):
     class Meta:
         model = Client
-        fields = ["id", "official_name", "country"]
+        # fields = ["id", "official_name", "country"]
         fields = "__all__"
 
 
