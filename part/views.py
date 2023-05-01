@@ -88,7 +88,13 @@ class BDDTubeSealRackViewPart(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
 
     serializer_class = BDDTubeSealRackSerializer
-    queryset = BDD_tube_seal_rack.objects.all()
+    def get_queryset(self):
+        so = set()
+        for bdd in BDD.objects.all():
+            if bdd.BDD_tube_seal_rack:
+                so.add(bdd.BDD_tube_seal_rack.id)
+        so_qs = BDD_tube_seal_rack.objects.exclude(id__in = so)
+        return so_qs
 
 
 ################################################################################
@@ -100,7 +106,14 @@ class SwabMasterTSRViewPart(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
 
     serializer_class = SwabMasterTSRSerializer
-    queryset = SwabMasterTSR.objects.all()
+    # queryset = SwabMasterTSR.objects.all()
+    def get_queryset(self):
+        so = set()
+        for swab in SwabMaster.objects.all():
+            # if swab.Swab_Master_Tube_Seal_Rack:
+                so.add(swab.Swab_Master_Tube_Seal_Rack.id)
+        so_qs = SwabMasterTSR.objects.exclude(id__in = so)
+        return so_qs
 
 ################################################################################
 #                DeviceHose View
