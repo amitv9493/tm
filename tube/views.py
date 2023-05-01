@@ -1691,11 +1691,23 @@ def address(request):
 
 #     return render(request, template_name, {'object':post})
 
-from rest_framework import generics
+from rest_framework import generics, status
 from .models import Warehouse
 from .serializers import WarehouseSerializer
+from rest_framework.exceptions import NotFound
 
 
-class WarehouseSerialzer(generics.ListCreateAPIView):
+class WarehouseView(generics.ListCreateAPIView):
     queryset = Warehouse.objects.all()
     serializer_class = WarehouseSerializer
+
+
+class WarehouseIDView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Warehouse.objects.all()
+    serializer_class = WarehouseSerializer
+
+    def handle_exception(self, exc):
+        if isinstance(exc, NotFound):
+            response_data = {"detail": "Sorry, the requested item was not found."}
+            return self.exception_response(response_data, status.HTTP_404_NOT_FOUND)
+        return super().handle_exception(exc)
