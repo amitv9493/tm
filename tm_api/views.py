@@ -121,9 +121,6 @@ class UnitListView(ListAPIView):
         start_date = self.request.query_params.get("start_date")
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
-        print(start_date)
-        print(end_date)
-        print(pro_id)
         if start_date and end_date:
             qs = Project.objects.filter(
                 equipment_prep__gte=start_date,
@@ -138,7 +135,7 @@ class UnitListView(ListAPIView):
                 unit.add(i.id)
         unit = list(unit)
         unit_qs = Unit.objects.exclude(id__in=unit)
-        return qs
+        return unit_qs
 
 
 ###################################################################################
