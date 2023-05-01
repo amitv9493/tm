@@ -5,50 +5,10 @@ from tube.models import Warehouse
 # from tube.models import Email
 from import_export.admin import ImportExportModelAdmin
 
-# from tube.models import Comments
-# Register your models here.
-
-
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.functions import TruncDay
 from django.db.models import Count
-
-
-# @admin.register(Loading)
-# class LoadingAdmin(admin.ModelAdmin):
-
-
-#     list_display=['catalyst_to_be_loaded',
-#                  'layers_of_catalyst',
-#                  'layers_of_inerts',
-#                  'loaded_tube_length_in',
-#                  'loaded_tube_length_mm',
-#                  'tube_bottom_retainer',
-#                  'top_spring',
-#                  'spring_height',
-#                  'spring_drawing',
-#                  ]
-#     list_filter=['catalyst_to_be_loaded']
-
-#     search_fields = [
-#         'catalyst_to_be_loaded',
-
-#     ]
-
-
-# @admin.register(Catalyst)
-# class CatalystAdmin(admin.ModelAdmin):
-#     list_filter=['manufacturer',]
-#     list_display = [
-#         'catalyst_name',
-#         'manufacturer',
-
-#     ]
-#     search_fields = [
-#         'catalyst_name',
-#         'manufacturer',
-#     ]
 
 
 class WarehouseAdmin(ImportExportModelAdmin):
