@@ -234,7 +234,11 @@ urlpatterns = [
 
     path("api/eq/ttdretupddel/<int:pk>/", TTDRetUpdDelView.as_view(), name='ttdretupddelview'),
 
-    path("api/eq/bddlistview/", BDDListView.as_view(), name='bddlistview'),
+    path("api/eq/bddlist/", BDDListView.as_view(), name='bddlistview'), 
+
+    path("api/eq/bddcreate/", BDDCreateView.as_view(), name='bddcreateview'),
+
+    path("api/eq/bddretupddel/<int:pk>/", BDDRetUpdDelView.as_view(), name='bddretupddelview'),
 
     
 ] 

@@ -55,6 +55,29 @@ class BDDListView(generics.ListAPIView):
     queryset = BDD.objects.all()
     serializer_class = BDDSerializer
 
-    
+
+###################################################################
+#              BDD Create-View
+###################################################################
+
+class BDDCreateView(generics.CreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = BDD.objects.all()
+    serializer_class = BDDSerializer
+
+
+###################################################################
+#              BDD RetUpdDel-View
+###################################################################
+
+class BDDRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = BDD.objects.all()
+    serializer_class = BDDListView
+
 
     
