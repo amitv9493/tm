@@ -14,3 +14,12 @@ class TTDSerializers(serializers.ModelSerializer):
         # depth = 1
 
 
+##################################################################
+#       BDD Serializer
+##################################################################
+
+class BDDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TTD
+        fields = "__all__"
+        

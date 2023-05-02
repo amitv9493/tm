@@ -233,6 +233,11 @@ urlpatterns = [
     path("api/eq/createttd", TTDCreateView.as_view(), name='ttdcreateview'),
 
     path("api/eq/ttdretupddel/<int:pk>/", TTDRetUpdDelView.as_view(), name='ttdretupddelview'),
+<<<<<<< HEAD
+=======
+
+    path("api/eq/ttdretupddel/<int:pk>/", TTDRetUpdDelView.as_view(), name='ttdretupddelview'),
+>>>>>>> dev-supply_orifice
     
 ] 
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))

@@ -45,9 +45,8 @@ class ClientSerializer(CountryFieldMixin, serializers.ModelSerializer):
 class UnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Unit
-        fields = ("id", "name_of_unit")
-
-
+        fields = ['id','name_of_unit']
+        
 ################################################################################
 #            SOW API Serializer
 ################################################################################
@@ -57,8 +56,7 @@ from project.models import *
 class SOWSerializer(serializers.ModelSerializer):
     class Meta:
         model = Scope_of_work
-        fields = ("id", "name")
-
+        fields = ('id','name')
 
 ################################################################################
 #            TTD API Serializer
@@ -201,14 +199,14 @@ class CalibrationOrificeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Calibration_orifice
-        fields = (
+        fields = [
             "id",
             "serial_number",
             "size",
             "total_sets",
             "in_sets",
             "location_for_warehouse",
-        )
+        ]
 
 
 ################################################################################
@@ -219,14 +217,14 @@ class SwabMasterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SwabMasterTSR
-        fields = (
+        fields = [
             "id",
             "serial_number",
             "size",
             "qty_rack",
             "tube_seal_rack",
             "location_for_warehouse",
-        )
+        ]
 
 
 ################################################################################
