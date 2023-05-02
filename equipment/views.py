@@ -77,7 +77,7 @@ class BDDRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = BDD.objects.all()
-    serializer_class = BDDListView
+    serializer_class = BDDSerializer
 
 
     
