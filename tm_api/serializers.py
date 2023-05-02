@@ -45,7 +45,7 @@ class ClientSerializer(CountryFieldMixin,serializers.ModelSerializer):
 class UnitSerializer(serializers.ModelSerializer):
        class Meta:
         model = Unit
-        fields = ('id','name_of_unit')
+        fields = ['id','name_of_unit']
         
 ################################################################################
 #            SOW API Serializer
@@ -55,7 +55,7 @@ from project.models import *
 class SOWSerializer(serializers.ModelSerializer):
        class Meta:
         model = Scope_of_work
-        fields = ('id','name')
+        fields = ['id','name']
 
 ################################################################################
 #            TTD API Serializer
