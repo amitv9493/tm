@@ -228,13 +228,13 @@ urlpatterns = [
 #                     Equipment-API ENDPOINTS
 #######################################################################
 
-    path("api/eq/listttd", TTDListView.as_view(), name='ttdlistview'),
+    path("api/eq/listttd/", TTDListView.as_view(), name='ttdlistview'),
 
-    path("api/eq/createttd", TTDCreateView.as_view(), name='ttdcreateview'),
+    path("api/eq/createttd/", TTDCreateView.as_view(), name='ttdcreateview'),
 
     path("api/eq/ttdretupddel/<int:pk>/", TTDRetUpdDelView.as_view(), name='ttdretupddelview'),
 
-    path("api/eq/bddlistview/<int:pk>/", BDDListView.as_view(), name='bddlistview'),
+    path("api/eq/bddlistview/", BDDListView.as_view(), name='bddlistview'),
 
     
 ] 
