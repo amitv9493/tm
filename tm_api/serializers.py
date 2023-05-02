@@ -34,7 +34,12 @@ class ClientSerializer(CountryFieldMixin, serializers.ModelSerializer):
     class Meta:
         model = Client
         # fields = ["id", "official_name", "country"]
-        fields = "__all__"
+        # fields = "_all_"
+        fields = ['official_name']
+        read_only_fields = ['official_name']
+
+    def to_representation(self, instance):
+        return instance.official_name
 
 
 ################################################################################
@@ -45,7 +50,11 @@ class ClientSerializer(CountryFieldMixin, serializers.ModelSerializer):
 class UnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Unit
-        fields = ['id','name_of_unit']
+        fields = ['name_of_unit']
+        read_only_fields = ['name_of_unit']
+
+    def to_representation(self, instance):
+        return instance.name_of_unit
         
 ################################################################################
 #            SOW API Serializer
@@ -257,12 +266,14 @@ class AirHoseSerializer(serializers.ModelSerializer):
 
 class Add_Project_serializer(serializers.ModelSerializer):
     client = ClientSerializer()
+    unit = UnitSerializer()
 
     class Meta:
         model = Project
-        # fields = ('id','project_name','project_number','equipment_prep','client','ttd','unit','scope_of_work','bdd','calibration_stand','part','supply_orifice_part','reactor','pressure_sensor_part','calibration_orifice_part','swabmaster_part','device_part','airhose_part')
-        fields = "__all__"
-        depth = 1
+        fields = ('id','project_name','project_number','equipment_prep','client','ttd','unit','scope_of_work','bdd','calibration_stand','part','supply_orifice_part','reactor','pressure_sensor_part','calibration_orifice_part','swabmaster_part','device_part','airhose_part','project_start','project_end')
+        # fields = "_all_"
+        # fields = ("client", "unit")
+        # depth = 1
 
     # client = ClientSerializer()
     # unit = UnitSerializer()
