@@ -18,6 +18,7 @@ from rest_framework_simplejwt.views import TokenRefreshView
 from client.views import front
 from tm_api.views import *
 from part.views import *
+from equipment.views import *
 
 urlpatterns = [
     path("",front, name="front"),
@@ -196,7 +197,18 @@ urlpatterns = [
 
     path("api/get/airhosepart/", AirHoseViewPart.as_view(), name='airhosepart'),
  
+#######################################################################
+#                     Equipment-API ENDPOINTS
+#######################################################################
+
+    path("api/eq/listttd", TTDListView.as_view(), name='ttdlistview'),
+
+    path("api/eq/createttd", TTDCreateView.as_view(), name='ttdcreateview'),
+
+    path("api/eq/ttdretupddel/<int:pk>/", TTDRetUpdDelView.as_view(), name='ttdretupddelview'),
+
     
+
 ] 
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 if settings.DEBUG:
