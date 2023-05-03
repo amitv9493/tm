@@ -46,7 +46,7 @@ class TTDRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
 
 ##################################################################
-#       BDD List-View
+#               BDD List-View
 ##################################################################
 
 
@@ -63,7 +63,7 @@ class BDDListView(generics.ListAPIView):
 ###################################################################
 
 
-class BDDCreateView(generics.CreateAPIView):
+class BDDCreateView(generics.ListCreateAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
 
@@ -100,7 +100,7 @@ class CalibrationStandListView(generics.ListAPIView):
 #              CALIBRATION_STAND Create-View
 ###################################################################
 
-class CalibrationStandCreateView(generics.CreateAPIView):
+class CalibrationStandCreateView(generics.ListCreateAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
 
@@ -119,3 +119,15 @@ class CalibrationRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CALIBRATION_STAND.objects.all()
     serializer_class = CalibrationStandSerializer
     
+
+###################################################################
+#              SwabMaster List-View
+###################################################################
+
+class SwabMasterView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = SwabMaster.objects.all()
+    serializer_class = SwabMasterSerializer
+
