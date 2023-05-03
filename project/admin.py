@@ -10,7 +10,6 @@ from django.db.models.functions import TruncDay
 from project.models import Project
 from project.models import Scope_of_work, ProjectStatus
 from .forms import ProjectForm
-from equipment.models import TTD, BDD, CALIBRATION_STAND
 
 
 class ProjectStatusAdmin(admin.ModelAdmin):

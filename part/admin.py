@@ -1,6 +1,4 @@
 from django.contrib import admin
-from django.utils.safestring import mark_safe
-from django.utils.html import format_html
 from part.models import Part
 from part.models import Supply_orifice
 from part.models import Pressure_sensor
@@ -23,7 +21,7 @@ class ExportCsvMixin:
 
         writer.writerow(field_names)
         for obj in queryset:
-            row = writer.writerow([getattr(obj, field) for field in field_names])
+            writer.writerow([getattr(obj, field) for field in field_names])
 
         return response
 

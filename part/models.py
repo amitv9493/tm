@@ -1,6 +1,4 @@
 from django.db import models
-from sorl.thumbnail import get_thumbnail
-from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
 class Part(models.Model):
