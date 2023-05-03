@@ -124,10 +124,27 @@ class CalibrationRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 #              SwabMaster List-View
 ###################################################################
 
-class SwabMasterView(generics.ListAPIView):
+class SwabMasterListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
 
     queryset = SwabMaster.objects.all()
     serializer_class = SwabMasterSerializer
+
+###################################################################
+#              SwabMaster Create-View
+###################################################################
+
+class SwabMasterCreateView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = SwabMaster.objects.all()
+    serializer_class = SwabMasterSerializer
+
+###################################################################
+#              SwabMaster RetUpdDel-View
+###################################################################
+
+
 

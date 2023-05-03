@@ -257,7 +257,9 @@ urlpatterns = [
     path("api/eq/calibrationcreate/", CalibrationStandCreateView.as_view(), name="calibrationcreate"),
     path("api/eq/calibrationretupddel/<int:pk>/", CalibrationRetUpdDelView.as_view(), name="calibrationretupddel"),
 
-    path("api/eq/swabmasterlist/", SwabMasterView.as_view(), name = "swabmasterlist")
+    path("api/eq/swabmasterlist/", SwabMasterView.as_view(), name = "swabmasterlist"),
+    path("api/eq/swabmastercreate/", SwabMasterCreateView.as_view(), name = "swabmastercreate"),
+
 
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
