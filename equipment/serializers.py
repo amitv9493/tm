@@ -31,3 +31,14 @@ class CalibrationStandSerializer(serializers.ModelSerializer):
     class Meta:
         model = CALIBRATION_STAND
         fields = "__all__"
+
+##################################################################
+#       SwabMaster Serializer
+##################################################################
+
+class SwabMasterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SwabMaster
+        fields = "__all__"
+
+

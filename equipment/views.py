@@ -72,7 +72,7 @@ class BDDCreateView(generics.CreateAPIView):
 
 
 ###################################################################
-#              BDD RetUpdDel-View
+#              BDD RetUpdDel-RetUpdDelView
 ###################################################################
 
 
@@ -107,4 +107,15 @@ class CalibrationStandCreateView(generics.CreateAPIView):
     queryset = CALIBRATION_STAND.objects.all()
     serializer_class = CalibrationStandSerializer
 
+
+###################################################################
+#              CALIBRATION_STAND RetUpdDelView
+###################################################################
+
+class CalibrationRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = CALIBRATION_STAND.objects.all()
+    serializer_class = CalibrationStandSerializer
     
