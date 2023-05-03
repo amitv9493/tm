@@ -1,10 +1,4 @@
 from django.db import models
-from tube.models import Warehouse
-from part.models import Supply_orifice
-from part.models import Pressure_sensor
-from part.models import TTD_tube_seal_rack
-from part.models import BDD_tube_seal_rack
-from part.models import Calibration_orifice
 
 from django import forms
        

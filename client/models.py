@@ -1,11 +1,7 @@
 
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
-from django.contrib import admin
-from django.core.validators import DecimalValidator
 from django.core.validators import MaxLengthValidator
-from smart_selects.db_fields import ChainedForeignKey
-from smart_selects.db_fields import ChainedManyToManyField
 from smart_selects.db_fields import GroupedForeignKey
 from django_countries.fields import CountryField
 

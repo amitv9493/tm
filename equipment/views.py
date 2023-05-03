@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from .models import TTD, BDD
 from .serializers import TTDSerializers, BDDSerializer
 from rest_framework.generics import ListAPIView
@@ -24,6 +23,7 @@ class TTDListView(ListAPIView):
 #       TTD Create-View
 ##################################################################
 
+
 class TTDCreateView(generics.ListCreateAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
@@ -35,6 +35,7 @@ class TTDCreateView(generics.ListCreateAPIView):
 ##################################################################
 #       TTD RetrieveUpdateDelete-View
 ##################################################################
+
 
 class TTDRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
@@ -48,9 +49,10 @@ class TTDRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 #       BDD List-View
 ##################################################################
 
+
 class BDDListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
-    authentication_classes =[JWTAuthentication]
+    authentication_classes = [JWTAuthentication]
 
     queryset = BDD.objects.all()
     serializer_class = BDDSerializer
@@ -59,6 +61,7 @@ class BDDListView(generics.ListAPIView):
 ###################################################################
 #              BDD Create-View
 ###################################################################
+
 
 class BDDCreateView(generics.CreateAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
@@ -72,12 +75,10 @@ class BDDCreateView(generics.CreateAPIView):
 #              BDD RetUpdDel-View
 ###################################################################
 
+
 class BDDRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
 
     queryset = BDD.objects.all()
     serializer_class = BDDSerializer
-
-
-    

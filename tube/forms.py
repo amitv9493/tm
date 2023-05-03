@@ -2,7 +2,6 @@ from django import forms
 from tube.models import  User
 
 from tube.models import Client
-from tube.models import Login
 
 
 

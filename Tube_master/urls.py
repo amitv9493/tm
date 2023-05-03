@@ -5,7 +5,6 @@ from tube import views
 from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
-from tube.views import WarehouseView, WarehouseIDView
 from django.contrib.auth import views as auth_views
 from django.conf.urls.i18n import i18n_patterns
 from client.views import (
@@ -190,58 +189,76 @@ urlpatterns = [
     path("api/get/devicehose/", DeviceHoseView.as_view(), name="DeviceHoseView"),
     path("api/get/airhose/", AirHoseView.as_view(), name="AirHose"),
     # path('show/showrecord/<int:id>', views.showrecord, name='showrecord'),
-    
-    
-    
-#######################################################################
-#                     Create API ENDPOINTS
-#######################################################################
-    
-    path("api/listproject/", ProjectAllListView.as_view(), name='listviewproject'),
-    
-    path("api/createproject/", ProjectAllCreateView.as_view(), name='createviewproject'),
-    
-    path("api/alllist/project/<int:pk>/", AallList_Id_Project.as_view(), name='alllistproject'),
-    
-    path("api/get/project/<int:pk>/", getlList_Id_Project.as_view(), name='getproject'),
-    
-    path("api/alllist/patchproject/<int:pk>/", AallList_Id_Patch_Project.as_view(), name='alllistproject'),
-
-#######################################################################
-#                     Part API ENDPOINTS
-#######################################################################
-
-    path("api/get/supplyorificepart/", SupplyOrificeViewPart.as_view(), name='supplyorificepart'),
-
-    path("api/get/pressuresensorpart/", PressureSensorViewPart.as_view(), name='pressuresensorpart'),
-
-    path("api/get/ttdtubesealrackpart/", TTDTubeSealRackViewPart.as_view(), name='ttdtubesealrackpart'),
-
-    path("api/get/bddtubesealrackpart/", BDDTubeSealRackViewPart.as_view(), name='bddtubesealrackpart'),
-
-    path("api/get/swabmastertsrpart/", SwabMasterTSRViewPart.as_view(), name='swabmastertsrpart'),
-
-    path("api/get/devicehoserpart/", DeviceHoseRViewPart.as_view(), name='devicehoserpart'),
-
-    path("api/get/airhosepart/", AirHoseViewPart.as_view(), name='airhosepart'),
-#######################################################################
-#                     Equipment-API ENDPOINTS
-#######################################################################
-
-    path("api/eq/listttd/", TTDListView.as_view(), name='ttdlistview'),
-
-    path("api/eq/createttd/", TTDCreateView.as_view(), name='ttdcreateview'),
-
-    path("api/eq/ttdretupddel/<int:pk>/", TTDRetUpdDelView.as_view(), name='ttdretupddelview'),
-
-    path("api/eq/bddlist/", BDDListView.as_view(), name='bddlistview'), 
-
-    path("api/eq/bddcreate/", BDDCreateView.as_view(), name='bddcreateview'),
-
-    path("api/eq/bddretupddel/<int:pk>/", BDDRetUpdDelView.as_view(), name='bddretupddelview'),
-
-    
-] 
+    #######################################################################
+    #                     Create API ENDPOINTS
+    #######################################################################
+    path("api/listproject/", ProjectAllListView.as_view(), name="listviewproject"),
+    path(
+        "api/createproject/", ProjectAllCreateView.as_view(), name="createviewproject"
+    ),
+    path(
+        "api/alllist/project/<int:pk>/",
+        AallList_Id_Project.as_view(),
+        name="alllistproject",
+    ),
+    path("api/get/project/<int:pk>/", getlList_Id_Project.as_view(), name="getproject"),
+    path(
+        "api/alllist/patchproject/<int:pk>/",
+        AallList_Id_Patch_Project.as_view(),
+        name="alllistproject",
+    ),
+    #######################################################################
+    #                     Part API ENDPOINTS
+    #######################################################################
+    path(
+        "api/get/supplyorificepart/",
+        SupplyOrificeViewPart.as_view(),
+        name="supplyorificepart",
+    ),
+    path(
+        "api/get/pressuresensorpart/",
+        PressureSensorViewPart.as_view(),
+        name="pressuresensorpart",
+    ),
+    path(
+        "api/get/ttdtubesealrackpart/",
+        TTDTubeSealRackViewPart.as_view(),
+        name="ttdtubesealrackpart",
+    ),
+    path(
+        "api/get/bddtubesealrackpart/",
+        BDDTubeSealRackViewPart.as_view(),
+        name="bddtubesealrackpart",
+    ),
+    path(
+        "api/get/swabmastertsrpart/",
+        SwabMasterTSRViewPart.as_view(),
+        name="swabmastertsrpart",
+    ),
+    path(
+        "api/get/devicehoserpart/",
+        DeviceHoseRViewPart.as_view(),
+        name="devicehoserpart",
+    ),
+    path("api/get/airhosepart/", AirHoseViewPart.as_view(), name="airhosepart"),
+    #######################################################################
+    #                     Equipment-API ENDPOINTS
+    #######################################################################
+    path("api/eq/listttd/", TTDListView.as_view(), name="ttdlistview"),
+    path("api/eq/createttd/", TTDCreateView.as_view(), name="ttdcreateview"),
+    path(
+        "api/eq/ttdretupddel/<int:pk>/",
+        TTDRetUpdDelView.as_view(),
+        name="ttdretupddelview",
+    ),
+    path("api/eq/bddlist/", BDDListView.as_view(), name="bddlistview"),
+    path("api/eq/bddcreate/", BDDCreateView.as_view(), name="bddcreateview"),
+    path(
+        "api/eq/bddretupddel/<int:pk>/",
+        BDDRetUpdDelView.as_view(),
+        name="bddretupddelview",
+    ),
+]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

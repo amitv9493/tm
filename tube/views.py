@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 
 from django.http import HttpResponseRedirect
 
-from django.core.files.storage import FileSystemStorage
 
 from django.http import HttpResponse
 
@@ -25,18 +24,11 @@ from client.models import Client, Plant, Reactor, Address, Unit
 
 from django.contrib.auth import authenticate, login
 
-from django.template.loader import get_template
 
 from django.http import HttpResponse, HttpResponseRedirect
 
-from django.template import loader
 
-from django.urls import reverse
 
-from django.shortcuts import get_object_or_404
-from django.db.models.query import QuerySet
-from django.db.models import Q
-from django.contrib import messages  # import messages
 from django.contrib.auth import login as authlogin
 
 
@@ -1163,7 +1155,7 @@ def updateprojectrecord(request, id):
     equipment_prep = request.GET["equipment_prep"]
     equipment_ready = request.GET["equipment_ready"]
     equipment_ship_client = request.GET["equipment_ship_client"]
-    equipment_delivery_client = request.GET["equipment_delivery_client"]
+    request.GET["equipment_delivery_client"]
     project_start = request.GET["project_start"]
     project_end = request.GET["project_end"]
     equipment_return_tubemaster = request.GET["equipment_return_tubemaster"]
@@ -1295,7 +1287,7 @@ def updatereactorrecord(request, id):
         "tube_protude_out_of_top_tube_sheet"
     ]
     inch7 = request.POST["inch7"]
-    mm7 = request.POST["mm7"]
+    request.POST["mm7"]
     tube_protude_out_of_bottom_tube_sheet = request.POST[
         "tube_protude_out_of_bottom_tube_sheet"
     ]
@@ -1691,11 +1683,10 @@ def address(request):
 
 #     return render(request, template_name, {'object':post})
 
-from rest_framework import generics, status
+from rest_framework import generics
 from .models import Warehouse
 from django.http import Http404
 from .serializers import WarehouseSerializer
-from django.core.exceptions import ObjectDoesNotExist
 
 from rest_framework.response import Response
 

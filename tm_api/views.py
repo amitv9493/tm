@@ -1,12 +1,7 @@
-from django.shortcuts import render
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
-from rest_framework import serializers
-from django.contrib.auth.models import User
 from rest_framework import status
-from rest_framework.validators import UniqueValidator
-from django.contrib.auth.password_validation import validate_password
-from .serializers import LoginSerializer, UserProfileSerializer
+from .serializers import LoginSerializer
 from django.contrib.auth.models import Group
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
@@ -14,12 +9,9 @@ from rest_framework import generics
 from rest_framework.generics import ListAPIView
 
 
-from rest_framework.viewsets import ModelViewSet
 
 # from .persmissions import Mypermission
 from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
-from rest_framework import authentication
-from django.db.models import Q
 from .serializers import *
 
 # from application.models import Application
@@ -30,13 +22,9 @@ from rest_framework import generics
 # from .renderers import UserRenderes
 # from .paginator import CustomPagination
 # from enquiry.models import Course
-from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.filters import SearchFilter
 
 from rest_framework.response import Response
-from rest_framework.renderers import JSONRenderer
 from rest_framework.views import APIView
-from rest_framework.filters import OrderingFilter
 from .paginator import CustomPagination
 from project.models import *
 from part.models import *
@@ -70,7 +58,7 @@ class LoginView(APIView):
             if user is not None:
                 try:
                     user_group = (Group.objects.get(user=user.id)).name
-                except Exception as e:
+                except Exception:
                     print("No group assigned to user")
                     user_group = "None"
 
@@ -554,7 +542,6 @@ class AirHoseView(ListAPIView):
 #                           All List View API Project
 ################################################################################
 
-from rest_framework import authentication
 from rest_framework import filters
 
 

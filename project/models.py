@@ -1,25 +1,9 @@
 from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
-from client.models import Client
-from client.models import Unit
-from equipment.models import TTD, BDD, CALIBRATION_STAND
 import datetime
-from part.models import Part
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from django.core.mail import send_mail
-from django.conf import settings
-from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
 from django.urls import reverse
 from comment.models import Comment
-from django.contrib.auth.models import User
 
-from django_currentuser.middleware import (
-    get_current_user,
-    get_current_authenticated_user,
-)
-from django_currentuser.db.models import CurrentUserField
 
 # import requests
 

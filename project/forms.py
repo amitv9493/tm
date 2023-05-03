@@ -1,12 +1,10 @@
 
 
-from itertools import chain
 from django import forms
 
 from equipment.models import BDD, CALIBRATION_STAND, TTD
 from .models import Project
 from dal import autocomplete
-from django.db.models import Q
 # class ProjectForm(forms.ModelForm):
 
 #     reactor = forms.ModelMultipleChoiceField(
