@@ -1,5 +1,5 @@
-from .models import TTD, BDD
-from .serializers import TTDSerializers, BDDSerializer
+from .models import *
+from .serializers import *
 from rest_framework.generics import ListAPIView
 from rest_framework import generics
 from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
@@ -82,3 +82,16 @@ class BDDRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = BDD.objects.all()
     serializer_class = BDDSerializer
+
+###################################################################
+#              CALIBRATION_STAND List-View
+###################################################################
+
+class CalibrationStandView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+
+    queryset = CALIBRATION_STAND.objects.all()
+    serializer_class = CalibrationStandSerializer
+

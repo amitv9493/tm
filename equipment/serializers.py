@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import TTD
+from .models import *
 
 
 ##################################################################
@@ -20,6 +20,15 @@ class TTDSerializers(serializers.ModelSerializer):
 
 class BDDSerializer(serializers.ModelSerializer):
     class Meta:
-        model = TTD
+        model = BDD
         fields = "__all__"
         
+##################################################################
+#       CALIBRATION_STAND Serializer
+##################################################################
+
+class CalibrationStandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CALIBRATION_STAND
+        fields = "__all__"
+

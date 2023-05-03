@@ -246,18 +246,14 @@ urlpatterns = [
     #######################################################################
     path("api/eq/listttd/", TTDListView.as_view(), name="ttdlistview"),
     path("api/eq/createttd/", TTDCreateView.as_view(), name="ttdcreateview"),
-    path(
-        "api/eq/ttdretupddel/<int:pk>/",
-        TTDRetUpdDelView.as_view(),
-        name="ttdretupddelview",
-    ),
+    path("api/eq/ttdretupddel/<int:pk>/",TTDRetUpdDelView.as_view(),name="ttdretupddelview",),
+
     path("api/eq/bddlist/", BDDListView.as_view(), name="bddlistview"),
     path("api/eq/bddcreate/", BDDCreateView.as_view(), name="bddcreateview"),
-    path(
-        "api/eq/bddretupddel/<int:pk>/",
-        BDDRetUpdDelView.as_view(),
-        name="bddretupddelview",
+    path("api/eq/bddretupddel/<int:pk>/",BDDRetUpdDelView.as_view(),name="bddretupddelview",
     ),
+
+    path("api/eq/calibrationlist/", CalibrationStandView.as_view(), name="calibrationlist"),
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 if settings.DEBUG:
