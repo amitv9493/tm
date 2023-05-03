@@ -5,7 +5,6 @@ from tube import views
 from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
-from tube.views import WarehouseView, WarehouseIDView
 from django.contrib.auth import views as auth_views
 from django.conf.urls.i18n import i18n_patterns
 from client.views import (

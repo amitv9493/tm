@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from .models import TTD, BDD
 from .serializers import TTDSerializers, BDDSerializer
 from rest_framework.generics import ListAPIView
