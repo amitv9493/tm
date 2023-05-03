@@ -31,4 +31,3 @@ class CalibrationStandSerializer(serializers.ModelSerializer):
     class Meta:
         model = CALIBRATION_STAND
         fields = "__all__"
-

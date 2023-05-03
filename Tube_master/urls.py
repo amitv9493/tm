@@ -253,7 +253,9 @@ urlpatterns = [
     path("api/eq/bddretupddel/<int:pk>/",BDDRetUpdDelView.as_view(),name="bddretupddelview",
     ),
 
-    path("api/eq/calibrationlist/", CalibrationStandView.as_view(), name="calibrationlist"),
+    path("api/eq/calibrationlist/", CalibrationStandListView.as_view(), name="calibrationlist"), 
+
+    path("api/eq/calibrationcreate/", CalibrationStandCreateView.as_view(), name="calibrationcreate"),
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 if settings.DEBUG:
