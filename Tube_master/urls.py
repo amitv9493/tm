@@ -20,6 +20,7 @@ from client.views import front
 from tm_api.views import *
 from part.views import *
 from equipment.views import *
+from client.views import *
 
 urlpatterns = [
     path("", front, name="front"),
@@ -259,9 +260,13 @@ urlpatterns = [
 
     path("api/eq/swabmasterlist/", SwabMasterView.as_view(), name = "swabmasterlist"),
     path("api/eq/swabmastercreate/", SwabMasterCreateView.as_view(), name = "swabmastercreate"),
-    path("api/eq/swabmasterretupddel/<int:pk>/", SwabMasterRetUpdDelView.as_view(), name = "swabmasterretupddel")
+    path("api/eq/swabmasterretupddel/<int:pk>/", SwabMasterRetUpdDelView.as_view(), name = "swabmasterretupddel"),
 
-    
+#######################################################################
+#                     Client-API ENDPOINTS
+#######################################################################
+
+    path("api/cl/clientlist/", ClientListView.as_view(), name = "clientlist"),
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 if settings.DEBUG:

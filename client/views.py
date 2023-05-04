@@ -99,9 +99,9 @@ def notification(request):
 #                   Client List-View
 ###############################################################
 
-class ClaintListView(generics.ListAPIView):
+class ClientListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
-    authentication_classes = JWTAuthentication
+    authentication_classes = [JWTAuthentication]
 
     queryset = Client.objects.all()
     serializer_class = ClientSerializers
