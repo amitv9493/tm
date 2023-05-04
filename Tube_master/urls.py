@@ -159,9 +159,9 @@ urlpatterns = [
     # path('inbox/',notification, name='unread-notifications'),
     # url(r'^chaining/', include('smart_selects.urls')),
     # path("select2/", include("django_select2.urls")),
-    #######################################################################
-    #                       API ENDPOINTS
-    #######################################################################
+#######################################################################
+#                       API ENDPOINTS
+#######################################################################
     path("api/user/login/", LoginView.as_view(), name="loginview"),
     path("api/get/clientlist/", ClientListView.as_view(), name="clientview"),
     path("api/get/unitlist/", UnitListView.as_view(), name="unitview"),
@@ -190,9 +190,9 @@ urlpatterns = [
     path("api/get/devicehose/", DeviceHoseView.as_view(), name="DeviceHoseView"),
     path("api/get/airhose/", AirHoseView.as_view(), name="AirHose"),
     # path('show/showrecord/<int:id>', views.showrecord, name='showrecord'),
-    #######################################################################
-    #                     Create API ENDPOINTS
-    #######################################################################
+#######################################################################
+#                     Create API ENDPOINTS
+#######################################################################
     path("api/listproject/", ProjectAllListView.as_view(), name="listviewproject"),
     path(
         "api/createproject/", ProjectAllCreateView.as_view(), name="createviewproject"
@@ -208,9 +208,9 @@ urlpatterns = [
         AallList_Id_Patch_Project.as_view(),
         name="alllistproject",
     ),
-    #######################################################################
-    #                     Part API ENDPOINTS
-    #######################################################################
+#######################################################################
+#                     Part API ENDPOINTS
+#######################################################################
     path(
         "api/get/supplyorificepart/",
         SupplyOrificeViewPart.as_view(),
@@ -242,9 +242,11 @@ urlpatterns = [
         name="devicehoserpart",
     ),
     path("api/get/airhosepart/", AirHoseViewPart.as_view(), name="airhosepart"),
-    #######################################################################
-    #                     Equipment-API ENDPOINTS
-    #######################################################################
+
+#######################################################################
+#                     Equipment-API ENDPOINTS
+#######################################################################
+
     path("api/eq/listttd/", TTDListView.as_view(), name="ttdlistview"),
     path("api/eq/createttd/", TTDCreateView.as_view(), name="ttdcreateview"),
     path("api/eq/ttdretupddel/<int:pk>/",TTDRetUpdDelView.as_view(),name="ttdretupddelview",),
@@ -267,8 +269,11 @@ urlpatterns = [
 #######################################################################
 
     path("api/cl/clientlist/", ClientListView.as_view(), name = "clientlist"),
+    path("api/cl/clientcreate/", ClientCreateView.as_view(), name = "clientcreate"),
+    path("api/cl/clientretupddel/<int:pk>/", ClientRetUpddel.as_view(), name="clientretupddel"),
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

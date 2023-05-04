@@ -105,3 +105,28 @@ class ClientListView(generics.ListAPIView):
 
     queryset = Client.objects.all()
     serializer_class = ClientSerializers
+
+###############################################################
+#                   Client Create-View
+###############################################################
+
+class ClientCreateView(generics.ListCreateAPIView):
+    serializer_class = ClientSerializers
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = Client.objects.all()
+    # serializers_class = ClientSerializers
+
+###############################################################
+#                   Client RetUpdDel-View
+###############################################################
+
+class ClientRetUpddel(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializers
+
+    
