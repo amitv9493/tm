@@ -271,6 +271,11 @@ urlpatterns = [
     path("api/cl/clientlist/", ClientListView.as_view(), name = "clientlist"),
     path("api/cl/clientcreate/", ClientCreateView.as_view(), name = "clientcreate"),
     path("api/cl/clientretupddel/<int:pk>/", ClientRetUpddel.as_view(), name="clientretupddel"),
+
+    path("api/cl/addresslist/", AddressListView.as_view(), name = "addresslist"),
+    path("api/cl/addresscreate/", AddressCreateView.as_view(), name = "addresscreate"),
+    path("api/cl/addressretupddel/<int:pk>/", AddressRetUpdDelView.as_view(), name = "addressretupddel"),
+
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 if settings.DEBUG:

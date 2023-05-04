@@ -129,4 +129,36 @@ class ClientRetUpddel(generics.RetrieveUpdateDestroyAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientSerializers
 
-    
+###############################################################
+#                   Address List-View
+###############################################################
+
+class AddressListView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializers
+
+###############################################################
+#                   Address Create-View
+###############################################################
+
+class AddressCreateView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializers
+
+###############################################################
+#                   Address RetUpdDel-View
+###############################################################
+
+class AddressRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializers
+
