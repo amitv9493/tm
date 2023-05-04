@@ -276,9 +276,9 @@ urlpatterns = [
     path("api/cl/addresscreate/", AddressCreateView.as_view(), name = "addresscreate"),
     path("api/cl/addressretupddel/<int:pk>/", AddressRetUpdDelView.as_view(), name = "addressretupddel"), 
 
-    path("api/cl/plantlistview/", PlantListView.as_view(), name = "plantlistview"),
+    path("api/cl/plantlist/", PlantListView.as_view(), name = "plantlistview"),
+    path("api/cl/plantcreate/", PlantCreateView.as_view(), name="plantcreate")
     
-
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 if settings.DEBUG:

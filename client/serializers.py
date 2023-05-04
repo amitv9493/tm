@@ -38,11 +38,40 @@ class ClientSerializer(serializers.ModelSerializer):
         fields = ("official_name",)
 
 class PlantSerializers(serializers.ModelSerializer):
-    client = ClientSerializer()
+    client = ClientSerializers()
     country = CountryField(default="")
+    official_address = AddressSerializers(many=True)
+    shipping_address = AddressSerializers(many=True)
+    plantentrance_address = AddressSerializers(many=True)
+
     class Meta:
         model = Plant
         fields = "__all__"
+
+    def create(self, validated_data):
+        client_data = validated_data.pop('client')
+        official_address_data = validated_data.pop('official_address')
+        shipping_address_data = validated_data.pop('shipping_address')
+        plantentrance_address_data = validated_data.pop('plantentrance_address')
+
+        client = Client.objects.create(**client_data)
+
+        plant = Plant.objects.create(client=client, **validated_data)
+
+        for address_data in official_address_data:
+            address = Address.objects.create(**address_data)
+            plant.official_address.add(address)
+
+        for address_data in shipping_address_data:
+            address = Address.objects.create(**address_data)
+            plant.shipping_address.add(address)
+
+        for address_data in plantentrance_address_data:
+            address = Address.objects.create(**address_data)
+            plant.plantentrance_address.add(address)
+
+        return plant
+
 
 
 

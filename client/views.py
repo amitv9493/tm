@@ -180,8 +180,23 @@ class PlantListView(generics.ListAPIView):
 ###############################################################
 
 class PlantCreateView(generics.ListCreateAPIView):
+    
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
 
     queryset = Plant.objects.all()
+    serializer_class = PlantSerializers
+###############################################################
+#                   plant RetUpdDel-View
+###############################################################
+
+class PlantRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = Plant.objects.all()
+    serializer_class = PlantSerializers
+
+    
+
 
