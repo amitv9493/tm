@@ -2,9 +2,13 @@ from dal import autocomplete
 from django.shortcuts import render
 # from notifications.models import Notification
 from django.db.models import Q
-
+from rest_framework import generics
 from .models import Reactor
 from client.models import Unit
+from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from .models import *
+from .serializers import *
 
 # class ReactorAutocomplete(autocomplete.Select2QuerySetView):
 #     def get_queryset(self):
@@ -90,3 +94,14 @@ def notification(request):
     qs1 = qs1.unread()
     return render(request, 'notification/notify.html', {'notifications':qs1})
 
+
+###############################################################
+#                   Client List-View
+###############################################################
+
+class ClaintListView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = JWTAuthentication
+
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializers

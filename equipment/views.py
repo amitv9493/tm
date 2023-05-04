@@ -146,5 +146,10 @@ class SwabMasterCreateView(generics.ListCreateAPIView):
 #              SwabMaster RetUpdDel-View
 ###################################################################
 
+class SwabMasterRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
 
+    queryset = SwabMaster.objects.all()
+    serializer_class = SwabMasterSerializer
 

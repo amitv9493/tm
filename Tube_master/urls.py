@@ -259,8 +259,9 @@ urlpatterns = [
 
     path("api/eq/swabmasterlist/", SwabMasterView.as_view(), name = "swabmasterlist"),
     path("api/eq/swabmastercreate/", SwabMasterCreateView.as_view(), name = "swabmastercreate"),
+    path("api/eq/swabmasterretupddel/<int:pk>/", SwabMasterRetUpdDelView.as_view(), name = "swabmasterretupddel")
 
-
+    
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 if settings.DEBUG:
