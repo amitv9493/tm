@@ -162,3 +162,26 @@ class AddressRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Address.objects.all()
     serializer_class = AddressSerializers
 
+
+###############################################################
+#                   plant List-View
+###############################################################
+
+class PlantListView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = Plant.objects.all()
+    serializer_class = PlantSerializers
+
+
+###############################################################
+#                   plant Create-View
+###############################################################
+
+class PlantCreateView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = Plant.objects.all()
+

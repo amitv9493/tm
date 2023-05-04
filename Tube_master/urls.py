@@ -274,7 +274,10 @@ urlpatterns = [
 
     path("api/cl/addresslist/", AddressListView.as_view(), name = "addresslist"),
     path("api/cl/addresscreate/", AddressCreateView.as_view(), name = "addresscreate"),
-    path("api/cl/addressretupddel/<int:pk>/", AddressRetUpdDelView.as_view(), name = "addressretupddel"),
+    path("api/cl/addressretupddel/<int:pk>/", AddressRetUpdDelView.as_view(), name = "addressretupddel"), 
+
+    path("api/cl/plantlistview/", PlantListView.as_view(), name = "plantlistview"),
+    
 
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
