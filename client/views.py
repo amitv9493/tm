@@ -210,5 +210,14 @@ class ReactorListView(generics.ListAPIView):
     queryset = Reactor.objects.all()
     serializer_class = ReactorSerializer
     
+################################################################
+#                   Reactor Create-View
+################################################################
 
+class ReactorCreateView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = Reactor.objects.all()
+    serializer_class = ReactorSerializer
 
