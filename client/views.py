@@ -199,7 +199,7 @@ class PlantRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PlantSerializersupdate
 
 ###############################################################
-#                   plant RetUpdDel-View
+#                   Reactor List-View
 ###############################################################
 
 
