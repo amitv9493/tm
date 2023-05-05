@@ -97,3 +97,13 @@ class ReactorSerializer(serializers.ModelSerializer):
         model = Reactor
         fields = "__all__"
 
+##################################################################
+#                Unit Serializers
+##################################################################
+
+class UnitSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Unit
+        fields = "__all__"
+
+

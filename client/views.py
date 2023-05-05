@@ -232,4 +232,18 @@ class ReactorRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Reactor.objects.all()
     serializer_class = ReactorSerializer
 
+################################################################
+#                   Unit List-View
+################################################################
+
+class UnitListView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = Unit.objects.all()
+    serializer_class = UnitSerializers
+
+
+
+
 
