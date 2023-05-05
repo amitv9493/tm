@@ -72,6 +72,28 @@ class PlantSerializers(serializers.ModelSerializer):
 
         return plant
 
+###############################################################
+#          PlantUpdate-Serializers
+###############################################################
 
+class PlantSerializersupdate(serializers.ModelSerializer):
+    country = CountryField(default="")
+    # client = ClientSerializers(read_only=True)
+    # country = CountryField(default="", read_only=True)
+    # official_address = AddressSerializers(many=True, read_only=True)
+    # shipping_address = AddressSerializers(many=True, read_only=True)
+    # plantentrance_address = AddressSerializers(many=True, read_only=True)
 
+    class Meta:
+        model = Plant
+        fields = "__all__"
 
+##################################################################
+#                Reactor Serializers
+##################################################################
+        
+class ReactorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reactor
+        firlds = "__all__"
+        

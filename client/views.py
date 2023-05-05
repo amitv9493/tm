@@ -186,6 +186,7 @@ class PlantCreateView(generics.ListCreateAPIView):
 
     queryset = Plant.objects.all()
     serializer_class = PlantSerializers
+
 ###############################################################
 #                   plant RetUpdDel-View
 ###############################################################
@@ -195,7 +196,13 @@ class PlantRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = Plant.objects.all()
-    serializer_class = PlantSerializers
+    serializer_class = PlantSerializersupdate
+
+###############################################################
+#                   plant RetUpdDel-View
+###############################################################
+
+
 
     
 
