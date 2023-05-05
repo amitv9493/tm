@@ -203,7 +203,12 @@ class PlantRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 ###############################################################
 
 
+class ReactorListView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
 
+    queryset = Reactor.objects.all()
+    serializer_class = ReactorSerializer
     
 
 

@@ -95,5 +95,5 @@ class PlantSerializersupdate(serializers.ModelSerializer):
 class ReactorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reactor
-        firlds = "__all__"
-        
+        fields = "__all__"
+
