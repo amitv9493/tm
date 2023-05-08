@@ -285,7 +285,8 @@ urlpatterns = [
     path("api/cl/reactorretupddel/<int:pk>/", ReactorRetUpdDelView.as_view(), name="reactorretupddel"),
 
     path("api/cl/unitlist/", UnitListView.as_view(), name="unitlist"),
-    
+    path("api/cl/unitcreate/", UnitCreateView.as_view(), name="unitcreate"),
+
     # path("")
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
