@@ -47,14 +47,18 @@ class SwabMasterSerializer(serializers.ModelSerializer):
 ##################################################################
 
 
-from django_countries.serializer_fields import CountryField
+from rest_framework import serializers
+from django_countries import countries
 
-class CountrySerializerField(serializers.Field):
+class CustomCountryField(serializers.Field):
     def to_representation(self, value):
-        return value.code
+        return str(value)
+
+    def to_internal_value(self, data):
+        return data
 
 class WarehouseSerializer(serializers.ModelSerializer):
-    country = CountrySerializerField()
+    country = CustomCountryField()
 
     class Meta:
         model = Warehouse
