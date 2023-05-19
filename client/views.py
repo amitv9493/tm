@@ -238,7 +238,7 @@ class ReactorRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 ################################################################
     
 class UnitListView(generics.ListAPIView):
-    pagination_class = CustomPagination
+   
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
 

@@ -5,6 +5,7 @@ from rest_framework import generics
 from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from tube.models import Warehouse
+from tm_api.paginator import CustomPagination
 
 ##################################################################
 #       TTD List-View
@@ -158,6 +159,7 @@ class SwabMasterRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 ###################################################################
 
 class WarehouseListView(generics.ListAPIView):
+    pagination_class = CustomPagination
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
 
@@ -188,8 +190,8 @@ class WarehouseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Warehouse.objects.all()
     serializer_class = WarehouseSerializer
 
-    
-     
+
+
 
 
     
