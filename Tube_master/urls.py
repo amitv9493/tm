@@ -27,11 +27,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("comment/", include("comment.urls")),
     path("projectdetail/<int:pk>/", projectview, name="project-detail"),
-    path(
-        "reactor-autocomplete/",
-        ReactorAutocomplete.as_view(),
-        name="reactor-autocomplete",
-    ),
+    path("reactor-autocomplete/",ReactorAutocomplete.as_view(),name="reactor-autocomplete"),
     path("unit-autocomplete/", UnitAutocomplete.as_view(), name="unit-autocomplete"),
     path("plant-autocomplete/", PlantAutocomplete.as_view(), name="plant-autocomplete"),
     # path('unit-autocomplete/', UnitAutocomplete.as_view(), name='unit-autocomplete'),
@@ -39,32 +35,11 @@ urlpatterns = [
     path("logout/", views.logout, name="logout"),
     path("register/", views.register, name="register"),
     path("accounts/", include("django.contrib.auth.urls")),  # new
-    path(
-        "change-password/",
-        auth_views.PasswordChangeView.as_view(template_name="change-password.html"),
-    ),
+    path("change-password/",auth_views.PasswordChangeView.as_view(template_name="change-password.html")),
     # path("password_reset", views.password_reset_request, name="password_reset")
-    path(
-        "password_reset/done/",
-        auth_views.PasswordResetDoneView.as_view(
-            template_name="password_reset_done.html"
-        ),
-        name="password_reset_done",
-    ),
-    path(
-        "reset/<uidb64>/<token>/",
-        auth_views.PasswordResetConfirmView.as_view(
-            template_name="password_reset_confirm.html"
-        ),
-        name="password_reset_confirm",
-    ),
-    path(
-        "reset/done/",
-        auth_views.PasswordResetCompleteView.as_view(
-            template_name="password_reset_complete.html"
-        ),
-        name="password_reset_complete",
-    ),
+    path("password_reset/done/",auth_views.PasswordResetDoneView.as_view(template_name="password_reset_done.html"),name="password_reset_done"),
+    path("reset/<uidb64>/<token>/",auth_views.PasswordResetConfirmView.as_view(template_name="password_reset_confirm.html"),name="password_reset_confirm"),
+    path("reset/done/",auth_views.PasswordResetCompleteView.as_view(template_name="password_reset_complete.html"),name="password_reset_complete"),
     # path('change-password/', auth_views.PasswordChangeView.as_view()),
     path("tube/", include("tube.urls")),
     path("users/", views.users, name="users"),
@@ -88,36 +63,15 @@ urlpatterns = [
     path("warehouse/", views.warehouse, name="warehouse"),
     path("warehouse_detail/", views.warehouse_detail, name="warehouse_detail"),
     path("updatewarehouse/<int:id>", views.updatewarehouse, name="updatewarehouse"),
-    path(
-        "updatewarehouse/updatewarehouserecord/<int:id>",
-        views.updatewarehouserecord,
-        name="updatewarehouserecord",
-    ),
+    path("updatewarehouse/updatewarehouserecord/<int:id>",views.updatewarehouserecord,name="updatewarehouserecord",),
     path("updatettd/<int:id>", views.updatettd, name="updatettd"),
-    path(
-        "updatettd/updatettdrecord/<int:id>",
-        views.updatettdrecord,
-        name="updatettdrecord",
-    ),
+    path("updatettd/updatettdrecord/<int:id>",views.updatettdrecord,name="updatettdrecord"),
     path("updateproject/<int:id>", views.updateproject, name="updateproject"),
-    path(
-        "updateproject/updateprojectrecord/<int:id>",
-        views.updateprojectrecord,
-        name="updateprojectrecord",
-    ),
+    path("updateproject/updateprojectrecord/<int:id>",views.updateprojectrecord,name="updateprojectrecord",),
     path("updatebdd/<int:id>", views.updatebdd, name="updatebdd"),
-    path(
-        "updatebdd/updatebddrecord/<int:id>",
-        views.updatebddrecord,
-        name="updatebddrecord",
-    ),
+    path("updatebdd/updatebddrecord/<int:id>",views.updatebddrecord,name="updatebddrecord"),
     path("updatecalstand/<int:id>", views.updatecalstand, name="updatecalstand"),
-    path(
-        "updatecalstand/updatecalstandrecord/<int:id>",
-        views.updatecalstandrecord,
-        name="updatecalstandrecord",
-    ),
-    
+    path("updatecalstand/updatecalstandrecord/<int:id>",views.updatecalstandrecord,name="updatecalstandrecord"),
     path("deletewarehouse/<int:id>", views.deletewarehouse, name="deletewarehouse"),
     path("showwarehouse/<int:warehouse_id>", views.showwarehouse, name="showwarehouse"),
     path("showproject/<int:project_id>", views.showproject, name="showproject"),
@@ -128,23 +82,11 @@ urlpatterns = [
     path("deleteproject/<int:id>", views.deleteproject, name="deleteproject"),
     path("showplant/<int:id>", views.showplant, name="showplant"),
     path("updateplant/<int:id>", views.updateplant, name="updateplant"),
-    path(
-        "updateplant/updateplantrecord/<int:id>",
-        views.updateplantrecord,
-        name="updateplantrecord",
-    ),
+    path("updateplant/updateplantrecord/<int:id>",views.updateplantrecord,name="updateplantrecord"),
     path("updateunit/<int:id>", views.updateunit, name="updateunit"),
-    path(
-        "updateunit/updateunitrecord/<int:id>",
-        views.updateunitrecord,
-        name="updateunitrecord",
-    ),
+    path("updateunit/updateunitrecord/<int:id>",views.updateunitrecord,name="updateunitrecord"),
     path("updatereactor/<int:id>", views.updatereactor, name="updatereactor"),
-    path(
-        "updatereactor/updatereactorrecord/<int:id>",
-        views.updatereactorrecord,
-        name="updatereactorrecord",
-    ),
+    path("updatereactor/updatereactorrecord/<int:id>",views.updatereactorrecord,name="updatereactorrecord"),
     path("contacts/", views.contacts, name="contacts"),
     path("equipments/", views.equipments, name="equipments"),
     path("plants/", views.plants, name="plants"),
@@ -172,21 +114,11 @@ urlpatterns = [
     path("api/get/bdd/", BddView.as_view(), name="BddView"),
     path("api/get/calibrationstand/", CalibrationStandView.as_view(), name="BddView"),
     path("api/get/part/", PartView.as_view(), name="PartView"),
-    path(
-        "api/get/supplyorifice/", SupplyOrificeView.as_view(), name="SupplyOrificeView"
-    ),
+    path("api/get/supplyorifice/", SupplyOrificeView.as_view(), name="SupplyOrificeView"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/get/reactor/", ReactorView.as_view(), name="ReactorView"),
-    path(
-        "api/get/pressuresensor/",
-        PressureSensorView.as_view(),
-        name="PressureSensorView",
-    ),
-    path(
-        "api/get/calibrationorifice/",
-        CalibrationOrificeView.as_view(),
-        name="CalibrationOrificeView",
-    ),
+    path("api/get/pressuresensor/",PressureSensorView.as_view(),name="PressureSensorView"),
+    path("api/get/calibrationorifice/",CalibrationOrificeView.as_view(),name="CalibrationOrificeView"),
     path("api/get/swabmaster/", SwabMasterView.as_view(), name="SwabMasterView"),
     path("api/get/devicehose/", DeviceHoseView.as_view(), name="DeviceHoseView"),
     path("api/get/airhose/", AirHoseView.as_view(), name="AirHose"),
@@ -195,53 +127,19 @@ urlpatterns = [
 #                     Create API ENDPOINTS
 #######################################################################
     path("api/listproject/", ProjectAllListView.as_view(), name="listviewproject"),
-    path(
-        "api/createproject/", ProjectAllCreateView.as_view(), name="createviewproject"
-    ),
-    path(
-        "api/alllist/project/<int:pk>/",
-        AallList_Id_Project.as_view(),
-        name="alllistproject",
-    ),
+    path("api/createproject/", ProjectAllCreateView.as_view(), name="createviewproject"),
+    path("api/alllist/project/<int:pk>/",AallList_Id_Project.as_view(),name="alllistproject"),
     path("api/get/project/<int:pk>/", getlList_Id_Project.as_view(), name="getproject"),
-    path(
-        "api/alllist/patchproject/<int:pk>/",
-        AallList_Id_Patch_Project.as_view(),
-        name="alllistproject",
-    ),
+    path("api/alllist/patchproject/<int:pk>/",AallList_Id_Patch_Project.as_view(),name="alllistproject",),
 #######################################################################
 #                     Part API ENDPOINTS
 #######################################################################
-    path(
-        "api/get/supplyorificepart/",
-        SupplyOrificeViewPart.as_view(),
-        name="supplyorificepart",
-    ),
-    path(
-        "api/get/pressuresensorpart/",
-        PressureSensorViewPart.as_view(),
-        name="pressuresensorpart",
-    ),
-    path(
-        "api/get/ttdtubesealrackpart/",
-        TTDTubeSealRackViewPart.as_view(),
-        name="ttdtubesealrackpart",
-    ),
-    path(
-        "api/get/bddtubesealrackpart/",
-        BDDTubeSealRackViewPart.as_view(),
-        name="bddtubesealrackpart",
-    ),
-    path(
-        "api/get/swabmastertsrpart/",
-        SwabMasterTSRViewPart.as_view(),
-        name="swabmastertsrpart",
-    ),
-    path(
-        "api/get/devicehoserpart/",
-        DeviceHoseRViewPart.as_view(),
-        name="devicehoserpart",
-    ),
+    path("api/get/supplyorificepart/",SupplyOrificeViewPart.as_view(),name="supplyorificepart"),
+    path("api/get/pressuresensorpart/",PressureSensorViewPart.as_view(),name="pressuresensorpart",),
+    path("api/get/ttdtubesealrackpart/",TTDTubeSealRackViewPart.as_view(),name="ttdtubesealrackpart",),
+    path("api/get/bddtubesealrackpart/",BDDTubeSealRackViewPart.as_view(),name="bddtubesealrackpart",),
+    path("api/get/swabmastertsrpart/",SwabMasterTSRViewPart.as_view(),name="swabmastertsrpart"),
+    path("api/get/devicehoserpart/",DeviceHoseRViewPart.as_view(),name="devicehoserpart"),
     path("api/get/airhosepart/", AirHoseViewPart.as_view(), name="airhosepart"),
 
 #######################################################################
@@ -287,7 +185,8 @@ urlpatterns = [
 
     path("api/cl/unitlist/", UnitListView.as_view(), name="unitlist"),
     path("api/cl/unitcreate/", UnitCreateView.as_view(), name="unitcreate"),
-
+    path("api/cl/unitretupddel/", UnitRetUpdDelView.as_view(), name="unitretupddel"),
+    
 #######################################################################
 #                     Warehouse-API ENDPOINTS
 #######################################################################

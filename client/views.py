@@ -255,6 +255,13 @@ class UnitCreateView(generics.ListCreateAPIView):
     serializer_class = UnitSerializers
 
 
+################################################################
+#                   Unit RetUpdDel-View
+################################################################
 
+class UnitRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
 
-
+    queryset = Unit.objects.all()
+    serializer_class = UnitSerializers
