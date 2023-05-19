@@ -165,4 +165,13 @@ class WarehouseListView(generics.ListAPIView):
     serializer_class = WarehouseSerializer
 
 
+###################################################################
+#              Warehouse-CrerateView
+###################################################################
 
+class WarehouseCreateView(generics.CreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = Warehouse.objects.all()
+    serializer_class = WarehouseSerializer

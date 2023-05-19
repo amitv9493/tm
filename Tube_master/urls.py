@@ -293,7 +293,8 @@ urlpatterns = [
 #######################################################################
 
     path("api/get/warehouse/", WarehouseListView.as_view(), name="getwarehouse"),
-    
+    path("api/create/warehouse/", WarehouseCreateView.as_view(), name="createwarehouse"),
+
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 if settings.DEBUG:
