@@ -9,7 +9,7 @@ from django_countries.fields import CountryField
 class Warehouse(models.Model):
     warehouse_name = models.CharField(max_length=128, blank=True)
     warehouse_location = models.CharField(max_length=128, blank=True)
-    warehouse_contact = PhoneNumberField(max_length=128, blank=True)
+    warehouse_contact = models.CharField(max_length=128, blank=True)
     warehouse_email = models.EmailField(max_length=128, blank=True)
     warehouse_manager = models.CharField(max_length=128, blank=True)
     # warehouse_equipments=models.ManyToManyField("Equipment",related_name="warehouse_equipments",default="")
