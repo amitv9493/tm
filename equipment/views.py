@@ -175,3 +175,21 @@ class WarehouseCreateView(generics.CreateAPIView):
 
     queryset = Warehouse.objects.all()
     serializer_class = WarehouseSerializer
+
+
+###################################################################
+#              Warehouse-RetUpdDel-View
+###################################################################
+
+class WarehouseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = Warehouse.objects.all()
+    serializer_class = WarehouseSerializer
+
+    
+     
+
+
+    

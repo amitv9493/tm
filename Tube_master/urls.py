@@ -294,6 +294,7 @@ urlpatterns = [
 
     path("api/get/warehouse/", WarehouseListView.as_view(), name="getwarehouse"),
     path("api/create/warehouse/", WarehouseCreateView.as_view(), name="createwarehouse"),
+    path("api/retupddel/warehouse/<int:pk>/", WarehouseRetUpdDelView.as_view(), name="retupddelwarehouse")
 
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
