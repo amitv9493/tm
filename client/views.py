@@ -9,6 +9,7 @@ from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import *
 from .serializers import *
+from tm_api.paginator import CustomPagination
 
 # class ReactorAutocomplete(autocomplete.Select2QuerySetView):
 #     def get_queryset(self):
@@ -237,6 +238,7 @@ class ReactorRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 ################################################################
     
 class UnitListView(generics.ListAPIView):
+    pagination_class = CustomPagination
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
 
