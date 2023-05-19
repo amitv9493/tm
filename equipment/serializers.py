@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import *
-
+from tube.models import *
 
 ##################################################################
 #       TTD Serializer
@@ -42,3 +42,11 @@ class SwabMasterSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+##################################################################
+#       Warehouse Serializer
+##################################################################
+
+class WarehouseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Warehouse
+        fields = "__all__"

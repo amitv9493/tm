@@ -117,6 +117,7 @@ urlpatterns = [
         views.updatecalstandrecord,
         name="updatecalstandrecord",
     ),
+    
     path("deletewarehouse/<int:id>", views.deletewarehouse, name="deletewarehouse"),
     path("showwarehouse/<int:warehouse_id>", views.showwarehouse, name="showwarehouse"),
     path("showproject/<int:project_id>", views.showproject, name="showproject"),
@@ -287,7 +288,12 @@ urlpatterns = [
     path("api/cl/unitlist/", UnitListView.as_view(), name="unitlist"),
     path("api/cl/unitcreate/", UnitCreateView.as_view(), name="unitcreate"),
 
-    # path("")
+#######################################################################
+#                     Warehouse-API ENDPOINTS
+#######################################################################
+
+    path("api/get/warehouse/", WarehouseListView.as_view(), name="getwarehouse"),
+
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 if settings.DEBUG:

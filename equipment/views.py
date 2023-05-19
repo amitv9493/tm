@@ -4,7 +4,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework import generics
 from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
-
+from tube.models import Warehouse
 
 ##################################################################
 #       TTD List-View
@@ -152,4 +152,17 @@ class SwabMasterRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = SwabMaster.objects.all()
     serializer_class = SwabMasterSerializer
+
+###################################################################
+#              Warehouse-ListView
+###################################################################
+
+class WarehouseListView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = Warehouse.objects.all()
+    serializer_class = WarehouseSerializer
+
+
 
