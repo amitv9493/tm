@@ -7,11 +7,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.conf.urls.i18n import i18n_patterns
-from client.views import (
-    ReactorAutocomplete,
-    UnitAutocomplete,
-    PlantAutocomplete,
-)
+from client.views import (ReactorAutocomplete,UnitAutocomplete,PlantAutocomplete,)
 from tm_api.views import LoginView
 
 from project.views import projectview
