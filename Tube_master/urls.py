@@ -209,6 +209,11 @@ urlpatterns = [
 
     path("api/eq/ttdretupddel/<int:pk>/", TTDRetUpdDelView.as_view(), name='ttdretupddelview'),
     
+#######################################################################
+#                     WarehousePart-Count-API ENDPOINTS
+######################################################################
+
+    # path("api/get/warehousepartcount", WarehousePart.as_view(), name='warehousepart'),
 
 ] 
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))

@@ -5,6 +5,9 @@ from rest_framework.permissions import  DjangoModelPermissions, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import *
 from .serializers import *
+from django.db.models import Count
+from rest_framework.response import Response
+
 
 ################################################################################
 #                UpddateAll View API Project/ SupplyOrificeViewPart
@@ -138,5 +141,27 @@ class AirHoseViewPart(generics.ListAPIView):
     queryset = AirHose.objects.all()
 
 ################################################################################
-#                AirHose View
+#                parts in the total warhouse
 ################################################################################
+
+
+# class WarehousePart(APIView):
+#     def get(self, request):
+#         warehouse_parts = Part.objects.values('location_for_warehouse').annotate(count=Count('location_for_warehouse'))
+#         response_data = []
+#         for part in warehouse_parts:
+#             warehouse_id = part['location_for_warehouse']
+#             warehouse_name = Warehouse.objects.get(id=warehouse_id).name  # Assuming you have a Warehouse model
+#             part_count = part['count']
+#             data = {
+#                 'warehouse_id': warehouse_id,
+#                 'warehouse_name': warehouse_name,
+#                 'part_count': part_count
+#             }
+#             response_data.append(data)
+#             print(data)
+#         return Response(response_data)
+        
+        
+
+

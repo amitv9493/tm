@@ -34,7 +34,7 @@ class ExportCsvMixin:
 class PartAdmin(admin.ModelAdmin,ExportCsvMixin):
     list_filter=['part_name']
     list_display = ('part_name', 'name_of_abbreviation', 'serial_number', 'asset_number', 'pm_status'
-    , 'location_for_storage', 'packaging','notes','upload_file','weight','price','dimension',)
+    , 'location_for_storage', 'packaging','notes','upload_file','weight','price','dimension_unit',)
     search_fields = ['part_name']
    
     actions = ["export_as_csv"]

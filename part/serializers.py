@@ -74,3 +74,12 @@ class AirHoseSerializer(serializers.ModelSerializer):
     class Meta:
         model = AirHose
         fields = "__all__"
+
+################################################################################
+#                Warhouse-part Serializer
+################################################################################
+
+# class Warhouse_Part_Serializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Part
+#         fields = "__all__"
