@@ -17,6 +17,7 @@ from tm_api.views import *
 from part.views import *
 from equipment.views import *
 from client.views import *
+from tube.views import *
 
 urlpatterns = [
     path("", front, name="front"),
@@ -128,15 +129,17 @@ urlpatterns = [
     path("api/get/project/<int:pk>/", getlList_Id_Project.as_view(), name="getproject"),
     path("api/alllist/patchproject/<int:pk>/",AallList_Id_Patch_Project.as_view(),name="alllistproject",),
 #######################################################################
-#                     Part API ENDPOINTS
+#                     Part API ENDPOINTS -- option api endpoint
 #######################################################################
-    path("api/get/supplyorificepart/",SupplyOrificeViewPart.as_view(),name="supplyorificepart"),
-    path("api/get/pressuresensorpart/",PressureSensorViewPart.as_view(),name="pressuresensorpart",),
-    path("api/get/ttdtubesealrackpart/",TTDTubeSealRackViewPart.as_view(),name="ttdtubesealrackpart",),
-    path("api/get/bddtubesealrackpart/",BDDTubeSealRackViewPart.as_view(),name="bddtubesealrackpart",),
-    path("api/get/swabmastertsrpart/",SwabMasterTSRViewPart.as_view(),name="swabmastertsrpart"),
-    path("api/get/devicehoserpart/",DeviceHoseRViewPart.as_view(),name="devicehoserpart"),
-    path("api/get/airhosepart/", AirHoseViewPart.as_view(), name="airhosepart"),
+    path("api/get/option/supplyorificepart/",SupplyOrificeViewPart.as_view(),name="supplyorificepart"),
+    path("api/get/option/pressuresensorpart/",PressureSensorViewPart.as_view(),name="pressuresensorpart",),
+    path("api/get/option/ttdtubesealrackpart/",TTDTubeSealRackViewPart.as_view(),name="ttdtubesealrackpart",),
+    path("api/get/option/bddtubesealrackpart/",BDDTubeSealRackViewPart.as_view(),name="bddtubesealrackpart",),
+    path("api/get/option/swabmastertsrpart/",SwabMasterTSRViewPart.as_view(),name="swabmastertsrpart"),
+    path("api/get/option/devicehoserpart/",DeviceHoseRViewPart.as_view(),name="devicehoserpart"),
+    path("api/get/option/airhosepart/", AirHoseViewPart.as_view(), name="airhosepart"),
+    path("api/get/option/warehouse/", WarehouseOptionListView.as_view(), name="warehouseoptionlistview"),
+
 
 #######################################################################
 #                     Equipment-API ENDPOINTS

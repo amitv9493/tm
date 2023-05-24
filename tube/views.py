@@ -1689,7 +1689,9 @@ from django.http import Http404
 from .serializers import WarehouseSerializer
 
 from rest_framework.response import Response
-
+from tube.serializers import *
+from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class WarehouseView(generics.ListCreateAPIView):
     queryset = Warehouse.objects.all()
@@ -1708,3 +1710,15 @@ class WarehouseIDView(generics.RetrieveUpdateDestroyAPIView):
 
         # For all other exceptions, use the default DRF exception handler
         return super().handle_exception(exc)
+
+
+#######################################################################
+#                     WarehouseOptionListView for options
+#######################################################################
+
+class WarehouseOptionListView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    queryset = Warehouse.objects.all()
+    serializer_class = WarehouseOptionsSerializer

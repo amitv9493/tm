@@ -10,3 +10,9 @@ class WarehouseSerializer(CountryFieldMixin, serializers.ModelSerializer):
     class Meta:
         model = Warehouse
         fields = "__all__"
+
+
+class WarehouseOptionsSerializer(CountryFieldMixin, serializers.ModelSerializer):
+    class Meta:
+        model = Warehouse
+        fields = "__all__"
