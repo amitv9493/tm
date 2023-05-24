@@ -16,7 +16,7 @@ class Part(models.Model):
         BLUE= 'BLUE', ('BLUE')
         GREEN= 'GREEN', ('GREEN')
     pm_status = models.CharField(max_length=20,choices=pm_status.choices, null=True, blank=True)
-    location_for_warehouse=models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE, null=True, blank=True)
+    location_for_warehouse=models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE, null=True, blank=True, related_name='part')
     location_for_storage=models.CharField(max_length=128,blank=True)
     packaging=models.CharField(max_length=128,blank=True)
     notes = models.TextField(blank=True,null=True)
@@ -66,7 +66,7 @@ class Supply_orifice(models.Model):
     total_sets=models.CharField(max_length=128,blank=True)
     orifice_in_each_set=models.CharField(max_length=128,blank=True)
     storage_case=models.CharField(max_length=128,blank=True)
-    location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE,null=True, blank=True)
+    location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE,null=True, blank=True, related_name="supply_orifice")
     
     
     # PART FIELDS FROM GENERAL PARTS 
@@ -119,7 +119,7 @@ class Pressure_sensor(models.Model):
     range=models.CharField(max_length=128,blank=True)
     quantity=models.CharField(max_length=128,blank=True)
 
-    location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE,null=True, blank=True)
+    location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE,null=True, blank=True, related_name="pressure_sensor")
 
 # NEW FIELDS FROM ALL GENERAL PARTS 
     part_name = models.CharField(max_length=128,blank=True, null=True)
@@ -169,7 +169,7 @@ class TTD_tube_seal_rack(models.Model):
     size=models.CharField(max_length=128,blank=True)
     qty_rack=models.CharField(max_length=128,blank=True)
     tube_seal_rack=models.CharField(max_length=128,blank=True)
-    location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE,null=True, blank=True)
+    location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE,null=True, blank=True, related_name="ttd_rack")
 
 # NEW FIELDS FROM ALL GENERAL PARTS 
     part_name = models.CharField(max_length=128,blank=True, null=True)
@@ -218,7 +218,7 @@ class BDD_tube_seal_rack(models.Model):
     serial_number=models.CharField(max_length=128,blank=True, default="", null=True)
     size=models.CharField(max_length=128,blank=True)
     number_of_tubes = models.PositiveIntegerField(null=True, blank=True)
-    location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE,null=True, blank=True)
+    location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE,null=True, blank=True, related_name="bdd_rack")
 
 # NEW FIELDS FROM ALL GENERAL PARTS 
     part_name = models.CharField(max_length=128,blank=True, null=True)
@@ -268,7 +268,7 @@ class Calibration_orifice(models.Model):
     size=models.CharField(max_length=128,blank=True)
     total_sets=models.CharField(max_length=128,blank=True)
     in_sets=models.CharField(max_length=128,blank=True)
-    location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE,null=True, blank=True)
+    location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE,null=True, blank=True, related_name="calibration_orifice")
 
 # NEW FIELDS FROM ALL GENERAL PARTS 
     part_name = models.CharField(max_length=128,blank=True, null=True)
@@ -317,7 +317,7 @@ class SwabMasterTSR(models.Model):
     size=models.CharField(max_length=128,blank=True)
     qty_rack=models.CharField(max_length=128,blank=True)
     tube_seal_rack=models.CharField(max_length=128,blank=True)
-    location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE,null=True, blank=True)
+    location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE,null=True, blank=True, related_name="swabmasterTSR")
 
 # NEW FIELDS FROM ALL GENERAL PARTS 
     part_name = models.CharField(max_length=128,blank=True, null=True)
@@ -365,7 +365,7 @@ class DeviceHose(models.Model):
     serial_number = models.CharField(max_length=999,null=True, blank=True)
     length = models.DecimalField(max_digits=999, decimal_places=3,null=True, blank=True)
     colour_code = models.CharField( max_length=50,null=True, blank=True)
-    warehouse = models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE,null=True, blank=True)
+    warehouse = models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE,null=True, blank=True, related_name="devicehose")
 
 # NEW FIELDS FROM ALL GENERAL PARTS 
     part_name = models.CharField(max_length=128,blank=True, null=True)
@@ -413,7 +413,7 @@ class DeviceHose(models.Model):
 class AirHose(models.Model):
     serial_number =  models.CharField(max_length=999,null=True, blank=True)
     colour_code = models.CharField(max_length=50,null=True, blank=True)
-    warehouse = models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE,null=True, blank=True)
+    warehouse = models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE,null=True, blank=True, related_name="airhose")
     
     def __str__(self):
         return f'{self.length} Ft'

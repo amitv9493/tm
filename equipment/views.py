@@ -160,8 +160,8 @@ class SwabMasterRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
 class WarehouseListView(generics.ListAPIView):
     pagination_class = CustomPagination
-    permission_classes = [DjangoModelPermissions, IsAdminUser]
-    authentication_classes = [JWTAuthentication]
+    # permission_classes = [DjangoModelPermissions, IsAdminUser]
+    # authentication_classes = [JWTAuthentication]
 
     queryset = Warehouse.objects.all()
     serializer_class = WarehouseSerializer
@@ -194,4 +194,10 @@ class WarehouseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
 
 
-    
+class WarehouseNewListView(generics.RetrieveAPIView):
+    pagination_class = CustomPagination
+    # permission_classes = [DjangoModelPermissions, IsAdminUser]
+    # authentication_classes = [JWTAuthentication]
+
+    queryset = Warehouse.objects.all()
+    serializer_class = WarehouseNewSerializer
