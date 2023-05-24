@@ -58,11 +58,19 @@ class PressureSensorViewPart(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
 
     serializer_class = PressureSensorSerializer
+    # def get_queryset(self):
+    #     so = set()
+    #     for ttd in TTD.objects.all():
+    #         so.add(ttd.pressure_sensor.id)
+    #     so_qs = Pressure_sensor.objects.exclude(id__in = so)
+    #     return so_qs
+    
     def get_queryset(self):
         so = set()
         for ttd in TTD.objects.all():
-            so.add(ttd.pressure_sensor.id)
-        so_qs = Pressure_sensor.objects.exclude(id__in = so)
+            if ttd.pressure_sensor:
+                so.add(ttd.pressure_sensor.id)
+        so_qs = Pressure_sensor.objects.exclude(id__in=so)
         return so_qs
 
 
