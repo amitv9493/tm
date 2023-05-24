@@ -25,17 +25,25 @@ from equipment.models import *
 
 
 class SupplyOrificeViewPart(generics.ListAPIView):
-    # permission_classes = [DjangoModelPermissions, IsAdminUser]
-    # authentication_classes= [JWTAuthentication]
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes= [JWTAuthentication]
     serializer_class = SupplyOrificeSerializer
 
+    # def get_queryset(self):
+    #     so = set()
+    #     for ttd in TTD.objects.all():
+    #         so.add(ttd.supply_orifice_set.id)
+    #     so_qs = Supply_orifice.objects.exclude(id__in = so)
+    #     return so_qs
+    
     def get_queryset(self):
         so = set()
         for ttd in TTD.objects.all():
-            so.add(ttd.supply_orifice_set.id)
-        so_qs = Supply_orifice.objects.exclude(id__in = so)
+            if ttd.supply_orifice_set:
+                so.add(ttd.supply_orifice_set.id)
+        so_qs = Supply_orifice.objects.exclude(id__in=so)
         return so_qs
-    
+
 
 
 
