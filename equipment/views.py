@@ -5,17 +5,18 @@ from rest_framework import generics
 from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from tube.models import Warehouse
+from django_filters import rest_framework as filters
+
 from tm_api.paginator import CustomPagination
 
 ##################################################################
 #       TTD List-View
 ##################################################################
-
-
 class TTDListView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_fields = ('location_for_warehouse',)
     queryset = TTD.objects.all()
     serializer_class = TTDSerializers
 
