@@ -84,11 +84,19 @@ class TTDTubeSealRackViewPart(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
 
     serializer_class = TTDTubeSealRackSerializer
+    # def get_queryset(self):
+    #     so = set()
+    #     for ttd in TTD.objects.all():
+    #         so.add(ttd.TTD_tube_seal_rack.id)
+    #     so_qs = TTD_tube_seal_rack.objects.exclude(id__in = so)
+    #     return so_qs
+    
     def get_queryset(self):
         so = set()
         for ttd in TTD.objects.all():
-            so.add(ttd.TTD_tube_seal_rack.id)
-        so_qs = TTD_tube_seal_rack.objects.exclude(id__in = so)
+            if ttd.TTD_tube_seal_rack:
+                so.add(ttd.TTD_tube_seal_rack.id)
+        so_qs = TTD_tube_seal_rack.objects.exclude(id__in=so)
         return so_qs
 
 
