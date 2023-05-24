@@ -3,7 +3,7 @@ from rest_framework.permissions import  DjangoModelPermissions, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import *
 from .serializers import *
-
+from tm_api.paginator import CustomPagination
 ################################################################################
 #                UpddateAll View API Project/ SupplyOrificeViewPart
 ################################################################################
@@ -147,7 +147,7 @@ class DeviceHoseRViewPart(generics.ListAPIView):
 ################################################################################
 
 class AirHoseViewPart(generics.ListAPIView):
-    pagination_class = [DjangoModelPermissions, IsAdminUser]
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
 
     serializer_class = AirHoseSerializer
