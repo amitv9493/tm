@@ -54,9 +54,9 @@ class SupplyOrificeViewPart(generics.ListAPIView):
 
 
 class PressureSensorViewPart(generics.ListAPIView):
-    permission_classes = [DjangoModelPermissions, IsAdminUser]
-    authentication_classes = [JWTAuthentication]
-
+    # permission_classes = [DjangoModelPermissions, IsAdminUser]
+    # authentication_classes = [JWTAuthentication]
+    queryset = Pressure_sensor.objects.all()
     serializer_class = PressureSensorSerializer
     # def get_queryset(self):
     #     so = set()
@@ -66,12 +66,21 @@ class PressureSensorViewPart(generics.ListAPIView):
     #     return so_qs
     
     def get_queryset(self):
-        so = set()
-        for ttd in TTD.objects.all():
-            if ttd.pressure_sensor:
-                so.add(ttd.pressure_sensor.id)
-        so_qs = Pressure_sensor.objects.exclude(id__in=so)
-        return so_qs
+        qs = super().get_queryset()
+        ttd_id = self.request.GET.get("ttd_id")
+        if ttd_id:
+            pressure_sensor = set()
+            print([i.__str__() for i in TTD.objects.exclude(id=ttd_id)])
+            for ttd in TTD.objects.exclude(id=ttd_id):
+                if ttd.pressure_sensor:
+                    pressure_sensor.add(ttd.pressure_sensor.id)
+            print(pressure_sensor)
+                
+            qs = qs.exclude(id__in = pressure_sensor)
+            return qs
+        else:
+            return qs.none()
+
 
 
 ##################################################################################
