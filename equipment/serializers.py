@@ -15,6 +15,12 @@ class TTDSerializers(serializers.ModelSerializer):
         fields = "__all__"
         # depth = 1
 
+class TTDLocSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = TTD
+        fields = "location_for_warehouse"
+        # depth = 1
+
 
 ##################################################################
 #       BDD Serializer
