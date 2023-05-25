@@ -131,6 +131,17 @@ class BDDTubeSealRackViewPart(generics.ListAPIView):
     serializer_class = BDDTubeSealRackSerializer
     queryset = BDD_tube_seal_rack.objects.all()
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        bdd_id = self.request.GET.get('bdd_id')
+        
+        if bdd_id:
+            so = set()
+            for bdd in BDD.objects.exclude(id=bdd_id):
+                if bdd.BDD_tube_seal_rack:
+                    so.add(bdd.BDD_tube_seal_rack.id)
+            qs = BDD_tube_seal_rack.objects.exclude(id__in = so)
+        return qs
 
 ################################################################################
 #                SwabMaster View
