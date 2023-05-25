@@ -365,11 +365,11 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-STATIC_ROOT = "/home/arttecrt/public_html/staticgit"
+STATIC_ROOT = "/home/arttecrt/public_html/Tube_master/static"
 STATIC_URL = "/staticgit/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
-MEDIA_ROOT = BASE_DIR
-MEDIA_URL = "/media/"
+MEDIA_URL = 'media/'
+MEDIA_ROOT = 'media'
 
 
 # Default primary key field type
