@@ -163,7 +163,9 @@ class SwabMasterTSRViewPart(generics.ListAPIView):
                 if swab.Swab_Master_Tube_Seal_Rack:
                     swabmaster_id.add(swab.Swab_Master_Tube_Seal_Rack.id)
             qs = SwabMasterTSR.objects.exclude(id__in = swabmaster_id)
-        return qs
+            return qs
+        else:
+            return qs
 
 ################################################################################
 #                DeviceHose View
