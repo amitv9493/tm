@@ -139,16 +139,19 @@ class BDDTubeSealRackViewPart(generics.ListAPIView):
 class SwabMasterTSRViewPart(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    queryset = SwabMasterTSR.objects.all()
     serializer_class = SwabMasterTSRSerializer
-    # queryset = SwabMasterTSR.objects.all()
     def get_queryset(self):
-        so = set()
-        for swab in SwabMaster.objects.all():
-            # if swab.Swab_Master_Tube_Seal_Rack:
-                so.add(swab.Swab_Master_Tube_Seal_Rack.id)
-        so_qs = SwabMasterTSR.objects.exclude(id__in = so)
-        return so_qs
+        qs = super().get_queryset()
+        swab_id = self.request.GET.get('swab_id')
+        
+        if swab_id:
+            swabmaster_id = set()
+            for swab in SwabMaster.objects.exclude(id=swab_id):
+                if swab.Swab_Master_Tube_Seal_Rack:
+                    swabmaster_id.add(swab.Swab_Master_Tube_Seal_Rack.id)
+            qs = SwabMasterTSR.objects.exclude(id__in = swabmaster_id)
+        return qs
 
 ################################################################################
 #                DeviceHose View
