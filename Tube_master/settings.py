@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "django_countries",
     'django_filters',
+    'django_extensions',
 ]
 
 REST_FRAMEWORK = {
