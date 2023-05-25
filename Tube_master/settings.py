@@ -368,7 +368,7 @@ USE_TZ = True
 STATIC_ROOT = "/home/arttecrt/public_html/staticgit"
 STATIC_URL = "/staticgit/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
-MEDIA_ROOT = BASE_DIR
+MEDIA_ROOT = [BASE_DIR / "media"]
 MEDIA_URL = "/media/"
 
 
