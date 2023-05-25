@@ -368,8 +368,8 @@ USE_TZ = True
 STATIC_ROOT = "/home/arttecrt/public_html/staticgit"
 STATIC_URL = "/staticgit/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
-MEDIA_ROOT = os.path.join(BASE_DIR,"media/")
-MEDIA_URL = "/media/"
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'media'
 
 
 # Default primary key field type
