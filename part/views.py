@@ -98,7 +98,7 @@ class TTDTubeSealRackViewPart(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     queryset = TTD_tube_seal_rack.objects.all()
     serializer_class = TTDTubeSealRackSerializer
-    pagination_class = CustomPagination
+   
     # def get_queryset(self):
     #     so = set()
     #     for ttd in TTD.objects.all():
