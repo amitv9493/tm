@@ -16,6 +16,7 @@ class TTDListView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     filter_backends = [filters.DjangoFilterBackend]
+    pagination_class = CustomPagination
     filterset_fields = ('location_for_warehouse',)
     queryset = TTD.objects.all()
     serializer_class = TTDSerializers
