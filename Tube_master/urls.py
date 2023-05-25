@@ -19,7 +19,9 @@ from equipment.views import *
 from client.views import *
 from tube.views import *
 
-urlpatterns = [
+    
+urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) +  [
+    
     path("", front, name="front"),
     path("admin/", admin.site.urls),
     path("comment/", include("comment.urls")),
@@ -197,7 +199,6 @@ urlpatterns = [
 
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# if settings.DEBUG:
+
 
