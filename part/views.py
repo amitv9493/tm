@@ -37,12 +37,16 @@ class SupplyOrificeViewPart(generics.ListAPIView):
     #     return so_qs
     
     def get_queryset(self):
-        so = set()
-        for ttd in TTD.objects.all():
-            if ttd.supply_orifice_set:
-                so.add(ttd.supply_orifice_set.id)
-        so_qs = Supply_orifice.objects.exclude(id__in=so)
-        return so_qs
+        ttd_id = self.request.GET.get("ttd_id")
+        if ttd_id:
+            so = set()
+            for ttd in TTD.objects.exclude(id = ttd_id):
+                if ttd.supply_orifice_set:
+                    so.add(ttd.supply_orifice_set.id)
+
+            qs = Supply_orifice.objects.exclude(id__in=so)
+            return qs
+        return qs.none()
 
 
 
@@ -70,11 +74,9 @@ class PressureSensorViewPart(generics.ListAPIView):
         ttd_id = self.request.GET.get("ttd_id")
         if ttd_id:
             pressure_sensor = set()
-            print([i.__str__() for i in TTD.objects.exclude(id=ttd_id)])
             for ttd in TTD.objects.exclude(id=ttd_id):
                 if ttd.pressure_sensor:
                     pressure_sensor.add(ttd.pressure_sensor.id)
-            print(pressure_sensor)
                 
             qs = qs.exclude(id__in = pressure_sensor)
             return qs
@@ -101,12 +103,16 @@ class TTDTubeSealRackViewPart(generics.ListAPIView):
     #     return so_qs
     
     def get_queryset(self):
-        so = set()
-        for ttd in TTD.objects.all():
-            if ttd.TTD_tube_seal_rack:
-                so.add(ttd.TTD_tube_seal_rack.id)
-        so_qs = TTD_tube_seal_rack.objects.exclude(id__in=so)
-        return so_qs
+        ttd_id = self.request.GET.get("ttd_id")
+        if ttd_id:
+            so = set()
+            for ttd in TTD.objects.exclude(id=ttd_id):
+                if ttd.TTD_tube_seal_rack:
+                    so.add(ttd.TTD_tube_seal_rack.id)
+            qs= TTD_tube_seal_rack.objects.exclude(id__in=so)
+            return qs
+
+        return qs.none()
 
 
 ##################################################################################
