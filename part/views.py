@@ -47,7 +47,7 @@ class SupplyOrificeViewPart(generics.ListAPIView):
 
             qs = Supply_orifice.objects.exclude(id__in=so)
             
-        return qs.none()
+        return qs
 
     
 
@@ -116,7 +116,7 @@ class TTDTubeSealRackViewPart(generics.ListAPIView):
             qs= TTD_tube_seal_rack.objects.exclude(id__in=so)
             return qs
 
-        return qs.none()
+        return qs
 
 
 ##################################################################################
