@@ -28,7 +28,7 @@ class SupplyOrificeViewPart(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes= [JWTAuthentication]
     serializer_class = SupplyOrificeSerializer
-
+    queryset = Supply_orifice.objects.all()
     # def get_queryset(self):
     #     so = set()
     #     for ttd in TTD.objects.all():
@@ -37,6 +37,7 @@ class SupplyOrificeViewPart(generics.ListAPIView):
     #     return so_qs
     
     def get_queryset(self):
+        qs = super().get_queryset()
         ttd_id = self.request.GET.get("ttd_id")
         if ttd_id:
             so = set()
@@ -45,8 +46,10 @@ class SupplyOrificeViewPart(generics.ListAPIView):
                     so.add(ttd.supply_orifice_set.id)
 
             qs = Supply_orifice.objects.exclude(id__in=so)
-            return qs
+            
         return qs.none()
+
+    
 
 
 
@@ -81,7 +84,7 @@ class PressureSensorViewPart(generics.ListAPIView):
             qs = qs.exclude(id__in = pressure_sensor)
             return qs
         else:
-            return qs.none()
+            return qs
 
 
 
@@ -93,7 +96,7 @@ class PressureSensorViewPart(generics.ListAPIView):
 class TTDTubeSealRackViewPart(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    queryset = TTD_tube_seal_rack.objects.all()
     serializer_class = TTDTubeSealRackSerializer
     # def get_queryset(self):
     #     so = set()
@@ -103,6 +106,7 @@ class TTDTubeSealRackViewPart(generics.ListAPIView):
     #     return so_qs
     
     def get_queryset(self):
+        qs = super().get_queryset()
         ttd_id = self.request.GET.get("ttd_id")
         if ttd_id:
             so = set()
