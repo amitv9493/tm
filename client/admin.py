@@ -225,17 +225,45 @@ admin.site.register(Reactor, ReactorAdmin)
 
 
 class PlantAdmin(admin.ModelAdmin):
-    list_filter = ["client", "plant_location"]
-    list_display = ("client", "plant_location", "plant_contact")
+    list_display = ("client", "plant_name", "plant_common_name")
 
     # def list_of_units(self, obj):
     #     return ("%s" % ','.join([name_of_unit.name_of_unit for name_of_unit in obj.name_of_unit.all()]))
     # list_of_units.short_description = 'Units'
     # form = SimpleForm
-
-    search_fields = ["plant_location", "client__official_name"]
-    # def has_module_permission(self, request):
-    #     return False
+    
+    fieldsets = (
+        ("Plant Info", {
+            "fields": (
+                'client',
+                'plant_name',
+                'plant_common_name',
+                
+            ),
+        }),
+        (
+            "Address Info",
+            {
+                "fields": [
+                    "official_address",
+                    "shipping_address",
+                    "plantentrance_address",
+                    "country",
+                ],
+            },
+        ),
+        (
+            "Contact Info",
+            {
+                "fields": [
+                    "contact_person",
+                    "contact_person_phone",
+                    "contact_person_email",
+                ],
+            },
+        ),
+    )
+    
 
 
 admin.site.register(Plant, PlantAdmin)
@@ -279,18 +307,8 @@ from import_export.admin import ImportExportModelAdmin
 
 
 class ClientAdmin(ImportExportModelAdmin):
-    list_filter = ["official_name", "contact_person"]
+    list_filter = ["official_name", "parent_company"]
     list_per_page = 5
-    list_display = [
-        "official_name",
-        "contact_person",
-        "contact_person_phone",
-        "contact_person_email",
-        "Official_Address",
-        "Shipping_Address",
-        "Plantentrance_address",
-        "country",
-    ]
     fieldsets = [
         (
             "Client Info",
@@ -298,33 +316,12 @@ class ClientAdmin(ImportExportModelAdmin):
                 "fields": [
                     "official_name",
                     "comman_name",
-                    "alternate_name",
                     "parent_company",
                     "former_name",
                 ],
             },
         ),
-        (
-            "Address Info",
-            {
-                "fields": [
-                    "official_address",
-                    "shipping_address",
-                    "plantentrance_address",
-                    "country",
-                ],
-            },
-        ),
-        (
-            "Contact Info",
-            {
-                "fields": [
-                    "contact_person",
-                    "contact_person_phone",
-                    "contact_person_email",
-                ],
-            },
-        ),
+
     ]
 
     search_fields = ["official_name", "contact_person"]

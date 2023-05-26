@@ -1,14 +1,16 @@
-from django.shortcuts import render
-from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.permissions import  DjangoModelPermissions, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import *
 from .serializers import *
+<<<<<<< HEAD
 from django.db.models import Count
 from rest_framework.response import Response
 
 
+=======
+from tm_api.paginator import CustomPagination
+>>>>>>> main
 ################################################################################
 #                UpddateAll View API Project/ SupplyOrificeViewPart
 ################################################################################
@@ -30,17 +32,39 @@ from equipment.models import *
 
 
 class SupplyOrificeViewPart(generics.ListAPIView):
-    # permission_classes = [DjangoModelPermissions, IsAdminUser]
-    # authentication_classes= [JWTAuthentication]
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes= [JWTAuthentication]
     serializer_class = SupplyOrificeSerializer
-
-    def get_queryset(self):
-        so = set()
-        for ttd in TTD.objects.all():
-            so.add(ttd.supply_orifice_set.id)
-        so_qs = Supply_orifice.objects.exclude(id__in = so)
-        return so_qs
+    queryset = Supply_orifice.objects.all()
+    # def get_queryset(self):
+    #     so = set()
+    #     for ttd in TTD.objects.all():
+    #         so.add(ttd.supply_orifice_set.id)
+    #     so_qs = Supply_orifice.objects.exclude(id__in = so)
+    #     return so_qs
     
+    def get_queryset(self):
+        qs = super().get_queryset()
+        ttd_id = self.request.GET.get("ttd_id")
+        so = set()
+        
+        if ttd_id:
+            for ttd in TTD.objects.exclude(id = ttd_id):
+                if ttd.supply_orifice_set:
+                    so.add(ttd.supply_orifice_set.id)
+
+        else:
+            for ttd in TTD.objects.all():
+                if ttd.supply_orifice_set:
+                    so.add(ttd.supply_orifice_set.id)
+                    
+        qs = Supply_orifice.objects.exclude(id__in=so)
+            
+        return qs
+
+
+    
+
 
 
 
@@ -53,14 +77,31 @@ class SupplyOrificeViewPart(generics.ListAPIView):
 class PressureSensorViewPart(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    queryset = Pressure_sensor.objects.all()
     serializer_class = PressureSensorSerializer
+    # def get_queryset(self):
+    #     so = set()
+    #     for ttd in TTD.objects.all():
+    #         so.add(ttd.pressure_sensor.id)
+    #     so_qs = Pressure_sensor.objects.exclude(id__in = so)
+    #     return so_qs
+    
     def get_queryset(self):
-        so = set()
-        for ttd in TTD.objects.all():
-            so.add(ttd.pressure_sensor.id)
-        so_qs = Pressure_sensor.objects.exclude(id__in = so)
-        return so_qs
+        qs = super().get_queryset()
+        ttd_id = self.request.GET.get("ttd_id")
+        pressure_sensor = set()
+        if ttd_id:
+            for ttd in TTD.objects.exclude(id=ttd_id):
+                if ttd.pressure_sensor:
+                    pressure_sensor.add(ttd.pressure_sensor.id)
+                
+        else:
+            for ttd in TTD.objects.all():
+                if ttd.pressure_sensor:
+                    pressure_sensor.add(ttd.pressure_sensor.id)
+
+        qs = qs.exclude(id__in = pressure_sensor)
+        return qs
 
 
 ##################################################################################
@@ -71,14 +112,33 @@ class PressureSensorViewPart(generics.ListAPIView):
 class TTDTubeSealRackViewPart(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    queryset = TTD_tube_seal_rack.objects.all()
     serializer_class = TTDTubeSealRackSerializer
+   
+    # def get_queryset(self):
+    #     so = set()
+    #     for ttd in TTD.objects.all():
+    #         so.add(ttd.TTD_tube_seal_rack.id)
+    #     so_qs = TTD_tube_seal_rack.objects.exclude(id__in = so)
+    #     return so_qs
+    
     def get_queryset(self):
+        qs = super().get_queryset()
+        ttd_id = self.request.GET.get("ttd_id")
         so = set()
-        for ttd in TTD.objects.all():
-            so.add(ttd.TTD_tube_seal_rack.id)
-        so_qs = TTD_tube_seal_rack.objects.exclude(id__in = so)
-        return so_qs
+        if ttd_id:
+            for ttd in TTD.objects.exclude(id=ttd_id):
+                if ttd.TTD_tube_seal_rack:
+                    so.add(ttd.TTD_tube_seal_rack.id)
+            qs= TTD_tube_seal_rack.objects.exclude(id__in=so)
+
+        else:
+            for ttd in TTD.objects.all():
+                if ttd.TTD_tube_seal_rack:
+                    so.add(ttd.TTD_tube_seal_rack.id)
+            
+        qs= TTD_tube_seal_rack.objects.exclude(id__in=so)
+        return qs
 
 
 ##################################################################################
@@ -91,14 +151,24 @@ class BDDTubeSealRackViewPart(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
 
     serializer_class = BDDTubeSealRackSerializer
-    def get_queryset(self):
-        so = set()
-        for bdd in BDD.objects.all():
-            if bdd.BDD_tube_seal_rack:
-                so.add(bdd.BDD_tube_seal_rack.id)
-        so_qs = BDD_tube_seal_rack.objects.exclude(id__in = so)
-        return so_qs
+    queryset = BDD_tube_seal_rack.objects.all()
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        bdd_id = self.request.GET.get('bdd_id')
+        so = set()
+        
+        if bdd_id:
+            for bdd in BDD.objects.exclude(id=bdd_id):
+                if bdd.BDD_tube_seal_rack:
+                    so.add(bdd.BDD_tube_seal_rack.id)
+        else:
+            for bdd in BDD.objects.all():
+                if bdd.BDD_tube_seal_rack:
+                    so.add(bdd.BDD_tube_seal_rack.id)
+        
+        qs = BDD_tube_seal_rack.objects.exclude(id__in = so)
+        return qs
 
 ################################################################################
 #                SwabMaster View
@@ -107,16 +177,24 @@ class BDDTubeSealRackViewPart(generics.ListAPIView):
 class SwabMasterTSRViewPart(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    queryset = SwabMasterTSR.objects.all()
     serializer_class = SwabMasterTSRSerializer
-    # queryset = SwabMasterTSR.objects.all()
     def get_queryset(self):
-        so = set()
-        for swab in SwabMaster.objects.all():
-            # if swab.Swab_Master_Tube_Seal_Rack:
-                so.add(swab.Swab_Master_Tube_Seal_Rack.id)
-        so_qs = SwabMasterTSR.objects.exclude(id__in = so)
-        return so_qs
+        qs = super().get_queryset()
+        swab_id = self.request.GET.get('swab_id')
+        
+        swabmaster_id = set()
+        if swab_id:
+            for swab in SwabMaster.objects.exclude(id=swab_id):
+                if swab.Swab_Master_Tube_Seal_Rack:
+                    swabmaster_id.add(swab.Swab_Master_Tube_Seal_Rack.id)
+        else:
+            for swab in SwabMaster.objects.all():
+                if swab.Swab_Master_Tube_Seal_Rack:
+                    swabmaster_id.add(swab.Swab_Master_Tube_Seal_Rack.id)
+                    
+        qs = SwabMasterTSR.objects.exclude(id__in = swabmaster_id)
+        return qs
 
 ################################################################################
 #                DeviceHose View
@@ -134,13 +212,14 @@ class DeviceHoseRViewPart(generics.ListAPIView):
 ################################################################################
 
 class AirHoseViewPart(generics.ListAPIView):
-    pagination_class = [DjangoModelPermissions, IsAdminUser]
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
 
     serializer_class = AirHoseSerializer
     queryset = AirHose.objects.all()
 
 ################################################################################
+<<<<<<< HEAD
 #                parts in the total warhouse
 ################################################################################
 
@@ -165,3 +244,7 @@ class AirHoseViewPart(generics.ListAPIView):
         
 
 
+=======
+#                AirHose View
+################################################################################
+>>>>>>> main

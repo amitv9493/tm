@@ -1,10 +1,4 @@
 from django.db import models
-from tube.models import Warehouse
-from part.models import Supply_orifice
-from part.models import Pressure_sensor
-from part.models import TTD_tube_seal_rack
-from part.models import BDD_tube_seal_rack
-from part.models import Calibration_orifice
 
 from django import forms
        
@@ -30,7 +24,7 @@ class TTD(models.Model):
     )
      remarks = models.CharField(blank=True, null=True, max_length=999)
      
-     location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE)
+     location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE, related_name="ttd")
      location_for_storage=models.CharField(max_length=128,blank=True,verbose_name="Location For Storage")
      packaging=models.CharField(max_length=128,blank=True)
      class is_this_part_of_set(models.TextChoices):
@@ -90,7 +84,7 @@ class BDD(models.Model):
      remarks = models.CharField(blank=True, null=True, max_length=999)
      
     
-     location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE,null=True)
+     location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE,null=True, related_name="bdd")
      location_for_storage=models.CharField(max_length=128,blank=True,verbose_name="Location For Storage")
      packaging=models.CharField(max_length=128,blank=True)
      class is_this_part_of_set(models.TextChoices):
@@ -141,7 +135,7 @@ class CALIBRATION_STAND(models.Model):
      remarks = models.CharField(blank=True, null=True, max_length=999)
      
      # warehouse_location=models.OneToOneField("Warehouse",verbose_name="Warehouse Location",default="",on_delete=models.SET_NULL,null=True)
-     location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE)
+     location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE, related_name="calibration_stand")
      location_for_storage=models.CharField(max_length=128,blank=True,verbose_name="Location For Storage")
      packaging=models.CharField(max_length=128,blank=True)
 
@@ -178,7 +172,7 @@ class SwabMaster(models.Model):
    
     '''Warehouse Info'''
 
-    location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE)
+    location_for_warehouse=models.ForeignKey("tube.Warehouse",verbose_name="Location For Warehouse",default="",on_delete=models.CASCADE, related_name="swabmaster")
     location_for_storage=models.CharField(max_length=128,blank=True,null=True,verbose_name="Location For Storage")
     packaging=models.CharField(max_length=128,blank=True,null=True)
     class is_this_part_of_set(models.TextChoices):

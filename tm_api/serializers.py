@@ -1,4 +1,3 @@
-
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from client.models import *
@@ -11,30 +10,36 @@ from django_countries.serializers import CountryFieldMixin
 #            Login API Serializer
 ################################################################################
 
+
 class UserProfileSerializer(serializers.ModelSerializer):
-  
-  class Meta:
-    model = User
-    fields = ["id", "first_name", "last_name", "username", "email"]
+    class Meta:
+        model = User
+        fields = ["id", "first_name", "last_name", "username", "email"]
+
 
 class LoginSerializer(serializers.ModelSerializer):
     username = serializers.CharField(max_length=255)
-    class Meta:
-        model=User
-        fields = [ 'username' ,'password']
 
-    
+    class Meta:
+        model = User
+        fields = ["username", "password"]
+
 
 ################################################################################
 #            Client API Serializer
 ################################################################################
 
 
-class ClientSerializer(CountryFieldMixin,serializers.ModelSerializer):
-    
-   class Meta:
-      model = Client
-      fields =['id', 'official_name', 'country']
+class ClientSerializer(CountryFieldMixin, serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        # fields = ["id", "official_name", "country"]
+        # fields = "_all_"
+        fields = ['official_name']
+        read_only_fields = ['official_name']
+
+    def to_representation(self, instance):
+        return instance.official_name
 
 
 ################################################################################
@@ -43,142 +48,216 @@ class ClientSerializer(CountryFieldMixin,serializers.ModelSerializer):
 
 
 class UnitSerializer(serializers.ModelSerializer):
-       class Meta:
+    class Meta:
         model = Unit
-        fields = ['id','name_of_unit']
+        fields = ['name_of_unit']
+        read_only_fields = ['name_of_unit']
+
+    def to_representation(self, instance):
+        return instance.name_of_unit
         
 ################################################################################
 #            SOW API Serializer
 ################################################################################
 from project.models import *
 
+
 class SOWSerializer(serializers.ModelSerializer):
-       class Meta:
+    class Meta:
         model = Scope_of_work
-        fields = ['id','name']
+        fields = ('id','name')
 
 ################################################################################
 #            TTD API Serializer
 ################################################################################
-class WarehouseLocationSerializer(CountryFieldMixin,serializers.ModelSerializer):
+class WarehouseLocationSerializer(CountryFieldMixin, serializers.ModelSerializer):
     class Meta:
         model = Warehouse
-        fields = ['id','warehouse_location','country',]
+        fields = [
+            "id",
+            "warehouse_location",
+            "country",
+        ]
+
 
 class TtdSerializer(serializers.ModelSerializer):
     location_for_warehouse = WarehouseLocationSerializer()
+
     class Meta:
-        model = TTD 
+        model = TTD
         # fields = ('id', 'serial_number')
-        fields = ['id', 'serial_number', 'location_for_warehouse', 'pm_status','alternate_name']
+        fields = [
+            "id",
+            "serial_number",
+            "location_for_warehouse",
+            "pm_status",
+            "alternate_name",
+        ]
         # depth = 1
-        
+
+
 ################################################################################
 #            BDD API Serializer
 ################################################################################
-        
+
+
 class BddSerializer(serializers.ModelSerializer):
     location_for_warehouse = WarehouseLocationSerializer()
+
     class Meta:
         model = BDD
         # fields = "__all__"
-        fields = ['id', 'serial_number', 'location_for_warehouse', 'pm_status','alternate_name']
-        
+        fields = [
+            "id",
+            "serial_number",
+            "location_for_warehouse",
+            "pm_status",
+            "alternate_name",
+        ]
+
+
 ################################################################################
 #            Calibration API Serializer
 ################################################################################
-        
+
+
 class CALIBRATION_STANDSerializer(serializers.ModelSerializer):
     location_for_warehouse = WarehouseLocationSerializer()
+
     class Meta:
         model = CALIBRATION_STAND
         # fields = "__all__"
-        fields = ['id', 'serial_number', 'location_for_warehouse', 'pm_status','alternate_name'] 
-        
+        fields = [
+            "id",
+            "serial_number",
+            "location_for_warehouse",
+            "pm_status",
+            "alternate_name",
+        ]
+
+
 ################################################################################
 #            Part API Serializer
 ################################################################################
 
+
 class PartSerializer(serializers.ModelSerializer):
     location_for_warehouse = WarehouseLocationSerializer()
+
     class Meta:
         model = Part
         # fields = "__all__"
-        fields = ['id', 'part_name' ,'serial_number', 'location_for_warehouse', 'pm_status']
-        
+        fields = [
+            "id",
+            "part_name",
+            "serial_number",
+            "location_for_warehouse",
+            "pm_status",
+        ]
+
+
 ################################################################################
 #            Supply API Serializer
 ################################################################################
-        
+
+
 class SupplyOrificeSerializer(serializers.ModelSerializer):
     location_for_warehouse = WarehouseLocationSerializer()
+
     class Meta:
         model = Supply_orifice
         # fields = "__all__"
-        fields = ['id','serial_number', 'size', 'total_sets','orifice_in_each_set','storage_case','location_for_warehouse']         
-        
-        
-        
-        
-        
+        fields = [
+            "id",
+            "serial_number",
+            "size",
+            "total_sets",
+            "orifice_in_each_set",
+            "storage_case",
+            "location_for_warehouse",
+        ]
+
+
 ################################################################################
-#                            reactor 
+#                            reactor
 ################################################################################
 class ReactorSerializer(serializers.ModelSerializer):
     # location_for_warehouse = WarehouseLocationSerializer()
     class Meta:
         model = Reactor
         # fields = "_all_"
-        fields = ['id', 'reactor_name']
-        
+        fields = ["id", "reactor_name"]
+
 
 ################################################################################
-#                       pressuresensor 
-################################################################################        
+#                       pressuresensor
+################################################################################
 class PressureSensorSerializer(serializers.ModelSerializer):
     location_for_warehouse = WarehouseLocationSerializer()
+
     class Meta:
         model = Pressure_sensor
-        fields = ('id','serial_number','quantity','range','location_for_warehouse')
-        
-        
+        fields = ("id", "serial_number", "quantity", "range", "location_for_warehouse")
+
+
 ################################################################################
-#            calibration 
+#            calibration
 ################################################################################
 class CalibrationOrificeSerializer(serializers.ModelSerializer):
     location_for_warehouse = WarehouseLocationSerializer()
+
     class Meta:
         model = Calibration_orifice
-        fields = ('id','serial_number','size','total_sets','in_sets','location_for_warehouse')       
-        
-        
+        fields = [
+            "id",
+            "serial_number",
+            "size",
+            "total_sets",
+            "in_sets",
+            "location_for_warehouse",
+        ]
+
+
 ################################################################################
-#            swabmaster 
+#            swabmaster
 ################################################################################
 class SwabMasterSerializer(serializers.ModelSerializer):
     location_for_warehouse = WarehouseLocationSerializer()
+
     class Meta:
         model = SwabMasterTSR
-        fields = ('id','serial_number','size','qty_rack','tube_seal_rack','location_for_warehouse')
-        
+        fields = [
+            "id",
+            "serial_number",
+            "size",
+            "qty_rack",
+            "tube_seal_rack",
+            "location_for_warehouse",
+        ]
+
+
 ################################################################################
-#            deviceair 
+#            deviceair
 ################################################################################
 class DeviceHoseSerializer(serializers.ModelSerializer):
     warehouse = WarehouseLocationSerializer()
+
     class Meta:
         model = DeviceHose
-        fields = ('id','serial_number','length','colour_code','warehouse')
+        fields = ("id", "serial_number", "length", "colour_code", "warehouse")
+
 
 ################################################################################
 #            airhose
 ################################################################################
 class AirHoseSerializer(serializers.ModelSerializer):
     warehouse = WarehouseLocationSerializer()
+
     class Meta:
         model = AirHose
-        fields = ('id','serial_number','length','colour_code','warehouse')
-        
+        fields = ("id", "serial_number", "length", "colour_code", "warehouse")
+
+
 ################################################################################
 #            AllListWithId Serializer
 ################################################################################
@@ -187,13 +266,15 @@ class AirHoseSerializer(serializers.ModelSerializer):
 
 class Add_Project_serializer(serializers.ModelSerializer):
     client = ClientSerializer()
+    unit = UnitSerializer()
+
     class Meta:
         model = Project
-        # fields = ('id','project_name','project_number','equipment_prep','client','ttd','unit','scope_of_work','bdd','calibration_stand','part','supply_orifice_part','reactor','pressure_sensor_part','calibration_orifice_part','swabmaster_part','device_part','airhose_part')
-        fields ="__all__"
-        depth = 1
-    
-    
+        fields = ('id','project_name','project_number','equipment_prep','client','ttd','unit','scope_of_work','bdd','calibration_stand','part','supply_orifice_part','reactor','pressure_sensor_part','calibration_orifice_part','swabmaster_part','device_part','airhose_part','project_start','project_end')
+        # fields = "_all_"
+        # fields = ("client", "unit")
+        # depth = 1
+
     # client = ClientSerializer()
     # unit = UnitSerializer()
     # scope_of_work = SOWSerializer()
@@ -208,7 +289,7 @@ class Add_Project_serializer(serializers.ModelSerializer):
     # swabmaster_part = SwabMasterSerializer()
     # device_part = DeviceHoseSerializer()
     # airhose_part = AirHoseSerializer()
-    
+
     # def to_representation(self, instance):
     #     return model_to_dict(instance)
 
@@ -218,57 +299,45 @@ class Add_Project_serializer(serializers.ModelSerializer):
 ################################################################################
 # from django.forms.models import model_to_dict
 
+
 class GET_Project_serializer(serializers.ModelSerializer):
-    
     class Meta:
         model = Project
         # fields = ('id','project_name','project_number','equipment_prep','client','ttd','unit','scope_of_work','bdd','calibration_stand','part','supply_orifice_part','reactor','pressure_sensor_part','calibration_orifice_part','swabmaster_part','device_part','airhose_part')
-        fields ="__all__"
+        fields = "__all__"
         # depth = 1
-    
-    
+
+
 ################################################################################
 #            List Serializer
 ################################################################################
 
+
 class AllList_Project_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields ="__all__"
+        fields = "__all__"
         # depth = 1
-    
+
+
 ################################################################################
 #            Create Serializer
 ################################################################################
 
+
 class Create_Project_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields ="__all__"
+        fields = "__all__"
         # fields = ""
-        
+
+
 ################################################################################
 #            Project Patch Serializer
 ################################################################################
 
+
 class All_Project_Patch_serializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields ="__all__"       
-        
-        
-
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        fields = "__all__"

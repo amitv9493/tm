@@ -31,7 +31,7 @@ class TTDTubeSealRackSerializer(serializers.ModelSerializer):
     class Meta:
         model = TTD_tube_seal_rack
         fields = "__all__"
-
+        # depth = 1
 
 ################################################################################
 #                BDD_tube_seal_rack Serializer

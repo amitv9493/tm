@@ -1,5 +1,3 @@
-from django.db import models  
-from django.forms import fields  
 from equipment.models import TTD
 from django import forms  
   
