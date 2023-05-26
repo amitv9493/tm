@@ -54,6 +54,7 @@ class TTDWithIDSerializer(serializers.ModelSerializer):
 ##################################################################
 
 class BDDSerializer(serializers.ModelSerializer):
+	BDD_tube_seal_rack = serializers.StringRelatedField()
 	class Meta:
 		model = BDD
 		fields = "__all__"
