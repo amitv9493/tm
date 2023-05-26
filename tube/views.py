@@ -1715,3 +1715,4 @@ class WarehouseOptionListView(generics.ListAPIView):
 
     queryset = Warehouse.objects.all()
     serializer_class = WarehouseOptionsSerializer
+
