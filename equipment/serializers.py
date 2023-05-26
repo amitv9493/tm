@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import *
 from tube.models import *
-from part.models import Part
+from part.models import *
 from rest_framework import serializers
 from django_countries import countries
 
@@ -16,20 +16,28 @@ class CustomCountryField(serializers.Field):
 	def to_internal_value(self, data):
 		return data
 
-class TTDLocSerializers(serializers.ModelSerializer):
-	class Meta:
-		model = Warehouse
-		# fields = ["id", "official_name", "country"]
-		# fields = "_all_"
-		fields = ['warehouse_name']
-		read_only_fields = ['warehouse_name']
+# class TTDLocSerializers(serializers.ModelSerializer):
+# 	class Meta:
+# 		model = Warehouse
+# 		# fields = ["id", "official_name", "country"]
+# 		# fields = "_all_"
+# 		fields = ['warehouse_name']
+# 		read_only_fields = ['warehouse_name']
 
-	def to_representation(self, instance):
-		return instance.warehouse_name
+# 	def to_representation(self, instance):
+# 		return instance.warehouse_name
+
+
 	
+
 	
 class TTDSerializers(serializers.ModelSerializer):
-	location_for_warehouse = TTDLocSerializers()
+	location_for_warehouse = serializers.StringRelatedField()
+	supply_orifice_set = serializers.StringRelatedField()
+	pressure_sensor = serializers.StringRelatedField()
+	TTD_tube_seal_rack = serializers.StringRelatedField()
+	# pressure_sensor =
+	# TTD_tube_seal_rack =
 	class Meta:
 		model = TTD
 		# fields = "__all__"
