@@ -45,7 +45,7 @@ class TTDRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = TTD.objects.all()
-    serializer_class = TTDSerializers
+    serializer_class = TTDWithIDSerializer
 
 
 ##################################################################
