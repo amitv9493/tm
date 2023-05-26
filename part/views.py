@@ -68,8 +68,8 @@ class SupplyOrificeViewPart(generics.ListAPIView):
 
 
 class PressureSensorViewPart(generics.ListAPIView):
-    # permission_classes = [DjangoModelPermissions, IsAdminUser]
-    # authentication_classes = [JWTAuthentication]
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
     queryset = Pressure_sensor.objects.all()
     serializer_class = PressureSensorSerializer
     # def get_queryset(self):
@@ -82,17 +82,19 @@ class PressureSensorViewPart(generics.ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
         ttd_id = self.request.GET.get("ttd_id")
+        pressure_sensor = set()
         if ttd_id:
-            pressure_sensor = set()
             for ttd in TTD.objects.exclude(id=ttd_id):
                 if ttd.pressure_sensor:
                     pressure_sensor.add(ttd.pressure_sensor.id)
                 
-            qs = qs.exclude(id__in = pressure_sensor)
-            return qs
         else:
-            return qs
+            for ttd in TTD.objects.all():
+                if ttd.pressure_sensor:
+                    pressure_sensor.add(ttd.pressure_sensor.id)
 
+        qs = qs.exclude(id__in = pressure_sensor)
+        return qs
 
 
 ##################################################################################
@@ -122,8 +124,13 @@ class TTDTubeSealRackViewPart(generics.ListAPIView):
                 if ttd.TTD_tube_seal_rack:
                     so.add(ttd.TTD_tube_seal_rack.id)
             qs= TTD_tube_seal_rack.objects.exclude(id__in=so)
-            return qs
 
+        else:
+            for ttd in TTD.objects.al():
+                if ttd.TTD_tube_seal_rack:
+                    so.add(ttd.TTD_tube_seal_rack.id)
+            
+        qs= TTD_tube_seal_rack.objects.exclude(id__in=so)
         return qs
 
 
@@ -142,13 +149,18 @@ class BDDTubeSealRackViewPart(generics.ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
         bdd_id = self.request.GET.get('bdd_id')
+        so = set()
         
         if bdd_id:
-            so = set()
             for bdd in BDD.objects.exclude(id=bdd_id):
                 if bdd.BDD_tube_seal_rack:
                     so.add(bdd.BDD_tube_seal_rack.id)
-            qs = BDD_tube_seal_rack.objects.exclude(id__in = so)
+        else:
+            for bdd in BDD.objects.all():
+                if bdd.BDD_tube_seal_rack:
+                    so.add(bdd.BDD_tube_seal_rack.id)
+        
+        qs = BDD_tube_seal_rack.objects.exclude(id__in = so)
         return qs
 
 ################################################################################
