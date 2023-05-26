@@ -23,17 +23,10 @@ from part.models import (
 from client.models import Client, Plant, Reactor, Address, Unit
 
 from django.contrib.auth import authenticate, login
-
-
 from django.http import HttpResponse, HttpResponseRedirect
-
-
-
 from django.contrib.auth import login as authlogin
 
-
 # Create your views here.
-
 
 def index(request):
     client = Client.objects.all()
