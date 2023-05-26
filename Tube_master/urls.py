@@ -141,8 +141,6 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path("api/get/option/devicehoserpart/",DeviceHoseRViewPart.as_view(),name="devicehoserpart"),
     path("api/get/option/airhosepart/", AirHoseViewPart.as_view(), name="airhosepart"),
     path("api/get/option/warehouse/", WarehouseOptionListView.as_view(), name="warehouseoptionlistview"),
-
-
 #######################################################################
 #                     Equipment-API ENDPOINTS
 #######################################################################
