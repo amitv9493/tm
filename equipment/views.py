@@ -56,7 +56,7 @@ class TTDRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class BDDListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
     queryset = BDD.objects.all()
     serializer_class = BDDSerializer
 
