@@ -39,15 +39,22 @@ class SupplyOrificeViewPart(generics.ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
         ttd_id = self.request.GET.get("ttd_id")
+        so = set()
+        
         if ttd_id:
-            so = set()
             for ttd in TTD.objects.exclude(id = ttd_id):
                 if ttd.supply_orifice_set:
                     so.add(ttd.supply_orifice_set.id)
 
-            qs = Supply_orifice.objects.exclude(id__in=so)
+        else:
+            for ttd in TTD.objects.all():
+                if ttd.supply_orifice_set:
+                    so.add(ttd.supply_orifice_set.id)
+                    
+        qs = Supply_orifice.objects.exclude(id__in=so)
             
         return qs
+
 
     
 
