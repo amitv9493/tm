@@ -47,7 +47,7 @@ class TTDSerializers(serializers.ModelSerializer):
 
 class TTDWithIDSerializer(serializers.ModelSerializer):
 	class Meta:
-		model = BDD
+		model = TTD
 		fields = "__all__"
 ##################################################################
 #       BDD Serializer
