@@ -33,7 +33,7 @@ class TTDSerializers(serializers.ModelSerializer):
 	class Meta:
 		model = TTD
 		# fields = "__all__"
-		fields = ("abbreviation", "alternate_name", "serial_number", "asset_number", "remarks", "location_for_warehouse", "location_for_storage", 
+		fields = ("id","abbreviation", "alternate_name", "serial_number", "asset_number", "remarks", "location_for_warehouse", "location_for_storage", 
 				  "packaging", "if_yes_how_many_in_a_set", "supply_orifice_set", "pressure_sensor", "TTD_tube_seal_rack", "frame", "image")
 		# depth = 1
 
