@@ -126,7 +126,7 @@ class TTDTubeSealRackViewPart(generics.ListAPIView):
             qs= TTD_tube_seal_rack.objects.exclude(id__in=so)
 
         else:
-            for ttd in TTD.objects.al():
+            for ttd in TTD.objects.all():
                 if ttd.TTD_tube_seal_rack:
                     so.add(ttd.TTD_tube_seal_rack.id)
             
