@@ -196,6 +196,12 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path("api/retupddel/warehouse/<int:pk>/", WarehouseRetUpdDelView.as_view(), name="retupddelwarehouse"),
     path("api/lw/<int:pk>/", WarehouseNewListView.as_view()),
 
+#######################################################################
+#                     Part-Crud-API ENDPOINTS
+#######################################################################
+
+    path("api/part/airhosecreate/", AirHoseCreateView.as_view(), name="airhosecreate"),
+    path("api/part/airhoseretupddel/<int:pk>/", AirHoseRetUpdDelView.as_view(), name="airhoseretupddel"),
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 # if settings.DEBUG:

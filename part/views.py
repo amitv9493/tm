@@ -242,3 +242,25 @@ class CalibrationOrificeViewPart(generics.ListAPIView):
         qs = Calibration_orifice.objects.exclude(id__in=so)
             
         return qs
+    
+#######################################################################
+#                     AirHose-CreateView 
+#######################################################################
+
+class AirHoseCreateView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = AirHoseCreSerializer
+    queryset = AirHose.objects.all()
+
+#######################################################################
+#                     AirHose-RetUpdDelView 
+#######################################################################
+
+class AirHoseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = AirHoseCreSerializer
+    queryset = AirHose.objects.all()

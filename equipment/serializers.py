@@ -110,11 +110,6 @@ class SwabMasterCreUpdSerializer(serializers.ModelSerializer):
 #       Warehouse Serializer
 ##################################################################
 
-
-
-
-
-
 class WarehouseSerializer(serializers.ModelSerializer):
 	country = CustomCountryField()
 

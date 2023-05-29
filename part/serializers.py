@@ -84,3 +84,12 @@ class Calibration_orifice_serializer(serializers.ModelSerializer):
     class Meta:
         model = Calibration_orifice
         fields = "__all__"
+
+################################################################################
+#                Calibration Serializer
+################################################################################
+
+class AirHoseCreSerializer(serializers.ModelSerializer):    
+    class Meta:
+        model = AirHose
+        fields = "__all__"
