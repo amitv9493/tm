@@ -420,3 +420,14 @@ class TddTubesealrackRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
     serializer_class = TddTubesealrackCreateSerializer
     queryset = TTD_tube_seal_rack.objects.all()  
+
+#######################################################################
+#                     PressureSensor-ListView 
+#######################################################################
+
+class PressureSensorList(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = TddTubesealrackCreateSerializer
+    queryset = TTD_tube_seal_rack.objects.all()  
