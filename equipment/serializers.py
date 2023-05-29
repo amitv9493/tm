@@ -100,7 +100,7 @@ class SwabMasterSerializer(serializers.ModelSerializer):
 ##################################################################
 
 class SwabMasterCreUpdSerializer(serializers.ModelSerializer):
-    location_for_warehouse = serializers.StringRelatedField()
+    
     
     class Meta:
         model = SwabMaster
