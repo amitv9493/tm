@@ -202,6 +202,8 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
 
     path("api/part/airhosecreate/", AirHoseCreateView.as_view(), name="airhosecreate"),
     path("api/part/airhoseretupddel/<int:pk>/", AirHoseRetUpdDelView.as_view(), name="airhoseretupddel"),
+    path("api/part/devicehosecreate/",DeviceHoseRCreateView.as_view(),name="devicehosecreate"),
+    path("api/part/devicehoseretupddel/<int:pk>/",DeviceHoseRetUpdDelView.as_view(),name="devicehoseretupddel"),
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 # if settings.DEBUG:

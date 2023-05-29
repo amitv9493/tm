@@ -264,3 +264,25 @@ class AirHoseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
     serializer_class = AirHoseCreSerializer
     queryset = AirHose.objects.all()
+
+#######################################################################
+#                     DeviceHose-CreateView 
+#######################################################################
+
+class DeviceHoseRCreateView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = DeviceHoseCreateSerializer
+    queryset = DeviceHose.objects.all()
+
+#######################################################################
+#                     DeviceHose-RetUpdDelView 
+#######################################################################
+
+class DeviceHoseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = DeviceHoseCreateSerializer
+    queryset = DeviceHose.objects.all()
