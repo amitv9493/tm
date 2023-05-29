@@ -211,6 +211,34 @@ class AirHoseViewPart(generics.ListAPIView):
     serializer_class = AirHoseSerializer
     queryset = AirHose.objects.all()
 
-################################################################################
-#                AirHose View
-################################################################################
+
+#######################################################################
+#                     CalibrationOrificeViewPart for options
+#######################################################################
+
+class CalibrationOrificeViewPart(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = Calibration_orifice_serializer
+    queryset = Calibration_orifice.objects.all()
+
+    
+    def get_queryset(self):
+        qs = super().get_queryset()
+        cr_id = self.request.GET.get("cr_id")
+        so = set()
+        
+        if cr_id:
+            for cr in CALIBRATION_STAND.objects.exclude(id = cr_id):
+                if cr.calibration_orifice_set:
+                    so.add(cr.calibration_orifice_set.id)
+
+        else:
+            for cr in CALIBRATION_STAND.objects.all():
+                if cr.calibration_orifice_set:
+                    so.add(cr.calibration_orifice_set.id)
+                    
+        qs = Calibration_orifice.objects.exclude(id__in=so)
+            
+        return qs

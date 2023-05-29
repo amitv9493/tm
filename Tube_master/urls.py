@@ -102,7 +102,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     # url(r'^chaining/', include('smart_selects.urls')),
     # path("select2/", include("django_select2.urls")),
 #######################################################################
-#                       API ENDPOINTS
+#                       Project API ENDPOINTS
 #######################################################################
     path("api/user/login/", LoginView.as_view(), name="loginview"),
     path("api/get/clientlist/", ClientListView.as_view(), name="clientview"),
@@ -141,6 +141,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path("api/get/option/devicehoserpart/",DeviceHoseRViewPart.as_view(),name="devicehoserpart"),
     path("api/get/option/airhosepart/", AirHoseViewPart.as_view(), name="airhosepart"),
     path("api/get/option/warehouse/", WarehouseOptionListView.as_view(), name="warehouseoptionlistview"),
+    path("api/get/option/calibrationorificepart/", CalibrationOrificeViewPart.as_view(), name="calibrationorificeviewpart"),
 #######################################################################
 #                     Equipment-API ENDPOINTS
 #######################################################################
