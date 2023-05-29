@@ -341,3 +341,15 @@ class CalibrationOrificeCreateView(generics.ListCreateAPIView):
 
     serializer_class = CalibratiobOrificeCreateSerializer
     queryset = Calibration_orifice.objects.all()
+
+#######################################################################
+#                     CalibrationOrifice-RetUpdDelView 
+#######################################################################
+
+class CalibrationOrificeRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = CalibratiobOrificeCreateSerializer
+    queryset = Calibration_orifice.objects.all()
+    

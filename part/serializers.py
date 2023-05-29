@@ -89,7 +89,8 @@ class Calibration_orifice_serializer(serializers.ModelSerializer):
 #                AirHose Serializer
 ################################################################################
 
-class AirHoseCreSerializer(serializers.ModelSerializer):    
+class AirHoseCreSerializer(serializers.ModelSerializer):   
+    location_for_warehouse = serializers.StringRelatedField() 
     class Meta:
         model = AirHose
         fields = "__all__"

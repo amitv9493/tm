@@ -212,6 +212,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
 
     path("api/part/calibrationorificelist/",CalibrationOrificeListView.as_view(),name="calibrationorificelist"),
     path("api/part/calibrationorificecreate/",CalibrationOrificeCreateView.as_view(),name="calibrationorificecreate"),
+    path("api/part/calibrationorificeretupddrl/",CalibrationOrificeRetUpdDelView.as_view(),name="calibrationorificeretupddrl"),
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 # if settings.DEBUG:
