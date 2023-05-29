@@ -207,7 +207,7 @@ class DeviceHoseRViewPart(generics.ListAPIView):
 class AirHoseViewPart(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
     serializer_class = AirHoseSerializer
     queryset = AirHose.objects.all()
 
@@ -286,3 +286,58 @@ class DeviceHoseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
     serializer_class = DeviceHoseCreateSerializer
     queryset = DeviceHose.objects.all()
+
+#######################################################################
+#                     SwabMaster-ListView 
+#######################################################################
+
+class SwabMasterTSRListView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = SwabMasterTSRSerializer
+    queryset = SwabMasterTSR.objects.all()
+
+#######################################################################
+#                     SwabMaster-CreateView 
+#######################################################################
+
+class SwabMasterTSRCreateView(generics.ListCreateAPIView):
+    ermission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = SwabMasterTSRCreateSerializer
+    queryset = SwabMasterTSR.objects.all()
+
+#######################################################################
+#                     SwabMaster-RetUpdDelView 
+#######################################################################
+
+class SwabMasterTSRRetUpdDelViewl(generics.ListCreateAPIView):
+    ermission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = SwabMasterTSRCreateSerializer
+    queryset = SwabMasterTSR.objects.all()
+
+#######################################################################
+#                     CalibrationOrifice-ListView 
+#######################################################################
+
+class CalibrationOrificeListView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = CalibratiobOrificeSerializer
+    queryset = Calibration_orifice.objects.all()
+
+#######################################################################
+#                     CalibrationOrifice-CreateView 
+#######################################################################
+
+class CalibrationOrificeCreateView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = CalibratiobOrificeCreateSerializer
+    queryset = Calibration_orifice.objects.all()

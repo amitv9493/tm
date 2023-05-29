@@ -102,3 +102,30 @@ class DeviceHoseCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeviceHose
         fields = "__all__"
+
+################################################################################
+#                Swabmastertsr Serializer
+################################################################################
+
+class SwabMasterTSRCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SwabMasterTSR
+        fields = "__all__"
+
+################################################################################
+#                CalibrationOrifice Serializer
+################################################################################
+
+class CalibratiobOrificeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Calibration_orifice
+        fields = "__all__"
+
+################################################################################
+#                CalibrationOrificeCreate Serializer
+################################################################################
+
+class CalibratiobOrificeCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Calibration_orifice
+        fields = "__all__"
