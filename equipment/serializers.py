@@ -77,7 +77,7 @@ class CalibrationStandSerializer(serializers.ModelSerializer):
 ##################################################################
 
 class CalibrationCreUpdStandSerializer(serializers.ModelSerializer):
-    calibration_orifice_set = serializers.StringRelatedField()
+    
     
     class Meta:
         model = CALIBRATION_STAND
