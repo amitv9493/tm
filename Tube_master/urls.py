@@ -214,7 +214,8 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path("api/part/calibrationorificecreate/",CalibrationOrificeCreateView.as_view(),name="calibrationorificecreate"),
     path("api/part/calibrationorificeretupddrl/",CalibrationOrificeRetUpdDelView.as_view(),name="calibrationorificeretupddrl"),
 
-    path("api/part/bddtubesealracklist/",BddTubesealracklist.as_view(),name="bddtubesealracklist"),
+    path("api/part/bddtubesealracklist/",BddTubesealrackList.as_view(),name="bddtubesealracklist"),
+    path("api/part/bddtubesealrackcreate/",BddTubesealrackCreate.as_view(),name="bddtubesealrackcreate"),
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 # if settings.DEBUG:

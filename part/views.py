@@ -353,3 +353,26 @@ class CalibrationOrificeRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CalibratiobOrificeCreateSerializer
     queryset = Calibration_orifice.objects.all()
     
+#######################################################################
+#                     CalibrationOrifice-ListViewView 
+#######################################################################
+
+class BddTubesealrackList(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = BddTubesealrackListSerializer
+    queryset = BDD_tube_seal_rack.objects.all()
+    
+
+#######################################################################
+#                     CalibrationOrifice-CreateView 
+#######################################################################
+
+class BddTubesealrackCreate(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = BddTubesealrackCreateSerializer
+    queryset = BDD_tube_seal_rack.objects.all()
+    

@@ -131,3 +131,21 @@ class CalibratiobOrificeCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Calibration_orifice
         fields = "__all__"
+
+################################################################################
+#                BddTubesealrackList Serializer
+################################################################################
+
+class BddTubesealrackListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BDD_tube_seal_rack
+        fields = "__all__"
+
+################################################################################
+#                BddTubesealrackList Serializer
+################################################################################
+
+class BddTubesealrackCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BDD_tube_seal_rack
+        fields = "__all__"       
