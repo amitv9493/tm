@@ -93,7 +93,7 @@ class BDDRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class CalibrationStandListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
 
     queryset = CALIBRATION_STAND.objects.all()
     serializer_class = CalibrationStandSerializer

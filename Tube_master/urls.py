@@ -158,7 +158,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path("api/eq/calibrationcreate/", CalibrationStandCreateView.as_view(), name="calibrationcreate"),
     path("api/eq/calibrationretupddel/<int:pk>/", CalibrationRetUpdDelView.as_view(), name="calibrationretupddel"),
 
-    path("api/eq/swabmasterlist/", SwabMasterView.as_view(), name = "swabmasterlist"),
+    path("api/eq/swabmasterlist/", SwabMasterListView.as_view(), name = "swabmasterlist"),
     path("api/eq/swabmastercreate/", SwabMasterCreateView.as_view(), name = "swabmastercreate"),
     path("api/eq/swabmasterretupddel/<int:pk>/", SwabMasterRetUpdDelView.as_view(), name = "swabmasterretupddel"),
 
