@@ -354,7 +354,7 @@ class CalibrationOrificeRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Calibration_orifice.objects.all()
     
 #######################################################################
-#                     CalibrationOrifice-ListViewView 
+#                     BddTubesealrack-ListViewView 
 #######################################################################
 
 class BddTubesealrackList(generics.ListAPIView):
@@ -366,7 +366,7 @@ class BddTubesealrackList(generics.ListAPIView):
     
 
 #######################################################################
-#                     CalibrationOrifice-CreateView 
+#                     BddTubesealrack-CreateView 
 #######################################################################
 
 class BddTubesealrackCreate(generics.ListCreateAPIView):
@@ -377,7 +377,7 @@ class BddTubesealrackCreate(generics.ListCreateAPIView):
     queryset = BDD_tube_seal_rack.objects.all()
 
 #######################################################################
-#                     CalibrationOrifice-RetUpdDelView 
+#                     BddTubesealrack-RetUpdDelView 
 #######################################################################
 
 class BddTubesealrackRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
@@ -387,4 +387,36 @@ class BddTubesealrackRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BddTubesealrackCreateSerializer
     queryset = BDD_tube_seal_rack.objects.all()  
 
-    
+
+#######################################################################
+#                     TddTubesealrack-ListViewView 
+#######################################################################
+
+class TddTubesealrackList(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = TddTubesealrackListSerializer
+    queryset = TTD_tube_seal_rack.objects.all()
+
+#######################################################################
+#                     TddTubesealrack-CreateView 
+#######################################################################
+
+class TddTubesealrackCreate(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = TddTubesealrackCreateSerializer
+    queryset = TTD_tube_seal_rack.objects.all()
+
+#######################################################################
+#                     BddTubesealrack-RetUpdDelView 
+#######################################################################
+
+class TddTubesealrackRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = TddTubesealrackCreateSerializer
+    queryset = TTD_tube_seal_rack.objects.all()  

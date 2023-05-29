@@ -142,10 +142,28 @@ class BddTubesealrackListSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 ################################################################################
-#                BddTubesealrackList Serializer
+#                BddTubesealrackCreate Serializer
 ################################################################################
 
 class BddTubesealrackCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = BDD_tube_seal_rack
         fields = "__all__"       
+
+################################################################################
+#                TddTubesealrackList Serializer
+################################################################################
+
+class TddTubesealrackListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TTD_tube_seal_rack
+        fields = "__all__"
+
+################################################################################
+#                TddTubesealrackCreate Serializer
+################################################################################
+
+class TddTubesealrackCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TTD_tube_seal_rack
+        fields = "__all__"  
