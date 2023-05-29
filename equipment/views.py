@@ -143,7 +143,7 @@ class SwabMasterCreateView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = SwabMaster.objects.all()
-    serializer_class = SwabMasterSerializer
+    serializer_class = SwabMasterCreUpdSerializer
 
 ###################################################################
 #              SwabMaster RetUpdDel-View
@@ -154,7 +154,7 @@ class SwabMasterRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = SwabMaster.objects.all()
-    serializer_class = SwabMasterSerializer
+    serializer_class = SwabMasterCreUpdSerializer
 
 ###################################################################
 #              Warehouse-ListView

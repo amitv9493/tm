@@ -95,6 +95,16 @@ class SwabMasterSerializer(serializers.ModelSerializer):
         model = SwabMaster
         fields = "__all__"
 
+##################################################################
+#       SwabMasterCreUpd Serializer
+##################################################################
+
+class SwabMasterCreUpdSerializer(serializers.ModelSerializer):
+    location_for_warehouse = serializers.StringRelatedField()
+    
+    class Meta:
+        model = SwabMaster
+        fields = "__all__"
 
 ##################################################################
 #       Warehouse Serializer
