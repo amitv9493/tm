@@ -71,7 +71,7 @@ class DeviceHoseSerializer(serializers.ModelSerializer):
 
 
 class AirHoseSerializer(serializers.ModelSerializer):  
-    location_for_warehouse = serializers.StringRelatedField()  
+    warehouse = serializers.StringRelatedField()  
     class Meta:
         model = AirHose
         fields = "__all__"
