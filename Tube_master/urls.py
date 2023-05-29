@@ -200,7 +200,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
 #                     Part-Crud-API ENDPOINTS
 #######################################################################
 
-    path("api/part/airhosecreate/", AirHoseCreateView.as_view(), name="airhosecreate"),
+    path("api/part/airhosecreate/", AirHoseCreateView.as_view(), name="airhosecreate")
     path("api/part/airhoseretupddel/<int:pk>/", AirHoseRetUpdDelView.as_view(), name="airhoseretupddel"),
 
     path("api/part/devicehosecreate/",DeviceHoseRCreateView.as_view(),name="devicehosecreate"),
