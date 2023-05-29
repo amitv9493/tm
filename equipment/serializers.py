@@ -89,9 +89,11 @@ class CalibrationCreUpdStandSerializer(serializers.ModelSerializer):
 ##################################################################
 
 class SwabMasterSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = SwabMaster
-		fields = "__all__"
+    location_for_warehouse = serializers.StringRelatedField()
+    
+    class Meta:
+        model = SwabMaster
+        fields = "__all__"
 
 
 ##################################################################
