@@ -167,3 +167,21 @@ class TddTubesealrackCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = TTD_tube_seal_rack
         fields = "__all__"  
+
+################################################################################
+#                PressuresensorList Serializer
+################################################################################
+
+class PressuresensorListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pressure_sensor
+        fields = "__all__"
+
+################################################################################
+#                PressuresensorCreate Serializer
+################################################################################
+
+class PressuresensorCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pressure_sensor
+        fields = "__all__"

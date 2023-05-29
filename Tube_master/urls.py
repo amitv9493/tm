@@ -222,7 +222,9 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path("api/part/tddtubesealrackcreate/",TddTubesealrackCreate.as_view(),name="tddtubesealrackcreate"),
     path("api/part/tddtubesealrackretupddrl/<int:pk>/",TddTubesealrackRetUpdDelView.as_view(),name="tddtubesealrackretupddrl"),
 
-    path("api/part/pressuresensorlist/",PressureSensorList.as_view(),name="pressuresensorlist"),
+    path("api/part/pressuresensorlist/",PressureSensorListView.as_view(),name="pressuresensorlist"),
+    path("api/part/pressuresensorcreate/",PressureSensorCreateView.as_view(),name="pressuresensorcreate"),
+    path("api/part/pressuresensorretupddrl/<int:pk>/",PressureSensorRetUpdDelView.as_view(),name="pressuresensorretupddrl"),
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 # if settings.DEBUG:
