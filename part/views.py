@@ -207,7 +207,7 @@ class DeviceHoseRViewPart(generics.ListAPIView):
 class AirHoseViewPart(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-    
+    pagination_class = CustomPagination
     serializer_class = AirHoseSerializer
     queryset = AirHose.objects.all()
 
