@@ -411,7 +411,7 @@ class TddTubesealrackCreate(generics.ListCreateAPIView):
     queryset = TTD_tube_seal_rack.objects.all()
 
 #######################################################################
-#                     BddTubesealrack-RetUpdDelView 
+#                     TddTubesealrack-RetUpdDelView 
 #######################################################################
 
 class TddTubesealrackRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
