@@ -220,7 +220,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
 
     path("api/part/tddtubesealracklist/",TddTubesealrackList.as_view(),name="tddtubesealracklist"),
     path("api/part/tddtubesealrackcreate/",TddTubesealrackCreate.as_view(),name="tddtubesealrackcreate"),
-    path("api/part/tddtubesealrackretupddrl/",TddTubesealrackRetUpdDelView.as_view(),name="tddtubesealrackretupddrl"),
+    path("api/part/tddtubesealrackretupddrl/",TddTubesealrackRetUpdDelView.as_view(),name="tddtubesealrackretupddrl")
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 # if settings.DEBUG:
