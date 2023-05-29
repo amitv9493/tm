@@ -49,6 +49,7 @@ class BDDTubeSealRackSerializer(serializers.ModelSerializer):
 
 
 class SwabMasterTSRSerializer(serializers.ModelSerializer):    
+    location_for_warehouse = serializers.StringRelatedField() 
     class Meta:
         model = SwabMasterTSR
         fields = "__all__"
@@ -101,6 +102,7 @@ class AirHoseCreSerializer(serializers.ModelSerializer):
 ################################################################################
 
 class DeviceHoseCreateSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = DeviceHose
         fields = "__all__"
@@ -119,6 +121,7 @@ class SwabMasterTSRCreateSerializer(serializers.ModelSerializer):
 ################################################################################
 
 class CalibratiobOrificeSerializer(serializers.ModelSerializer):
+    location_for_warehouse = serializers.StringRelatedField() 
     class Meta:
         model = Calibration_orifice
         fields = "__all__"
@@ -137,6 +140,7 @@ class CalibratiobOrificeCreateSerializer(serializers.ModelSerializer):
 ################################################################################
 
 class BddTubesealrackListSerializer(serializers.ModelSerializer):
+    location_for_warehouse = serializers.StringRelatedField() 
     class Meta:
         model = BDD_tube_seal_rack
         fields = "__all__"
@@ -155,6 +159,7 @@ class BddTubesealrackCreateSerializer(serializers.ModelSerializer):
 ################################################################################
 
 class TddTubesealrackListSerializer(serializers.ModelSerializer):
+    location_for_warehouse = serializers.StringRelatedField() 
     class Meta:
         model = TTD_tube_seal_rack
         fields = "__all__"
@@ -173,6 +178,7 @@ class TddTubesealrackCreateSerializer(serializers.ModelSerializer):
 ################################################################################
 
 class PressuresensorListSerializer(serializers.ModelSerializer):
+    location_for_warehouse = serializers.StringRelatedField() 
     class Meta:
         model = Pressure_sensor
         fields = "__all__"
