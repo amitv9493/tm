@@ -130,7 +130,7 @@ class CalibrationRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class SwabMasterListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
     queryset = SwabMaster.objects.all()
     serializer_class = SwabMasterSerializer
 
