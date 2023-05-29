@@ -90,7 +90,7 @@ class CalibrationCreUpdStandSerializer(serializers.ModelSerializer):
 
 class SwabMasterSerializer(serializers.ModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
-    
+    Swab_Master_Tube_Seal_Rack = serializers.StringRelatedField()
     class Meta:
         model = SwabMaster
         fields = "__all__"
