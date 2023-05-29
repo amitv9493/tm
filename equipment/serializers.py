@@ -66,6 +66,7 @@ class BDDSerializer(serializers.ModelSerializer):
 
 class CalibrationStandSerializer(serializers.ModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
+    calibration_orifice_set = serializers.StringRelatedField()
     
     class Meta:
         model = CALIBRATION_STAND
