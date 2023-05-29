@@ -375,4 +375,16 @@ class BddTubesealrackCreate(generics.ListCreateAPIView):
 
     serializer_class = BddTubesealrackCreateSerializer
     queryset = BDD_tube_seal_rack.objects.all()
+
+#######################################################################
+#                     CalibrationOrifice-RetUpdDelView 
+#######################################################################
+
+class BddTubesealrackRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = BddTubesealrackCreateSerializer
+    queryset = BDD_tube_seal_rack.objects.all()  
+
     

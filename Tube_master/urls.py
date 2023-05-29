@@ -216,6 +216,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
 
     path("api/part/bddtubesealracklist/",BddTubesealrackList.as_view(),name="bddtubesealracklist"),
     path("api/part/bddtubesealrackcreate/",BddTubesealrackCreate.as_view(),name="bddtubesealrackcreate"),
+    path("api/part/bddtubesealrackretupddrl/",BddTubesealrackRetUpdDelView.as_view(),name="bddtubesealrackretupddrl"),
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 # if settings.DEBUG:
