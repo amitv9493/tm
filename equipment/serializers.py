@@ -71,6 +71,18 @@ class CalibrationStandSerializer(serializers.ModelSerializer):
     class Meta:
         model = CALIBRATION_STAND
         fields = "__all__"
+	
+##################################################################
+#       CALIBRATION_STANDCreUpd Serializer
+##################################################################
+
+class CalibrationCreUpdStandSerializer(serializers.ModelSerializer):
+    location_for_warehouse = serializers.StringRelatedField()
+    calibration_orifice_set = serializers.StringRelatedField()
+    
+    class Meta:
+        model = CALIBRATION_STAND
+        fields = "__all__"
 
 
 ##################################################################

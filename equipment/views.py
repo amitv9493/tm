@@ -108,7 +108,7 @@ class CalibrationStandCreateView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = CALIBRATION_STAND.objects.all()
-    serializer_class = CalibrationStandSerializer
+    serializer_class = CalibrationCreUpdStandSerializer
 
 
 ###################################################################
@@ -120,7 +120,7 @@ class CalibrationRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = CALIBRATION_STAND.objects.all()
-    serializer_class = CalibrationStandSerializer
+    serializer_class = CalibrationCreUpdStandSerializer
     
 
 ###################################################################
