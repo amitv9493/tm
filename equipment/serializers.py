@@ -65,9 +65,12 @@ class BDDSerializer(serializers.ModelSerializer):
 ##################################################################
 
 class CalibrationStandSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = CALIBRATION_STAND
-		fields = "__all__"
+    location_for_warehouse = serializers.StringRelatedField()
+    
+    class Meta:
+        model = CALIBRATION_STAND
+        fields = "__all__"
+
 
 ##################################################################
 #       SwabMaster Serializer
