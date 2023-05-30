@@ -6,6 +6,7 @@ from datetime import datetime
 import pytz
 from django.db.models import Count, Q
 
+
 class WarehouseSerializer(CountryFieldMixin, serializers.ModelSerializer):
     country = CountryField(country_dict=True)
 
@@ -23,7 +24,6 @@ class WarehouseOptionsSerializer(CountryFieldMixin, serializers.ModelSerializer)
 class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerializer):
     general_part_data = serializers.SerializerMethodField()
 
-
     class Meta:
         fields = "__all__"
         model = Warehouse
@@ -33,12 +33,12 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
         will_be_free_avaialble_part = 0
         not_assigned_to_any_project = 0
         total_parts = 0
-        request = self.context.get('request')
+        request = self.context.get("request")
         warehouse_id = request.query_params.get("id")
         current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
 
         if warehouse_id:
-            warehouse = Warehouse.objects.get(id = warehouse_id)
+            warehouse = Warehouse.objects.get(id=warehouse_id)
             if warehouse.part:
                 total_parts = warehouse.part.count()
                 for j in warehouse.part.all():
@@ -48,16 +48,17 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
                                 will_be_free_avaialble_part += 1
                             else:
                                 will_not_free_part += 1
-            
-            not_assigned_to_any_project =total_parts - ( will_not_free_part + will_be_free_avaialble_part)
-                                
+
+            not_assigned_to_any_project = total_parts - (
+                will_not_free_part + will_be_free_avaialble_part
+            )
+
         return {
-            'will_not_free_part':will_not_free_part,
-            'will_be_free_avaialble_part':will_be_free_avaialble_part,
-            'not_assigned_to_any_project':not_assigned_to_any_project,
-            'total_parts':total_parts,            
+            "will_not_free_part": will_not_free_part,
+            "will_be_free_avaialble_part": will_be_free_avaialble_part,
+            "not_assigned_to_any_project": not_assigned_to_any_project,
+            "total_parts": total_parts,
         }
-        
 
 
 class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerializer):
@@ -67,28 +68,81 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
         fields = "__all__"
         model = Warehouse
 
-    def get_general_part_data(self, obj):
-        request = self.context.get('request')
+    def getID(self):
+        request = self.context.get("request")
         warehouse_id = request.query_params.get("id")
+        return warehouse_id
+
+    def get_general_part_data(self, obj):
+        warehouse_id = self.getID()
+
         current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+        if warehouse_id:
+            warehouse = (
+                Warehouse.objects.filter(id=warehouse_id)
+                .prefetch_related("part", "part__projects")
+                .annotate(
+                    total_parts=Count("part"),
+                    will_not_free_part=Count(
+                        "part__projects",
+                        filter=Q(
+                            part__projects__equipment_delivery_tubemaster__gte=current_datetime
+                        ),
+                    ),
+                    will_be_free_available_part=Count(
+                        "part__projects",
+                        filter=Q(
+                            part__projects__equipment_delivery_tubemaster__lt=current_datetime
+                        ),
+                    ),
+                )
+                .first()
+            )
 
-        warehouse = Warehouse.objects.filter(id=warehouse_id).prefetch_related('part', 'part__projects').annotate(
-            total_parts=Count('part'),
-            will_not_free_part=Count('part__projects', filter=Q(part__projects__equipment_delivery_tubemaster__gte=current_datetime)),
-            will_be_free_available_part=Count('part__projects', filter=Q(part__projects__equipment_delivery_tubemaster__lt=current_datetime)),
-        ).first()
-        print(type(warehouse))
+            not_assigned_to_any_project = warehouse.total_parts - (
+                warehouse.will_not_free_part + warehouse.will_be_free_available_part
+            )
 
-        not_assigned_to_any_project = warehouse.total_parts - (warehouse.will_not_free_part + warehouse.will_be_free_available_part)
+            return {
+                "will_not_free_part": warehouse.will_not_free_part,
+                "will_be_free_available_part": warehouse.will_be_free_available_part,
+                "not_assigned_to_any_project": not_assigned_to_any_project,
+                "total_parts": warehouse.total_parts,
+            }
+
+        return "Please pass ID"
+
+    def get_TTD(self, obj):
+        warehouse_id = self.getID()
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+        warehouse = (
+            Warehouse.objects.filter(id=warehouse_id)
+            .prefetch_related("TTD", "TTD__projects")
+            .annotate(
+                total_parts=Count("TTD"),
+                will_not_free_part=Count(
+                    "TTD__projects",
+                    filter=Q(
+                        TTD__projects__equipment_delivery_tubemaster__gte=current_datetime
+                    ),
+                ),
+                will_be_free_available_part=Count(
+                    "TTD__projects",
+                    filter=Q(
+                        TTD__projects__equipment_delivery_tubemaster__lt=current_datetime
+                    ),
+                ),
+            )
+            .first()
+        )
+        
+        not_assigned_to_any_project = warehouse.total_parts - (
+            warehouse.will_not_free_part + warehouse.will_be_free_available_part
+        )
 
         return {
-            'will_not_free_part': warehouse.will_not_free_part,
-            'will_be_free_available_part': warehouse.will_be_free_available_part,
-            'not_assigned_to_any_project': not_assigned_to_any_project,
-            'total_parts': warehouse.total_parts,
+            "will_not_free_part": warehouse.will_not_free_part,
+            "will_be_free_available_part": warehouse.will_be_free_available_part,
+            "not_assigned_to_any_project": not_assigned_to_any_project,
+            "total_parts": warehouse.total_parts,
         }
-
-
-
-
-
