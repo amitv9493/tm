@@ -225,6 +225,8 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path("api/part/pressuresensorlist/",PressureSensorListView.as_view(),name="pressuresensorlist"),
     path("api/part/pressuresensorcreate/",PressureSensorCreateView.as_view(),name="pressuresensorcreate"),
     path("api/part/pressuresensorretupddrl/<int:pk>/",PressureSensorRetUpdDelView.as_view(),name="pressuresensorretupddrl"),
+
+    path('api/wa/', WarehouseAvailabilityView.as_view()),
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 # if settings.DEBUG:

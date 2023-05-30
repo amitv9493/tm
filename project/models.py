@@ -107,7 +107,7 @@ class Project(models.Model):
         related_name="calibration_stand",
     )
     # ====================PARTS==================================
-    part = models.ManyToManyField("part.Part", default="", blank=True)
+    part = models.ManyToManyField("part.Part", default="", blank=True, related_name='projects')
     supply_orifice_part = models.ManyToManyField(
         "part.Supply_orifice", default="", blank=True, verbose_name="Supply Orifice"
     )
