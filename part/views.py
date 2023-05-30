@@ -4,6 +4,8 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import *
 from .serializers import *
 from tm_api.paginator import CustomPagination
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 ################################################################################
 #                UpddateAll View API Project/ SupplyOrificeViewPart
 ################################################################################
@@ -313,7 +315,7 @@ class SwabMasterTSRListView(generics.ListAPIView):
 class SwabMasterTSRCreateView(generics.ListCreateAPIView):
     ermission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-    
+
     serializer_class = SwabMasterTSRCreateSerializer
     queryset = SwabMasterTSR.objects.all()
 
@@ -510,7 +512,7 @@ class AllGeneralPartListView(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     serializer_class = AllGeneralPartListSerializer
-    queryset = Supply_orifice.objects.all() 
+    queryset = Part.objects.all() 
     
 
 #######################################################################
