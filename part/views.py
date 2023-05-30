@@ -403,7 +403,7 @@ class BddTubesealrackRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class TddTubesealrackList(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
     serializer_class = TddTubesealrackListSerializer
     queryset = TTD_tube_seal_rack.objects.all()
 
@@ -436,7 +436,7 @@ class TddTubesealrackRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class PressureSensorListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-    
+    pagination_class = CustomPagination
 
     serializer_class = PressuresensorListSerializer
     queryset = Pressure_sensor.objects.all()  
@@ -471,7 +471,7 @@ class PressureSensorRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class SupplyOrificeListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
     serializer_class = SupplyOrificeListSerializer
     queryset = Supply_orifice.objects.all() 
 
@@ -508,7 +508,7 @@ class SupplyOrificeRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class AllGeneralPartListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
     serializer_class = AllGeneralPartListSerializer
     queryset = Supply_orifice.objects.all() 
     
