@@ -499,3 +499,38 @@ class SupplyOrificeRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
     serializer_class = SupplyOrificeCreateSerializer
     queryset = Supply_orifice.objects.all() 
+    
+
+#######################################################################
+#                     AllgeneralPart-ListView 
+#######################################################################
+
+class AllGeneralPartListView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = AllGeneralPartListSerializer
+    queryset = Supply_orifice.objects.all() 
+    
+
+#######################################################################
+#                     AllgeneralPart-CreateView 
+#######################################################################
+
+class AllGeneralPartCreateView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = AllGeneralPartCreateSerializer
+    queryset = Supply_orifice.objects.all()
+
+#######################################################################
+#                     AllgeneralPart-RetUpdDelView 
+#######################################################################
+
+class AllGeneralPartRetUpdDelView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = AllGeneralPartCreateSerializer
+    queryset = Supply_orifice.objects.all()

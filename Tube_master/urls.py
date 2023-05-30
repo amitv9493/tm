@@ -230,6 +230,10 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path("api/part/supplyorificelist/",SupplyOrificeListView.as_view(),name="supplyorificelist"),
     path("api/part/supplyorificecreate/",SupplyOrificeCreateView.as_view(),name="supplyorificecreate"),
     path("api/part/supplyorificeretupddrl/<int:pk>/",SupplyOrificeRetUpdDelView.as_view(),name="supplyorificeretupddrl"),
+
+    path("api/part/allgeneralpartlist/",AllGeneralPartListView.as_view(),name="allgeneralpartlist"),
+    path("api/part/allgeneralpartcreate/",AllGeneralPartCreateView.as_view(),name="allgeneralpartcreate"),
+    path("api/part/allgeneralpartretupddel/",AllGeneralPartRetUpdDelView.as_view(),name="allgeneralpartretupddel"),
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 # if settings.DEBUG:

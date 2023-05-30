@@ -219,3 +219,22 @@ class SupplyOrificeCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Supply_orifice
         fields = "__all__"
+
+################################################################################
+#                AllGeneralPartList Serializer
+################################################################################
+
+class AllGeneralPartListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Part
+        fields = "__all__"
+        
+
+################################################################################
+#                AllGeneralPartCreate Serializer
+################################################################################
+
+class AllGeneralPartCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Part
+        fields = "__all__"
