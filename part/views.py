@@ -118,8 +118,8 @@ class TTDTubeSealRackViewPart(generics.ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
         ttd_id = self.request.GET.get("ttd_id")
-        so = set()
         if ttd_id:
+            so = set()
             for ttd in TTD.objects.exclude(id=ttd_id):
                 if ttd.TTD_tube_seal_rack:
                     so.add(ttd.TTD_tube_seal_rack.id)
@@ -176,18 +176,15 @@ class SwabMasterTSRViewPart(generics.ListAPIView):
         qs = super().get_queryset()
         swab_id = self.request.GET.get('swab_id')
         
-        swabmaster_id = set()
         if swab_id:
+            swabmaster_id = set()
             for swab in SwabMaster.objects.exclude(id=swab_id):
                 if swab.Swab_Master_Tube_Seal_Rack:
                     swabmaster_id.add(swab.Swab_Master_Tube_Seal_Rack.id)
+            qs = SwabMasterTSR.objects.exclude(id__in = swabmaster_id)
+            return qs
         else:
-            for swab in SwabMaster.objects.all():
-                if swab.Swab_Master_Tube_Seal_Rack:
-                    swabmaster_id.add(swab.Swab_Master_Tube_Seal_Rack.id)
-                    
-        qs = SwabMasterTSR.objects.exclude(id__in = swabmaster_id)
-        return qs
+            return qs
 
 ################################################################################
 #                DeviceHose View
