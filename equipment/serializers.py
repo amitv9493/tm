@@ -41,18 +41,21 @@ class TTDSerializers(serializers.ModelSerializer):
 	class Meta:
 		model = TTD
 		# fields = "__all__"
-		fields = ("id","abbreviation", "alternate_name", "serial_number", "asset_number", "remarks", "location_for_warehouse", "location_for_storage", 
+		fields = ("id","abbreviation", "alternate_name", "serial_number", "asset_number", "remarks", "location_for_warehouse","pm_status", "location_for_storage", 
 				  "packaging", "if_yes_how_many_in_a_set", "supply_orifice_set", "pressure_sensor", "TTD_tube_seal_rack", "frame", "image")
 		# depth = 1
 
-
-
-
+class TTDWithIDSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = TTD
+		fields = "__all__"
 ##################################################################
 #       BDD Serializer
 ##################################################################
 
 class BDDSerializer(serializers.ModelSerializer):
+	BDD_tube_seal_rack = serializers.StringRelatedField()
+	location_for_warehouse = serializers.StringRelatedField()
 	class Meta:
 		model = BDD
 		fields = "__all__"
@@ -62,28 +65,50 @@ class BDDSerializer(serializers.ModelSerializer):
 ##################################################################
 
 class CalibrationStandSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = CALIBRATION_STAND
-		fields = "__all__"
+    location_for_warehouse = serializers.StringRelatedField()
+    calibration_orifice_set = serializers.StringRelatedField()
+    
+    class Meta:
+        model = CALIBRATION_STAND
+        fields = "__all__"
+	
+##################################################################
+#       CALIBRATION_STANDCreUpd Serializer
+##################################################################
+
+class CalibrationCreUpdStandSerializer(serializers.ModelSerializer):
+    
+    
+    class Meta:
+        model = CALIBRATION_STAND
+        fields = "__all__"
+
 
 ##################################################################
 #       SwabMaster Serializer
 ##################################################################
 
 class SwabMasterSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = SwabMaster
-		fields = "__all__"
+    location_for_warehouse = serializers.StringRelatedField()
+    Swab_Master_Tube_Seal_Rack = serializers.StringRelatedField()
+    class Meta:
+        model = SwabMaster
+        fields = "__all__"
 
+##################################################################
+#       SwabMasterCreUpd Serializer
+##################################################################
+
+class SwabMasterCreUpdSerializer(serializers.ModelSerializer):
+    
+    
+    class Meta:
+        model = SwabMaster
+        fields = "__all__"
 
 ##################################################################
 #       Warehouse Serializer
 ##################################################################
-
-
-
-
-
 
 class WarehouseSerializer(serializers.ModelSerializer):
 	country = CustomCountryField()

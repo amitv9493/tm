@@ -45,7 +45,7 @@ class TTDRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = TTD.objects.all()
-    serializer_class = TTDSerializers
+    serializer_class = TTDWithIDSerializer
 
 
 ##################################################################
@@ -56,7 +56,7 @@ class TTDRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class BDDListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
     queryset = BDD.objects.all()
     serializer_class = BDDSerializer
 
@@ -93,7 +93,7 @@ class BDDRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class CalibrationStandListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
 
     queryset = CALIBRATION_STAND.objects.all()
     serializer_class = CalibrationStandSerializer
@@ -108,7 +108,7 @@ class CalibrationStandCreateView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = CALIBRATION_STAND.objects.all()
-    serializer_class = CalibrationStandSerializer
+    serializer_class = CalibrationCreUpdStandSerializer
 
 
 ###################################################################
@@ -120,7 +120,7 @@ class CalibrationRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = CALIBRATION_STAND.objects.all()
-    serializer_class = CalibrationStandSerializer
+    serializer_class = CalibrationCreUpdStandSerializer
     
 
 ###################################################################
@@ -130,7 +130,7 @@ class CalibrationRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class SwabMasterListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
     queryset = SwabMaster.objects.all()
     serializer_class = SwabMasterSerializer
 
@@ -143,7 +143,7 @@ class SwabMasterCreateView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = SwabMaster.objects.all()
-    serializer_class = SwabMasterSerializer
+    serializer_class = SwabMasterCreUpdSerializer
 
 ###################################################################
 #              SwabMaster RetUpdDel-View
@@ -154,7 +154,7 @@ class SwabMasterRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = SwabMaster.objects.all()
-    serializer_class = SwabMasterSerializer
+    serializer_class = SwabMasterCreUpdSerializer
 
 ###################################################################
 #              Warehouse-ListView
