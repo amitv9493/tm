@@ -101,6 +101,16 @@ class AirHoseCreSerializer(serializers.ModelSerializer):
 #                DeviseHose Serializer
 ################################################################################
 
+class DeviceHoseListSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = DeviceHose
+        fields = "__all__"
+
+################################################################################
+#                DeviseHose Serializer
+################################################################################
+
 class DeviceHoseCreateSerializer(serializers.ModelSerializer):
     
     class Meta:
