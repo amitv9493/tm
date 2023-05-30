@@ -142,7 +142,7 @@ class TTDTubeSealRackViewPart(generics.ListAPIView):
 class BDDTubeSealRackViewPart(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-    pagination_class = CustomPagination
+    
     serializer_class = BDDTubeSealRackSerializer
     queryset = BDD_tube_seal_rack.objects.all()
 
