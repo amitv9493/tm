@@ -273,7 +273,7 @@ class DeviceHoseRListView(generics.ListAPIView):
     serializer_class = DeviceHoseListSerializer
     queryset = DeviceHose.objects.all()
 
-#######################################################################DeviceHoseRListView
+#######################################################################
 #                     DeviceHose-CreateView 
 #######################################################################
 
@@ -463,3 +463,39 @@ class PressureSensorRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
     serializer_class = PressuresensorCreateSerializer
     queryset = Pressure_sensor.objects.all() 
+
+#######################################################################
+#                     SupplyOrificeListView-ListView 
+#######################################################################
+
+class SupplyOrificeListView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = SupplyOrificeListSerializer
+    queryset = Supply_orifice.objects.all() 
+
+    
+#######################################################################
+#                     SupplyOrificeListView-ListView 
+#######################################################################
+
+class SupplyOrificeCreateView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = SupplyOrificeCreateSerializer
+    queryset = Supply_orifice.objects.all() 
+
+    
+
+#######################################################################
+#                     SupplyOrificeListView-RetUpdDelView 
+#######################################################################
+
+class SupplyOrificeRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = SupplyOrificeCreateSerializer
+    queryset = Supply_orifice.objects.all() 

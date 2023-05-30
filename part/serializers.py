@@ -201,3 +201,21 @@ class PressuresensorCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pressure_sensor
         fields = "__all__"
+
+################################################################################
+#                SupplyOrificeList Serializer
+################################################################################
+
+class SupplyOrificeListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Supply_orifice
+        fields = "__all__"
+
+################################################################################
+#                SupplyOrificeCreate Serializer
+################################################################################
+
+class SupplyOrificeCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Supply_orifice
+        fields = "__all__"
