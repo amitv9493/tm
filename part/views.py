@@ -323,7 +323,7 @@ class SwabMasterTSRCreateView(generics.ListCreateAPIView):
 #                     SwabMaster-RetUpdDelView 
 #######################################################################
 
-class SwabMasterTSRRetUpdDelViewl(generics.ListCreateAPIView):
+class SwabMasterTSRRetUpdDelViewl(generics.RetrieveUpdateAPIView):
     ermission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
 

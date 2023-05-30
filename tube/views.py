@@ -1712,7 +1712,19 @@ class WarehouseIDView(generics.RetrieveUpdateDestroyAPIView):
 class WarehouseOptionListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
     queryset = Warehouse.objects.all()
     serializer_class = WarehouseOptionsSerializer
 
+
+
+class WarehouseAvailabilityView(generics.ListAPIView):
+    queryset = Warehouse.objects.all()
+    serializer_class = WarehouseAvailableSerializer
+    
+    def get_queryset(self):
+        qs = super().get_queryset()
+    
+        id = self.request.GET.get('id')
+        if id:
+            return qs.filter(id=id)
+        return qs
