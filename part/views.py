@@ -269,7 +269,7 @@ class AirHoseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class DeviceHoseRListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
     serializer_class = DeviceHoseListSerializer
     queryset = DeviceHose.objects.all()
 
@@ -302,7 +302,7 @@ class DeviceHoseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class SwabMasterTSRListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
     serializer_class = SwabMasterTSRSerializer
     queryset = SwabMasterTSR.objects.all()
 

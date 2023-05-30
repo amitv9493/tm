@@ -102,7 +102,7 @@ class AirHoseCreSerializer(serializers.ModelSerializer):
 ################################################################################
 
 class DeviceHoseListSerializer(serializers.ModelSerializer):
-    
+    warehouse = serializers.StringRelatedField() 
     class Meta:
         model = DeviceHose
         fields = "__all__"
