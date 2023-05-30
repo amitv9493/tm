@@ -324,7 +324,7 @@ class SwabMasterTSRRetUpdDelViewl(generics.ListCreateAPIView):
 class CalibrationOrificeListView(generics.ListCreateAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
     serializer_class = CalibratiobOrificeSerializer
     queryset = Calibration_orifice.objects.all()
 
