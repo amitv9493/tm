@@ -201,7 +201,7 @@ class DeviceHoseRViewPart(generics.ListAPIView):
 #                AirHose View
 ################################################################################
 
-class AirHoseViewPart(generics.ListAPIView):
+class AirHoseListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination

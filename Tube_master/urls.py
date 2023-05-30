@@ -139,7 +139,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path("api/get/option/bddtubesealrackpart/",BDDTubeSealRackViewPart.as_view(),name="bddtubesealrackpart",),
     path("api/get/option/swabmastertsrpart/",SwabMasterTSRViewPart.as_view(),name="swabmastertsrpart"),
     path("api/get/option/devicehoserpart/",DeviceHoseRViewPart.as_view(),name="devicehoserpart"),
-    path("api/get/option/airhosepart/", AirHoseViewPart.as_view(), name="airhosepart"),
+    
     path("api/get/option/warehouse/", WarehouseOptionListView.as_view(), name="warehouseoptionlistview"),
     path("api/get/option/calibrationorificepart/", CalibrationOrificeViewPart.as_view(), name="calibrationorificeviewpart"),
 #######################################################################
@@ -200,6 +200,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
 #                     Part-Crud-API ENDPOINTS
 #######################################################################
 
+    path("api/part/airhosepart/", AirHoseListView.as_view(), name="airhosepart"),
     path("api/part/airhosecreate/", AirHoseCreateView.as_view(), name="airhosecreate"),
     path("api/part/airhoseretupddel/<int:pk>/", AirHoseRetUpdDelView.as_view(), name="airhoseretupddel"),
 
