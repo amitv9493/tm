@@ -357,7 +357,7 @@ class CalibrationOrificeRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class BddTubesealrackList(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
     serializer_class = BddTubesealrackListSerializer
     queryset = BDD_tube_seal_rack.objects.all()
     
