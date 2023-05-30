@@ -313,7 +313,7 @@ class SwabMasterTSRListView(generics.ListAPIView):
 class SwabMasterTSRCreateView(generics.ListCreateAPIView):
     ermission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    
     serializer_class = SwabMasterTSRCreateSerializer
     queryset = SwabMasterTSR.objects.all()
 
