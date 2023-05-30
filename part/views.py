@@ -530,7 +530,7 @@ class AllGeneralPartCreateView(generics.ListCreateAPIView):
 #                     AllgeneralPart-RetUpdDelView 
 #######################################################################
 
-class AllGeneralPartRetUpdDelView(generics.ListCreateAPIView):
+class AllGeneralPartRetUpdDelView(generics.RetrieveUpdateAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
 
