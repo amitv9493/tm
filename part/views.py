@@ -524,7 +524,7 @@ class AllGeneralPartCreateView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
 
     serializer_class = AllGeneralPartCreateSerializer
-    queryset = Supply_orifice.objects.all()
+    queryset = Part.objects.all()
 
 #######################################################################
 #                     AllgeneralPart-RetUpdDelView 
@@ -535,4 +535,4 @@ class AllGeneralPartRetUpdDelView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
 
     serializer_class = AllGeneralPartCreateSerializer
-    queryset = Supply_orifice.objects.all()
+    queryset = Part.objects.all()
