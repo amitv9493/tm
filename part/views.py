@@ -4,6 +4,9 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import *
 from .serializers import *
 from tm_api.paginator import CustomPagination
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 ################################################################################
 #                UpddateAll View API Project/ SupplyOrificeViewPart
 ################################################################################
@@ -118,8 +121,8 @@ class TTDTubeSealRackViewPart(generics.ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
         ttd_id = self.request.GET.get("ttd_id")
-        so = set()
         if ttd_id:
+            so = set()
             for ttd in TTD.objects.exclude(id=ttd_id):
                 if ttd.TTD_tube_seal_rack:
                     so.add(ttd.TTD_tube_seal_rack.id)
@@ -142,7 +145,7 @@ class TTDTubeSealRackViewPart(generics.ListAPIView):
 class BDDTubeSealRackViewPart(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    
     serializer_class = BDDTubeSealRackSerializer
     queryset = BDD_tube_seal_rack.objects.all()
 
@@ -176,18 +179,15 @@ class SwabMasterTSRViewPart(generics.ListAPIView):
         qs = super().get_queryset()
         swab_id = self.request.GET.get('swab_id')
         
-        swabmaster_id = set()
         if swab_id:
+            swabmaster_id = set()
             for swab in SwabMaster.objects.exclude(id=swab_id):
                 if swab.Swab_Master_Tube_Seal_Rack:
                     swabmaster_id.add(swab.Swab_Master_Tube_Seal_Rack.id)
+            qs = SwabMasterTSR.objects.exclude(id__in = swabmaster_id)
+            return qs
         else:
-            for swab in SwabMaster.objects.all():
-                if swab.Swab_Master_Tube_Seal_Rack:
-                    swabmaster_id.add(swab.Swab_Master_Tube_Seal_Rack.id)
-                    
-        qs = SwabMasterTSR.objects.exclude(id__in = swabmaster_id)
-        return qs
+            return qs
 
 ################################################################################
 #                DeviceHose View
@@ -207,10 +207,435 @@ class DeviceHoseRViewPart(generics.ListAPIView):
 class AirHoseViewPart(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
     serializer_class = AirHoseSerializer
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status', 
+                        
+                        ]
+    search_fields = [
+        'part_name',
+        'name_of_abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        'price',
+        
+    ]
+    queryset = AirHose.objects.all()
+
+
+#######################################################################
+#                     CalibrationOrificeViewPart for options
+#######################################################################
+
+class CalibrationOrificeViewPart(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = Calibration_orifice_serializer
+    queryset = Calibration_orifice.objects.all()
+
+    
+    def get_queryset(self):
+        qs = super().get_queryset()
+        cr_id = self.request.GET.get("cr_id")
+        so = set()
+        
+        if cr_id:
+            for cr in CALIBRATION_STAND.objects.exclude(id = cr_id):
+                if cr.calibration_orifice_set:
+                    so.add(cr.calibration_orifice_set.id)
+
+        else:
+            for cr in CALIBRATION_STAND.objects.all():
+                if cr.calibration_orifice_set:
+                    so.add(cr.calibration_orifice_set.id)
+                    
+        qs = Calibration_orifice.objects.exclude(id__in=so)
+            
+        return qs
+    
+#######################################################################
+#                     AirHose-CreateView 
+#######################################################################
+
+class AirHoseCreateView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = AirHoseCreSerializer
     queryset = AirHose.objects.all()
 
 #######################################################################
-#                     Calibration-Rack View
+#                     AirHose-RetUpdDelView 
 #######################################################################
+
+class AirHoseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = AirHoseCreSerializer
+    queryset = AirHose.objects.all()
+
+#######################################################################
+#                     DeviceHose-ListView 
+#######################################################################
+
+class DeviceHoseRListView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    pagination_class = CustomPagination
+    serializer_class = DeviceHoseListSerializer
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status',]
+    search_fields = [
+        'part_name',
+        'name_of_abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        'price',
+        
+    ]
+    queryset = DeviceHose.objects.all()
+
+#######################################################################
+#                     DeviceHose-CreateView 
+#######################################################################
+
+class DeviceHoseRCreateView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = DeviceHoseCreateSerializer
+    queryset = DeviceHose.objects.all()
+
+#######################################################################
+#                     DeviceHose-RetUpdDelView 
+#######################################################################
+
+class DeviceHoseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = DeviceHoseCreateSerializer
+    queryset = DeviceHose.objects.all()
+
+#######################################################################
+#                     SwabMaster-ListView 
+#######################################################################
+
+class SwabMasterTSRListView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    pagination_class = CustomPagination
+    serializer_class = SwabMasterTSRSerializer
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status', 
+                        
+                        ]
+    search_fields = [
+        'part_name',
+        'name_of_abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        'price',
+        
+    ]
+    queryset = SwabMasterTSR.objects.all()
+
+#######################################################################
+#                     SwabMaster-CreateView 
+#######################################################################
+
+class SwabMasterTSRCreateView(generics.ListCreateAPIView):
+    ermission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = SwabMasterTSRCreateSerializer
+    queryset = SwabMasterTSR.objects.all()
+
+#######################################################################
+#                     SwabMaster-RetUpdDelView 
+#######################################################################
+
+class SwabMasterTSRRetUpdDelViewl(generics.RetrieveUpdateAPIView):
+    ermission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = SwabMasterTSRCreateSerializer
+    queryset = SwabMasterTSR.objects.all()
+
+#######################################################################
+#                     CalibrationOrifice-ListView 
+#######################################################################
+
+class CalibrationOrificeListView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    pagination_class = CustomPagination
+    serializer_class = CalibratiobOrificeSerializer
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status', 
+                        
+                        ]
+    search_fields = [
+        'part_name',
+        'name_of_abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        'price',
+        
+    ]
+    queryset = Calibration_orifice.objects.all()
+
+#######################################################################
+#                     CalibrationOrifice-CreateView 
+#######################################################################
+
+class CalibrationOrificeCreateView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = CalibratiobOrificeCreateSerializer
+    queryset = Calibration_orifice.objects.all()
+
+#######################################################################
+#                     CalibrationOrifice-RetUpdDelView 
+#######################################################################
+
+class CalibrationOrificeRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = CalibratiobOrificeCreateSerializer
+    queryset = Calibration_orifice.objects.all()
+    
+#######################################################################
+#                     BddTubesealrack-ListViewView 
+#######################################################################
+
+class BddTubesealrackList(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    pagination_class = CustomPagination
+    serializer_class = BddTubesealrackListSerializer
+    queryset = BDD_tube_seal_rack.objects.all()
+    
+
+#######################################################################
+#                     BddTubesealrack-CreateView 
+#######################################################################
+
+class BddTubesealrackCreate(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = BddTubesealrackCreateSerializer
+    queryset = BDD_tube_seal_rack.objects.all()
+
+#######################################################################
+#                     BddTubesealrack-RetUpdDelView 
+#######################################################################
+
+class BddTubesealrackRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = BddTubesealrackCreateSerializer
+    queryset = BDD_tube_seal_rack.objects.all()  
+
+
+#######################################################################
+#                     TddTubesealrack-ListViewView 
+#######################################################################
+
+class TddTubesealrackList(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    pagination_class = CustomPagination
+    serializer_class = TddTubesealrackListSerializer
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status', 
+                        
+                        ]
+    search_fields = [
+        'part_name',
+        'name_of_abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        'price',
+        
+    ]
+    queryset = TTD_tube_seal_rack.objects.all()
+
+#######################################################################
+#                     TddTubesealrack-CreateView 
+#######################################################################
+
+class TddTubesealrackCreate(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = TddTubesealrackCreateSerializer
+    queryset = TTD_tube_seal_rack.objects.all()
+
+#######################################################################
+#                     TddTubesealrack-RetUpdDelView 
+#######################################################################
+
+class TddTubesealrackRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = TddTubesealrackCreateSerializer
+    queryset = TTD_tube_seal_rack.objects.all()  
+
+#######################################################################
+#                     PressureSensor-ListView 
+#######################################################################
+
+class PressureSensorListView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    pagination_class = CustomPagination
+
+    serializer_class = PressuresensorListSerializer
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status', 
+                        
+                        ]
+    search_fields = [
+        'part_name',
+        'name_of_abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        'price',
+        
+    ]
+    queryset = Pressure_sensor.objects.all()  
+
+#######################################################################
+#                     PressureSensor-CreateView 
+#######################################################################
+
+class PressureSensorCreateView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = PressuresensorCreateSerializer
+    queryset = Pressure_sensor.objects.all()  
+
+
+#######################################################################
+#                     PressureSensor-RetUpdDelView 
+#######################################################################
+
+class PressureSensorRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = PressuresensorCreateSerializer
+    queryset = Pressure_sensor.objects.all() 
+
+#######################################################################
+#                     SupplyOrificeListView-ListView 
+#######################################################################
+
+class SupplyOrificeListView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    pagination_class = CustomPagination
+    serializer_class = SupplyOrificeListSerializer
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status', 
+                        
+                        ]
+    search_fields = [
+        'part_name',
+        'name_of_abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        'price',
+        
+    ]
+    queryset = Supply_orifice.objects.all() 
+
+    
+#######################################################################
+#                     SupplyOrificeListView-ListView 
+#######################################################################
+
+class SupplyOrificeCreateView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = SupplyOrificeCreateSerializer
+    queryset = Supply_orifice.objects.all() 
+
+    
+
+#######################################################################
+#                     SupplyOrificeListView-RetUpdDelView 
+#######################################################################
+
+class SupplyOrificeRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = SupplyOrificeCreateSerializer
+    queryset = Supply_orifice.objects.all() 
+    
+
+#######################################################################
+#                     AllgeneralPart-ListView 
+#######################################################################
+
+class AllGeneralPartListView(generics.ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    pagination_class = CustomPagination
+    serializer_class = AllGeneralPartListSerializer
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status', 
+                        
+                        ]
+    search_fields = [
+        'part_name',
+        'name_of_abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        'price',
+        
+    ]
+    queryset = Part.objects.all() 
+    
+    
+#######################################################################
+#                     AllgeneralPart-CreateView 
+#######################################################################
+
+class AllGeneralPartCreateView(generics.ListCreateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = AllGeneralPartCreateSerializer
+    queryset = Part.objects.all()
+
+#######################################################################
+#                     AllgeneralPart-RetUpdDelView 
+#######################################################################
+
+class AllGeneralPartRetUpdDelView(generics.RetrieveUpdateAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+
+    serializer_class = AllGeneralPartCreateSerializer
+    queryset = Part.objects.all()

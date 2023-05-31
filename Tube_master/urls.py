@@ -102,7 +102,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     # url(r'^chaining/', include('smart_selects.urls')),
     # path("select2/", include("django_select2.urls")),
 #######################################################################
-#                       API ENDPOINTS
+#                       Project API ENDPOINTS
 #######################################################################
     path("api/user/login/", LoginView.as_view(), name="loginview"),
     path("api/get/clientlist/", ClientListView.as_view(), name="clientview"),
@@ -141,8 +141,6 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path("api/get/option/devicehoserpart/",DeviceHoseRViewPart.as_view(),name="devicehoserpart"),
     path("api/get/option/airhosepart/", AirHoseViewPart.as_view(), name="airhosepart"),
     path("api/get/option/warehouse/", WarehouseOptionListView.as_view(), name="warehouseoptionlistview"),
-
-    # path("api/get/option/calibrationrack/", CalibrationrackListView.as_view(), name="calibrationracklistview"),
 #######################################################################
 #                     Equipment-API ENDPOINTS
 #######################################################################
@@ -153,14 +151,13 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
 
     path("api/eq/bddlist/", BDDListView.as_view(), name="bddlistview"),
     path("api/eq/bddcreate/", BDDCreateView.as_view(), name="bddcreateview"),
-    path("api/eq/bddretupddel/<int:pk>/",BDDRetUpdDelView.as_view(),name="bddretupddelview",
-    ),
+    path("api/eq/bddretupddel/<int:pk>/",BDDRetUpdDelView.as_view(),name="bddretupddelview",),
 
     path("api/eq/calibrationlist/", CalibrationStandListView.as_view(), name="calibrationlist"), 
     path("api/eq/calibrationcreate/", CalibrationStandCreateView.as_view(), name="calibrationcreate"),
     path("api/eq/calibrationretupddel/<int:pk>/", CalibrationRetUpdDelView.as_view(), name="calibrationretupddel"),
 
-    path("api/eq/swabmasterlist/", SwabMasterView.as_view(), name = "swabmasterlist"),
+    path("api/eq/swabmasterlist/", SwabMasterListView.as_view(), name = "swabmasterlist"),
     path("api/eq/swabmastercreate/", SwabMasterCreateView.as_view(), name = "swabmastercreate"),
     path("api/eq/swabmasterretupddel/<int:pk>/", SwabMasterRetUpdDelView.as_view(), name = "swabmasterretupddel"),
 
@@ -197,6 +194,46 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path("api/retupddel/warehouse/<int:pk>/", WarehouseRetUpdDelView.as_view(), name="retupddelwarehouse"),
     path("api/lw/<int:pk>/", WarehouseNewListView.as_view()),
 
+#######################################################################
+#                     Part-Crud-API ENDPOINTS
+#######################################################################
+
+    path("api/part/airhosecreate/", AirHoseCreateView.as_view(), name="airhosecreate"),
+    path("api/part/airhoseretupddel/<int:pk>/", AirHoseRetUpdDelView.as_view(), name="airhoseretupddel"),
+
+    path("api/part/devicehoselist/",DeviceHoseRListView.as_view(),name="devicehoselist"),
+    path("api/part/devicehosecreate/",DeviceHoseRCreateView.as_view(),name="devicehosecreate"),
+    path("api/part/devicehoseretupddel/<int:pk>/",DeviceHoseRetUpdDelView.as_view(),name="devicehoseretupddel"),
+
+    path("api/part/swabmastertsrlist/",SwabMasterTSRListView.as_view(),name="swabmastertsrlist"),
+    path("api/part/swabmastertsrcreate/",SwabMasterTSRCreateView.as_view(),name="swabmastertsrcreate"),
+    path("api/part/swabmastertsrretupddrl/<int:pk>/",SwabMasterTSRRetUpdDelViewl.as_view(),name="swabmastertsrretupddrl"),
+
+    path("api/part/calibrationorificelist/",CalibrationOrificeListView.as_view(),name="calibrationorificelist"),
+    path("api/part/calibrationorificecreate/",CalibrationOrificeCreateView.as_view(),name="calibrationorificecreate"),
+    path("api/part/calibrationorificeretupddrl/<int:pk>/",CalibrationOrificeRetUpdDelView.as_view(),name="calibrationorificeretupddrl"),
+
+    path("api/part/bddtubesealracklist/",BddTubesealrackList.as_view(),name="bddtubesealracklist"),
+    path("api/part/bddtubesealrackcreate/",BddTubesealrackCreate.as_view(),name="bddtubesealrackcreate"),
+    path("api/part/bddtubesealrackretupddrl/<int:pk>/",BddTubesealrackRetUpdDelView.as_view(),name="bddtubesealrackretupddrl"),
+
+    path("api/part/tddtubesealracklist/",TddTubesealrackList.as_view(),name="tddtubesealracklist"),
+    path("api/part/tddtubesealrackcreate/",TddTubesealrackCreate.as_view(),name="tddtubesealrackcreate"),
+    path("api/part/tddtubesealrackretupddrl/<int:pk>/",TddTubesealrackRetUpdDelView.as_view(),name="tddtubesealrackretupddrl"),
+
+    path("api/part/pressuresensorlist/",PressureSensorListView.as_view(),name="pressuresensorlist"),
+    path("api/part/pressuresensorcreate/",PressureSensorCreateView.as_view(),name="pressuresensorcreate"),
+    path("api/part/pressuresensorretupddrl/<int:pk>/",PressureSensorRetUpdDelView.as_view(),name="pressuresensorretupddrl"),
+
+    path("api/part/supplyorificelist/",SupplyOrificeListView.as_view(),name="supplyorificelist"),
+    path("api/part/supplyorificecreate/",SupplyOrificeCreateView.as_view(),name="supplyorificecreate"),
+    path("api/part/supplyorificeretupddrl/<int:pk>/",SupplyOrificeRetUpdDelView.as_view(),name="supplyorificeretupddrl"),
+
+    path("api/part/allgeneralpartlist/",AllGeneralPartListView.as_view(),name="allgeneralpartlist"),
+    path("api/part/allgeneralpartcreate/",AllGeneralPartCreateView.as_view(),name="allgeneralpartcreate"),
+    path("api/part/allgeneralpartretupddel/<int:pk>/",AllGeneralPartRetUpdDelView.as_view(),name="allgeneralpartretupddel"),
+
+    path('api/wa/',WarehouseAvailabilityView.as_view()),
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 # if settings.DEBUG:
