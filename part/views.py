@@ -6,6 +6,7 @@ from .serializers import *
 from tm_api.paginator import CustomPagination
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 ################################################################################
 #                UpddateAll View API Project/ SupplyOrificeViewPart
 ################################################################################
@@ -512,6 +513,8 @@ class AllGeneralPartListView(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     serializer_class = AllGeneralPartListSerializer
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status','created_at']
     queryset = Part.objects.all() 
     
 
