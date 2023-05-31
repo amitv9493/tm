@@ -24,6 +24,8 @@ class WarehouseOptionsSerializer(CountryFieldMixin, serializers.ModelSerializer)
 class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerializer):
     ttd = serializers.SerializerMethodField()
     bdd = serializers.SerializerMethodField()
+    calibration_stand = serializers.SerializerMethodField()
+    swabmaster =  serializers.SerializerMethodField()
     # parts
     general_part_data = serializers.SerializerMethodField()
     supply_orifice = serializers.SerializerMethodField()
@@ -39,6 +41,31 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
         fields = "__all__"
         model = Warehouse
 
+    def get_calibration_stand(self, obj):
+        will_not_free = 0
+        will_be_free = 0
+        not_assigned_to_any_project = 0
+        total = 0
+        request = self.context.get("request")
+        warehouse_id = request.query_params.get("id")
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+        if warehouse_id:
+            warehouse = Warehouse.objects.get(id=warehouse_id)
+            if warehouse.calibration_stand:
+                total = warehouse.calibration_stand.count()
+                for j in warehouse.calibration_stand.all():
+                    if j.calibration_stand:
+                        for k in j.calibration_stand.all():
+                            if k.equipment_delivery_tubemaster < current_datetime:
+                                will_be_free += 1
+                            else:
+                                will_not_free += 1
+
+            not_assigned_to_any_project = total - (
+                will_not_free + will_be_free
+            )
+
+        
     def get_bdd_rack(self, obj):
         used = 0
         not_used = 0
@@ -409,34 +436,34 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
         }
 
 
-    def get_swabMaster(self, obj):
-        will_not_free = 0
-        will_be_free = 0
-        not_assigned_to_any_project = 0
-        total = 0
-        request = self.context.get("request")
-        warehouse_id = request.query_params.get("id")
-        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+    def get_swabmaster(self, obj):
+        # will_not_free = 0
+        # will_be_free = 0
+        # not_assigned_to_any_project = 0
+        # total = 0
+        # request = self.context.get("request")
+        # warehouse_id = request.query_params.get("id")
+        # current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
 
-        if warehouse_id:
-            warehouse = Warehouse.objects.get(id=warehouse_id)
-            if warehouse.swabmaster:
-                total = warehouse.swabmaster.count()
-                for j in warehouse.swabmaster.all():
-                    if j.swabmaster:
-                        for k in j.swabmaster.all():
-                            if k.equipment_delivery_tubemaster < current_datetime:
-                                will_be_free += 1
-                            else:
-                                will_not_free += 1
+        # if warehouse_id:
+        #     warehouse = Warehouse.objects.get(id=warehouse_id)
+        #     if warehouse.swabmaster:
+        #         total = warehouse.swabmaster.count()
+        #         for j in warehouse.swabmaster.all():
+        #             if j.swabmaster:
+        #                 for k in j.swabmaster.all():
+        #                     if k.equipment_delivery_tubemaster < current_datetime:
+        #                         will_be_free += 1
+        #                     else:
+        #                         will_not_free += 1
 
-            not_assigned_to_any_project = total - (
-                will_not_free + will_be_free
-            )
+        #     not_assigned_to_any_project = total - (
+        #         will_not_free + will_be_free
+        #     )
 
         return {
-            "will_not_free": will_not_free,
-            "will_be_free": will_be_free,
-            "not_assigned_to_any_project": not_assigned_to_any_project,
-            "total": total,
+            "will_not_free": 0,
+            "will_be_free": 0,
+            "not_assigned_to_any_project": 0,
+            "total": 0,
         }
