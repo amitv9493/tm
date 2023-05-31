@@ -65,9 +65,9 @@ class BDDListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
-    queryset = BDD.objects.all()
+    
     filter_backends = [DjangoFilterBackend,filters.SearchFilter,]
-    filterset_fields = ['pm_status']
+    filterset_fields = ['pm_status','alternate_name']
     search_fields = [
         'alternate_name',
         'abbreviation',
@@ -76,6 +76,7 @@ class BDDListView(generics.ListAPIView):
         'packaging',
         
     ]
+    queryset = BDD.objects.all()
     serializer_class = BDDSerializer
 
 
