@@ -121,19 +121,17 @@ class TTDTubeSealRackViewPart(generics.ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
         ttd_id = self.request.GET.get("ttd_id")
+        so = set()  # Initialize the 'so' variable here
         if ttd_id:
-            so = set()
             for ttd in TTD.objects.exclude(id=ttd_id):
                 if ttd.TTD_tube_seal_rack:
                     so.add(ttd.TTD_tube_seal_rack.id)
-            qs= TTD_tube_seal_rack.objects.exclude(id__in=so)
-
+                qs = TTD_tube_seal_rack.objects.exclude(id__in=so)
         else:
             for ttd in TTD.objects.all():
                 if ttd.TTD_tube_seal_rack:
                     so.add(ttd.TTD_tube_seal_rack.id)
-            
-        qs= TTD_tube_seal_rack.objects.exclude(id__in=so)
+        qs = TTD_tube_seal_rack.objects.exclude(id__in=so)
         return qs
 
 
