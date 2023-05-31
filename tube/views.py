@@ -1728,3 +1728,15 @@ class WarehouseAvailabilityView(generics.ListAPIView):
         if id:
             return qs.filter(id=id)
         return qs
+
+class WarehouseEquipmentView(generics.ListAPIView):
+    serializer_class = WarehouseEquipSerializer
+    queryset = Warehouse.objects.all()
+    
+    def get_queryset(self):
+        qs= super().get_queryset()
+        id = self.request.GET.get("id")
+        if id:
+            return qs.filter(id = id) 
+        
+        return qs
