@@ -510,6 +510,7 @@ class SupplyOrificeRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
 class AllGeneralPartListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     serializer_class = AllGeneralPartListSerializer
@@ -517,7 +518,7 @@ class AllGeneralPartListView(generics.ListAPIView):
     filterset_fields = ['pm_status','created_at']
     queryset = Part.objects.all() 
     
-
+    
 #######################################################################
 #                     AllgeneralPart-CreateView 
 #######################################################################
