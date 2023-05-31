@@ -18,7 +18,7 @@ class TTDListView(ListAPIView):
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     filter_backends = [DjangoFilterBackend,filters.SearchFilter,]
-    filterset_fields = ['pm_status']
+    filterset_fields = ['pm_status','alternate_name' ]
     search_fields = [
         'alternate_name',
         'abbreviation',

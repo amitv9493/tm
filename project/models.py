@@ -126,7 +126,8 @@ class Project(models.Model):
         verbose_name="Calibration Orifice",
     )
     swabmaster_part = models.ManyToManyField(
-        "part.SwabMasterTSR", default="", blank=True, verbose_name="Swab Master TSR"
+        "part.SwabMasterTSR", default="", blank=True, verbose_name="Swab Master TSR",
+        related_name='projects'
     )
     device_part = models.ManyToManyField(
         "part.DeviceHose", default="", blank=True, verbose_name="Device Hose"

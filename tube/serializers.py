@@ -179,11 +179,11 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
 
         if warehouse_id:
             warehouse = Warehouse.objects.get(id=warehouse_id)
-            if warehouse.swabmaster:
-                total = warehouse.swabmaster.count()
-                for j in warehouse.swabmaster.all():
-                    if j.swabmaster:
-                        for k in j.swabmaster.all():
+            if warehouse.swabmasterTSR:
+                total = warehouse.swabmasterTSR.count()
+                for j in warehouse.swabmasterTSR.all():
+                    if j.projects:
+                        for k in j.projects.all():
                             if k.equipment_delivery_tubemaster < current_datetime:
                                 will_be_free += 1
                             else:
