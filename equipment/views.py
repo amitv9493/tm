@@ -15,9 +15,17 @@ from tm_api.paginator import CustomPagination
 class TTDListView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-    filter_backends = [filters.DjangoFilterBackend]
     pagination_class = CustomPagination
-    filterset_fields = ('location_for_warehouse',)
+    filter_backends = [filters.DjangoFilterBackend,filters.OrderingFilter]
+    filterset_fields = ['pm_status']
+    search_fields = [
+        'alternate_name',
+        'abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        
+    ]
     queryset = TTD.objects.all()
     serializer_class = TTDSerializers
 
@@ -58,6 +66,16 @@ class BDDListView(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     queryset = BDD.objects.all()
+    filter_backends = [filters.DjangoFilterBackend,filters.OrderingFilter]
+    filterset_fields = ['pm_status']
+    search_fields = [
+        'alternate_name',
+        'abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        
+    ]
     serializer_class = BDDSerializer
 
 
@@ -94,7 +112,15 @@ class CalibrationStandListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
-
+    filter_backends = [filters.DjangoFilterBackend,filters.OrderingFilter]
+    filterset_fields = ['pm_status']
+    search_fields = [
+        'alternate_name',
+        'abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+    ]
     queryset = CALIBRATION_STAND.objects.all()
     serializer_class = CalibrationStandSerializer
 
@@ -131,6 +157,15 @@ class SwabMasterListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
+    filter_backends = [filters.DjangoFilterBackend,filters.OrderingFilter]
+    filterset_fields = ['pm_status']
+    search_fields = [
+        'alternate_name',
+        'abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+    ]
     queryset = SwabMaster.objects.all()
     serializer_class = SwabMasterSerializer
 

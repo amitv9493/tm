@@ -152,8 +152,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
 
     path("api/eq/bddlist/", BDDListView.as_view(), name="bddlistview"),
     path("api/eq/bddcreate/", BDDCreateView.as_view(), name="bddcreateview"),
-    path("api/eq/bddretupddel/<int:pk>/",BDDRetUpdDelView.as_view(),name="bddretupddelview",
-    ),
+    path("api/eq/bddretupddel/<int:pk>/",BDDRetUpdDelView.as_view(),name="bddretupddelview",),
 
     path("api/eq/calibrationlist/", CalibrationStandListView.as_view(), name="calibrationlist"), 
     path("api/eq/calibrationcreate/", CalibrationStandCreateView.as_view(), name="calibrationcreate"),

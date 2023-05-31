@@ -209,6 +209,19 @@ class AirHoseViewPart(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     serializer_class = AirHoseSerializer
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status', 
+                        
+                        ]
+    search_fields = [
+        'part_name',
+        'name_of_abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        'price',
+        
+    ]
     queryset = AirHose.objects.all()
 
 
@@ -274,6 +287,17 @@ class DeviceHoseRListView(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     serializer_class = DeviceHoseListSerializer
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status']
+    search_fields = [
+        'part_name',
+        'name_of_abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        'price',
+        
+    ]
     queryset = DeviceHose.objects.all()
 
 #######################################################################
@@ -307,6 +331,19 @@ class SwabMasterTSRListView(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     serializer_class = SwabMasterTSRSerializer
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status', 
+                        
+                        ]
+    search_fields = [
+        'part_name',
+        'name_of_abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        'price',
+        
+    ]
     queryset = SwabMasterTSR.objects.all()
 
 #######################################################################
@@ -340,6 +377,19 @@ class CalibrationOrificeListView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     serializer_class = CalibratiobOrificeSerializer
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status', 
+                        
+                        ]
+    search_fields = [
+        'part_name',
+        'name_of_abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        'price',
+        
+    ]
     queryset = Calibration_orifice.objects.all()
 
 #######################################################################
@@ -408,6 +458,19 @@ class TddTubesealrackList(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     serializer_class = TddTubesealrackListSerializer
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status', 
+                        
+                        ]
+    search_fields = [
+        'part_name',
+        'name_of_abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        'price',
+        
+    ]
     queryset = TTD_tube_seal_rack.objects.all()
 
 #######################################################################
@@ -442,6 +505,19 @@ class PressureSensorListView(generics.ListAPIView):
     pagination_class = CustomPagination
 
     serializer_class = PressuresensorListSerializer
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status', 
+                        
+                        ]
+    search_fields = [
+        'part_name',
+        'name_of_abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        'price',
+        
+    ]
     queryset = Pressure_sensor.objects.all()  
 
 #######################################################################
@@ -476,6 +552,19 @@ class SupplyOrificeListView(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     serializer_class = SupplyOrificeListSerializer
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status', 
+                        
+                        ]
+    search_fields = [
+        'part_name',
+        'name_of_abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        'price',
+        
+    ]
     queryset = Supply_orifice.objects.all() 
 
     
