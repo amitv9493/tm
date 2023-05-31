@@ -89,7 +89,7 @@ class BDDCreateView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = BDD.objects.all()
-    serializer_class = BDDSerializer
+    serializer_class = BDDCreateSerializer
 
 
 ###################################################################
@@ -102,7 +102,7 @@ class BDDRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = BDD.objects.all()
-    serializer_class = BDDSerializer
+    serializer_class = BDDCreateSerializer
 
 ###################################################################
 #              CALIBRATION_STAND List-View

@@ -60,6 +60,18 @@ class BDDSerializer(serializers.ModelSerializer):
 		fields = "__all__"
 
 ##################################################################
+#       BDDUpload Serializer
+##################################################################
+
+class BDDCreateSerializer(serializers.ModelSerializer):
+    
+	
+	class Meta:
+		model = BDD
+		fields = "__all__"
+
+
+##################################################################
 #       CALIBRATION_STAND Serializer
 ##################################################################
 
