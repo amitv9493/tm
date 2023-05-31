@@ -162,6 +162,8 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path("api/eq/swabmastercreate/", SwabMasterCreateView.as_view(), name = "swabmastercreate"),
     path("api/eq/swabmasterretupddel/<int:pk>/", SwabMasterRetUpdDelView.as_view(), name = "swabmasterretupddel"),
 
+    
+
 #######################################################################
 #                     Client-API ENDPOINTS
 #######################################################################
@@ -235,6 +237,8 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path("api/part/allgeneralpartretupddel/<int:pk>/",AllGeneralPartRetUpdDelView.as_view(),name="allgeneralpartretupddel"),
 
     path('api/wa/',WarehouseAvailabilityView.as_view()),
+
+    
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 # if settings.DEBUG:
