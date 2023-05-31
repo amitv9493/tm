@@ -6,7 +6,8 @@ from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from tube.models import Warehouse
 from django_filters import rest_framework as filters
-
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 from tm_api.paginator import CustomPagination
 
 ##################################################################
@@ -16,15 +17,14 @@ class TTDListView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
-    filter_backends = [filters.DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter,]
     filterset_fields = ['pm_status']
     search_fields = [
         'alternate_name',
         'abbreviation',
         'serial_number',
         'asset_number',
-        'packaging',
-        
+        'packaging', 
     ]
     queryset = TTD.objects.all()
     serializer_class = TTDSerializers
@@ -66,7 +66,7 @@ class BDDListView(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     queryset = BDD.objects.all()
-    filter_backends = [filters.DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter,]
     filterset_fields = ['pm_status']
     search_fields = [
         'alternate_name',
@@ -112,7 +112,7 @@ class CalibrationStandListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
-    filter_backends = [filters.DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter,]
     filterset_fields = ['pm_status']
     search_fields = [
         'alternate_name',
@@ -157,7 +157,7 @@ class SwabMasterListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
-    filter_backends = [filters.DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter,]
     filterset_fields = ['pm_status']
     search_fields = [
         'alternate_name',
