@@ -16,7 +16,7 @@ class TTDListView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
-    filter_backends = [filters.DjangoFilterBackend,filters.OrderingFilter]
+    filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = ['pm_status']
     search_fields = [
         'alternate_name',
@@ -66,7 +66,7 @@ class BDDListView(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     queryset = BDD.objects.all()
-    filter_backends = [filters.DjangoFilterBackend,filters.OrderingFilter]
+    filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = ['pm_status']
     search_fields = [
         'alternate_name',
@@ -112,7 +112,7 @@ class CalibrationStandListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
-    filter_backends = [filters.DjangoFilterBackend,filters.OrderingFilter]
+    filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = ['pm_status']
     search_fields = [
         'alternate_name',
@@ -157,7 +157,7 @@ class SwabMasterListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
-    filter_backends = [filters.DjangoFilterBackend,filters.OrderingFilter]
+    filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = ['pm_status']
     search_fields = [
         'alternate_name',
