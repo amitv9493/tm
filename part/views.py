@@ -514,7 +514,7 @@ class AllGeneralPartListView(generics.ListAPIView):
     pagination_class = CustomPagination
     serializer_class = AllGeneralPartListSerializer
     filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['pm_status','created_at']
+    filterset_fields = ['pm_status']
     queryset = Part.objects.all() 
     
     
