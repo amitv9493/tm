@@ -133,7 +133,7 @@ class Project(models.Model):
         "part.DeviceHose", default="", blank=True, verbose_name="Device Hose"
     )
     airhose_part = models.ManyToManyField(
-        "part.AirHose", default="", blank=True, verbose_name="Air Hose"
+        "part.AirHose", default="", blank=True, verbose_name="Air Hose", related_name="projects"
     )
 
     comments = GenericRelation(Comment)
