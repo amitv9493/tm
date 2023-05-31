@@ -28,9 +28,9 @@ class CustomCountryField(serializers.Field):
 # 		return instance.warehouse_name
 
 
-	
 
-	
+
+
 class TTDSerializers(serializers.ModelSerializer):
 	location_for_warehouse = serializers.StringRelatedField()
 	supply_orifice_set = serializers.StringRelatedField()
@@ -41,7 +41,7 @@ class TTDSerializers(serializers.ModelSerializer):
 	class Meta:
 		model = TTD
 		# fields = "__all__"
-		fields = ("id","abbreviation", "alternate_name", "serial_number", "asset_number", "remarks", "location_for_warehouse","pm_status", "location_for_storage", 
+		fields = ("id","abbreviation", "alternate_name", "serial_number", "asset_number", "remarks", "location_for_warehouse","pm_status", "location_for_storage",
 				  "packaging", "if_yes_how_many_in_a_set", "supply_orifice_set", "pressure_sensor", "TTD_tube_seal_rack", "frame", "image")
 		# depth = 1
 
@@ -59,29 +59,29 @@ class BDDSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = BDD
 		fields = "__all__"
-		
+
 ##################################################################
 #       CALIBRATION_STAND Serializer
 ##################################################################
 
 class CalibrationStandSerializer(serializers.ModelSerializer):
-    location_for_warehouse = serializers.StringRelatedField()
-    calibration_orifice_set = serializers.StringRelatedField()
-    
-    class Meta:
-        model = CALIBRATION_STAND
-        fields = "__all__"
-	
+	location_for_warehouse = serializers.StringRelatedField()
+	calibration_orifice_set = serializers.StringRelatedField()
+
+	class Meta:
+		model = CALIBRATION_STAND
+		fields = "__all__"
+
 ##################################################################
 #       CALIBRATION_STANDCreUpd Serializer
 ##################################################################
 
 class CalibrationCreUpdStandSerializer(serializers.ModelSerializer):
-    
-    
-    class Meta:
-        model = CALIBRATION_STAND
-        fields = "__all__"
+
+
+	class Meta:
+		model = CALIBRATION_STAND
+		fields = "__all__"
 
 
 ##################################################################
@@ -89,22 +89,22 @@ class CalibrationCreUpdStandSerializer(serializers.ModelSerializer):
 ##################################################################
 
 class SwabMasterSerializer(serializers.ModelSerializer):
-    location_for_warehouse = serializers.StringRelatedField()
-    Swab_Master_Tube_Seal_Rack = serializers.StringRelatedField()
-    class Meta:
-        model = SwabMaster
-        fields = "__all__"
+	location_for_warehouse = serializers.StringRelatedField()
+	Swab_Master_Tube_Seal_Rack = serializers.StringRelatedField()
+	class Meta:
+		model = SwabMaster
+		fields = "__all__"
 
 ##################################################################
 #       SwabMasterCreUpd Serializer
 ##################################################################
 
 class SwabMasterCreUpdSerializer(serializers.ModelSerializer):
-    
-    
-    class Meta:
-        model = SwabMaster
-        fields = "__all__"
+
+
+	class Meta:
+		model = SwabMaster
+		fields = "__all__"
 
 ##################################################################
 #       Warehouse Serializer
@@ -124,7 +124,7 @@ class PartSerializer(serializers.ModelSerializer):
 			"id",
 			"part_name",
 		)
-		
+
 class WarehouseNewSerializer(serializers.ModelSerializer):
 	# country = CustomCountryField()
 	parts = serializers.SerializerMethodField()
@@ -140,7 +140,7 @@ class WarehouseNewSerializer(serializers.ModelSerializer):
 	swabmasterTSR = serializers.SerializerMethodField()
 	devicehose = serializers.SerializerMethodField()
 	airhose = serializers.SerializerMethodField()
-	
+
 	# equipments = serializers.SerializerMethodField()
 	class Meta:
 		model = Warehouse
@@ -166,40 +166,41 @@ class WarehouseNewSerializer(serializers.ModelSerializer):
 
 	def get_TTD(self, obj):
 		return obj.ttd.all().count()
-	
+
 	def get_BDD(self, obj):
 		return obj.bdd.all().count()
-		
-	
+
+
 	def get_Calibration_Stand(self, obj):
 		return obj.calibration_stand.all().count()
-		
+
 
 	def get_SwabMaster(self, obj):
 		return obj.swabmaster.all().count()
-		
+
 	def get_supply_orifice(self, obj):
 		return obj.supply_orifice.all().count()
-		
+
 	def get_pressure_sensor(self, obj):
 		return obj.pressure_sensor.all().count()
-			
-	
+
+
 	def get_ttd_rack(self, obj):
 		return obj.ttd_rack.all().count()
-		
+
 	def get_bdd_rack(self, obj):
 		return obj.bdd_rack.all().count()
-		
+
 	def get_calibration_orifice(self, obj):
 		return obj.calibration_orifice.all().count()
 
 	def get_swabmasterTSR(self, obj):
 		return obj.swabmasterTSR.all().count()
-		
+
 	def get_devicehose(self, obj):
 		return obj.devicehose.all().count()
 
 	def get_airhose(self, obj):
 		return obj.airhose.all().count()
-		
+
+

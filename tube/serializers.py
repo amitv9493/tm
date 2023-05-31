@@ -467,3 +467,54 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
             "not_assigned_to_any_project": 0,
             "total": 0,
         }
+
+from equipment.serializers import (TTDWithIDSerializer,
+                                   CalibrationStandSerializer, 
+                                   SwabMasterSerializer,
+                                   BDDSerializer)
+from equipment.models import TTD, BDD, CALIBRATION_STAND, SwabMaster
+
+class WarehouseEquipSerializer(serializers.Serializer):
+    ttd = serializers.SerializerMethodField()
+    bdd = serializers.SerializerMethodField()
+    calibration_stand = serializers.SerializerMethodField()
+    swab_master = serializers.SerializerMethodField()
+    
+    
+    def get_ttd(self, obj):
+        request = self.context.get('request')
+        id = request.query_params.get('id')
+        if id:
+            qs = TTD.objects.filter(location_for_warehouse = id)
+            
+            serializer = TTDWithIDSerializer(qs, many=True)
+            return serializer.data
+
+    
+    def get_bdd(self, obj):
+        request = self.context.get('request')
+        id = request.query_params.get('id')
+        if id:
+            qs = BDD.objects.filter(location_for_warehouse = id)
+            
+            serializer = BDDSerializer(qs, many=True)
+            return serializer.data
+
+    
+    def get_calibration_stand(self, obj):
+        request = self.context.get('request')
+        id = request.query_params.get('id')
+        if id:
+            qs = CALIBRATION_STAND.objects.filter(location_for_warehouse = id)
+            
+            serializer = CalibrationStandSerializer(qs, many=True)
+            return serializer.data
+    
+    def get_swab_master(self, obj):
+        request = self.context.get('request')
+        id = request.query_params.get('id')
+        if id:
+            qs = SwabMaster.objects.filter(location_for_warehouse = id)
+            
+            serializer = SwabMasterSerializer(qs, many=True)
+            return serializer.data
