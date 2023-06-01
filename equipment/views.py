@@ -26,7 +26,15 @@ class TTDListView(ListAPIView):
         'asset_number',
         'packaging', 
     ]
-    queryset = TTD.objects.all()
+
+    
+    def get_queryset(self):
+        warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
+        queryset = TTD.objects.all()
+
+        if warehouse:
+            queryset = queryset.filter(location_for_warehouse=warehouse)
+        return queryset
     serializer_class = TTDSerializers
 
 
