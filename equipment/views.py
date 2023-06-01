@@ -13,9 +13,13 @@ from tm_api.paginator import CustomPagination
 ##################################################################
 #       TTD List-View
 ##################################################################
+
+from project.models import Project
+from datetime import datetime
+import pytz
 class TTDListView(ListAPIView):
-    permission_classes = [DjangoModelPermissions, IsAdminUser]
-    authentication_classes = [JWTAuthentication]
+    # permission_classes = [DjangoModelPermissions, IsAdminUser]
+    # authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     filter_backends = [DjangoFilterBackend,filters.SearchFilter,]
     filterset_fields = ['pm_status','alternate_name']
@@ -26,14 +30,21 @@ class TTDListView(ListAPIView):
         'asset_number',
         'packaging', 
     ]
-
     
     def get_queryset(self):
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
         warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
         queryset = TTD.objects.all()
         free = self.request.GET.get("free")
         if free:
-            queryset = queryset.filter(ttd__isnull=True)
+            used_id = set()
+            for i in Project.objects.all():
+                if i.equipment_delivery_client > current_datetime:
+                    if i.ttd:
+                        for j in i.ttd.all():
+                            used_id.add(j.id)
+                            
+            queryset = queryset.exclude(id__in=used_id)
             
         if warehouse:
             queryset = queryset.filter(location_for_warehouse=warehouse)
