@@ -477,6 +477,8 @@ from equipment.serializers import (TTDWithIDSerializer,
                                    SwabMasterSerializer,
                                    BDDSerializer)
 from equipment.models import TTD, BDD, CALIBRATION_STAND, SwabMaster
+from equipment.serializers import TTDSerializers
+
 
 class WarehouseEquipSerializer(serializers.Serializer):
     ttd = serializers.SerializerMethodField()
@@ -497,7 +499,7 @@ class WarehouseEquipSerializer(serializers.Serializer):
             print(pm_status)
             qs = TTD.objects.filter(pm_status = pm_status)
 
-        serializer = TTDWithIDSerializer(qs, many=True)
+        serializer = TTDSerializers(qs, many=True)
         return serializer.data
 
     
