@@ -524,7 +524,6 @@ class WarehouseEquipSerializer(serializers.Serializer):
             serializer = SwabMasterSerializer(qs, many=True)
             return serializer.data
 
-
 @api_view(['GET'])
 def warehouse_equipment_view(request):
     class WarehouseEquipmentPagination(PageNumberPagination):

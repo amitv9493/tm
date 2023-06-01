@@ -238,3 +238,95 @@ class AllGeneralPartCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Part
         fields = "__all__"
+        
+class WarehousePartSerializer(serializers.Serializer):
+    general_part = serializers.SerializerMethodField()
+    supply_orifice = serializers.SerializerMethodField()
+    pressure_sensor = serializers.SerializerMethodField()
+    ttd_rack = serializers.SerializerMethodField()
+    bdd_rack = serializers.SerializerMethodField()
+    calibration_orifice = serializers.SerializerMethodField()
+    swabmasterTSR = serializers.SerializerMethodField()
+    devicehose = serializers.SerializerMethodField()
+    airhose = serializers.SerializerMethodField()
+    
+    def get_general_part(self, obj):
+        request = self.context.get('request')
+        id = request.query_params.get('id')
+        if id:
+            qs = Part.objects.filter(location_for_warehouse = id)
+            
+            serializer = AllGeneralPartCreateSerializer(qs, many=True)
+            return serializer.data
+
+    def get_supply_orifice(self, obj):
+        request = self.context.get('request')
+        id = request.query_params.get('id')
+        if id:
+            qs = Supply_orifice.objects.filter(location_for_warehouse = id)
+            
+            serializer = SupplyOrificeCreateSerializer(qs, many=True)
+            return serializer.data
+
+    def get_pressure_sensor(self, obj):
+        request = self.context.get('request')
+        id = request.query_params.get('id')
+        if id:
+            qs = Pressure_sensor.objects.filter(location_for_warehouse = id)
+            
+            serializer = SupplyOrificeCreateSerializer(qs, many=True)
+            return serializer.data 
+    
+    def get_ttd_rack(self, obj):
+        request = self.context.get('request')
+        id = request.query_params.get('id')
+        if id:
+            qs = TTD_tube_seal_rack.objects.filter(location_for_warehouse = id)
+            
+            serializer = TddTubesealrackCreateSerializer(qs, many=True)
+            return serializer.data
+        
+    def get_bdd_rack(self, obj):
+        request = self.context.get('request')
+        id = request.query_params.get('id')
+        if id:
+            qs = BDD_tube_seal_rack.objects.filter(location_for_warehouse = id)
+            
+            serializer = BDDTubeSealRackSerializer(qs, many=True)
+            return serializer.data
+
+    def get_calibration_orifice(self,obj):
+        request = self.context.get('request')
+        id = request.query_params.get('id')
+        if id:
+            qs = Calibration_orifice.objects.filter(location_for_warehouse = id)
+            
+            serializer = Calibration_orifice_serializer(qs, many=True)
+            return serializer.data
+    
+    def get_swabmasterTSR(self, obj):
+        request = self.context.get('request')
+        id = request.query_params.get('id')
+        if id:
+            qs = SwabMasterTSR.objects.filter(location_for_warehouse = id)
+            
+            serializer = SwabMasterTSRSerializer(qs, many=True)
+            return serializer.data
+    
+    def get_devicehose(self, obj):
+        request = self.context.get('request')
+        id = request.query_params.get('id')
+        if id:
+            qs = DeviceHose.objects.filter(warehouse = id)
+            
+            serializer = DeviceHoseSerializer(qs, many=True)
+            return serializer.data
+    
+    def get_airhose(self, obj):
+        request = self.context.get('request')
+        id = request.query_params.get('id')
+        if id:
+            qs = AirHose.objects.filter(warehouse = id)
+            
+            serializer = AirHoseSerializer(qs, many=True)
+            return serializer.data

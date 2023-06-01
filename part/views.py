@@ -7,6 +7,7 @@ from tm_api.paginator import CustomPagination
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
+from rest_framework.decorators import api_view
 ################################################################################
 #                UpddateAll View API Project/ SupplyOrificeViewPart
 ################################################################################
@@ -715,3 +716,38 @@ class AllGeneralPartRetUpdDelView(generics.RetrieveUpdateAPIView):
 
     serializer_class = AllGeneralPartCreateSerializer
     queryset = Part.objects.all()
+    
+@api_view(['GET'])
+def warehouse_part_view(request):
+
+    pagination_class = CustomPagination()
+
+    serializer = WarehousePartSerializer(context={'request': request})
+    part_data = serializer.get_general_part(None)
+    supply_orifice_data = serializer.get_supply_orifice(None)
+    pressure_sensor_data = serializer.get_pressure_sensor(None)
+    ttd_rack_data = serializer.get_ttd_rack(None)
+    bdd_rack_data = serializer.get_bdd_rack(None)
+    calibration_orifice_data = serializer.get_calibration_orifice(None)
+    swabmaster_data = serializer.get_swabmasterTSR(None)
+    devicehose_data = serializer.get_devicehose(None)
+    airhose_data = serializer.get_airhose(None)
+
+    merged_data = part_data +supply_orifice_data+pressure_sensor_data+ttd_rack_data+bdd_rack_data+calibration_orifice_data+swabmaster_data+devicehose_data+airhose_data
+
+    paginated_data = pagination_class.paginate_queryset(merged_data, request)
+
+    paginated_data_with_counts = {
+        'part_data':len(part_data),
+        'supply_orifice_data':len(supply_orifice_data),
+        'pressure_sensor_data':len(pressure_sensor_data),
+        'ttd_rack_data':len(ttd_rack_data),
+        'bdd_rack_data':len(bdd_rack_data),
+        'calibration_orifice_data':len(calibration_orifice_data),
+        'swabmaster_data':len(swabmaster_data),
+        'devicehose_data':len(devicehose_data),
+        'airhose_data':len(airhose_data),
+        'results': paginated_data
+        
+    }
+    return pagination_class.get_paginated_response(paginated_data_with_counts)
