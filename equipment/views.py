@@ -84,8 +84,16 @@ class BDDListView(generics.ListAPIView):
         'packaging',
         
     ]
-    queryset = BDD.objects.all()
+    
     serializer_class = BDDSerializer
+
+    def get_queryset(self):
+        warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
+        queryset = BDD.objects.all()
+
+        if warehouse:
+            queryset = queryset.filter(location_for_warehouse=warehouse)
+        return queryset
 
 
 ###################################################################
@@ -130,8 +138,17 @@ class CalibrationStandListView(generics.ListAPIView):
         'asset_number',
         'packaging',
     ]
-    queryset = CALIBRATION_STAND.objects.all()
+    
     serializer_class = CalibrationStandSerializer
+
+    def get_queryset(self):
+        warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
+        queryset = CALIBRATION_STAND.objects.all()
+
+        if warehouse:
+            queryset = queryset.filter(location_for_warehouse=warehouse)
+        return queryset
+
 
 
 ###################################################################
@@ -175,8 +192,16 @@ class SwabMasterListView(generics.ListAPIView):
         'asset_number',
         'packaging',
     ]
-    queryset = SwabMaster.objects.all()
+    
     serializer_class = SwabMasterSerializer
+
+    def get_queryset(self):
+        warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
+        queryset = SwabMaster.objects.all()
+
+        if warehouse:
+            queryset = queryset.filter(location_for_warehouse=warehouse)
+        return queryset
 
 ###################################################################
 #              SwabMaster Create-View
