@@ -36,13 +36,12 @@ class TTDSerializers(serializers.ModelSerializer):
 	supply_orifice_set = serializers.StringRelatedField()
 	pressure_sensor = serializers.StringRelatedField()
 	TTD_tube_seal_rack = serializers.StringRelatedField()
-	# pressure_sensor =
-	# TTD_tube_seal_rack =
+
 	class Meta:
 		model = TTD
 		# fields = "__all__"
 		fields = ("id","abbreviation", "alternate_name", "serial_number", "asset_number", "remarks", "location_for_warehouse","pm_status", "location_for_storage",
-				  "packaging", "if_yes_how_many_in_a_set", "supply_orifice_set", "pressure_sensor", "TTD_tube_seal_rack", "frame", "image")
+				  "packaging", "if_yes_how_many_in_a_set", "supply_orifice_set", "pressure_sensor", "TTD_tube_seal_rack", "frame", "image",)
 		# depth = 1
 
 class TTDWithIDSerializer(serializers.ModelSerializer):
@@ -64,8 +63,8 @@ class BDDSerializer(serializers.ModelSerializer):
 ##################################################################
 
 class BDDCreateSerializer(serializers.ModelSerializer):
-    
-	
+
+
 	class Meta:
 		model = BDD
 		fields = "__all__"

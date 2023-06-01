@@ -31,7 +31,10 @@ class TTDListView(ListAPIView):
     def get_queryset(self):
         warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
         queryset = TTD.objects.all()
-
+        free = self.request.GET.get("free")
+        if free:
+            queryset = queryset.filter(ttd__isnull=True)
+            
         if warehouse:
             queryset = queryset.filter(location_for_warehouse=warehouse)
         return queryset
