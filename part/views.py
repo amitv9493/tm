@@ -220,7 +220,14 @@ class AirHoseViewPart(generics.ListAPIView):
         'price',
         
     ]
-    queryset = AirHose.objects.all()
+    
+    def get_queryset(self):
+        warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
+        queryset = AirHose.objects.all()
+
+        if warehouse:
+            queryset = queryset.filter(warehouse=warehouse)
+        return queryset
 
 
 #######################################################################
