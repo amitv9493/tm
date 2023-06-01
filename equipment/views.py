@@ -102,12 +102,24 @@ class BDDListView(generics.ListAPIView):
     serializer_class = BDDSerializer
 
     def get_queryset(self):
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
         warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
         queryset = BDD.objects.all()
-
+        free = self.request.GET.get("free")
+        if free:
+            used_id = set()
+            for i in Project.objects.all():
+                if i.equipment_delivery_client > current_datetime:
+                    if i.bdd:
+                        for j in i.bdd.all():
+                            used_id.add(j.id)
+                            
+            queryset = queryset.exclude(id__in=used_id)
+            
         if warehouse:
             queryset = queryset.filter(location_for_warehouse=warehouse)
         return queryset
+    
 
 
 ###################################################################
@@ -154,11 +166,22 @@ class CalibrationStandListView(generics.ListAPIView):
     ]
     
     serializer_class = CalibrationStandSerializer
-
+    
     def get_queryset(self):
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
         warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
         queryset = CALIBRATION_STAND.objects.all()
-
+        free = self.request.GET.get("free")
+        if free:
+            used_id = set()
+            for i in Project.objects.all():
+                if i.equipment_delivery_client > current_datetime:
+                    if i.calibration_stand:
+                        for j in i.calibration_stand.all():
+                            used_id.add(j.id)
+                            
+            queryset = queryset.exclude(id__in=used_id)
+            
         if warehouse:
             queryset = queryset.filter(location_for_warehouse=warehouse)
         return queryset
@@ -208,7 +231,7 @@ class SwabMasterListView(generics.ListAPIView):
     ]
     
     serializer_class = SwabMasterSerializer
-
+    
     def get_queryset(self):
         warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
         queryset = SwabMaster.objects.all()
