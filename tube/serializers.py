@@ -489,14 +489,13 @@ class WarehouseEquipSerializer(serializers.Serializer):
     def get_ttd(self, obj):
         request = self.context.get('request')
         id = request.query_params.get('id')
-        
         pm_status = request.query_params.get('pm_status')
-        if pm_status:
-            print(pm_status)
-            qs = TTD.objects.filter(pm_status = pm_status)
 
         if id:
             qs = TTD.objects.filter(location_for_warehouse = id)
+        if pm_status:
+            print(pm_status)
+            qs = TTD.objects.filter(pm_status = pm_status)
 
         serializer = TTDWithIDSerializer(qs, many=True)
         return serializer.data
@@ -506,14 +505,14 @@ class WarehouseEquipSerializer(serializers.Serializer):
         request = self.context.get('request')
         id = request.query_params.get('id')
         pm_status = request.query_params.get('pm_status')
-        if pm_status:
-            qs = BDD.objects.filter(pm_status = pm_status)
         
         if id:
             qs = BDD.objects.filter(location_for_warehouse = id)
+        if pm_status:
+            qs = BDD.objects.filter(pm_status = pm_status)
             
-            serializer = BDDSerializer(qs, many=True)
-            return serializer.data
+        serializer = BDDSerializer(qs, many=True)
+        return serializer.data
 
     
     def get_calibration_stand(self, obj):
@@ -526,8 +525,8 @@ class WarehouseEquipSerializer(serializers.Serializer):
         if id:
             qs = CALIBRATION_STAND.objects.filter(location_for_warehouse = id)
             
-            serializer = CalibrationStandSerializer(qs, many=True)
-            return serializer.data
+        serializer = CalibrationStandSerializer(qs, many=True)
+        return serializer.data
     
     def get_swab_master(self, obj):
         request = self.context.get('request')
@@ -539,6 +538,6 @@ class WarehouseEquipSerializer(serializers.Serializer):
         if id:
             qs = SwabMaster.objects.filter(location_for_warehouse = id)
             
-            serializer = SwabMasterSerializer(qs, many=True)
-            return serializer.data
+        serializer = SwabMasterSerializer(qs, many=True)
+        return serializer.data
 
