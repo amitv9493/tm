@@ -1,9 +1,13 @@
 from rest_framework import serializers
 from .models import Warehouse
+from rest_framework.decorators import api_view
 from django_countries.serializers import CountryFieldMixin
 from django_countries.serializer_fields import CountryField
 from datetime import datetime
 import pytz
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
+
 from django.db.models import Count, Q
 
 
@@ -518,3 +522,25 @@ class WarehouseEquipSerializer(serializers.Serializer):
             
             serializer = SwabMasterSerializer(qs, many=True)
             return serializer.data
+
+
+@api_view(['GET'])
+def warehouse_equipment_view(request):
+    class WarehouseEquipmentPagination(PageNumberPagination):
+        page_size = 5  # Set the desired page size
+
+    pagination_class = WarehouseEquipmentPagination()
+
+    serializer = WarehouseEquipSerializer(context={'request': request})
+
+    ttd_data = serializer.get_ttd(None)
+    bdd_data = serializer.get_bdd(None)
+    calibration_stand_data = serializer.get_calibration_stand(None)
+    swab_master_data = serializer.get_swab_master(None)
+
+    # Merge the data from different fields into a single list
+    merged_data = ttd_data + bdd_data + calibration_stand_data + swab_master_data
+
+    paginated_data = pagination_class.paginate_queryset(merged_data, request)
+    
+    return pagination_class.get_paginated_response(paginated_data)

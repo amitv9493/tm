@@ -214,3 +214,12 @@ class SwabMaster(models.Model):
     class Meta:
         verbose_name = "Swab Master"    
 
+
+
+class EquipmentCollection(models.Model):
+    
+    ttd = models.ForeignKey(TTD,on_delete=models.CASCADE)
+    bdd = models.ForeignKey(BDD, on_delete=models.CASCADE)
+    calibratopn_stand = models.ForeignKey(CALIBRATION_STAND, on_delete=models.CASCADE)
+    swabmaster = models.ForeignKey(SwabMaster, on_delete=models.CASCADE)
+    

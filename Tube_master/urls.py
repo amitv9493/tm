@@ -238,6 +238,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
 
     path('api/wa/',WarehouseAvailabilityView.as_view()),
     path('api/equip/', WarehouseEquipmentView.as_view()),
+    path("api/wef/",warehouse_equipment_view),
     
 
     
