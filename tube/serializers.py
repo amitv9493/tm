@@ -483,6 +483,7 @@ class WarehouseEquipSerializer(serializers.Serializer):
     bdd = serializers.SerializerMethodField()
     calibration_stand = serializers.SerializerMethodField()
     swab_master = serializers.SerializerMethodField()
+    location_for_warehouse = serializers.SerializerMethodField()
     
     
     def get_ttd(self, obj):
