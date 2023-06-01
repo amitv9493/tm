@@ -303,7 +303,14 @@ class DeviceHoseRListView(generics.ListAPIView):
         'price',
         
     ]
-    queryset = DeviceHose.objects.all()
+    
+    def get_queryset(self):
+        warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
+        queryset = DeviceHose.objects.all()
+
+        if warehouse:
+            queryset = queryset.filter(warehouse=warehouse)
+        return queryset
 
 #######################################################################
 #                     DeviceHose-CreateView 
@@ -349,7 +356,16 @@ class SwabMasterTSRListView(generics.ListAPIView):
         'price',
         
     ]
-    queryset = SwabMasterTSR.objects.all()
+    
+    def get_queryset(self):
+        warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
+        queryset = SwabMasterTSR.objects.all()
+
+        if warehouse:
+            queryset = queryset.filter(location_for_warehouse=warehouse)
+        return queryset
+
+    
 
 #######################################################################
 #                     SwabMaster-CreateView 
@@ -395,7 +411,14 @@ class CalibrationOrificeListView(generics.ListCreateAPIView):
         'price',
         
     ]
-    queryset = Calibration_orifice.objects.all()
+    
+    def get_queryset(self):
+        warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
+        queryset = Calibration_orifice.objects.all()
+
+        if warehouse:
+            queryset = queryset.filter(location_for_warehouse=warehouse)
+        return queryset
 
 #######################################################################
 #                     CalibrationOrifice-CreateView 
@@ -428,7 +451,27 @@ class BddTubesealrackList(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     serializer_class = BddTubesealrackListSerializer
-    queryset = BDD_tube_seal_rack.objects.all()
+    filter_backends= [DjangoFilterBackend,filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['pm_status', 
+                        
+                        ]
+    search_fields = [
+        'part_name',
+        'name_of_abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging',
+        'price',
+        
+    ]
+    
+    def get_queryset(self):
+        warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
+        queryset = BDD_tube_seal_rack.objects.all()
+
+        if warehouse:
+            queryset = queryset.filter(location_for_warehouse=warehouse)
+        return queryset
     
 
 #######################################################################
@@ -476,7 +519,14 @@ class TddTubesealrackList(generics.ListAPIView):
         'price',
         
     ]
-    queryset = TTD_tube_seal_rack.objects.all()
+    
+    def get_queryset(self):
+        warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
+        queryset = TTD_tube_seal_rack.objects.all()
+
+        if warehouse:
+            queryset = queryset.filter(location_for_warehouse=warehouse)
+        return queryset
 
 #######################################################################
 #                     TddTubesealrack-CreateView 
@@ -523,7 +573,14 @@ class PressureSensorListView(generics.ListAPIView):
         'price',
         
     ]
-    queryset = Pressure_sensor.objects.all()  
+    
+    def get_queryset(self):
+        warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
+        queryset = Pressure_sensor.objects.all()
+
+        if warehouse:
+            queryset = queryset.filter(location_for_warehouse=warehouse)
+        return queryset
 
 #######################################################################
 #                     PressureSensor-CreateView 
@@ -570,7 +627,14 @@ class SupplyOrificeListView(generics.ListAPIView):
         'price',
         
     ]
-    queryset = Supply_orifice.objects.all() 
+    
+    def get_queryset(self):
+        warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
+        queryset = Supply_orifice.objects.all()
+
+        if warehouse:
+            queryset = queryset.filter(location_for_warehouse=warehouse)
+        return queryset
 
     
 #######################################################################
@@ -620,7 +684,14 @@ class AllGeneralPartListView(generics.ListAPIView):
         'price',
         
     ]
-    queryset = Part.objects.all() 
+    
+    def get_queryset(self):
+        warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
+        queryset = Part.objects.all()
+
+        if warehouse:
+            queryset = queryset.filter(location_for_warehouse=warehouse)
+        return queryset
     
     
 #######################################################################
