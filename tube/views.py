@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 from django.http import HttpResponseRedirect
 
+from tm_api.paginator import CustomPagination
 
 from django.http import HttpResponse
 
@@ -1763,6 +1764,7 @@ def warehouse_equipment_view(request):
     serializer = WarehouseEquipSerializer(context={'request': request})
 
     ttd_data = serializer.get_ttd(None)
+    print(type(ttd_data))
     bdd_data = serializer.get_bdd(None)
     calibration_stand_data = serializer.get_calibration_stand(None)
     swab_master_data = serializer.get_swab_master(None)

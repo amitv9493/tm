@@ -489,16 +489,26 @@ class WarehouseEquipSerializer(serializers.Serializer):
     def get_ttd(self, obj):
         request = self.context.get('request')
         id = request.query_params.get('id')
+        
+        pm_status = request.query_params.get('pm_status')
+        if pm_status:
+            print(pm_status)
+            qs = TTD.objects.filter(pm_status = pm_status)
+
         if id:
             qs = TTD.objects.filter(location_for_warehouse = id)
-            
-            serializer = TTDWithIDSerializer(qs, many=True)
-            return serializer.data
+
+        serializer = TTDWithIDSerializer(qs, many=True)
+        return serializer.data
 
     
     def get_bdd(self, obj):
         request = self.context.get('request')
         id = request.query_params.get('id')
+        pm_status = request.query_params.get('pm_status')
+        if pm_status:
+            qs = BDD.objects.filter(pm_status = pm_status)
+        
         if id:
             qs = BDD.objects.filter(location_for_warehouse = id)
             
@@ -508,6 +518,10 @@ class WarehouseEquipSerializer(serializers.Serializer):
     
     def get_calibration_stand(self, obj):
         request = self.context.get('request')
+        pm_status = request.query_params.get('pm_status')
+        if pm_status:
+            qs = CALIBRATION_STAND.objects.filter(pm_status = pm_status)
+        
         id = request.query_params.get('id')
         if id:
             qs = CALIBRATION_STAND.objects.filter(location_for_warehouse = id)
@@ -517,6 +531,10 @@ class WarehouseEquipSerializer(serializers.Serializer):
     
     def get_swab_master(self, obj):
         request = self.context.get('request')
+        pm_status = request.query_params.get('pm_status')
+        if pm_status:
+            qs = SwabMaster.objects.filter(pm_status = pm_status)
+        
         id = request.query_params.get('id')
         if id:
             qs = SwabMaster.objects.filter(location_for_warehouse = id)
@@ -524,23 +542,3 @@ class WarehouseEquipSerializer(serializers.Serializer):
             serializer = SwabMasterSerializer(qs, many=True)
             return serializer.data
 
-@api_view(['GET'])
-def warehouse_equipment_view(request):
-    class WarehouseEquipmentPagination(PageNumberPagination):
-        page_size = 5  # Set the desired page size
-
-    pagination_class = WarehouseEquipmentPagination()
-
-    serializer = WarehouseEquipSerializer(context={'request': request})
-
-    ttd_data = serializer.get_ttd(None)
-    bdd_data = serializer.get_bdd(None)
-    calibration_stand_data = serializer.get_calibration_stand(None)
-    swab_master_data = serializer.get_swab_master(None)
-
-    # Merge the data from different fields into a single list
-    merged_data = ttd_data + bdd_data + calibration_stand_data + swab_master_data
-
-    paginated_data = pagination_class.paginate_queryset(merged_data, request)
-    
-    return pagination_class.get_paginated_response(paginated_data)
