@@ -8,6 +8,9 @@ from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework.decorators import api_view
+from datetime import datetime
+import pytz
+from project.models import Project
 ################################################################################
 #                UpddateAll View API Project/ SupplyOrificeViewPart
 ################################################################################
@@ -223,9 +226,20 @@ class AirHoseViewPart(generics.ListAPIView):
     ]
     
     def get_queryset(self):
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
         warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
         queryset = AirHose.objects.all()
-
+        free = self.request.GET.get("free")
+        if free:
+            used_id = set()
+            for i in Project.objects.all():
+                if i.equipment_delivery_client > current_datetime:
+                    if i.airhose_part:
+                        for j in i.airhose_part.all():
+                            used_id.add(j.id)
+                            
+            queryset = queryset.exclude(id__in=used_id)
+            
         if warehouse:
             queryset = queryset.filter(warehouse=warehouse)
         return queryset
@@ -306,9 +320,20 @@ class DeviceHoseRListView(generics.ListAPIView):
     ]
     
     def get_queryset(self):
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
         warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
         queryset = DeviceHose.objects.all()
-
+        free = self.request.GET.get("free")
+        if free:
+            used_id = set()
+            for i in Project.objects.all():
+                if i.equipment_delivery_client > current_datetime:
+                    if i.device_part:
+                        for j in i.device_part.all():
+                            used_id.add(j.id)
+                            
+            queryset = queryset.exclude(id__in=used_id)
+            
         if warehouse:
             queryset = queryset.filter(warehouse=warehouse)
         return queryset
@@ -359,9 +384,20 @@ class SwabMasterTSRListView(generics.ListAPIView):
     ]
     
     def get_queryset(self):
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
         warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
         queryset = SwabMasterTSR.objects.all()
-
+        free = self.request.GET.get("free")
+        if free:
+            used_id = set()
+            for i in Project.objects.all():
+                if i.equipment_delivery_client > current_datetime:
+                    if i.swabmaster_part:
+                        for j in i.swabmaster_part.all():
+                            used_id.add(j.id)
+                            
+            queryset = queryset.exclude(id__in=used_id)
+            
         if warehouse:
             queryset = queryset.filter(location_for_warehouse=warehouse)
         return queryset
@@ -414,9 +450,20 @@ class CalibrationOrificeListView(generics.ListCreateAPIView):
     ]
     
     def get_queryset(self):
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
         warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
         queryset = Calibration_orifice.objects.all()
-
+        free = self.request.GET.get("free")
+        if free:
+            used_id = set()
+            for i in Project.objects.all():
+                if i.equipment_delivery_client > current_datetime:
+                    if i.calibration_orifice_part:
+                        for j in i.calibration_orifice_part.all():
+                            used_id.add(j.id)
+                            
+            queryset = queryset.exclude(id__in=used_id)
+            
         if warehouse:
             queryset = queryset.filter(location_for_warehouse=warehouse)
         return queryset
@@ -465,7 +512,7 @@ class BddTubesealrackList(generics.ListAPIView):
         'price',
         
     ]
-    
+   
     def get_queryset(self):
         warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
         queryset = BDD_tube_seal_rack.objects.all()
@@ -576,9 +623,20 @@ class PressureSensorListView(generics.ListAPIView):
     ]
     
     def get_queryset(self):
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
         warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
         queryset = Pressure_sensor.objects.all()
-
+        free = self.request.GET.get("free")
+        if free:
+            used_id = set()
+            for i in Project.objects.all():
+                if i.equipment_delivery_client > current_datetime:
+                    if i.pressure_sensor_part:
+                        for j in i.pressure_sensor_part.all():
+                            used_id.add(j.id)
+                            
+            queryset = queryset.exclude(id__in=used_id)
+            
         if warehouse:
             queryset = queryset.filter(location_for_warehouse=warehouse)
         return queryset
@@ -630,9 +688,20 @@ class SupplyOrificeListView(generics.ListAPIView):
     ]
     
     def get_queryset(self):
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
         warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
         queryset = Supply_orifice.objects.all()
-
+        free = self.request.GET.get("free")
+        if free:
+            used_id = set()
+            for i in Project.objects.all():
+                if i.equipment_delivery_client > current_datetime:
+                    if i.supply_orifice_part:
+                        for j in i.supply_orifice_part.all():
+                            used_id.add(j.id)
+                            
+            queryset = queryset.exclude(id__in=used_id)
+            
         if warehouse:
             queryset = queryset.filter(location_for_warehouse=warehouse)
         return queryset
@@ -687,9 +756,20 @@ class AllGeneralPartListView(generics.ListAPIView):
     ]
     
     def get_queryset(self):
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
         warehouse = self.request.query_params.get('warehouse')  # Get the warehouse ID from the request query parameters
         queryset = Part.objects.all()
-
+        free = self.request.GET.get("free")
+        if free:
+            used_id = set()
+            for i in Project.objects.all():
+                if i.equipment_delivery_client > current_datetime:
+                    if i.part:
+                        for j in i.part.all():
+                            used_id.add(j.id)
+                            
+            queryset = queryset.exclude(id__in=used_id)
+            
         if warehouse:
             queryset = queryset.filter(location_for_warehouse=warehouse)
         return queryset
