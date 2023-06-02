@@ -491,19 +491,27 @@ class WarehouseEquipSerializer(serializers.Serializer):
     def get_ttd(self, obj):
         request = self.context.get('request')
         id = request.query_params.get('id')
+        print(id)
         pm_status = str(request.query_params.get('pm_status')).upper()
+        print(pm_status)
         qs = TTD.objects.all()
         search = str(request.query_params.get('search'))
+        print(search)
         
 
-        if id:
+        if id != "NONE":
+            print('id block ran')
             qs = qs.filter(location_for_warehouse = id)
 
-        if pm_status:
-            print(pm_status)
+        if pm_status != "NONE":
+            print('pm block ran')
+            
             qs = qs.filter(pm_status = pm_status)
 
-        if search:
+        if search != 'None':
+            print(search)
+            print('search block ran')
+            
             query = Q()
             
             query |= Q(abbreviation__icontains = search.split())
@@ -522,11 +530,21 @@ class WarehouseEquipSerializer(serializers.Serializer):
         id = request.query_params.get('id')
         pm_status = str(request.query_params.get('pm_status')).upper()
         qs = BDD.objects.all()
+        search = str(request.query_params.get('search'))
+        if search != 'None':
+            query = Q()
+            
+            query |= Q(abbreviation__icontains = search.split())
+            query |= Q(alternate_name__icontains = search.split())
+            query |= Q(serial_number__icontains = search.split())
+            query |= Q(asset_number__icontains = search.split())
+            query |= Q(packaging__icontains = search.split())
+            qs = qs.filter(query)
         
         if id:
             qs = qs.filter(location_for_warehouse = id)
 
-        if pm_status:
+        if pm_status != "NONE":
             qs = qs.filter(pm_status = pm_status)
             
         serializer = BDDSerializer(qs, many=True)
@@ -538,11 +556,20 @@ class WarehouseEquipSerializer(serializers.Serializer):
         pm_status = str(request.query_params.get('pm_status')).upper()
         qs = CALIBRATION_STAND.objects.all()
         id = request.query_params.get('id')
-        
+        search = str(request.query_params.get('search'))
+        if search != "None":
+            query = Q()
+            
+            query |= Q(abbreviation__icontains = search.split())
+            query |= Q(alternate_name__icontains = search.split())
+            query |= Q(serial_number__icontains = search.split())
+            query |= Q(asset_number__icontains = search.split())
+            query |= Q(packaging__icontains = search.split())
+            qs = qs.filter(query)
         if id:
             qs = qs.filter(location_for_warehouse = id)
             
-        if pm_status:
+        if pm_status != "NONE":
             qs = qs.filter(pm_status = pm_status)
 
         serializer = CalibrationStandSerializer(qs, many=True)
@@ -554,11 +581,20 @@ class WarehouseEquipSerializer(serializers.Serializer):
         
         qs = SwabMaster.objects.all()
         id = request.query_params.get('id')
-        
+        search = str(request.query_params.get('search'))
+        if search != "None":
+            query = Q()
+            
+            query |= Q(abbreviation__icontains = search.split())
+            query |= Q(alternate_name__icontains = search.split())
+            query |= Q(serial_number__icontains = search.split())
+            query |= Q(asset_number__icontains = search.split())
+            query |= Q(packaging__icontains = search.split())
+            qs = qs.filter(query)
         if id:
             qs = qs.filter(location_for_warehouse = id)
             
-        if pm_status:
+        if pm_status != "NONE":
             qs = qs.filter(pm_status = pm_status)
             
         serializer = SwabMasterSerializer(qs, many=True)

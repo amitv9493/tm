@@ -253,80 +253,123 @@ class WarehousePartSerializer(serializers.Serializer):
     def get_general_part(self, obj):
         request = self.context.get('request')
         id = request.query_params.get('id')
+        pm_status = str(request.query_params.get('pm_status')).upper()
+        qs = Part.objects.all()
+
+        if pm_status:
+            qs = qs.filter(pm_status = pm_status)
         if id:
-            qs = Part.objects.filter(location_for_warehouse = id)
+            qs = qs.filter(location_for_warehouse = id)
             
-            serializer = AllGeneralPartCreateSerializer(qs, many=True)
-            return serializer.data
+        serializer = AllGeneralPartCreateSerializer(qs, many=True)
+        return serializer.data
 
     def get_supply_orifice(self, obj):
         request = self.context.get('request')
         id = request.query_params.get('id')
+        pm_status = str(request.query_params.get('pm_status')).upper()
+        qs = Supply_orifice.objects.all()
+        if pm_status:
+            qs = qs.filter(pm_status = pm_status)
         if id:
-            qs = Supply_orifice.objects.filter(location_for_warehouse = id)
+            qs = qs.filter(location_for_warehouse = id)
             
-            serializer = SupplyOrificeCreateSerializer(qs, many=True)
-            return serializer.data
+        serializer = SupplyOrificeCreateSerializer(qs, many=True)
+        return serializer.data
 
     def get_pressure_sensor(self, obj):
         request = self.context.get('request')
         id = request.query_params.get('id')
+        pm_status = str(request.query_params.get('pm_status')).upper()
+        qs = Pressure_sensor.objects.all()
+        if pm_status:
+            qs = qs.filter(pm_status = pm_status)
         if id:
-            qs = Pressure_sensor.objects.filter(location_for_warehouse = id)
+            qs = qs.filter(location_for_warehouse = id)
             
-            serializer = SupplyOrificeCreateSerializer(qs, many=True)
-            return serializer.data 
+        serializer = SupplyOrificeCreateSerializer(qs, many=True)
+        return serializer.data 
     
     def get_ttd_rack(self, obj):
         request = self.context.get('request')
         id = request.query_params.get('id')
+        pm_status = str(request.query_params.get('pm_status')).upper()
+        qs = TTD_tube_seal_rack.objects.all()
+        
+        if pm_status:
+            qs = qs.filter(pm_status = pm_status)
         if id:
-            qs = TTD_tube_seal_rack.objects.filter(location_for_warehouse = id)
+            qs = qs.filter(location_for_warehouse = id)
             
-            serializer = TddTubesealrackCreateSerializer(qs, many=True)
-            return serializer.data
+        serializer = TddTubesealrackCreateSerializer(qs, many=True)
+        return serializer.data
         
     def get_bdd_rack(self, obj):
         request = self.context.get('request')
         id = request.query_params.get('id')
+        pm_status = str(request.query_params.get('pm_status')).upper()
+        qs = BDD_tube_seal_rack.objects.all()
+
+        if pm_status:
+            print(pm_status)
+            qs = qs.filter(pm_status = pm_status)
         if id:
-            qs = BDD_tube_seal_rack.objects.filter(location_for_warehouse = id)
+            qs = qs.filter(location_for_warehouse = id)
             
-            serializer = BDDTubeSealRackSerializer(qs, many=True)
-            return serializer.data
+        serializer = BDDTubeSealRackSerializer(qs, many=True)
+        return serializer.data
 
     def get_calibration_orifice(self,obj):
         request = self.context.get('request')
         id = request.query_params.get('id')
+        pm_status = str(request.query_params.get('pm_status')).upper()
+        qs = Calibration_orifice.objects.all()
+        if pm_status:
+            qs = qs.filter(pm_status = pm_status)
         if id:
-            qs = Calibration_orifice.objects.filter(location_for_warehouse = id)
+            qs = qs.objects.filter(location_for_warehouse = id)
             
-            serializer = Calibration_orifice_serializer(qs, many=True)
-            return serializer.data
+        serializer = Calibration_orifice_serializer(qs, many=True)
+        return serializer.data
     
     def get_swabmasterTSR(self, obj):
         request = self.context.get('request')
         id = request.query_params.get('id')
+        pm_status = str(request.query_params.get('pm_status')).upper()
+        qs = SwabMasterTSR.objects.all()
+
+        if pm_status:
+            qs = qs.filter(pm_status = pm_status)
         if id:
-            qs = SwabMasterTSR.objects.filter(location_for_warehouse = id)
+            qs = qs.filter(location_for_warehouse = id)
             
-            serializer = SwabMasterTSRSerializer(qs, many=True)
-            return serializer.data
+        serializer = SwabMasterTSRSerializer(qs, many=True)
+        return serializer.data
     
     def get_devicehose(self, obj):
         request = self.context.get('request')
         id = request.query_params.get('id')
+        pm_status = str(request.query_params.get('pm_status')).upper()
+        qs = DeviceHose.objects.all()
+
+        if pm_status:
+            qs = qs.filter(pm_status = pm_status)
         if id:
-            qs = DeviceHose.objects.filter(warehouse = id)
+            qs = qs.filter(warehouse = id)
             
-            serializer = DeviceHoseSerializer(qs, many=True)
-            return serializer.data
+        serializer = DeviceHoseSerializer(qs, many=True)
+        return serializer.data
     
     def get_airhose(self, obj):
         request = self.context.get('request')
         id = request.query_params.get('id')
+        pm_status = str(request.query_params.get('pm_status')).upper()
+        qs = AirHose.objects.all()
+
+        if pm_status:
+            qs = qs.filter(pm_status = pm_status)
         if id:
-            qs = AirHose.objects.filter(warehouse = id)
+            qs = qs.filter(warehouse = id)
             
-            serializer = AirHoseSerializer(qs, many=True)
-            return serializer.data
+        serializer = AirHoseSerializer(qs, many=True)
+        return serializer.data
