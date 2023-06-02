@@ -8,15 +8,16 @@ from tube.models import Warehouse
 from django_filters import rest_framework as filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
+from project.models import Project
+from datetime import datetime
+import pytz
 from tm_api.paginator import CustomPagination
 
 ##################################################################
 #       TTD List-View
 ##################################################################
 
-from project.models import Project
-from datetime import datetime
-import pytz
+
 class TTDListView(ListAPIView):
     # permission_classes = [DjangoModelPermissions, IsAdminUser]
     # authentication_classes = [JWTAuthentication]

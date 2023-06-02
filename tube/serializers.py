@@ -491,13 +491,27 @@ class WarehouseEquipSerializer(serializers.Serializer):
     def get_ttd(self, obj):
         request = self.context.get('request')
         id = request.query_params.get('id')
-        pm_status = request.query_params.get('pm_status')
+        pm_status = str(request.query_params.get('pm_status')).upper()
+        qs = TTD.objects.all()
+        search = str(request.query_params.get('search'))
+        
 
         if id:
-            qs = TTD.objects.filter(location_for_warehouse = id)
+            qs = qs.filter(location_for_warehouse = id)
+
         if pm_status:
             print(pm_status)
-            qs = TTD.objects.filter(pm_status = pm_status)
+            qs = qs.filter(pm_status = pm_status)
+
+        if search:
+            query = Q()
+            
+            query |= Q(abbreviation__icontains = search.split())
+            query |= Q(alternate_name__icontains = search.split())
+            query |= Q(serial_number__icontains = search.split())
+            query |= Q(asset_number__icontains = search.split())
+            query |= Q(packaging__icontains = search.split())
+            qs = qs.filter(query)
 
         serializer = TTDSerializers(qs, many=True)
         return serializer.data
@@ -506,12 +520,14 @@ class WarehouseEquipSerializer(serializers.Serializer):
     def get_bdd(self, obj):
         request = self.context.get('request')
         id = request.query_params.get('id')
-        pm_status = request.query_params.get('pm_status')
+        pm_status = str(request.query_params.get('pm_status')).upper()
+        qs = BDD.objects.all()
         
         if id:
-            qs = BDD.objects.filter(location_for_warehouse = id)
+            qs = qs.filter(location_for_warehouse = id)
+
         if pm_status:
-            qs = BDD.objects.filter(pm_status = pm_status)
+            qs = qs.filter(pm_status = pm_status)
             
         serializer = BDDSerializer(qs, many=True)
         return serializer.data
@@ -519,26 +535,31 @@ class WarehouseEquipSerializer(serializers.Serializer):
     
     def get_calibration_stand(self, obj):
         request = self.context.get('request')
-        pm_status = request.query_params.get('pm_status')
-        if pm_status:
-            qs = CALIBRATION_STAND.objects.filter(pm_status = pm_status)
-        
+        pm_status = str(request.query_params.get('pm_status')).upper()
+        qs = CALIBRATION_STAND.objects.all()
         id = request.query_params.get('id')
+        
         if id:
-            qs = CALIBRATION_STAND.objects.filter(location_for_warehouse = id)
+            qs = qs.filter(location_for_warehouse = id)
             
+        if pm_status:
+            qs = qs.filter(pm_status = pm_status)
+
         serializer = CalibrationStandSerializer(qs, many=True)
         return serializer.data
     
     def get_swab_master(self, obj):
         request = self.context.get('request')
-        pm_status = request.query_params.get('pm_status')
-        if pm_status:
-            qs = SwabMaster.objects.filter(pm_status = pm_status)
+        pm_status = str(request.query_params.get('pm_status')).upper()
         
+        qs = SwabMaster.objects.all()
         id = request.query_params.get('id')
+        
         if id:
-            qs = SwabMaster.objects.filter(location_for_warehouse = id)
+            qs = qs.filter(location_for_warehouse = id)
+            
+        if pm_status:
+            qs = qs.filter(pm_status = pm_status)
             
         serializer = SwabMasterSerializer(qs, many=True)
         return serializer.data
