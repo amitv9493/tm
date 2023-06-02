@@ -9,7 +9,7 @@ from django.contrib.auth import views as auth_views
 from django.conf.urls.i18n import i18n_patterns
 from client.views import (ReactorAutocomplete,UnitAutocomplete,PlantAutocomplete,)
 from tm_api.views import LoginView
-
+from project.views import DashboardView
 from project.views import projectview
 from rest_framework_simplejwt.views import TokenRefreshView
 from client.views import front
@@ -240,6 +240,14 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path('api/equip/', WarehouseEquipmentView.as_view()),
     path("api/wef/",warehouse_equipment_view),
     path("api/wp/", warehouse_part_view),
+    
+    ##########################################################################
+    
+                                # '''DASHBOARD ENDPOINTS'''
+    
+    ##########################################################################
+    
+    path('api/dashboard/',DashboardView.as_view()),
     
 
     
