@@ -13,6 +13,14 @@ class ClientSerializers(serializers.ModelSerializer):
         model = Client
         fields = "__all__"
 
+###############################################################
+#          Client-Create Serializers
+###############################################################
+
+class ClientCreateSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields = "__all__"
 
 ###############################################################
 #          Address Serializers

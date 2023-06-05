@@ -112,7 +112,7 @@ class ClientListView(generics.ListAPIView):
 ###############################################################
 
 class ClientCreateView(generics.ListCreateAPIView):
-    serializer_class = ClientSerializers
+    serializer_class = ClientCreateSerializers
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
 
@@ -128,7 +128,7 @@ class ClientRetUpddel(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = Client.objects.all()
-    serializer_class = ClientSerializers
+    serializer_class = ClientCreateSerializers
 
 ###############################################################
 #                   Address List-View
