@@ -131,6 +131,17 @@ class WarehouseSerializer(serializers.ModelSerializer):
 		model = Warehouse
 		fields = "__all__"
 
+##################################################################
+#       Warehouse Create-Serializer
+##################################################################
+
+class WarhouseCreateSerializer(serializers.ModelSerializer):
+	country = CustomCountryField()
+	class Meta:
+			model = Warehouse
+			fields = "__all__"
+
+
 class PartSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Part

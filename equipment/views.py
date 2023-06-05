@@ -302,12 +302,12 @@ class WarehouseListView(generics.ListAPIView):
 #              Warehouse-CrerateView
 ###################################################################
 
-class WarehouseCreateView(generics.CreateAPIView):
+class WarehouseCreateView(generics.ListCreateAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
 
     queryset = Warehouse.objects.all()
-    serializer_class = WarehouseSerializer
+    serializer_class = WarhouseCreateSerializer
 
 
 ###################################################################
