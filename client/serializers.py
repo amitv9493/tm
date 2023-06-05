@@ -98,6 +98,15 @@ class ReactorSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 ##################################################################
+#                Reactor-Create Serializers
+##################################################################
+
+class ReactorCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reactor
+        fields = "__all__"
+
+##################################################################
 #                Unit Serializers
 ##################################################################
 

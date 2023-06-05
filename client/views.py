@@ -220,7 +220,7 @@ class ReactorCreateView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = Reactor.objects.all()
-    serializer_class = ReactorSerializer
+    serializer_class = ReactorCreateSerializer
 
 ################################################################
 #                   Reactor RetUpdDel-View
@@ -231,7 +231,7 @@ class ReactorRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = Reactor.objects.all()
-    serializer_class = ReactorSerializer
+    serializer_class = ReactorCreateSerializer
 
 ################################################################
 #                   Unit List-View
