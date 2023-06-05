@@ -27,7 +27,10 @@ class CustomCountryField(serializers.Field):
 # 	def to_representation(self, instance):
 # 		return instance.warehouse_name
 
-
+class TaskSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = TTD
+		fields = ['id', 'alternate_name',]
 
 
 

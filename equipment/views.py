@@ -20,23 +20,14 @@ from rest_framework import status
 ##################################################################
 import random
 class TaskView(ListAPIView):
-    serializer_class = TTDSerializers
+    serializer_class = TaskSerializer
     queryset = TTD.objects.all()
     
-    # permission_classes = [DjangoModelPermissions, IsAdminUser]
-    # authentication_classes = [JWTAuthentication]
-    pagination_class = CustomPagination
-    filter_backends = [DjangoFilterBackend,filters.SearchFilter,]
-    filterset_fields = ['pm_status','alternate_name']
-    search_fields = [
-        'alternate_name',
-        'abbreviation',
-        'serial_number',
-        'asset_number',
-        'packaging', 
-    ]
+
     
     def get(self, request, *args, **kwargs):
+
+
         response =  super().get(request, *args, **kwargs)
         number = random.randint(1,100)
         if number % 5 == 0:
