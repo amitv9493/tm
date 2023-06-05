@@ -11,13 +11,44 @@ from rest_framework import filters
 from project.models import Project
 from datetime import datetime
 import pytz
+from rest_framework.response import Response
 from tm_api.paginator import CustomPagination
+from rest_framework import status
 
 ##################################################################
 #       TTD List-View
 ##################################################################
-
-
+import random
+class TaskView(ListAPIView):
+    serializer_class = TTDSerializers
+    queryset = TTD.objects.all()
+    
+    # permission_classes = [DjangoModelPermissions, IsAdminUser]
+    # authentication_classes = [JWTAuthentication]
+    pagination_class = CustomPagination
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter,]
+    filterset_fields = ['pm_status','alternate_name']
+    search_fields = [
+        'alternate_name',
+        'abbreviation',
+        'serial_number',
+        'asset_number',
+        'packaging', 
+    ]
+    
+    def get(self, request, *args, **kwargs):
+        response =  super().get(request, *args, **kwargs)
+        number = random.randint(1,100)
+        if number % 5 == 0:
+            return Response({"msg":"An 500 Error Occured"},status=status.HTTP_500_INTERNAL_SERVER_ERROR )
+        
+        if number & 2 == 0:
+           
+            return Response({"msg":"A 404 Error Occured"},status=status.HTTP_404_NOT_FOUND )
+        
+        else:
+            return response
+            
 class TTDListView(ListAPIView):
     # permission_classes = [DjangoModelPermissions, IsAdminUser]
     # authentication_classes = [JWTAuthentication]
