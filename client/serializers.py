@@ -106,4 +106,14 @@ class UnitSerializers(serializers.ModelSerializer):
         model = Unit
         fields = "__all__"
 
+##################################################################
+#                Unit-Create Serializers
+##################################################################
+
+class UnitCreateSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Unit
+        fields = "__all__"
+
+
 

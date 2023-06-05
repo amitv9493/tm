@@ -254,7 +254,7 @@ class UnitCreateView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = Unit.objects.all()
-    serializer_class = UnitSerializers
+    serializer_class = UnitCreateSerializers
 
 
 ################################################################
@@ -266,4 +266,4 @@ class UnitRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = Unit.objects.all()
-    serializer_class = UnitSerializers
+    serializer_class = UnitCreateSerializers
