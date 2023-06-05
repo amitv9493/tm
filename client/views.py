@@ -150,7 +150,7 @@ class AddressCreateView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = Address.objects.all()
-    serializer_class = AddressSerializers
+    serializer_class = AddressCreateSerializers
 
 ###############################################################
 #                   Address RetUpdDel-View
@@ -161,7 +161,7 @@ class AddressRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
 
     queryset = Address.objects.all()
-    serializer_class = AddressSerializers
+    serializer_class = AddressCreateSerializers
 
 
 ###############################################################

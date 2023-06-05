@@ -22,6 +22,15 @@ class AddressSerializers(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = "__all__"
+
+###############################################################
+#          Address-Create Serializers
+###############################################################
+
+class AddressCreateSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = "__all__"
         
 ###############################################################
 #          Plant-Serializers
