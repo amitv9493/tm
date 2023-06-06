@@ -93,6 +93,7 @@ class Project(models.Model):
     equipment_delivery_tubemaster = models.DateField(
         ("Equipment Delivery Tubemaster"), default=datetime.date.today, blank=True
     )
+    # ==================== EQUIPMENT ==================================
 
     ttd = models.ManyToManyField(
         "equipment.TTD", verbose_name="TTD", default="", blank=True, related_name="ttd"
@@ -106,6 +107,12 @@ class Project(models.Model):
         blank=True,
         related_name="calibration_stand",
     )
+    
+    swabmaster_equip = models.ManyToManyField("equipment.SwabMaster", 
+                                        verbose_name=("Swab Master"), 
+                                        related_name='swabmaster', 
+                                        blank=True)
+    
     # ====================PARTS==================================
     part = models.ManyToManyField("part.Part", default="", blank=True, related_name='projects')
     supply_orifice_part = models.ManyToManyField(

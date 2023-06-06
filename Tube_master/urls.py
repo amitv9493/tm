@@ -237,7 +237,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path("api/part/allgeneralpartretupddel/<int:pk>/",AllGeneralPartRetUpdDelView.as_view(),name="allgeneralpartretupddel"),
 
     path('api/wa/',WarehouseAvailabilityView.as_view()),
-    path('api/equip/', WarehouseEquipmentView.as_view()),
+    # path('api/equip/', WarehouseEquipmentView.as_view()),
     path("api/wef/",warehouse_equipment_view),
     path("api/wp/", warehouse_part_view),
     path("api/task/",TaskView.as_view()),

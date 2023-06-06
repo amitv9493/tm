@@ -61,7 +61,6 @@ class ProjectAdmin(admin.ModelAdmin):
     "swabmaster",
     "device_Hose",
     'Air_Hose',
-    
     'equipment_info_remarks',
     'general_remarks',
     'Last_Comment',]
@@ -83,7 +82,8 @@ class ProjectAdmin(admin.ModelAdmin):
         }),
         ('Assign Equipment', {
            
-            'fields': ['ttd','bdd','calibration_stand',],
+    
+            'fields': ['ttd','bdd','calibration_stand','swabmaster_equip'],
         }),
 
         ('Assign Parts', {
