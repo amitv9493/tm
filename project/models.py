@@ -110,7 +110,7 @@ class Project(models.Model):
     
     swabmaster_equip = models.ManyToManyField("equipment.SwabMaster", 
                                         verbose_name=("Swab Master"), 
-                                        related_name='swabmaster', 
+                                        related_name='Swabmaster', 
                                         blank=True)
     
     # ====================PARTS==================================

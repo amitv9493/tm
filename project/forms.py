@@ -2,7 +2,7 @@
 
 from django import forms
 
-from equipment.models import BDD, CALIBRATION_STAND, TTD
+from equipment.models import BDD, CALIBRATION_STAND, TTD, SwabMaster
 from .models import Project
 from dal import autocomplete
 # class ProjectForm(forms.ModelForm):
@@ -39,6 +39,21 @@ class ProjectForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)
 
+        if self.instance.id and self.instance.swabmaster_equip:
+            ids = []
+
+            for i in SwabMaster.objects.filter(Swabmaster__swabmaster_equip__isnull =True):
+                ids.append(i.id)
+
+            for i in self.instance.swabmaster_equip.all():
+                ids.append(i.id)
+
+            self.fields["swabmaster_equip"].queryset = SwabMaster.objects.filter(id__in = ids) 
+        
+        else:
+            self.fields["swabmaster_equip"].queryset = SwabMaster.objects.filter(
+                Swabmaster__swabmaster_equip__isnull=True,)
+            
         if self.instance.id and self.instance.ttd:
             ids = []
 
