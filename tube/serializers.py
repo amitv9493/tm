@@ -5,6 +5,7 @@ from django_countries.serializers import CountryFieldMixin
 from django_countries.serializer_fields import CountryField
 from datetime import datetime
 import pytz
+from project.models import Project
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 
@@ -485,8 +486,35 @@ class WarehouseEquipSerializer(serializers.Serializer):
     calibration_stand = serializers.SerializerMethodField()
     swab_master = serializers.SerializerMethodField()
     location_for_warehouse = serializers.SerializerMethodField()
-    
-    
+     
+    def get_ids(self, date_obj, ttds=None, bdds=None, calis=None, swabs=None):
+        if date_obj:
+            ttd = set()
+            bdd = set()
+            cali = set()
+            swab = set()
+            p_qs = Project.objects.all()
+            for p in p_qs:
+                if p.equipment_delivery_client > date_obj:
+                    for t in p.ttd.all():
+                        ttd.add(p.id)
+                    for b in p.bdd.all():
+                        bdd.add(b.id)
+                    for s in p.swabmaster_equip.all():
+                        swab.add(s.id)
+                    for c in p.calibration_stand.all():
+                        cali.add(c.id)
+            
+            if ttds == 1:
+                return ttd
+            if bdds == 1:
+                return bdd
+            if calis == 1:
+                return cali
+            if swabs == 1:
+                return swab
+            
+
     def get_ttd(self, obj):
         request = self.context.get('request')
         id = request.query_params.get('id')
@@ -495,16 +523,13 @@ class WarehouseEquipSerializer(serializers.Serializer):
         print(pm_status)
         qs = TTD.objects.all()
         search = str(request.query_params.get('search'))
-        print(search)
-        
+        date_str = request.GET.get('date')
 
-        if id != "NONE":
-            print('id block ran')
+
+        if id:
             qs = qs.filter(location_for_warehouse = id)
 
-        if pm_status != "NONE":
-            print('pm block ran')
-            
+        if pm_status != "NONE":            
             qs = qs.filter(pm_status = pm_status)
 
         if search != 'None':
@@ -520,6 +545,14 @@ class WarehouseEquipSerializer(serializers.Serializer):
             query |= Q(packaging__icontains = search.split())
             qs = qs.filter(query)
 
+        if date_str:
+            date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
+            
+            ids = self.get_ids(date_obj,ttds=1)
+            print('ids :',ids)
+            qs = qs.exclude(id__in = ids)
+        
+
         serializer = TTDSerializers(qs, many=True)
         return serializer.data
 
@@ -530,6 +563,8 @@ class WarehouseEquipSerializer(serializers.Serializer):
         pm_status = str(request.query_params.get('pm_status')).upper()
         qs = BDD.objects.all()
         search = str(request.query_params.get('search'))
+        date_str = request.GET.get('date')
+
         if search != 'None':
             query = Q()
             
@@ -545,7 +580,15 @@ class WarehouseEquipSerializer(serializers.Serializer):
 
         if pm_status != "NONE":
             qs = qs.filter(pm_status = pm_status)
+
+        if date_str:
+            print("date ran")
+            date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
             
+            ids = self.get_ids(date_obj,bdds=1)
+            print('ids :',ids)
+            qs = qs.exclude(id__in = ids)
+
         serializer = BDDSerializer(qs, many=True)
         return serializer.data
 
@@ -556,6 +599,8 @@ class WarehouseEquipSerializer(serializers.Serializer):
         qs = CALIBRATION_STAND.objects.all()
         id = request.query_params.get('id')
         search = str(request.query_params.get('search'))
+        date_str = request.GET.get('date')
+
         if search != "None":
             query = Q()
             
@@ -571,6 +616,13 @@ class WarehouseEquipSerializer(serializers.Serializer):
         if pm_status != "NONE":
             qs = qs.filter(pm_status = pm_status)
 
+        if date_str:
+            date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
+            
+            ids = self.get_ids(date_obj,calis=1)
+            print('ids :',ids)
+            qs = qs.exclude(id__in = ids)
+        
         serializer = CalibrationStandSerializer(qs, many=True)
         return serializer.data
     
@@ -581,6 +633,8 @@ class WarehouseEquipSerializer(serializers.Serializer):
         qs = SwabMaster.objects.all()
         id = request.query_params.get('id')
         search = str(request.query_params.get('search'))
+        date_str = request.GET.get('date')
+
         if search != "None":
             query = Q()
             
@@ -595,7 +649,14 @@ class WarehouseEquipSerializer(serializers.Serializer):
             
         if pm_status != "NONE":
             qs = qs.filter(pm_status = pm_status)
+
+        if date_str:
+            date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
             
+            ids = self.get_ids(date_obj,swabs=1)
+            print('ids :',ids)
+            qs = qs.exclude(id__in = ids)
+
         serializer = SwabMasterSerializer(qs, many=True)
         return serializer.data
 
