@@ -68,8 +68,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
             not_assigned_to_any_project = total - (
                 will_not_free + will_be_free
             )
-
-        
+      
     def get_bdd_rack(self, obj):
         used = 0
         not_used = 0
@@ -441,35 +440,35 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
 
 
     def get_swabmaster(self, obj):
-        # will_not_free = 0
-        # will_be_free = 0
-        # not_assigned_to_any_project = 0
-        # total = 0
-        # request = self.context.get("request")
-        # warehouse_id = request.query_params.get("id")
-        # current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+        will_not_free = 0
+        will_be_free = 0
+        not_assigned_to_any_project = 0
+        total = 0
+        request = self.context.get("request")
+        warehouse_id = request.query_params.get("id")
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
 
-        # if warehouse_id:
-        #     warehouse = Warehouse.objects.get(id=warehouse_id)
-        #     if warehouse.swabmaster:
-        #         total = warehouse.swabmaster.count()
-        #         for j in warehouse.swabmaster.all():
-        #             if j.swabmaster:
-        #                 for k in j.swabmaster.all():
-        #                     if k.equipment_delivery_tubemaster < current_datetime:
-        #                         will_be_free += 1
-        #                     else:
-        #                         will_not_free += 1
+        if warehouse_id:
+            warehouse = Warehouse.objects.get(id=warehouse_id)
+            if warehouse.swabmaster:
+                total = warehouse.swabmaster.count()
+                for j in warehouse.swabmaster.all():
+                    if j.swabmaster:
+                        for k in j.swabmaster.all():
+                            if k.equipment_delivery_tubemaster < current_datetime:
+                                will_be_free += 1
+                            else:
+                                will_not_free += 1
 
-        #     not_assigned_to_any_project = total - (
-        #         will_not_free + will_be_free
-        #     )
+            not_assigned_to_any_project = total - (
+                will_not_free + will_be_free
+            )
 
         return {
-            "will_not_free": 0,
-            "will_be_free": 0,
-            "not_assigned_to_any_project": 0,
-            "total": 0,
+            "will_not_free": will_not_free,
+            "will_be_free": will_be_free,
+            "not_assigned_to_any_project": not_assigned_to_any_project,
+            "total": total,
         }
 
 from equipment.serializers import (TTDWithIDSerializer,
@@ -485,7 +484,7 @@ class WarehouseEquipSerializer(serializers.Serializer):
     bdd = serializers.SerializerMethodField()
     calibration_stand = serializers.SerializerMethodField()
     swab_master = serializers.SerializerMethodField()
-    # location_for_warehouse = serializers.SerializerMethodField()
+    location_for_warehouse = serializers.SerializerMethodField()
     
     
     def get_ttd(self, obj):
