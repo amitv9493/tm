@@ -549,7 +549,7 @@ class WarehouseEquipSerializer(serializers.Serializer):
             date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
             
             ids = self.get_ids(date_obj,ttds=1)
-            print('ids :',ids)
+            print('ttd ids :',ids)
             qs = qs.exclude(id__in = ids)
         
 
@@ -586,7 +586,7 @@ class WarehouseEquipSerializer(serializers.Serializer):
             date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
             
             ids = self.get_ids(date_obj,bdds=1)
-            print('ids :',ids)
+            print(' bdd ids :',ids)
             qs = qs.exclude(id__in = ids)
 
         serializer = BDDSerializer(qs, many=True)
@@ -620,7 +620,7 @@ class WarehouseEquipSerializer(serializers.Serializer):
             date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
             
             ids = self.get_ids(date_obj,calis=1)
-            print('ids :',ids)
+            print('cali ids :',ids)
             qs = qs.exclude(id__in = ids)
         
         serializer = CalibrationStandSerializer(qs, many=True)
@@ -654,7 +654,7 @@ class WarehouseEquipSerializer(serializers.Serializer):
             date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
             
             ids = self.get_ids(date_obj,swabs=1)
-            print('ids :',ids)
+            print('swab ids :',ids)
             qs = qs.exclude(id__in = ids)
 
         serializer = SwabMasterSerializer(qs, many=True)
