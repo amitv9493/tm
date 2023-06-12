@@ -539,11 +539,11 @@ class WarehouseEquipSerializer(serializers.Serializer):
             
             query = Q()
             
-            query |= Q(abbreviation__icontains = search.split())
-            query |= Q(alternate_name__icontains = search.split())
+            query |= Q(abbreviation__icontains = search)
+            query |= Q(alternate_name__icontains = search)
             query |= Q(serial_number__icontains = search)
-            query |= Q(asset_number__icontains = search.split())
-            query |= Q(packaging__icontains = search.split())
+            query |= Q(asset_number__icontains = search)
+            query |= Q(packaging__icontains = search)
             qs = qs.filter(query)
 
         if date_str:
@@ -569,11 +569,11 @@ class WarehouseEquipSerializer(serializers.Serializer):
         if search != 'None':
             query = Q()
             
-            query |= Q(abbreviation__icontains = search.split())
-            query |= Q(alternate_name__icontains = search.split())
-            query |= Q(serial_number__icontains = search.split())
-            query |= Q(asset_number__icontains = search.split())
-            query |= Q(packaging__icontains = search.split())
+            query |= Q(abbreviation__icontains = search)
+            query |= Q(alternate_name__icontains = search)
+            query |= Q(serial_number__icontains = search)
+            query |= Q(asset_number__icontains = search)
+            query |= Q(packaging__icontains = search)
             qs = qs.filter(query)
         
         if id:
@@ -611,11 +611,11 @@ class WarehouseEquipSerializer(serializers.Serializer):
         if search != "None":
             query = Q()
             
-            query |= Q(abbreviation__icontains = search.split())
-            query |= Q(alternate_name__icontains = search.split())
+            query |= Q(abbreviation__icontains = search)
+            query |= Q(alternate_name__icontains = search)
             query |= Q(serial_number__icontains = search)
-            query |= Q(asset_number__icontains = search.split())
-            query |= Q(packaging__icontains = search.split())
+            query |= Q(asset_number__icontains = search)
+            query |= Q(packaging__icontains = search)
 
             qs = qs.filter(query)
             
@@ -643,11 +643,11 @@ class WarehouseEquipSerializer(serializers.Serializer):
         if search != "None":
             query = Q()
             
-            query |= Q(abbreviation__icontains = search.split())
-            query |= Q(alternate_name__icontains = search.split())
-            query |= Q(serial_number__icontains = search.split())
-            query |= Q(asset_number__icontains = search.split())
-            query |= Q(packaging__icontains = search.split())
+            query |= Q(abbreviation__icontains = search)
+            query |= Q(alternate_name__icontains = search)
+            query |= Q(serial_number__icontains = search)
+            query |= Q(asset_number__icontains = search)
+            query |= Q(packaging__icontains = search)
             qs = qs.filter(query)
         if id:
             qs = qs.filter(location_for_warehouse = id)
