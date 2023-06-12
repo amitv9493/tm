@@ -454,8 +454,8 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
             if warehouse.swabmaster:
                 total = warehouse.swabmaster.count()
                 for j in warehouse.swabmaster.all():
-                    if j.swabmaster:
-                        for k in j.swabmaster.all():
+                    if j.Swabmaster:
+                        for k in j.Swabmaster.all():
                             if k.equipment_delivery_tubemaster < current_datetime:
                                 will_be_free += 1
                             else:
