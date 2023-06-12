@@ -524,6 +524,7 @@ class WarehouseEquipSerializer(serializers.Serializer):
         qs = TTD.objects.all()
         search = str(request.query_params.get('search'))
         date_str = request.GET.get('date')
+        request.GET.get('date')
 
 
         if id:
@@ -540,7 +541,7 @@ class WarehouseEquipSerializer(serializers.Serializer):
             
             query |= Q(abbreviation__icontains = search.split())
             query |= Q(alternate_name__icontains = search.split())
-            query |= Q(serial_number__icontains = search.split())
+            query |= Q(serial_number__icontains = search)
             query |= Q(asset_number__icontains = search.split())
             query |= Q(packaging__icontains = search.split())
             qs = qs.filter(query)
@@ -600,21 +601,24 @@ class WarehouseEquipSerializer(serializers.Serializer):
         id = request.query_params.get('id')
         search = str(request.query_params.get('search'))
         date_str = request.GET.get('date')
+        
+        if id:
+            qs = qs.filter(location_for_warehouse = id)
+            print(qs)
+        if pm_status != "NONE":
+            qs = qs.filter(pm_status = pm_status)
 
         if search != "None":
             query = Q()
             
             query |= Q(abbreviation__icontains = search.split())
             query |= Q(alternate_name__icontains = search.split())
-            query |= Q(serial_number__icontains = search.split())
+            query |= Q(serial_number__icontains = search)
             query |= Q(asset_number__icontains = search.split())
             query |= Q(packaging__icontains = search.split())
+
             qs = qs.filter(query)
-        if id:
-            qs = qs.filter(location_for_warehouse = id)
             
-        if pm_status != "NONE":
-            qs = qs.filter(pm_status = pm_status)
 
         if date_str:
             date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
@@ -622,8 +626,9 @@ class WarehouseEquipSerializer(serializers.Serializer):
             ids = self.get_ids(date_obj,calis=1)
             print('cali ids :',ids)
             qs = qs.exclude(id__in = ids)
-        
+            
         serializer = CalibrationStandSerializer(qs, many=True)
+        
         return serializer.data
     
     def get_swab_master(self, obj):
@@ -656,7 +661,7 @@ class WarehouseEquipSerializer(serializers.Serializer):
             ids = self.get_ids(date_obj,swabs=1)
             print('swab ids :',ids)
             qs = qs.exclude(id__in = ids)
-
         serializer = SwabMasterSerializer(qs, many=True)
+
         return serializer.data
 
