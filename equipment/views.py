@@ -299,6 +299,17 @@ class WarehouseListView(generics.ListAPIView):
 
 
 ###################################################################
+#              Warehouse-ListView Without Pagination
+###################################################################
+
+class WarehouseListViewWP(generics.ListAPIView):
+    # pagination_class = CustomPagination
+    # permission_classes = [DjangoModelPermissions, IsAdminUser]
+    # authentication_classes = [JWTAuthentication]
+
+    queryset = Warehouse.objects.all()
+    serializer_class = WarehouseSerializerWP
+###################################################################
 #              Warehouse-CrerateView
 ###################################################################
 

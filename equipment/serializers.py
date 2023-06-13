@@ -132,6 +132,17 @@ class WarehouseSerializer(serializers.ModelSerializer):
 		fields = "__all__"
 
 ##################################################################
+#       Warehouse Serializer Without pagination and get id and name only
+##################################################################
+
+class WarehouseSerializerWP(serializers.ModelSerializer):
+	country = CustomCountryField()
+
+	class Meta:
+		model = Warehouse
+		fields = ("id", "warehouse_name")
+
+##################################################################
 #       Warehouse Create-Serializer
 ##################################################################
 
