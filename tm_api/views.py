@@ -7,6 +7,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework.generics import ListAPIView
+from rest_framework.filters import SearchFilter
+
 
 
 
@@ -193,10 +195,16 @@ class ReactorView(ListAPIView):
 #         ttd_qs = TTD.objects.exclude(id__in = ttd)
 #         return (ttd_qs)
 
-
-class TtdView(ListAPIView):
+class TTDNewView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
+    pagination_class = CustomPagination
+    filter_backends = [SearchFilter]
+    search_fields = [
+        "serial_number",
+        "pm_status",
+        "alternate_name",
+    ]
     queryset = TTD.objects.all()
     serializer_class = TtdSerializer
 
@@ -209,9 +217,47 @@ class TtdView(ListAPIView):
         print(start_date)
         print(end_date)
         # Q()
-        qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-        )
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
+        if pro_id:
+            qs = qs.exclude(id=pro_id)
+
+        ttd = set()
+        for i in qs:
+            for i in i.ttd.all():
+                ttd.add(i.id)
+        ttd = list(ttd)
+        ttd_qs = TTD.objects.exclude(id__in=ttd)
+        return ttd_qs
+    
+class TtdView(ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    # pagination_class = CustomPagination
+    filter_backends = [SearchFilter]
+    search_fields = [
+        "serial_number",
+        "pm_status",
+        "alternate_name",
+    ]
+    queryset = TTD.objects.all()
+    serializer_class = TtdSerializer
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        start_date = self.request.query_params.get("start_date")
+        end_date = self.request.query_params.get("end_date")
+        pro_id = self.request.query_params.get("proid")
+        print(start_date)
+        print(end_date)
+        # Q()
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
         if pro_id:
             qs = qs.exclude(id=pro_id)
 
