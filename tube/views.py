@@ -1788,7 +1788,4 @@ def warehouse_equipment_view(request):
     }
     return pagination_class.get_paginated_response(paginated_data_with_counts)
 
-
-from rest_framework.viewsets import ModelViewSet 
-
     
