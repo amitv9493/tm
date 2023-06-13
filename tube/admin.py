@@ -48,3 +48,8 @@ class WarehouseAdmin(ImportExportModelAdmin):
 
 
 admin.site.register(Warehouse, WarehouseAdmin)
+
+
+
+
+

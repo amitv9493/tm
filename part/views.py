@@ -801,7 +801,7 @@ class AllGeneralPartRetUpdDelView(generics.RetrieveUpdateAPIView):
 def warehouse_part_view(request):
 
     pagination_class = CustomPagination()
-
+    print(request.query_params.get("pm_status"))
     serializer = WarehousePartSerializer(context={'request': request})
     part_data = serializer.get_general_part(None)
     supply_orifice_data = serializer.get_supply_orifice(None)
@@ -813,7 +813,7 @@ def warehouse_part_view(request):
     devicehose_data = serializer.get_devicehose(None)
     airhose_data = serializer.get_airhose(None)
 
-    merged_data = part_data +supply_orifice_data+pressure_sensor_data+ttd_rack_data+bdd_rack_data+calibration_orifice_data+swabmaster_data+devicehose_data+airhose_data
+    merged_data = part_data + supply_orifice_data+pressure_sensor_data+ttd_rack_data+bdd_rack_data+calibration_orifice_data+swabmaster_data+devicehose_data+airhose_data
 
     paginated_data = pagination_class.paginate_queryset(merged_data, request)
 

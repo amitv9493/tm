@@ -256,11 +256,11 @@ class WarehousePartSerializer(serializers.Serializer):
         pm_status = str(request.query_params.get('pm_status')).upper()
         qs = Part.objects.all()
 
-        if pm_status:
+        if pm_status != "NONE" :
+            print(pm_status)
             qs = qs.filter(pm_status = pm_status)
         if id:
             qs = qs.filter(location_for_warehouse = id)
-            
         serializer = AllGeneralPartCreateSerializer(qs, many=True)
         return serializer.data
 
@@ -269,7 +269,7 @@ class WarehousePartSerializer(serializers.Serializer):
         id = request.query_params.get('id')
         pm_status = str(request.query_params.get('pm_status')).upper()
         qs = Supply_orifice.objects.all()
-        if pm_status:
+        if pm_status != "NONE" :
             qs = qs.filter(pm_status = pm_status)
         if id:
             qs = qs.filter(location_for_warehouse = id)
@@ -282,7 +282,7 @@ class WarehousePartSerializer(serializers.Serializer):
         id = request.query_params.get('id')
         pm_status = str(request.query_params.get('pm_status')).upper()
         qs = Pressure_sensor.objects.all()
-        if pm_status:
+        if pm_status != "NONE" :
             qs = qs.filter(pm_status = pm_status)
         if id:
             qs = qs.filter(location_for_warehouse = id)
@@ -296,7 +296,7 @@ class WarehousePartSerializer(serializers.Serializer):
         pm_status = str(request.query_params.get('pm_status')).upper()
         qs = TTD_tube_seal_rack.objects.all()
         
-        if pm_status:
+        if pm_status != "NONE" :
             qs = qs.filter(pm_status = pm_status)
         if id:
             qs = qs.filter(location_for_warehouse = id)
@@ -310,7 +310,7 @@ class WarehousePartSerializer(serializers.Serializer):
         pm_status = str(request.query_params.get('pm_status')).upper()
         qs = BDD_tube_seal_rack.objects.all()
 
-        if pm_status:
+        if pm_status != "NONE" :
             print(pm_status)
             qs = qs.filter(pm_status = pm_status)
         if id:
@@ -324,10 +324,10 @@ class WarehousePartSerializer(serializers.Serializer):
         id = request.query_params.get('id')
         pm_status = str(request.query_params.get('pm_status')).upper()
         qs = Calibration_orifice.objects.all()
-        if pm_status:
+        if pm_status != "NONE" :
             qs = qs.filter(pm_status = pm_status)
         if id:
-            qs = qs.objects.filter(location_for_warehouse = id)
+            qs = qs.filter(location_for_warehouse = id)
             
         serializer = Calibration_orifice_serializer(qs, many=True)
         return serializer.data
@@ -338,7 +338,7 @@ class WarehousePartSerializer(serializers.Serializer):
         pm_status = str(request.query_params.get('pm_status')).upper()
         qs = SwabMasterTSR.objects.all()
 
-        if pm_status:
+        if pm_status != "NONE" :
             qs = qs.filter(pm_status = pm_status)
         if id:
             qs = qs.filter(location_for_warehouse = id)
@@ -352,7 +352,7 @@ class WarehousePartSerializer(serializers.Serializer):
         pm_status = str(request.query_params.get('pm_status')).upper()
         qs = DeviceHose.objects.all()
 
-        if pm_status:
+        if pm_status != "NONE" :
             qs = qs.filter(pm_status = pm_status)
         if id:
             qs = qs.filter(warehouse = id)
@@ -366,7 +366,7 @@ class WarehousePartSerializer(serializers.Serializer):
         pm_status = str(request.query_params.get('pm_status')).upper()
         qs = AirHose.objects.all()
 
-        if pm_status:
+        if pm_status != "NONE" :
             qs = qs.filter(pm_status = pm_status)
         if id:
             qs = qs.filter(warehouse = id)
