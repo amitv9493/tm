@@ -193,7 +193,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
 #######################################################################
 
     path("api/get/warehouse/", WarehouseListView.as_view(), name="getwarehouse"),
-    path("api/get/warehouse/wp", WarehouseListViewWP.as_view(), name="getwarehousewp"),
+    path("api/get/warehouse/wp/", WarehouseListViewWP.as_view(), name="getwarehousewp"),
     path("api/create/warehouse/", WarehouseCreateView.as_view(), name="createwarehouse"),
     path("api/retupddel/warehouse/<int:pk>/", WarehouseRetUpdDelView.as_view(), name="retupddelwarehouse"),
     path("api/lw/<int:pk>/", WarehouseNewListView.as_view()),
