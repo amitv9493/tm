@@ -103,7 +103,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     # path("select2/", include("django_select2.urls")),
 #######################################################################
 #                       Project API ENDPOINTS
-#######################################################################
+###########################################`############################
     path("api/user/login/", LoginView.as_view(), name="loginview"),
     path("api/get/clientlist/", ClientListView.as_view(), name="clientview"),
     path("api/get/unitlist/", UnitListView.as_view(), name="unitview"),

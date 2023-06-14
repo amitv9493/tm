@@ -290,9 +290,10 @@ class BddView(ListAPIView):
         print(start_date)
         print(end_date)
         # Q()
-        qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-        )
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
         if pro_id:
             qs = qs.exclude(id=pro_id)
         # print(qs.ttd)
