@@ -136,7 +136,7 @@ class WarehouseSerializer(serializers.ModelSerializer):
 ##################################################################
 
 class WarehouseSerializerWP(serializers.ModelSerializer):
-	country = CustomCountryField()
+	# country = CustomCountryField()
 
 	class Meta:
 		model = Warehouse
