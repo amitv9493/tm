@@ -273,7 +273,7 @@ class Add_Project_serializer(serializers.ModelSerializer):
         fields = ('id','project_name','project_number','equipment_prep','client','ttd','unit','scope_of_work','bdd','calibration_stand','part','supply_orifice_part','reactor','pressure_sensor_part','calibration_orifice_part','swabmaster_part','device_part','airhose_part','project_start','project_end')
         # fields = "_all_"
         # fields = ("client", "unit")
-        # depth = 1
+        depth = 1
 
     # client = ClientSerializer()
     # unit = UnitSerializer()
