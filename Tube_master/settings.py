@@ -282,9 +282,9 @@ ADMIN_REORDER = (
 
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django_currentuser.middleware.ThreadLocalUserMiddleware",
     "django.middleware.security.SecurityMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
