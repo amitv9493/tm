@@ -186,7 +186,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
 
     path("api/cl/unitlist/", UnitListView.as_view(), name="unitlist"),
     path("api/cl/unitcreate/", UnitCreateView.as_view(), name="unitcreate"),
-    path("api/cl/unitretupddel/", UnitRetUpdDelView.as_view(), name="unitretupddel"),
+    path("api/cl/unitretupddel/<int:pk>/", UnitRetUpdDelView.as_view(), name="unitretupddel"),
     
 #######################################################################
 #                     Warehouse-API ENDPOINTS
