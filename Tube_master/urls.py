@@ -243,6 +243,8 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path("api/wp/", warehouse_part_view),
     path("api/task/",TaskView.as_view()),
     
+    path("api/get/new/ttd/",TTDNewView.as_view()),
+    
     ##########################################################################
     
                                 # '''DASHBOARD ENDPOINTS'''
