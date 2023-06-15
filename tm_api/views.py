@@ -362,9 +362,10 @@ class PartView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-        )
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
         if pro_id:
             qs = qs.exclude(id=pro_id)
         # print(qs.ttd)
@@ -396,9 +397,10 @@ class SupplyOrificeView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-        )
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
         if pro_id:
             qs = qs.exclude(id=pro_id)
         # print(qs.ttd)
@@ -432,9 +434,10 @@ class PressureSensorView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-        )
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
         if pro_id:
             qs = qs.exclude(id=pro_id)
         # print(qs.ttd)
@@ -466,9 +469,10 @@ class CalibrationOrificeView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-        )
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
         if pro_id:
             qs = qs.exclude(id=pro_id)
         # print(qs.ttd)
@@ -502,9 +506,10 @@ class SwabMasterView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-        )
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
         if pro_id:
             qs = qs.exclude(id=pro_id)
         # print(qs.ttd)
@@ -536,9 +541,10 @@ class DeviceHoseView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-        )
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
         if pro_id:
             qs = qs.exclude(id=pro_id)
         # print(qs.ttd)
@@ -570,9 +576,10 @@ class AirHoseView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-        )
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
         if pro_id:
             qs = qs.exclude(id=pro_id)
         # print(qs.ttd)
