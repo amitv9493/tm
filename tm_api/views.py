@@ -369,13 +369,13 @@ class PartView(ListAPIView):
         if pro_id:
             qs = qs.exclude(id=pro_id)
         # print(qs.ttd)
-        part = set()
+        PART = set()
         for i in qs:
-            for i in i.part.all():
-                part.add(i.id)
+            for i in i.projects.all():
+                PART.add(i.id)
 
-        part = list(part)
-        Part_qs = Part.objects.exclude(id__in=part)
+        PART = list(PART)
+        Part_qs = Part.objects.exclude(id__in=PART)
         return Part_qs
 
 
@@ -406,7 +406,7 @@ class SupplyOrificeView(ListAPIView):
         # print(qs.ttd)
         supply_orifice_part = set()
         for i in qs:
-            for i in i.supply_orifice_part.all():
+            for i in i.projects.all():
                 supply_orifice_part.add(i.id)
 
         supply_orifice_part = list(supply_orifice_part)
@@ -443,7 +443,7 @@ class PressureSensorView(ListAPIView):
         # print(qs.ttd)
         pressure_sensor_part = set()
         for i in qs:
-            for i in i.pressure_sensor_part.all():
+            for i in i.projects.all():
                 pressure_sensor_part.add(i.id)
 
         pressure_sensor_part = list(pressure_sensor_part)
@@ -478,7 +478,7 @@ class CalibrationOrificeView(ListAPIView):
         # print(qs.ttd)
         pressure_sensor_part = set()
         for i in qs:
-            for i in i.calibration_orifice_part.all():
+            for i in i.projects.all():
                 pressure_sensor_part.add(i.id)
 
         pressure_sensor_part = list(pressure_sensor_part)
@@ -515,7 +515,7 @@ class SwabMasterView(ListAPIView):
         # print(qs.ttd)
         pressure_sensor_part = set()
         for i in qs:
-            for i in i.swabmaster_part.all():
+            for i in i.projects.all():
                 pressure_sensor_part.add(i.id)
 
         pressure_sensor_part = list(pressure_sensor_part)
@@ -550,7 +550,7 @@ class DeviceHoseView(ListAPIView):
         # print(qs.ttd)
         pressure_sensor_part = set()
         for i in qs:
-            for i in i.device_part.all():
+            for i in i.projects.all():
                 pressure_sensor_part.add(i.id)
 
         pressure_sensor_part = list(pressure_sensor_part)
@@ -585,7 +585,7 @@ class AirHoseView(ListAPIView):
         # print(qs.ttd)
         pressure_sensor_part = set()
         for i in qs:
-            for i in i.airhose_part.all():
+            for i in i.projects.all():
                 pressure_sensor_part.add(i.id)
 
         pressure_sensor_part = list(pressure_sensor_part)
