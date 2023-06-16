@@ -305,7 +305,7 @@ class GET_Project_serializer(serializers.ModelSerializer):
         model = Project
         # fields = ('id','project_name','project_number','equipment_prep','client','ttd','unit','scope_of_work','bdd','calibration_stand','part','supply_orifice_part','reactor','pressure_sensor_part','calibration_orifice_part','swabmaster_part','device_part','airhose_part')
         fields = "__all__"
-        # depth = 1
+        depth = 1
 
 
 ################################################################################
