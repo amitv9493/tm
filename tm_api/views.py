@@ -8,6 +8,8 @@ from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework.generics import ListAPIView
 from rest_framework.filters import SearchFilter
+from rest_framework.exceptions import ValidationError
+from rest_framework import filters
 
 
 
@@ -214,23 +216,24 @@ class TTDNewView(ListAPIView):
         start_date = self.request.query_params.get("start_date")
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
-        print(start_date)
-        print(end_date)
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
+
+
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+        )
         if pro_id:
-            qs = qs.exclude(id=pro_id)
+            project_qs = project_qs.exclude(id=pro_id)
 
         ttd = set()
-        for i in qs:
-            for i in i.ttd.all():
-                ttd.add(i.id)
-        ttd = list(ttd)
-        ttd_qs = TTD.objects.exclude(id__in=ttd)
-        return ttd_qs
+        for i in project_qs:
+            for j in i.ttd.all():
+                ttd.add(j.id)
+        # ttd = list(ttd)
+        
+        return qs.exclude(id__in=ttd)
     
 class TtdView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
@@ -253,21 +256,22 @@ class TtdView(ListAPIView):
         pro_id = self.request.query_params.get("proid")
         print(start_date)
         print(end_date)
+        
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+        )
         if pro_id:
-            qs = qs.exclude(id=pro_id)
+            project_qs = project_qs.exclude(id=pro_id)
 
         ttd = set()
-        for i in qs:
-            for i in i.ttd.all():
-                ttd.add(i.id)
-        ttd = list(ttd)
-        ttd_qs = TTD.objects.exclude(id__in=ttd)
-        return ttd_qs
+        for i in project_qs:
+            for j in i.ttd.all():
+                ttd.add(j.id)
+                
+        return qs.exclude(id__in=ttd)
 
 
 ################################################################################
@@ -297,21 +301,21 @@ class BddNewView(ListAPIView):
         print(start_date)
         print(end_date)
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
+        
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+        )
         if pro_id:
-            qs = qs.exclude(id=pro_id)
+            project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
         bdd = set()
-        for i in qs:
-            for i in i.bdd.all():
-                bdd.add(i.id)
+        for i in project_qs:
+            for j in i.bdd.all():
+                bdd.add(j.id)
 
-        bdd = list(bdd)
-        bdd_qs = BDD.objects.exclude(id__in=bdd)
-        return bdd_qs
+        return qs.exclude(id__in=bdd)
 
 
 
@@ -330,21 +334,21 @@ class BddView(ListAPIView):
         print(start_date)
         print(end_date)
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
+
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+        )
         if pro_id:
-            qs = qs.exclude(id=pro_id)
+            project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
         bdd = set()
-        for i in qs:
-            for i in i.bdd.all():
-                bdd.add(i.id)
+        for i in project_qs:
+            for j in i.bdd.all():
+                bdd.add(j.id)
 
-        bdd = list(bdd)
-        bdd_qs = BDD.objects.exclude(id__in=bdd)
-        return bdd_qs
+        return qs.exclude(id__in=bdd)
 
 
 ################################################################################
@@ -373,21 +377,21 @@ class CalibrationStandNewView(ListAPIView):
         print(start_date)
         print(end_date)
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
+            
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+        )
         if pro_id:
-            qs = qs.exclude(id=pro_id)
+            project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
-        CALIBRATIONSTAND = set()
-        for i in qs:
-            for i in i.calibration_stand.all():
-                CALIBRATIONSTAND.add(i.id)
+        calibration_stand = set()
+        for i in project_qs:
+            for j in i.calibration_stand.all():
+                calibration_stand.add(j.id)
 
-        CALIBRATIONSTAND = list(CALIBRATIONSTAND)
-        CALIBRATIONSTAND_qs = CALIBRATION_STAND.objects.exclude(id__in=CALIBRATIONSTAND)
-        return CALIBRATIONSTAND_qs
+        return qs.exclude(id__in=calibration_stand)
 
 
 class CalibrationStandView(ListAPIView):
@@ -405,21 +409,21 @@ class CalibrationStandView(ListAPIView):
         print(start_date)
         print(end_date)
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
+            
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+        )
         if pro_id:
-            qs = qs.exclude(id=pro_id)
+            project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
-        CALIBRATIONSTAND = set()
-        for i in qs:
-            for i in i.calibration_stand.all():
-                CALIBRATIONSTAND.add(i.id)
+        calibration_stand = set()
+        for i in project_qs:
+            for j in i.calibration_stand.all():
+                calibration_stand.add(j.id)
 
-        CALIBRATIONSTAND = list(CALIBRATIONSTAND)
-        CALIBRATIONSTAND_qs = CALIBRATION_STAND.objects.exclude(id__in=CALIBRATIONSTAND)
-        return CALIBRATIONSTAND_qs
+        return qs.exclude(id__in=calibration_stand)
 
 
 ################################################################################
@@ -447,21 +451,21 @@ class PartNewView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
+
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+        )
         if pro_id:
-            qs = qs.exclude(id=pro_id)
+            project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
         PART = set()
-        for i in qs:
-            for i in i.projects.all():
-                PART.add(i.id)
+        for i in project_qs:
+            for j in i.part.all():
+                PART.add(j.id)
 
-        PART = list(PART)
-        Part_qs = Part.objects.exclude(id__in=PART)
-        return Part_qs
+        return Part.objects.exclude(id__in=PART)
 
 
 class PartView(ListAPIView):
@@ -477,22 +481,21 @@ class PartView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
+
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+        )
         if pro_id:
-            qs = qs.exclude(id=pro_id)
+            project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
         PART = set()
-        for i in qs:
-            for i in i.projects.all():
-                PART.add(i.id)
+        for i in project_qs:
+            for j in i.part.all():
+                PART.add(j.id)
 
-        PART = list(PART)
-        Part_qs = Part.objects.exclude(id__in=PART)
-        return Part_qs
-
+        return Part.objects.exclude(id__in=PART)
 
 ################################################################################
 #            SupplyOrifice API View
@@ -518,23 +521,23 @@ class SupplyOrificeNewView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
+
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+        )
         if pro_id:
-            qs = qs.exclude(id=pro_id)
+            project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
         supply_orifice_part = set()
-        for i in qs:
-            for i in i.projects.all():
-                supply_orifice_part.add(i.id)
+        
+        for i in project_qs:
+            for j in i.supply_orifice_part.all():
+                supply_orifice_part.add(j.id)
 
-        supply_orifice_part = list(supply_orifice_part)
-        supply_orifice_part_qs = Supply_orifice.objects.exclude(
-            id__in=supply_orifice_part
-        )
-        return supply_orifice_part_qs
+        return qs.exclude(id__in=supply_orifice_part)
+    
 
 class SupplyOrificeView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
@@ -549,24 +552,23 @@ class SupplyOrificeView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
+
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+        )
         if pro_id:
-            qs = qs.exclude(id=pro_id)
+            project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
         supply_orifice_part = set()
-        for i in qs:
-            for i in i.projects.all():
-                supply_orifice_part.add(i.id)
+        
+        for i in project_qs:
+            for j in i.supply_orifice_part.all():
+                supply_orifice_part.add(j.id)
 
-        supply_orifice_part = list(supply_orifice_part)
-        supply_orifice_part_qs = Supply_orifice.objects.exclude(
-            id__in=supply_orifice_part
-        )
-        return supply_orifice_part_qs
-
+        return qs.exclude(id__in=supply_orifice_part)
+    
 
 ################################################################################
 #            Pressure API View
@@ -594,23 +596,23 @@ class PressureSensorNewView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
+
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+        )
         if pro_id:
-            qs = qs.exclude(id=pro_id)
+            project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
         pressure_sensor_part = set()
-        for i in qs:
-            for i in i.projects.all():
-                pressure_sensor_part.add(i.id)
+        for i in project_qs:
+            for j in i.pressure_sensor_part.all():
+                pressure_sensor_part.add(j.id)
 
-        pressure_sensor_part = list(pressure_sensor_part)
-        pressure_sensor_part_qs = Pressure_sensor.objects.exclude(
+        return Pressure_sensor.objects.exclude(
             id__in=pressure_sensor_part
         )
-        return pressure_sensor_part_qs
 
 class PressureSensorView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
@@ -625,23 +627,23 @@ class PressureSensorView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
+
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+        )
         if pro_id:
-            qs = qs.exclude(id=pro_id)
+            project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
         pressure_sensor_part = set()
-        for i in qs:
-            for i in i.projects.all():
-                pressure_sensor_part.add(i.id)
+        for i in project_qs:
+            for j in i.pressure_sensor_part.all():
+                pressure_sensor_part.add(j.id)
 
-        pressure_sensor_part = list(pressure_sensor_part)
-        pressure_sensor_part_qs = Pressure_sensor.objects.exclude(
+        return Pressure_sensor.objects.exclude(
             id__in=pressure_sensor_part
         )
-        return pressure_sensor_part_qs
 
 
 ################################################################################
@@ -668,23 +670,23 @@ class CalibrationOrificeNewView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
-        if pro_id:
-            qs = qs.exclude(id=pro_id)
-        # print(qs.ttd)
-        pressure_sensor_part = set()
-        for i in qs:
-            for i in i.projects.all():
-                pressure_sensor_part.add(i.id)
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
 
-        pressure_sensor_part = list(pressure_sensor_part)
-        pressure_sensor_part_qs = Calibration_orifice.objects.exclude(
-            id__in=pressure_sensor_part
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
         )
-        return pressure_sensor_part_qs
+        if pro_id:
+            project_qs = project_qs.exclude(id=pro_id)
+        # print(qs.ttd)
+        calibration_orifice_part = set()
+        for i in project_qs:
+            for j in i.calibration_orifice_part.all():
+                calibration_orifice_part.add(j.id)
+
+        return Calibration_orifice.objects.exclude(
+            id__in=calibration_orifice_part
+        )
 
 class CalibrationOrificeView(ListAPIView):
     queryset = Calibration_orifice.objects.all()
@@ -699,24 +701,23 @@ class CalibrationOrificeView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
-        if pro_id:
-            qs = qs.exclude(id=pro_id)
-        # print(qs.ttd)
-        pressure_sensor_part = set()
-        for i in qs:
-            for i in i.projects.all():
-                pressure_sensor_part.add(i.id)
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
 
-        pressure_sensor_part = list(pressure_sensor_part)
-        pressure_sensor_part_qs = Calibration_orifice.objects.exclude(
-            id__in=pressure_sensor_part
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
         )
-        return pressure_sensor_part_qs
+        if pro_id:
+            project_qs = project_qs.exclude(id=pro_id)
+        # print(qs.ttd)
+        calibration_orifice_part = set()
+        for i in project_qs:
+            for j in i.calibration_orifice_part.all():
+                calibration_orifice_part.add(j.id)
 
+        return Calibration_orifice.objects.exclude(
+            id__in=calibration_orifice_part
+        )
 
 ################################################################################
 #            swabmaster API View
@@ -744,23 +745,25 @@ class SwabMasterNewView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
-        if pro_id:
-            qs = qs.exclude(id=pro_id)
-        # print(qs.ttd)
-        pressure_sensor_part = set()
-        for i in qs:
-            for i in i.projects.all():
-                pressure_sensor_part.add(i.id)
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
 
-        pressure_sensor_part = list(pressure_sensor_part)
-        pressure_sensor_part_qs = SwabMasterTSR.objects.exclude(
-            id__in=pressure_sensor_part
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
         )
-        return pressure_sensor_part_qs
+        if pro_id:
+            project_qs = project_qs.exclude(id=pro_id)
+        # print(qs.ttd)
+        swabmaster_part = set()
+
+        for i in project_qs:
+            for i in i.swabmaster_part.all():
+                swabmaster_part.add(i.id)
+
+     
+        return SwabMasterTSR.objects.exclude(
+            id__in=swabmaster_part
+        )
 
 
 class SwabMasterView(ListAPIView):
@@ -776,24 +779,25 @@ class SwabMasterView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
-        if pro_id:
-            qs = qs.exclude(id=pro_id)
-        # print(qs.ttd)
-        pressure_sensor_part = set()
-        for i in qs:
-            for i in i.projects.all():
-                pressure_sensor_part.add(i.id)
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
 
-        pressure_sensor_part = list(pressure_sensor_part)
-        pressure_sensor_part_qs = SwabMasterTSR.objects.exclude(
-            id__in=pressure_sensor_part
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
         )
-        return pressure_sensor_part_qs
+        if pro_id:
+            project_qs = project_qs.exclude(id=pro_id)
+        # print(qs.ttd)
+        swabmaster_part = set()
 
+        for i in project_qs:
+            for i in i.swabmaster_part.all():
+                swabmaster_part.add(i.id)
+
+     
+        return SwabMasterTSR.objects.exclude(
+            id__in=swabmaster_part
+        )
 
 ################################################################################
 #            Devicehose API View
@@ -819,23 +823,23 @@ class DeviceHoseNewView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
-        if pro_id:
-            qs = qs.exclude(id=pro_id)
-        # print(qs.ttd)
-        pressure_sensor_part = set()
-        for i in qs:
-            for i in i.projects.all():
-                pressure_sensor_part.add(i.id)
-
-        pressure_sensor_part = list(pressure_sensor_part)
-        pressure_sensor_part_qs = DeviceHose.objects.exclude(
-            id__in=pressure_sensor_part
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
+            
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
         )
-        return pressure_sensor_part_qs
+        if pro_id:
+            project_qs = project_qs.exclude(id=pro_id)
+        # print(qs.ttd)
+        device_part = set()
+        for i in project_qs:
+            for j in i.device_part.all():
+                device_part.add(j.id)
+
+        return DeviceHose.objects.exclude(
+            id__in=device_part
+        )
 
 
 class DeviceHoseView(ListAPIView):
@@ -851,23 +855,23 @@ class DeviceHoseView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
-        if start_date and end_date:
-            qs = Project.objects.filter(
-                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
-            )
-        if pro_id:
-            qs = qs.exclude(id=pro_id)
-        # print(qs.ttd)
-        pressure_sensor_part = set()
-        for i in qs:
-            for i in i.projects.all():
-                pressure_sensor_part.add(i.id)
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
 
-        pressure_sensor_part = list(pressure_sensor_part)
-        pressure_sensor_part_qs = DeviceHose.objects.exclude(
-            id__in=pressure_sensor_part
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
         )
-        return pressure_sensor_part_qs
+        if pro_id:
+            project_qs = project_qs.exclude(id=pro_id)
+        # print(qs.ttd)
+        device_part = set()
+        for i in project_qs:
+            for j in i.device_part.all():
+                device_part.add(j.id)
+
+        return DeviceHose.objects.exclude(
+            id__in=device_part
+        )
 
 
 ################################################################################
@@ -896,21 +900,22 @@ class AirHoseNewView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
+
         if start_date and end_date:
-            qs = Project.objects.filter(
+            project_qs = Project.objects.filter(
                 equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
             )
         if pro_id:
-            qs = qs.exclude(id=pro_id)
+            project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
-        pressure_sensor_part = set()
-        for i in qs:
-            for i in i.projects.all():
-                pressure_sensor_part.add(i.id)
+        airhose_part = set()
+        for i in project_qs:
+            for j in i.airhose_part.all():
+                airhose_part.add(j.id)
 
-        pressure_sensor_part = list(pressure_sensor_part)
-        pressure_sensor_part_qs = AirHose.objects.exclude(id__in=pressure_sensor_part)
-        return pressure_sensor_part_qs
+        return  qs.exclude(id__in=airhose_part)
 
 class AirHoseView(ListAPIView):
     queryset = AirHose.objects.all()
@@ -925,28 +930,28 @@ class AirHoseView(ListAPIView):
         end_date = self.request.query_params.get("end_date")
         pro_id = self.request.query_params.get("proid")
         # Q()
+        if not start_date or not end_date:
+            raise ValidationError("Both start_date and end_date are required.")
+
         if start_date and end_date:
-            qs = Project.objects.filter(
+            project_qs = Project.objects.filter(
                 equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
             )
         if pro_id:
-            qs = qs.exclude(id=pro_id)
+            project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
-        pressure_sensor_part = set()
-        for i in qs:
-            for i in i.projects.all():
-                pressure_sensor_part.add(i.id)
+        airhose_part = set()
+        for i in project_qs:
+            for j in i.airhose_part.all():
+                airhose_part.add(j.id)
 
-        pressure_sensor_part = list(pressure_sensor_part)
-        pressure_sensor_part_qs = AirHose.objects.exclude(id__in=pressure_sensor_part)
-        return pressure_sensor_part_qs
+        return  qs.exclude(id__in=airhose_part)
 
 
 ################################################################################
 #                           All List View API Project
 ################################################################################
 
-from rest_framework import filters
 
 
 class ProjectAllListView(generics.ListAPIView):
