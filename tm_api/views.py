@@ -274,6 +274,46 @@ class TtdView(ListAPIView):
 #            BDD API View
 ################################################################################
 
+class BddNewView(ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    queryset = BDD.objects.all()
+    serializer_class = BddSerializer
+    pagination_class = CustomPagination
+    
+    filter_backends = [SearchFilter]
+    search_fields = [
+    "serial_number",
+    "pm_status",
+    "alternate_name",
+]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        start_date = self.request.query_params.get("start_date")
+        end_date = self.request.query_params.get("end_date")
+        pro_id = self.request.query_params.get("proid")
+        print(start_date)
+        print(end_date)
+        # Q()
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
+        if pro_id:
+            qs = qs.exclude(id=pro_id)
+        # print(qs.ttd)
+        bdd = set()
+        for i in qs:
+            for i in i.bdd.all():
+                bdd.add(i.id)
+
+        bdd = list(bdd)
+        bdd_qs = BDD.objects.exclude(id__in=bdd)
+        return bdd_qs
+
+
 
 class BddView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
@@ -310,6 +350,44 @@ class BddView(ListAPIView):
 ################################################################################
 #            Calibration API View
 ################################################################################
+
+class CalibrationStandNewView(ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    queryset = CALIBRATION_STAND.objects.all()
+    serializer_class = CALIBRATION_STANDSerializer
+    pagination_class = CustomPagination
+    filter_backends= [SearchFilter]
+    search_fields = [
+        "serial_number",
+        "pm_status",
+        "alternate_name",
+    ]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        start_date = self.request.query_params.get("start_date")
+        end_date = self.request.query_params.get("end_date")
+        pro_id = self.request.query_params.get("proid")
+        print(start_date)
+        print(end_date)
+        # Q()
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
+        if pro_id:
+            qs = qs.exclude(id=pro_id)
+        # print(qs.ttd)
+        CALIBRATIONSTAND = set()
+        for i in qs:
+            for i in i.calibration_stand.all():
+                CALIBRATIONSTAND.add(i.id)
+
+        CALIBRATIONSTAND = list(CALIBRATIONSTAND)
+        CALIBRATIONSTAND_qs = CALIBRATION_STAND.objects.exclude(id__in=CALIBRATIONSTAND)
+        return CALIBRATIONSTAND_qs
 
 
 class CalibrationStandView(ListAPIView):
@@ -348,6 +426,43 @@ class CalibrationStandView(ListAPIView):
 #                        Part API View
 ################################################################################
 
+class PartNewView(ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    queryset = Part.objects.all()
+    serializer_class = PartSerializer
+    pagination_class = CustomPagination
+
+    filter_backends = [SearchFilter]
+    search_fields = [
+        "part_name",
+        "name_of_abbreviation",
+        "serial_number",
+        "asset_number",
+    ]
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        start_date = self.request.query_params.get("start_date")
+        end_date = self.request.query_params.get("end_date")
+        pro_id = self.request.query_params.get("proid")
+        # Q()
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
+        if pro_id:
+            qs = qs.exclude(id=pro_id)
+        # print(qs.ttd)
+        PART = set()
+        for i in qs:
+            for i in i.projects.all():
+                PART.add(i.id)
+
+        PART = list(PART)
+        Part_qs = Part.objects.exclude(id__in=PART)
+        return Part_qs
+
 
 class PartView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
@@ -383,6 +498,43 @@ class PartView(ListAPIView):
 #            SupplyOrifice API View
 ################################################################################
 
+
+class SupplyOrificeNewView(ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    queryset = Supply_orifice.objects.all()
+    serializer_class = SupplyOrificeSerializer
+    pagination_class = CustomPagination
+    filter_backends = [SearchFilter]
+    search_fields = [
+        "serial_number",
+        "storage_case",
+    ]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        start_date = self.request.query_params.get("start_date")
+        end_date = self.request.query_params.get("end_date")
+        pro_id = self.request.query_params.get("proid")
+        # Q()
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
+        if pro_id:
+            qs = qs.exclude(id=pro_id)
+        # print(qs.ttd)
+        supply_orifice_part = set()
+        for i in qs:
+            for i in i.projects.all():
+                supply_orifice_part.add(i.id)
+
+        supply_orifice_part = list(supply_orifice_part)
+        supply_orifice_part_qs = Supply_orifice.objects.exclude(
+            id__in=supply_orifice_part
+        )
+        return supply_orifice_part_qs
 
 class SupplyOrificeView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
@@ -421,6 +573,45 @@ class SupplyOrificeView(ListAPIView):
 ################################################################################
 
 
+class PressureSensorNewView(ListAPIView):
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    queryset = Pressure_sensor.objects.all()
+    serializer_class = PressureSensorSerializer
+    filter_backends = [SearchFilter]
+    search_fields = [
+            "serial_number",
+            "part_name",
+            "name_of_abbreviation",
+            "asset_number",
+            "packaging",
+    ]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        start_date = self.request.query_params.get("start_date")
+        end_date = self.request.query_params.get("end_date")
+        pro_id = self.request.query_params.get("proid")
+        # Q()
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
+        if pro_id:
+            qs = qs.exclude(id=pro_id)
+        # print(qs.ttd)
+        pressure_sensor_part = set()
+        for i in qs:
+            for i in i.projects.all():
+                pressure_sensor_part.add(i.id)
+
+        pressure_sensor_part = list(pressure_sensor_part)
+        pressure_sensor_part_qs = Pressure_sensor.objects.exclude(
+            id__in=pressure_sensor_part
+        )
+        return pressure_sensor_part_qs
+
 class PressureSensorView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
@@ -456,6 +647,45 @@ class PressureSensorView(ListAPIView):
 ################################################################################
 #            calibrtion orofic API View
 ################################################################################
+
+
+class CalibrationOrificeNewView(ListAPIView):
+    queryset = Calibration_orifice.objects.all()
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    serializer_class = CalibrationOrificeSerializer
+    filter_backends = [SearchFilter]
+    search_fields = [
+            "serial_number",
+            "part_name",
+            "name_of_abbreviation",
+            "asset_number",
+    ]
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        start_date = self.request.query_params.get("start_date")
+        end_date = self.request.query_params.get("end_date")
+        pro_id = self.request.query_params.get("proid")
+        # Q()
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
+        if pro_id:
+            qs = qs.exclude(id=pro_id)
+        # print(qs.ttd)
+        pressure_sensor_part = set()
+        for i in qs:
+            for i in i.projects.all():
+                pressure_sensor_part.add(i.id)
+
+        pressure_sensor_part = list(pressure_sensor_part)
+        pressure_sensor_part_qs = Calibration_orifice.objects.exclude(
+            id__in=pressure_sensor_part
+        )
+        return pressure_sensor_part_qs
+
 class CalibrationOrificeView(ListAPIView):
     queryset = Calibration_orifice.objects.all()
     permission_classes = [DjangoModelPermissions, IsAdminUser]
@@ -491,6 +721,46 @@ class CalibrationOrificeView(ListAPIView):
 ################################################################################
 #            swabmaster API View
 ################################################################################
+
+class SwabMasterNewView(ListAPIView):
+    queryset = SwabMasterTSR.objects.all()
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    serializer_class = SwabMasterSerializer
+    pagination_class = CustomPagination
+    filter_backends = [SearchFilter]
+    search_fields = [
+            "serial_number",
+            "tube_seal_rack",
+            "part_name",
+            "name_of_abbreviation",
+            "asset_number",
+    ]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        start_date = self.request.query_params.get("start_date")
+        end_date = self.request.query_params.get("end_date")
+        pro_id = self.request.query_params.get("proid")
+        # Q()
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
+        if pro_id:
+            qs = qs.exclude(id=pro_id)
+        # print(qs.ttd)
+        pressure_sensor_part = set()
+        for i in qs:
+            for i in i.projects.all():
+                pressure_sensor_part.add(i.id)
+
+        pressure_sensor_part = list(pressure_sensor_part)
+        pressure_sensor_part_qs = SwabMasterTSR.objects.exclude(
+            id__in=pressure_sensor_part
+        )
+        return pressure_sensor_part_qs
 
 
 class SwabMasterView(ListAPIView):
@@ -528,6 +798,46 @@ class SwabMasterView(ListAPIView):
 ################################################################################
 #            Devicehose API View
 ################################################################################
+
+class DeviceHoseNewView(ListAPIView):
+    queryset = DeviceHose.objects.all()
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    serializer_class = DeviceHoseSerializer
+    filter_backends = [SearchFilter]
+    search_fields = [
+            "serial_number",
+            "part_name",
+            "name_of_abbreviation",
+            "asset_number",
+    ]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        start_date = self.request.query_params.get("start_date")
+        end_date = self.request.query_params.get("end_date")
+        pro_id = self.request.query_params.get("proid")
+        # Q()
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
+        if pro_id:
+            qs = qs.exclude(id=pro_id)
+        # print(qs.ttd)
+        pressure_sensor_part = set()
+        for i in qs:
+            for i in i.projects.all():
+                pressure_sensor_part.add(i.id)
+
+        pressure_sensor_part = list(pressure_sensor_part)
+        pressure_sensor_part_qs = DeviceHose.objects.exclude(
+            id__in=pressure_sensor_part
+        )
+        return pressure_sensor_part_qs
+
+
 class DeviceHoseView(ListAPIView):
     queryset = DeviceHose.objects.all()
     permission_classes = [DjangoModelPermissions, IsAdminUser]
@@ -563,6 +873,45 @@ class DeviceHoseView(ListAPIView):
 ################################################################################
 #            Airhose API View
 ################################################################################
+
+class AirHoseNewView(ListAPIView):
+    queryset = AirHose.objects.all()
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    serializer_class = AirHoseSerializer
+
+    filter_backends = [SearchFilter]
+    search_fields = [
+            "serial_number",
+            "colour_code",
+            "part_name",
+            "name_of_abbreviation",
+            "asset_number",
+    ]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        start_date = self.request.query_params.get("start_date")
+        end_date = self.request.query_params.get("end_date")
+        pro_id = self.request.query_params.get("proid")
+        # Q()
+        if start_date and end_date:
+            qs = Project.objects.filter(
+                equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            )
+        if pro_id:
+            qs = qs.exclude(id=pro_id)
+        # print(qs.ttd)
+        pressure_sensor_part = set()
+        for i in qs:
+            for i in i.projects.all():
+                pressure_sensor_part.add(i.id)
+
+        pressure_sensor_part = list(pressure_sensor_part)
+        pressure_sensor_part_qs = AirHose.objects.exclude(id__in=pressure_sensor_part)
+        return pressure_sensor_part_qs
+
 class AirHoseView(ListAPIView):
     queryset = AirHose.objects.all()
     permission_classes = [DjangoModelPermissions, IsAdminUser]

@@ -243,7 +243,20 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path("api/wp/", warehouse_part_view),
     path("api/task/",TaskView.as_view()),
     
+    # new equipments view
     path("api/get/new/ttd/",TTDNewView.as_view()),
+    path("api/get/new/bdd/",BddNewView.as_view()),
+    path("api/get/new/calibrationstand/",CalibrationStandNewView.as_view()),
+    # path("api/get/new/ttd/swabmaster/",SwabMasterNewView.as_view()),
+
+    # new parts views
+    path("api/get/new/supplyorifice/",SupplyOrificeNewView.as_view()),
+    path("api/get/new/parts/",PartNewView.as_view()),
+    path("api/get/new/pressuresensor/",PressureSensorNewView.as_view()),
+    path("api/get/new/swabmastertsr/",SwabMasterNewView.as_view()),
+    path("api/get/new/devicehose/",DeviceHoseNewView.as_view()),
+    path("api/get/new/airhose/",AirHoseNewView.as_view()),
+    
     
     ##########################################################################
     
