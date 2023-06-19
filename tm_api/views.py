@@ -11,6 +11,7 @@ from rest_framework.filters import SearchFilter
 from rest_framework.exceptions import ValidationError
 from rest_framework import filters
 
+from datetime import datetime
 
 # from .persmissions import Mypermission
 from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
@@ -108,8 +109,8 @@ class UnitListView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         if start_date and end_date:
             qs = Project.objects.filter(
@@ -195,6 +196,17 @@ class ReactorView(ListAPIView):
 #         ttd = list(ttd)
 #         ttd_qs = TTD.objects.exclude(id__in = ttd)
 #         return (ttd_qs)
+from datetime import datetime
+
+
+def convert_to_date(date_string: str):
+    if date_string:
+        date_obj = datetime.strptime(date_string, "%Y-%m-%d").date()
+        return date_obj
+    else:
+        return
+
+
 class SwabMasterEquipmentView(ListAPIView):
     # permission_classes = [DjangoModelPermissions, IsAdminUser]
     # authentication_classes = [JWTAuthentication]
@@ -211,8 +223,8 @@ class SwabMasterEquipmentView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
         if not start_date or not end_date:
@@ -220,7 +232,9 @@ class SwabMasterEquipmentView(ListAPIView):
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -250,16 +264,22 @@ class TTDNewView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
+        # start_date =
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
         start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
+
+        print(project_qs)
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
 
@@ -288,17 +308,17 @@ class TtdView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
-        print(start_date)
-        print(end_date)
 
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
         # Q()
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -333,17 +353,17 @@ class BddNewView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
-        print(start_date)
-        print(end_date)
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -365,17 +385,17 @@ class BddView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
-        print(start_date)
-        print(end_date)
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -409,8 +429,8 @@ class CalibrationStandNewView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         print(start_date)
         print(end_date)
@@ -419,7 +439,9 @@ class CalibrationStandNewView(ListAPIView):
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -441,17 +463,17 @@ class CalibrationStandView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
-        print(start_date)
-        print(end_date)
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -487,15 +509,17 @@ class PartNewView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -517,15 +541,17 @@ class PartView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -558,15 +584,17 @@ class SupplyOrificeNewView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -589,15 +617,17 @@ class SupplyOrificeView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -634,15 +664,17 @@ class PressureSensorNewView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -664,15 +696,17 @@ class PressureSensorView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -707,15 +741,17 @@ class CalibrationOrificeNewView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -737,15 +773,17 @@ class CalibrationOrificeView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -781,15 +819,17 @@ class SwabMasterNewView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -812,15 +852,17 @@ class SwabMasterView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -856,15 +898,17 @@ class DeviceHoseNewView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -886,15 +930,17 @@ class DeviceHoseView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gte=start_date, equipment_delivery_tubemaster__lte=end_date
+            equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gt=end_date,
+            equipment_prep__lt=end_date,
         )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
@@ -930,8 +976,8 @@ class AirHoseNewView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
         if not start_date or not end_date:
@@ -962,8 +1008,8 @@ class AirHoseView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
-        start_date = self.request.query_params.get("start_date")
-        end_date = self.request.query_params.get("end_date")
+        start_date = convert_to_date(self.request.query_params.get("start_date"))
+        end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
         if not start_date or not end_date:
