@@ -6,6 +6,17 @@ from equipment.models import *
 from tube.models import *
 from django_countries.serializers import CountryFieldMixin
 
+from part.serializers import (
+    AllGeneralPartListSerializer,
+    PressuresensorListSerializer,
+    CalibratiobOrificeSerializer,
+    SupplyOrificeListSerializer,
+    SwabMasterTSRSerializer,
+    DeviceHoseListSerializer,
+    AirHoseSerializer,
+)
+
+
 ################################################################################
 #            Login API Serializer
 ################################################################################
@@ -35,8 +46,8 @@ class ClientSerializer(CountryFieldMixin, serializers.ModelSerializer):
         model = Client
         # fields = ["id", "official_name", "country"]
         # fields = "_all_"
-        fields = ['official_name']
-        read_only_fields = ['official_name']
+        fields = ["official_name"]
+        read_only_fields = ["official_name"]
 
     def to_representation(self, instance):
         return instance.official_name
@@ -50,12 +61,13 @@ class ClientSerializer(CountryFieldMixin, serializers.ModelSerializer):
 class UnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Unit
-        fields = ['name_of_unit']
-        read_only_fields = ['name_of_unit']
+        fields = ["name_of_unit"]
+        read_only_fields = ["name_of_unit"]
 
     def to_representation(self, instance):
         return instance.name_of_unit
-        
+
+
 ################################################################################
 #            SOW API Serializer
 ################################################################################
@@ -65,7 +77,8 @@ from project.models import *
 class SOWSerializer(serializers.ModelSerializer):
     class Meta:
         model = Scope_of_work
-        fields = ('id','name')
+        fields = ("id", "name")
+
 
 ################################################################################
 #            TTD API Serializer
@@ -270,7 +283,28 @@ class Add_Project_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id','project_name','project_number','equipment_prep','client','ttd','unit','scope_of_work','bdd','calibration_stand','part','supply_orifice_part','reactor','pressure_sensor_part','calibration_orifice_part','swabmaster_part','device_part','airhose_part','project_start','project_end')
+        fields = (
+            "id",
+            "project_name",
+            "project_number",
+            "equipment_prep",
+            "client",
+            "ttd",
+            "unit",
+            "scope_of_work",
+            "bdd",
+            "calibration_stand",
+            "part",
+            "supply_orifice_part",
+            "reactor",
+            "pressure_sensor_part",
+            "calibration_orifice_part",
+            "swabmaster_part",
+            "device_part",
+            "airhose_part",
+            "project_start",
+            "project_end",
+        )
         # fields = "_all_"
         # fields = ("client", "unit")
         depth = 1
@@ -294,18 +328,66 @@ class Add_Project_serializer(serializers.ModelSerializer):
     #     return model_to_dict(instance)
 
 
-################################################################################
+'''################################################################################
 #            GET_Project_serializer Serializer
-################################################################################
-# from django.forms.models import model_to_dict
+################################################################################'''
 
+# `serializers to use only in below serializer not anywhere else`
+
+class TTDSerialzerProject(serializers.ModelSerializer):
+    
+    class Meta:
+        model = TTD
+        fields = "__all__"
+    
+class BDDSerializerProject(serializers.ModelSerializer):
+
+    class Meta:
+        model = BDD
+        fields = "__all__" 
+
+    
+class CALIBRATION_STANDSerializerProject(serializers.ModelSerializer):
+
+    class Meta:
+        model = CALIBRATION_STAND
+        fields = "__all__" 
+    
+class SwabMasterTSRSerializerProject(serializers.ModelSerializer):
+
+    class Meta:
+        model = SwabMaster
+        fields = "__all__" 
+class AirHoseSerializerProject(serializers.ModelSerializer):
+
+    class Meta:
+        model = AirHose
+        fields = "__all__"         
+    
 
 class GET_Project_serializer(serializers.ModelSerializer):
+    """equipments"""
+
+    ttd = TTDSerialzerProject(many=True)
+    bdd = BDDSerializerProject(many=True)
+    calibration_stand = CALIBRATION_STANDSerializerProject(many=True)
+    swabmaster_equip = SwabMasterTSRSerializerProject(many=True)
+
+    """parts"""
+    # dont change below serializers
+    part = AllGeneralPartListSerializer(many=True) # dont change
+    supply_orifice_part = SupplyOrificeListSerializer(many=True) # dont change 
+    pressure_sensor_part = PressuresensorListSerializer(many=True)
+    calibration_orifice_part = CalibratiobOrificeSerializer(many=True)
+    swabmaster_part = SwabMasterTSRSerializer(many=True)
+    device_part = DeviceHoseListSerializer(many=True)
+    airhose_part = AirHoseSerializerProject(many=True)
+
     class Meta:
         model = Project
         # fields = ('id','project_name','project_number','equipment_prep','client','ttd','unit','scope_of_work','bdd','calibration_stand','part','supply_orifice_part','reactor','pressure_sensor_part','calibration_orifice_part','swabmaster_part','device_part','airhose_part')
         fields = "__all__"
-        depth = 1
+        # depth = 1
 
 
 ################################################################################
