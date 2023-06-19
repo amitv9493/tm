@@ -621,6 +621,7 @@ class PressureSensorNewView(ListAPIView):
     authentication_classes = [JWTAuthentication]
     queryset = Pressure_sensor.objects.all()
     serializer_class = PressureSensorSerializer
+    pagination_class = CustomPagination
     filter_backends = [SearchFilter]
     search_fields = [
         "serial_number",
@@ -843,6 +844,7 @@ class DeviceHoseNewView(ListAPIView):
     authentication_classes = [JWTAuthentication]
     serializer_class = DeviceHoseSerializer
     filter_backends = [SearchFilter]
+    pagination_class = CustomPagination
     search_fields = [
         "serial_number",
         "part_name",
@@ -914,7 +916,7 @@ class AirHoseNewView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     serializer_class = AirHoseSerializer
-
+    pagination_class = CustomPagination
     filter_backends = [SearchFilter]
     search_fields = [
         "serial_number",

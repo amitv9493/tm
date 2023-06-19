@@ -537,6 +537,7 @@ urlpatterns = (
         path("api/get/new/swabmastertsr/", SwabMasterNewView.as_view()),
         path("api/get/new/devicehose/", DeviceHoseNewView.as_view()),
         path("api/get/new/airhose/", AirHoseNewView.as_view()),
+        path("api/get/new/calibration-orifice/", CalibrationOrificeNewView.as_view()),
         ##########################################################################
         # '''DASHBOARD ENDPOINTS'''
         ##########################################################################
