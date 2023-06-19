@@ -696,6 +696,7 @@ class CalibrationOrificeNewView(ListAPIView):
     authentication_classes = [JWTAuthentication]
     serializer_class = CalibrationOrificeSerializer
     filter_backends = [SearchFilter]
+    pagination_class = CustomPagination
     search_fields = [
         "serial_number",
         "part_name",
