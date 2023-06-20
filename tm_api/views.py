@@ -258,6 +258,7 @@ class TTDNewView(ListAPIView):
         "pm_status",
         "alternate_name",
     ]
+
     queryset = TTD.objects.all()
     serializer_class = TtdSerializer
 
@@ -266,7 +267,6 @@ class TTDNewView(ListAPIView):
 
         # start_date =
         start_date = convert_to_date(self.request.query_params.get("start_date"))
-        start_date = self.request.query_params.get("start_date")
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
@@ -279,7 +279,6 @@ class TTDNewView(ListAPIView):
             equipment_prep__lt=end_date,
         )
 
-        print(project_qs)
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
 
@@ -291,10 +290,17 @@ class TTDNewView(ListAPIView):
 
         return qs.exclude(id__in=ttd)
 
+    # def get(self, request, *args, **kwargs):
+    #     serializer = TtdSerializer(
+    #         self.get_queryset(), many=True, context={"request": request}
+    #     )
+    #     serialized_data = serializer.data
+    #     return Response(serialized_data)
+
 
 class TtdView(ListAPIView):
-    permission_classes = [DjangoModelPermissions, IsAdminUser]
-    authentication_classes = [JWTAuthentication]
+    # permission_classes = [DjangoModelPermissions, IsAdminUser]
+    # authentication_classes = [JWTAuthentication]
     # pagination_class = CustomPagination
     filter_backends = [SearchFilter]
     search_fields = [
@@ -304,6 +310,11 @@ class TtdView(ListAPIView):
     ]
     queryset = TTD.objects.all()
     serializer_class = TtdSerializer
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context["view_name"] = "ttdoldview"
+        return context
 
     def get_queryset(self):
         qs = super().get_queryset()

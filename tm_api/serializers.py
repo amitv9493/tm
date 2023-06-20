@@ -94,6 +94,16 @@ class WarehouseLocationSerializer(CountryFieldMixin, serializers.ModelSerializer
 
 
 class TtdSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        view_name = self.context.get("view").__class__.__name__
+        print(view_name)
+        print((self.fields["location_for_warehouse"].Meta.fields))
+
+        if view_name == "TTDNewView":
+            (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+
     location_for_warehouse = WarehouseLocationSerializer()
 
     class Meta:
@@ -115,6 +125,16 @@ class TtdSerializer(serializers.ModelSerializer):
 
 
 class BddSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        view_name = self.context.get("view").__class__.__name__
+        print(view_name)
+        print((self.fields["location_for_warehouse"].Meta.fields))
+
+        if view_name == "BddNewView":
+            (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+
     location_for_warehouse = WarehouseLocationSerializer()
 
     class Meta:
@@ -135,6 +155,16 @@ class BddSerializer(serializers.ModelSerializer):
 
 
 class CALIBRATION_STANDSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        view_name = self.context.get("view").__class__.__name__
+        print(view_name)
+        print((self.fields["location_for_warehouse"].Meta.fields))
+
+        if view_name == "CalibrationStandNewView":
+            (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+
     location_for_warehouse = WarehouseLocationSerializer()
 
     class Meta:
@@ -155,6 +185,16 @@ class CALIBRATION_STANDSerializer(serializers.ModelSerializer):
 
 
 class PartSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        view_name = self.context.get("view").__class__.__name__
+        print(view_name)
+        print((self.fields["location_for_warehouse"].Meta.fields))
+
+        if view_name == "PartNewView":
+            (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+
     location_for_warehouse = WarehouseLocationSerializer()
 
     class Meta:
@@ -175,6 +215,16 @@ class PartSerializer(serializers.ModelSerializer):
 
 
 class SupplyOrificeSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        view_name = self.context.get("view").__class__.__name__
+        print(view_name)
+        print((self.fields["location_for_warehouse"].Meta.fields))
+
+        if view_name == "SupplyOrificeNewView":
+            (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+
     location_for_warehouse = WarehouseLocationSerializer()
 
     class Meta:
@@ -206,6 +256,16 @@ class ReactorSerializer(serializers.ModelSerializer):
 #                       pressuresensor
 ################################################################################
 class PressureSensorSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        view_name = self.context.get("view").__class__.__name__
+        print(view_name)
+        print((self.fields["location_for_warehouse"].Meta.fields))
+
+        if view_name == "PressureSensorNewView":
+            (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+
     location_for_warehouse = WarehouseLocationSerializer()
 
     class Meta:
@@ -217,6 +277,16 @@ class PressureSensorSerializer(serializers.ModelSerializer):
 #            calibration
 ################################################################################
 class CalibrationOrificeSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        view_name = self.context.get("view").__class__.__name__
+        print(view_name)
+        print((self.fields["location_for_warehouse"].Meta.fields))
+
+        if view_name == "CalibrationOrificeNewView":
+            (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+
     location_for_warehouse = WarehouseLocationSerializer()
 
     class Meta:
@@ -235,6 +305,16 @@ class CalibrationOrificeSerializer(serializers.ModelSerializer):
 #            swabmaster
 ################################################################################
 class SwabMasterSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        view_name = self.context.get("view").__class__.__name__
+        print(view_name)
+        print((self.fields["location_for_warehouse"].Meta.fields))
+
+        if view_name == "SwabMasterNewView":
+            (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+
     location_for_warehouse = WarehouseLocationSerializer()
 
     class Meta:
@@ -253,6 +333,16 @@ class SwabMasterSerializer(serializers.ModelSerializer):
 #            deviceair
 ################################################################################
 class DeviceHoseSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        view_name = self.context.get("view").__class__.__name__
+        print(view_name)
+        print((self.fields["location_for_warehouse"].Meta.fields))
+
+        if view_name == "DeviceHoseNewView":
+            (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+
     warehouse = WarehouseLocationSerializer()
 
     class Meta:
@@ -264,6 +354,16 @@ class DeviceHoseSerializer(serializers.ModelSerializer):
 #            airhose
 ################################################################################
 class AirHoseSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        view_name = self.context.get("view").__class__.__name__
+        print(view_name)
+        print((self.fields["location_for_warehouse"].Meta.fields))
+
+        if view_name == "AirHoseNewView":
+            (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+
     warehouse = WarehouseLocationSerializer()
 
     class Meta:
@@ -328,42 +428,42 @@ class Add_Project_serializer(serializers.ModelSerializer):
     #     return model_to_dict(instance)
 
 
-'''################################################################################
+"""################################################################################
 #            GET_Project_serializer Serializer
-################################################################################'''
+################################################################################"""
 
 # `serializers to use only in below serializer not anywhere else`
 
+
 class TTDSerialzerProject(serializers.ModelSerializer):
-    
     class Meta:
         model = TTD
         fields = "__all__"
-    
-class BDDSerializerProject(serializers.ModelSerializer):
 
+
+class BDDSerializerProject(serializers.ModelSerializer):
     class Meta:
         model = BDD
-        fields = "__all__" 
+        fields = "__all__"
 
-    
+
 class CALIBRATION_STANDSerializerProject(serializers.ModelSerializer):
-
     class Meta:
         model = CALIBRATION_STAND
-        fields = "__all__" 
-    
-class SwabMasterTSRSerializerProject(serializers.ModelSerializer):
+        fields = "__all__"
 
+
+class SwabMasterTSRSerializerProject(serializers.ModelSerializer):
     class Meta:
         model = SwabMaster
-        fields = "__all__" 
-class AirHoseSerializerProject(serializers.ModelSerializer):
+        fields = "__all__"
 
+
+class AirHoseSerializerProject(serializers.ModelSerializer):
     class Meta:
         model = AirHose
-        fields = "__all__"         
-    
+        fields = "__all__"
+
 
 class GET_Project_serializer(serializers.ModelSerializer):
     """equipments"""
@@ -375,8 +475,8 @@ class GET_Project_serializer(serializers.ModelSerializer):
 
     """parts"""
     # dont change below serializers
-    part = AllGeneralPartListSerializer(many=True) # dont change
-    supply_orifice_part = SupplyOrificeListSerializer(many=True) # dont change 
+    part = AllGeneralPartListSerializer(many=True)  # dont change
+    supply_orifice_part = SupplyOrificeListSerializer(many=True)  # dont change
     pressure_sensor_part = PressuresensorListSerializer(many=True)
     calibration_orifice_part = CalibratiobOrificeSerializer(many=True)
     swabmaster_part = SwabMasterTSRSerializer(many=True)
