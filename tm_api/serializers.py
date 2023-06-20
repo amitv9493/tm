@@ -102,7 +102,14 @@ class TtdSerializer(serializers.ModelSerializer):
         print((self.fields["location_for_warehouse"].Meta.fields))
 
         if view_name == "TTDNewView":
+            print("new endpoint")
             (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+        else:
+            (self.fields["location_for_warehouse"].Meta.fields) = [
+                "id",
+                "warehouse_location",
+                "country",
+            ]
 
     location_for_warehouse = WarehouseLocationSerializer()
 
@@ -134,6 +141,12 @@ class BddSerializer(serializers.ModelSerializer):
 
         if view_name == "BddNewView":
             (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+        else:
+            (self.fields["location_for_warehouse"].Meta.fields) = [
+                "id",
+                "warehouse_location",
+                "country",
+            ]
 
     location_for_warehouse = WarehouseLocationSerializer()
 
@@ -164,6 +177,12 @@ class CALIBRATION_STANDSerializer(serializers.ModelSerializer):
 
         if view_name == "CalibrationStandNewView":
             (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+        else:
+            (self.fields["location_for_warehouse"].Meta.fields) = [
+                "id",
+                "warehouse_location",
+                "country",
+            ]
 
     location_for_warehouse = WarehouseLocationSerializer()
 
@@ -195,6 +214,13 @@ class PartSerializer(serializers.ModelSerializer):
         if view_name == "PartNewView":
             (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
 
+        else:
+            (self.fields["location_for_warehouse"].Meta.fields) = [
+                "id",
+                "warehouse_location",
+                "country",
+            ]
+
     location_for_warehouse = WarehouseLocationSerializer()
 
     class Meta:
@@ -224,6 +250,12 @@ class SupplyOrificeSerializer(serializers.ModelSerializer):
 
         if view_name == "SupplyOrificeNewView":
             (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+        else:
+            (self.fields["location_for_warehouse"].Meta.fields) = [
+                "id",
+                "warehouse_location",
+                "country",
+            ]
 
     location_for_warehouse = WarehouseLocationSerializer()
 
@@ -265,6 +297,12 @@ class PressureSensorSerializer(serializers.ModelSerializer):
 
         if view_name == "PressureSensorNewView":
             (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+        else:
+            (self.fields["location_for_warehouse"].Meta.fields) = [
+                "id",
+                "warehouse_location",
+                "country",
+            ]
 
     location_for_warehouse = WarehouseLocationSerializer()
 
@@ -286,6 +324,12 @@ class CalibrationOrificeSerializer(serializers.ModelSerializer):
 
         if view_name == "CalibrationOrificeNewView":
             (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+        else:
+            (self.fields["location_for_warehouse"].Meta.fields) = [
+                "id",
+                "warehouse_location",
+                "country",
+            ]
 
     location_for_warehouse = WarehouseLocationSerializer()
 
@@ -314,6 +358,12 @@ class SwabMasterSerializer(serializers.ModelSerializer):
 
         if view_name == "SwabMasterNewView":
             (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+        else:
+            (self.fields["location_for_warehouse"].Meta.fields) = [
+                "id",
+                "warehouse_location",
+                "country",
+            ]
 
     location_for_warehouse = WarehouseLocationSerializer()
 
@@ -342,6 +392,12 @@ class DeviceHoseSerializer(serializers.ModelSerializer):
 
         if view_name == "DeviceHoseNewView":
             (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+        else:
+            (self.fields["location_for_warehouse"].Meta.fields) = [
+                "id",
+                "warehouse_location",
+                "country",
+            ]
 
     warehouse = WarehouseLocationSerializer()
 
@@ -363,6 +419,12 @@ class AirHoseSerializer(serializers.ModelSerializer):
 
         if view_name == "AirHoseNewView":
             (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+        else:
+            (self.fields["location_for_warehouse"].Meta.fields) = [
+                "id",
+                "warehouse_location",
+                "country",
+            ]
 
     warehouse = WarehouseLocationSerializer()
 

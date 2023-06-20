@@ -245,7 +245,7 @@ class SwabMasterEquipmentView(ListAPIView):
                 swabmaster.add(j.id)
         # ttd = list(ttd)
 
-        return qs.exclude(id__in=swabmaster)
+        return qs.exclude(id__in=swabmaster).order_by("location_for_warehouse__id")
 
 
 class TTDNewView(ListAPIView):
@@ -288,7 +288,7 @@ class TTDNewView(ListAPIView):
                 ttd.add(j.id)
         # ttd = list(ttd)
 
-        return qs.exclude(id__in=ttd)
+        return qs.exclude(id__in=ttd).order_by("location_for_warehouse__id")
 
     # def get(self, request, *args, **kwargs):
     #     serializer = TtdSerializer(
@@ -339,7 +339,7 @@ class TtdView(ListAPIView):
             for j in i.ttd.all():
                 ttd.add(j.id)
 
-        return qs.exclude(id__in=ttd)
+        return qs.exclude(id__in=ttd).order_by("location_for_warehouse__id")
 
 
 ################################################################################
@@ -384,7 +384,7 @@ class BddNewView(ListAPIView):
             for j in i.bdd.all():
                 bdd.add(j.id)
 
-        return qs.exclude(id__in=bdd)
+        return qs.exclude(id__in=bdd).order_by("location_for_warehouse__id")
 
 
 class BddView(ListAPIView):
@@ -416,7 +416,7 @@ class BddView(ListAPIView):
             for j in i.bdd.all():
                 bdd.add(j.id)
 
-        return qs.exclude(id__in=bdd)
+        return qs.exclude(id__in=bdd).order_by("location_for_warehouse__id")
 
 
 ################################################################################
@@ -462,7 +462,9 @@ class CalibrationStandNewView(ListAPIView):
             for j in i.calibration_stand.all():
                 calibration_stand.add(j.id)
 
-        return qs.exclude(id__in=calibration_stand)
+        return qs.exclude(id__in=calibration_stand).order_by(
+            "location_for_warehouse__id"
+        )
 
 
 class CalibrationStandView(ListAPIView):
@@ -494,7 +496,9 @@ class CalibrationStandView(ListAPIView):
             for j in i.calibration_stand.all():
                 calibration_stand.add(j.id)
 
-        return qs.exclude(id__in=calibration_stand)
+        return qs.exclude(id__in=calibration_stand).order_by(
+            "location_for_warehouse__id"
+        )
 
 
 ################################################################################
@@ -540,7 +544,7 @@ class PartNewView(ListAPIView):
             for j in i.part.all():
                 PART.add(j.id)
 
-        return Part.objects.exclude(id__in=PART)
+        return Part.objects.exclude(id__in=PART).order_by("location_for_warehouse__id")
 
 
 class PartView(ListAPIView):
@@ -572,7 +576,7 @@ class PartView(ListAPIView):
             for j in i.part.all():
                 PART.add(j.id)
 
-        return Part.objects.exclude(id__in=PART)
+        return Part.objects.exclude(id__in=PART).order_by("location_for_warehouse__id")
 
 
 ################################################################################
@@ -616,7 +620,9 @@ class SupplyOrificeNewView(ListAPIView):
             for j in i.supply_orifice_part.all():
                 supply_orifice_part.add(j.id)
 
-        return qs.exclude(id__in=supply_orifice_part)
+        return qs.exclude(id__in=supply_orifice_part).order_by(
+            "location_for_warehouse__id"
+        )
 
 
 class SupplyOrificeView(ListAPIView):
@@ -649,7 +655,9 @@ class SupplyOrificeView(ListAPIView):
             for j in i.supply_orifice_part.all():
                 supply_orifice_part.add(j.id)
 
-        return qs.exclude(id__in=supply_orifice_part)
+        return qs.exclude(id__in=supply_orifice_part).order_by(
+            "location_for_warehouse__id"
+        )
 
 
 ################################################################################
@@ -695,7 +703,9 @@ class PressureSensorNewView(ListAPIView):
             for j in i.pressure_sensor_part.all():
                 pressure_sensor_part.add(j.id)
 
-        return Pressure_sensor.objects.exclude(id__in=pressure_sensor_part)
+        return Pressure_sensor.objects.exclude(id__in=pressure_sensor_part).order_by(
+            "location_for_warehouse__id"
+        )
 
 
 class PressureSensorView(ListAPIView):
@@ -727,7 +737,9 @@ class PressureSensorView(ListAPIView):
             for j in i.pressure_sensor_part.all():
                 pressure_sensor_part.add(j.id)
 
-        return Pressure_sensor.objects.exclude(id__in=pressure_sensor_part)
+        return Pressure_sensor.objects.exclude(id__in=pressure_sensor_part).order_by(
+            "location_for_warehouse__id"
+        )
 
 
 ################################################################################
@@ -772,7 +784,9 @@ class CalibrationOrificeNewView(ListAPIView):
             for j in i.calibration_orifice_part.all():
                 calibration_orifice_part.add(j.id)
 
-        return Calibration_orifice.objects.exclude(id__in=calibration_orifice_part)
+        return Calibration_orifice.objects.exclude(
+            id__in=calibration_orifice_part
+        ).order_by("location_for_warehouse__id")
 
 
 class CalibrationOrificeView(ListAPIView):
@@ -804,7 +818,9 @@ class CalibrationOrificeView(ListAPIView):
             for j in i.calibration_orifice_part.all():
                 calibration_orifice_part.add(j.id)
 
-        return Calibration_orifice.objects.exclude(id__in=calibration_orifice_part)
+        return Calibration_orifice.objects.exclude(
+            id__in=calibration_orifice_part
+        ).order_by("location_for_warehouse__id")
 
 
 ################################################################################
@@ -851,7 +867,9 @@ class SwabMasterNewView(ListAPIView):
             for i in i.swabmaster_part.all():
                 swabmaster_part.add(i.id)
 
-        return SwabMasterTSR.objects.exclude(id__in=swabmaster_part)
+        return SwabMasterTSR.objects.exclude(id__in=swabmaster_part).order_by(
+            "location_for_warehouse__id"
+        )
 
 
 class SwabMasterView(ListAPIView):
@@ -884,7 +902,9 @@ class SwabMasterView(ListAPIView):
             for i in i.swabmaster_part.all():
                 swabmaster_part.add(i.id)
 
-        return SwabMasterTSR.objects.exclude(id__in=swabmaster_part)
+        return SwabMasterTSR.objects.exclude(id__in=swabmaster_part).order_by(
+            "location_for_warehouse__id"
+        )
 
 
 ################################################################################
@@ -929,7 +949,9 @@ class DeviceHoseNewView(ListAPIView):
             for j in i.device_part.all():
                 device_part.add(j.id)
 
-        return DeviceHose.objects.exclude(id__in=device_part)
+        return DeviceHose.objects.exclude(id__in=device_part).order_by(
+            "location_for_warehouse__id"
+        )
 
 
 class DeviceHoseView(ListAPIView):
@@ -961,7 +983,9 @@ class DeviceHoseView(ListAPIView):
             for j in i.device_part.all():
                 device_part.add(j.id)
 
-        return DeviceHose.objects.exclude(id__in=device_part)
+        return DeviceHose.objects.exclude(id__in=device_part).order_by(
+            "location_for_warehouse__id"
+        )
 
 
 ################################################################################
@@ -1007,7 +1031,7 @@ class AirHoseNewView(ListAPIView):
             for j in i.airhose_part.all():
                 airhose_part.add(j.id)
 
-        return qs.exclude(id__in=airhose_part)
+        return qs.exclude(id__in=airhose_part).order_by("location_for_warehouse__id")
 
 
 class AirHoseView(ListAPIView):
@@ -1039,7 +1063,7 @@ class AirHoseView(ListAPIView):
             for j in i.airhose_part.all():
                 airhose_part.add(j.id)
 
-        return qs.exclude(id__in=airhose_part)
+        return qs.exclude(id__in=airhose_part).order_by("location_for_warehouse__id")
 
 
 ################################################################################
