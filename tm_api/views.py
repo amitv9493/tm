@@ -217,7 +217,7 @@ class SwabMasterEquipmentView(ListAPIView):
         "pm_status",
         "alternate_name",
     ]
-    queryset = SwabMaster.objects.all()
+    queryset = SwabMaster.objects.exclude(Swab_Master_Tube_Seal_Rack__isnull = True)
     serializer_class = SwabMasterSerializer
 
     def get_queryset(self):
@@ -259,7 +259,11 @@ class TTDNewView(ListAPIView):
         "alternate_name",
     ]
 
-    queryset = TTD.objects.all()
+    queryset = TTD.objects.exclude(
+        supply_orifice_set__isnull =True,
+        pressure_sensor__isnull =True,
+        TTD_tube_seal_rack__isnull =True,
+    )
     serializer_class = TtdSerializer
 
     def get_queryset(self):
@@ -308,6 +312,11 @@ class TtdView(ListAPIView):
         "pm_status",
         "alternate_name",
     ]
+    queryset = TTD.objects.exclude(
+        supply_orifice_set__isnull =True,
+        pressure_sensor__isnull =True,
+        TTD_tube_seal_rack__isnull =True,
+    )
     queryset = TTD.objects.all()
     serializer_class = TtdSerializer
 
@@ -350,7 +359,7 @@ class TtdView(ListAPIView):
 class BddNewView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-    queryset = BDD.objects.all()
+    queryset = BDD.objects.exclude(BDD_tube_seal_rack__isnull=True)
     serializer_class = BddSerializer
     pagination_class = CustomPagination
 
@@ -427,7 +436,7 @@ class BddView(ListAPIView):
 class CalibrationStandNewView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-    queryset = CALIBRATION_STAND.objects.all()
+    queryset = CALIBRATION_STAND.objects.exclude(calibration_orifice_set__isnull = True)
     serializer_class = CALIBRATION_STANDSerializer
     pagination_class = CustomPagination
     filter_backends = [SearchFilter]
