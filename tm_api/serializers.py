@@ -388,12 +388,11 @@ class DeviceHoseSerializer(serializers.ModelSerializer):
 
         view_name = self.context.get("view").__class__.__name__
         print(view_name)
-        print((self.fields["location_for_warehouse"].Meta.fields))
 
         if view_name == "DeviceHoseNewView":
-            (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+            (self.fields["warehouse"].Meta.fields) = "__all__"
         else:
-            (self.fields["location_for_warehouse"].Meta.fields) = [
+            (self.fields["warehouse"].Meta.fields) = [
                 "id",
                 "warehouse_location",
                 "country",
@@ -414,13 +413,11 @@ class AirHoseSerializer(serializers.ModelSerializer):
         super().__init__(*args, **kwargs)
 
         view_name = self.context.get("view").__class__.__name__
-        print(view_name)
-        print((self.fields["location_for_warehouse"].Meta.fields))
 
         if view_name == "AirHoseNewView":
-            (self.fields["location_for_warehouse"].Meta.fields) = "__all__"
+            (self.fields["warehouse"].Meta.fields) = "__all__"
         else:
-            (self.fields["location_for_warehouse"].Meta.fields) = [
+            (self.fields["warehouse"].Meta.fields) = [
                 "id",
                 "warehouse_location",
                 "country",
