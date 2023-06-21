@@ -226,6 +226,8 @@ class SwabMasterEquipmentView(ListAPIView):
         start_date = convert_to_date(self.request.query_params.get("start_date"))
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
+        warehouse = self.request.query_params.get("warehouse")
+
         # Q()
         if not start_date or not end_date:
             # return
@@ -245,7 +247,11 @@ class SwabMasterEquipmentView(ListAPIView):
                 swabmaster.add(j.id)
         # ttd = list(ttd)
 
-        return qs.exclude(id__in=swabmaster).order_by("location_for_warehouse__id")
+        return (
+            qs.exclude(id__in=swabmaster).order_by("location_for_warehouse__id")
+            if not warehouse
+            else qs.exclude(id__in=swabmaster).filter(location_for_warehouse=warehouse)
+        )
 
 
 class TTDNewView(ListAPIView):
@@ -273,6 +279,8 @@ class TTDNewView(ListAPIView):
         start_date = convert_to_date(self.request.query_params.get("start_date"))
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
+        warehouse = self.request.query_params.get("warehouse")
+
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
@@ -292,7 +300,11 @@ class TTDNewView(ListAPIView):
                 ttd.add(j.id)
         # ttd = list(ttd)
 
-        return qs.exclude(id__in=ttd).order_by("location_for_warehouse__id")
+        return (
+            qs.exclude(id__in=ttd).order_by("location_for_warehouse__id")
+            if not warehouse
+            else qs.exclude(id__in=ttd).filter(location_for_warehouse=warehouse)
+        )
 
     # def get(self, request, *args, **kwargs):
     #     serializer = TtdSerializer(
@@ -303,9 +315,8 @@ class TTDNewView(ListAPIView):
 
 
 class TtdView(ListAPIView):
-    # permission_classes = [DjangoModelPermissions, IsAdminUser]
-    # authentication_classes = [JWTAuthentication]
-    # pagination_class = CustomPagination
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
     filter_backends = [SearchFilter]
     search_fields = [
         "serial_number",
@@ -331,6 +342,7 @@ class TtdView(ListAPIView):
         start_date = convert_to_date(self.request.query_params.get("start_date"))
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
+        warehouse = self.request.query_params.get("warehouse")
 
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
@@ -348,7 +360,16 @@ class TtdView(ListAPIView):
             for j in i.ttd.all():
                 ttd.add(j.id)
 
-        return qs.exclude(id__in=ttd).order_by("location_for_warehouse__id")
+        qs = qs.exclude(id__in=ttd).order_by("location_for_warehouse__id")
+
+        if warehouse:
+            print("ran")
+            qs = qs.filter(location_for_warehouse=warehouse)
+            print(qs.count())
+
+        # print(qs.exclude(id__in=ttd).order_by("location_for_warehouse__id").count())
+        # return qs.exclude(id__in=ttd).order_by("location_for_warehouse__id")
+        return qs
 
 
 ################################################################################
@@ -376,6 +397,8 @@ class BddNewView(ListAPIView):
         start_date = convert_to_date(self.request.query_params.get("start_date"))
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
+        warehouse = self.request.query_params.get("warehouse")
+
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
@@ -393,7 +416,11 @@ class BddNewView(ListAPIView):
             for j in i.bdd.all():
                 bdd.add(j.id)
 
-        return qs.exclude(id__in=bdd).order_by("location_for_warehouse__id")
+        return (
+            qs.exclude(id__in=bdd).order_by("location_for_warehouse__id")
+            if not warehouse
+            else qs.exclude(id__in=bdd).filter(location_for_warehouse=warehouse)
+        )
 
 
 class BddView(ListAPIView):
@@ -408,6 +435,10 @@ class BddView(ListAPIView):
         start_date = convert_to_date(self.request.query_params.get("start_date"))
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
+        warehouse = self.request.query_params.get("warehouse")
+
+        if warehouse:
+            qs = qs.filter(location_for_warehouse=warehouse)
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
@@ -452,8 +483,8 @@ class CalibrationStandNewView(ListAPIView):
         start_date = convert_to_date(self.request.query_params.get("start_date"))
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
-        print(start_date)
-        print(end_date)
+        warehouse = self.request.query_params.get("warehouse")
+
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
@@ -471,8 +502,12 @@ class CalibrationStandNewView(ListAPIView):
             for j in i.calibration_stand.all():
                 calibration_stand.add(j.id)
 
-        return qs.exclude(id__in=calibration_stand).order_by(
-            "location_for_warehouse__id"
+        return (
+            qs.exclude(id__in=calibration_stand).order_by("location_for_warehouse__id")
+            if not warehouse
+            else qs.exclude(id__in=calibration_stand).filter(
+                location_for_warehouse=warehouse
+            )
         )
 
 
@@ -488,6 +523,10 @@ class CalibrationStandView(ListAPIView):
         start_date = convert_to_date(self.request.query_params.get("start_date"))
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
+        warehouse = self.request.query_params.get("warehouse")
+
+        if warehouse:
+            qs = qs.filter(location_for_warehouse=warehouse)
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
@@ -537,6 +576,8 @@ class PartNewView(ListAPIView):
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
+        warehouse = self.request.query_params.get("warehouse")
+
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
@@ -553,7 +594,13 @@ class PartNewView(ListAPIView):
             for j in i.part.all():
                 PART.add(j.id)
 
-        return Part.objects.exclude(id__in=PART).order_by("location_for_warehouse__id")
+        return (
+            Part.objects.exclude(id__in=PART).order_by("location_for_warehouse__id")
+            if not warehouse
+            else Part.objects.exclude(id__in=PART).filter(
+                location_for_warehouse=warehouse
+            )
+        )
 
 
 class PartView(ListAPIView):
@@ -569,6 +616,10 @@ class PartView(ListAPIView):
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
+        warehouse = self.request.query_params.get("warehouse")
+
+        if warehouse:
+            qs = qs.filter(location_for_warehouse=warehouse)
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
@@ -612,6 +663,8 @@ class SupplyOrificeNewView(ListAPIView):
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
+        warehouse = self.request.query_params.get("warehouse")
+
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
@@ -629,8 +682,14 @@ class SupplyOrificeNewView(ListAPIView):
             for j in i.supply_orifice_part.all():
                 supply_orifice_part.add(j.id)
 
-        return qs.exclude(id__in=supply_orifice_part).order_by(
-            "location_for_warehouse__id"
+        return (
+            qs.exclude(id__in=supply_orifice_part).order_by(
+                "location_for_warehouse__id"
+            )
+            if not warehouse
+            else qs.exclude(id__in=supply_orifice_part).filter(
+                location_for_warehouse=warehouse
+            )
         )
 
 
@@ -647,6 +706,10 @@ class SupplyOrificeView(ListAPIView):
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
+        warehouse = self.request.query_params.get("warehouse")
+
+        if warehouse:
+            qs = qs.filter(location_for_warehouse=warehouse)
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
@@ -696,6 +759,8 @@ class PressureSensorNewView(ListAPIView):
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
+        warehouse = self.request.query_params.get("warehouse")
+
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
@@ -712,8 +777,14 @@ class PressureSensorNewView(ListAPIView):
             for j in i.pressure_sensor_part.all():
                 pressure_sensor_part.add(j.id)
 
-        return Pressure_sensor.objects.exclude(id__in=pressure_sensor_part).order_by(
-            "location_for_warehouse__id"
+        return (
+            Pressure_sensor.objects.exclude(id__in=pressure_sensor_part).order_by(
+                "location_for_warehouse__id"
+            )
+            if not warehouse
+            else Pressure_sensor.objects.exclude(id__in=pressure_sensor_part).filter(
+                location_for_warehouse=warehouse
+            )
         )
 
 
@@ -730,6 +801,10 @@ class PressureSensorView(ListAPIView):
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
+        warehouse = self.request.query_params.get("warehouse")
+
+        if warehouse:
+            qs = qs.filter(location_for_warehouse=warehouse)
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
@@ -777,6 +852,8 @@ class CalibrationOrificeNewView(ListAPIView):
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
+        warehouse = self.request.query_params.get("warehouse")
+
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
@@ -793,9 +870,15 @@ class CalibrationOrificeNewView(ListAPIView):
             for j in i.calibration_orifice_part.all():
                 calibration_orifice_part.add(j.id)
 
-        return Calibration_orifice.objects.exclude(
-            id__in=calibration_orifice_part
-        ).order_by("location_for_warehouse__id")
+        return (
+            Calibration_orifice.objects.exclude(
+                id__in=calibration_orifice_part
+            ).order_by("location_for_warehouse__id")
+            if not warehouse
+            else Calibration_orifice.objects.exclude(
+                id__in=calibration_orifice_part
+            ).filter(location_for_warehouse=warehouse)
+        )
 
 
 class CalibrationOrificeView(ListAPIView):
@@ -811,6 +894,10 @@ class CalibrationOrificeView(ListAPIView):
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
+        warehouse = self.request.query_params.get("warehouse")
+
+        if warehouse:
+            qs = qs.filter(location_for_warehouse=warehouse)
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
@@ -861,6 +948,7 @@ class SwabMasterNewView(ListAPIView):
         # Q()
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
+        warehouse = self.request.query_params.get("warehouse")
 
         project_qs = Project.objects.filter(
             equipment_prep__gt=start_date,
@@ -876,8 +964,14 @@ class SwabMasterNewView(ListAPIView):
             for i in i.swabmaster_part.all():
                 swabmaster_part.add(i.id)
 
-        return SwabMasterTSR.objects.exclude(id__in=swabmaster_part).order_by(
-            "location_for_warehouse__id"
+        return (
+            SwabMasterTSR.objects.exclude(id__in=swabmaster_part).order_by(
+                "location_for_warehouse__id"
+            )
+            if not warehouse
+            else SwabMasterTSR.objects.exclude(id__in=swabmaster_part).filter(
+                location_for_warehouse=warehouse
+            )
         )
 
 
@@ -894,6 +988,8 @@ class SwabMasterView(ListAPIView):
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
+        warehouse = self.request.query_params.get("warehouse")
+
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
@@ -942,6 +1038,8 @@ class DeviceHoseNewView(ListAPIView):
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
+        warehouse = self.request.query_params.get("warehouse")
+
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
@@ -958,7 +1056,13 @@ class DeviceHoseNewView(ListAPIView):
             for j in i.device_part.all():
                 device_part.add(j.id)
 
-        return DeviceHose.objects.exclude(id__in=device_part).order_by("warehouse__id")
+        return (
+            DeviceHose.objects.exclude(id__in=device_part).order_by("warehouse__id")
+            if not warehouse
+            else DeviceHose.objects.exclude(id__in=device_part).filter(
+                warehouse=warehouse
+            )
+        )
 
 
 class DeviceHoseView(ListAPIView):
@@ -974,6 +1078,10 @@ class DeviceHoseView(ListAPIView):
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
+        warehouse = self.request.query_params.get("warehouse")
+
+        if warehouse:
+            qs = qs.filter(warehouse=warehouse)
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
@@ -1020,6 +1128,8 @@ class AirHoseNewView(ListAPIView):
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
+        warehouse = self.request.query_params.get("warehouse")
+
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
@@ -1036,7 +1146,11 @@ class AirHoseNewView(ListAPIView):
             for j in i.airhose_part.all():
                 airhose_part.add(j.id)
 
-        return qs.exclude(id__in=airhose_part).order_by("warehouse__id")
+        return (
+            qs.exclude(id__in=airhose_part).order_by("warehouse__id")
+            if not warehouse
+            else qs.exclude(id__in=airhose_part).filter(warehouse=warehouse)
+        )
 
 
 class AirHoseView(ListAPIView):
@@ -1052,6 +1166,10 @@ class AirHoseView(ListAPIView):
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
+        warehouse = self.request.query_params.get("warehouse")
+
+        if warehouse:
+            qs = qs.filter(warehouse=warehouse)
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
