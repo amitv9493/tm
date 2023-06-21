@@ -217,7 +217,7 @@ class SwabMasterEquipmentView(ListAPIView):
         "pm_status",
         "alternate_name",
     ]
-    queryset = SwabMaster.objects.exclude(Swab_Master_Tube_Seal_Rack__isnull = True)
+    queryset = SwabMaster.objects.exclude(Swab_Master_Tube_Seal_Rack__isnull=True)
     serializer_class = SwabMasterSerializer
 
     def get_queryset(self):
@@ -260,9 +260,9 @@ class TTDNewView(ListAPIView):
     ]
 
     queryset = TTD.objects.exclude(
-        supply_orifice_set__isnull =True,
-        pressure_sensor__isnull =True,
-        TTD_tube_seal_rack__isnull =True,
+        supply_orifice_set__isnull=True,
+        pressure_sensor__isnull=True,
+        TTD_tube_seal_rack__isnull=True,
     )
     serializer_class = TtdSerializer
 
@@ -313,9 +313,9 @@ class TtdView(ListAPIView):
         "alternate_name",
     ]
     queryset = TTD.objects.exclude(
-        supply_orifice_set__isnull =True,
-        pressure_sensor__isnull =True,
-        TTD_tube_seal_rack__isnull =True,
+        supply_orifice_set__isnull=True,
+        pressure_sensor__isnull=True,
+        TTD_tube_seal_rack__isnull=True,
     )
     queryset = TTD.objects.all()
     serializer_class = TtdSerializer
@@ -436,7 +436,7 @@ class BddView(ListAPIView):
 class CalibrationStandNewView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-    queryset = CALIBRATION_STAND.objects.exclude(calibration_orifice_set__isnull = True)
+    queryset = CALIBRATION_STAND.objects.exclude(calibration_orifice_set__isnull=True)
     serializer_class = CALIBRATION_STANDSerializer
     pagination_class = CustomPagination
     filter_backends = [SearchFilter]
@@ -958,9 +958,7 @@ class DeviceHoseNewView(ListAPIView):
             for j in i.device_part.all():
                 device_part.add(j.id)
 
-        return DeviceHose.objects.exclude(id__in=device_part).order_by(
-            "location_for_warehouse__id"
-        )
+        return DeviceHose.objects.exclude(id__in=device_part).order_by("warehouse__id")
 
 
 class DeviceHoseView(ListAPIView):
@@ -992,9 +990,7 @@ class DeviceHoseView(ListAPIView):
             for j in i.device_part.all():
                 device_part.add(j.id)
 
-        return DeviceHose.objects.exclude(id__in=device_part).order_by(
-            "location_for_warehouse__id"
-        )
+        return DeviceHose.objects.exclude(id__in=device_part).order_by("warehouse__id")
 
 
 ################################################################################
@@ -1040,7 +1036,7 @@ class AirHoseNewView(ListAPIView):
             for j in i.airhose_part.all():
                 airhose_part.add(j.id)
 
-        return qs.exclude(id__in=airhose_part).order_by("location_for_warehouse__id")
+        return qs.exclude(id__in=airhose_part).order_by("warehouse__id")
 
 
 class AirHoseView(ListAPIView):
@@ -1072,7 +1068,7 @@ class AirHoseView(ListAPIView):
             for j in i.airhose_part.all():
                 airhose_part.add(j.id)
 
-        return qs.exclude(id__in=airhose_part).order_by("location_for_warehouse__id")
+        return qs.exclude(id__in=airhose_part).order_by("warehouse__id")
 
 
 ################################################################################
