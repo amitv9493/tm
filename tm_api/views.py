@@ -241,10 +241,7 @@ class SwabMasterEquipmentView(ListAPIView):
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
 
-        swabmaster = set()
-        for i in project_qs:
-            for j in i.swabmaster_equip.all():
-                swabmaster.add(j.id)
+        swabmaster = {j.id for i in project_qs for j in i.swabmaster_equip.all()}
         # ttd = list(ttd)
 
         return (
@@ -294,10 +291,7 @@ class TTDNewView(ListAPIView):
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
 
-        ttd = set()
-        for i in project_qs:
-            for j in i.ttd.all():
-                ttd.add(j.id)
+        ttd = {j.id for i in project_qs for j in i.ttd.all()}
         # ttd = list(ttd)
 
         return (
@@ -355,17 +349,13 @@ class TtdView(ListAPIView):
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
 
-        ttd = set()
-        for i in project_qs:
-            for j in i.ttd.all():
-                ttd.add(j.id)
+        ttd = set(j.id for i in project_qs for j in i.ttd.all())
 
         qs = qs.exclude(id__in=ttd).order_by("location_for_warehouse__id")
 
         if warehouse:
             print("ran")
             qs = qs.filter(location_for_warehouse=warehouse)
-            print(qs.count())
 
         # print(qs.exclude(id__in=ttd).order_by("location_for_warehouse__id").count())
         # return qs.exclude(id__in=ttd).order_by("location_for_warehouse__id")
@@ -411,10 +401,7 @@ class BddNewView(ListAPIView):
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
-        bdd = set()
-        for i in project_qs:
-            for j in i.bdd.all():
-                bdd.add(j.id)
+        bdd = {j.id for i in project_qs for j in i.bdd.all()}
 
         return (
             qs.exclude(id__in=bdd).order_by("location_for_warehouse__id")
@@ -497,10 +484,9 @@ class CalibrationStandNewView(ListAPIView):
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
-        calibration_stand = set()
-        for i in project_qs:
-            for j in i.calibration_stand.all():
-                calibration_stand.add(j.id)
+        calibration_stand = {
+            j.id for i in project_qs for j in i.calibration_stand.all()
+        }
 
         return (
             qs.exclude(id__in=calibration_stand).order_by("location_for_warehouse__id")
@@ -589,10 +575,7 @@ class PartNewView(ListAPIView):
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
-        PART = set()
-        for i in project_qs:
-            for j in i.part.all():
-                PART.add(j.id)
+        PART = {j.id for i in project_qs for j in i.part.all()}
 
         return (
             Part.objects.exclude(id__in=PART).order_by("location_for_warehouse__id")
@@ -676,11 +659,9 @@ class SupplyOrificeNewView(ListAPIView):
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
-        supply_orifice_part = set()
-
-        for i in project_qs:
-            for j in i.supply_orifice_part.all():
-                supply_orifice_part.add(j.id)
+        supply_orifice_part = {
+            j.id for i in project_qs for j in i.supply_orifice_part.all()
+        }
 
         return (
             qs.exclude(id__in=supply_orifice_part).order_by(
@@ -772,10 +753,9 @@ class PressureSensorNewView(ListAPIView):
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
-        pressure_sensor_part = set()
-        for i in project_qs:
-            for j in i.pressure_sensor_part.all():
-                pressure_sensor_part.add(j.id)
+        pressure_sensor_part = {
+            j.id for i in project_qs for j in i.pressure_sensor_part.all()
+        }
 
         return (
             Pressure_sensor.objects.exclude(id__in=pressure_sensor_part).order_by(
@@ -865,10 +845,9 @@ class CalibrationOrificeNewView(ListAPIView):
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
-        calibration_orifice_part = set()
-        for i in project_qs:
-            for j in i.calibration_orifice_part.all():
-                calibration_orifice_part.add(j.id)
+        calibration_orifice_part = {
+            j.id for i in project_qs for j in i.calibration_orifice_part.all()
+        }
 
         return (
             Calibration_orifice.objects.exclude(
@@ -958,11 +937,7 @@ class SwabMasterNewView(ListAPIView):
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
-        swabmaster_part = set()
-
-        for i in project_qs:
-            for i in i.swabmaster_part.all():
-                swabmaster_part.add(i.id)
+        swabmaster_part = {j.id for i in project_qs for j in i.swabmaster_part.all()}
 
         return (
             SwabMasterTSR.objects.exclude(id__in=swabmaster_part).order_by(
@@ -1051,10 +1026,7 @@ class DeviceHoseNewView(ListAPIView):
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
-        device_part = set()
-        for i in project_qs:
-            for j in i.device_part.all():
-                device_part.add(j.id)
+        device_part = {j.id for i in project_qs for j in i.device_part.all()}
 
         return (
             DeviceHose.objects.exclude(id__in=device_part).order_by("warehouse__id")
@@ -1133,18 +1105,14 @@ class AirHoseNewView(ListAPIView):
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
-        if start_date and end_date:
-            project_qs = Project.objects.filter(
-                equipment_prep__gte=start_date,
-                equipment_delivery_tubemaster__lte=end_date,
-            )
+        project_qs = Project.objects.filter(
+            equipment_prep__gte=start_date,
+            equipment_delivery_tubemaster__lte=end_date,
+        )
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
-        airhose_part = set()
-        for i in project_qs:
-            for j in i.airhose_part.all():
-                airhose_part.add(j.id)
+        airhose_part = {j.id for i in project_qs for j in i.airhose_part.all()}
 
         return (
             qs.exclude(id__in=airhose_part).order_by("warehouse__id")
