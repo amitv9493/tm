@@ -1079,12 +1079,46 @@ class DeviceHoseView(ListAPIView):
 
 
 class AirHoseNewView(ListAPIView):
+    """
+    This View returns the available Air hoses in the given time range `start_date`
+    and `end_date`, which is useful when selecting an air hose for a new project.
+
+    Provide the `start_date` and `end_date`, and it will check if the Air hose
+    is available or not for the given date range.
+
+    To update the Air hose in an already created Project, you need to provide the `pro_id`.
+    The value of the `pro_id` should be the ID of the project being modified.
+
+    Query Parameters:
+        - `start_date` (str): Start date of the time range to check for air hose availability.
+        - `end_date` (str): End date of the time range to check for air hose availability.
+        - `proid` (int): ID of the project to exclude when checking air hose availability.
+        - `warehouse` (str): Filter air hoses by warehouse location.
+
+    Filters:
+        - `serial_number` (str): Search air hoses by serial number.
+        - `colour_code` (str): Search air hoses by colour code.
+        - `part_name` (str): Search air hoses by part name.
+        - `name_of_abbreviation` (str): Search air hoses by name or abbreviation.
+        - `asset_number` (str): Search air hoses by asset number.
+
+    Pagination:
+        - Uses a custom pagination class.
+
+    Authentication:
+        - JWT Authentication is required.
+
+    Permissions:
+        - Django Model Permissions and Admin User permission required.
+    """
+
     queryset = AirHose.objects.all()
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     serializer_class = AirHoseSerializer
     pagination_class = CustomPagination
     filter_backends = [SearchFilter]
+
     search_fields = [
         "serial_number",
         "colour_code",
@@ -1096,19 +1130,27 @@ class AirHoseNewView(ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
 
+        # Query_params
         start_date = convert_to_date(self.request.query_params.get("start_date"))
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
-        # Q()
         warehouse = self.request.query_params.get("warehouse")
+
+        # Queryset
+        project_qs = Project.objects.values(
+            "id", "equipment_prep", "equipment_delivery_tubemaster", "airhose_part"
+        ).prefetch_related("airhose_part")
 
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
 
+        # filter the qs based on the start_date and end_date
         project_qs = Project.objects.filter(
             equipment_prep__gte=start_date,
             equipment_delivery_tubemaster__lte=end_date,
         )
+
+        # if project_id is passed in as the query_params, we will exclude that project
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
         # print(qs.ttd)
