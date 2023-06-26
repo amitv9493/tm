@@ -1736,12 +1736,13 @@ class WarehouseAvailabilityView(generics.ListAPIView):
 from rest_framework import pagination
 
 
-class CustomPagination(pagination.PageNumberPagination):
-    page_size = 5
-    page_size_query_param = "page_size"
-    max_page_size = 100
+# class CustomPagination(pagination.PageNumberPagination):
+#     page_size = 5
+#     page_size_query_param = "page_size"
+#     max_page_size = 100
 
 from rest_framework.decorators import api_view
+
 
 class WarehouseEquipmentView(generics.ListAPIView):
     serializer_class = WarehouseEquipSerializer
@@ -1756,36 +1757,33 @@ class WarehouseEquipmentView(generics.ListAPIView):
 
         return qs
 
-@api_view(['GET'])
-def warehouse_equipment_view(request):
 
+@api_view(["GET"])
+def warehouse_equipment_view(request):
     pagination_class = CustomPagination()
 
-    serializer = WarehouseEquipSerializer(context={'request': request})
+    serializer = WarehouseEquipSerializer(context={"request": request})
 
     ttd_data = serializer.get_ttd(None)
     print(type(ttd_data))
     bdd_data = serializer.get_bdd(None)
     calibration_stand_data = serializer.get_calibration_stand(None)
     swab_master_data = serializer.get_swab_master(None)
-    
+
     ttd_count = len(ttd_data)
     bdd_count = len(bdd_data)
     calibration_stand_count = len(calibration_stand_data)
     swab_master_count = len(swab_master_data)
-    
+
     merged_data = ttd_data + bdd_data + calibration_stand_data + swab_master_data
 
     paginated_data = pagination_class.paginate_queryset(merged_data, request)
 
     paginated_data_with_counts = {
-        'ttd_count': ttd_count,
-        'bdd_count': bdd_count,
-        'calibration_stand_count':calibration_stand_count,
-        'swab_master_count':swab_master_count,
-        'results': paginated_data
-        
+        "ttd_count": ttd_count,
+        "bdd_count": bdd_count,
+        "calibration_stand_count": calibration_stand_count,
+        "swab_master_count": swab_master_count,
+        "results": paginated_data,
     }
     return pagination_class.get_paginated_response(paginated_data_with_counts)
-
-    
