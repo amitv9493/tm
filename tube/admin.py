@@ -24,8 +24,8 @@ class WarehouseAdmin(ImportExportModelAdmin):
         )
 
     def changelist_view(self, request, extra_context=None):
+        response = super().changelist_view(request, extra_context=extra_context)
         if request.method == "GET":
-            response = super().changelist_view(request, extra_context=extra_context)
             queryset = response.context_data["cl"].queryset
             chart_data = self.chart_data(queryset)
             as_json = json.dumps(list(chart_data), cls=DjangoJSONEncoder)
@@ -48,8 +48,3 @@ class WarehouseAdmin(ImportExportModelAdmin):
 
 
 admin.site.register(Warehouse, WarehouseAdmin)
-
-
-
-
-
