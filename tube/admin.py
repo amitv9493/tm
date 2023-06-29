@@ -12,6 +12,7 @@ from django.db.models import Count
 
 
 class WarehouseAdmin(ImportExportModelAdmin):
+    exclude = ["slug"]
     date_hierarchy = "date_created"
     ordering = ["-date_created"]
 
