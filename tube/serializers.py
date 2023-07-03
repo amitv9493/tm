@@ -30,7 +30,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
     ttd = serializers.SerializerMethodField()
     bdd = serializers.SerializerMethodField()
     calibration_stand = serializers.SerializerMethodField()
-    swabmaster =  serializers.SerializerMethodField()
+    swabmaster = serializers.SerializerMethodField()
     # parts
     general_part_data = serializers.SerializerMethodField()
     supply_orifice = serializers.SerializerMethodField()
@@ -66,10 +66,8 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
                             else:
                                 will_not_free += 1
 
-            not_assigned_to_any_project = total - (
-                will_not_free + will_be_free
-            )
-      
+            not_assigned_to_any_project = total - (will_not_free + will_be_free)
+
     def get_bdd_rack(self, obj):
         used = 0
         not_used = 0
@@ -94,6 +92,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
             "total": total,
         }
         pass
+
     def get_ttd_rack(self, obj):
         used = 0
         not_used = 0
@@ -117,6 +116,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
             "not_used": not_used,
             "total": total,
         }
+
     def get_airhose(self, obj):
         will_not_free = 0
         will_be_free = 0
@@ -138,9 +138,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
                             else:
                                 will_not_free += 1
 
-            not_assigned_to_any_project = total - (
-                will_not_free + will_be_free
-            )
+            not_assigned_to_any_project = total - (will_not_free + will_be_free)
 
         return {
             "will_not_free": will_not_free,
@@ -148,6 +146,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
             "not_assigned_to_any_project": not_assigned_to_any_project,
             "total": total,
         }
+
     def get_devicehose(self, obj):
         will_not_free = 0
         will_be_free = 0
@@ -169,9 +168,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
                             else:
                                 will_not_free += 1
 
-            not_assigned_to_any_project = total - (
-                will_not_free + will_be_free
-            )
+            not_assigned_to_any_project = total - (will_not_free + will_be_free)
 
         return {
             "will_not_free": will_not_free,
@@ -179,6 +176,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
             "not_assigned_to_any_project": not_assigned_to_any_project,
             "total": total,
         }
+
     def get_swabmasterTSR(self, obj):
         will_not_free = 0
         will_be_free = 0
@@ -200,9 +198,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
                             else:
                                 will_not_free += 1
 
-            not_assigned_to_any_project = total - (
-                will_not_free + will_be_free
-            )
+            not_assigned_to_any_project = total - (will_not_free + will_be_free)
 
         return {
             "will_not_free": will_not_free,
@@ -210,7 +206,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
             "not_assigned_to_any_project": not_assigned_to_any_project,
             "total": total,
         }
-    
+
     def get_calibration_orifice(self, obj):
         will_not_free = 0
         will_be_free = 0
@@ -232,9 +228,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
                             else:
                                 will_not_free += 1
 
-            not_assigned_to_any_project = total - (
-                will_not_free + will_be_free
-            )
+            not_assigned_to_any_project = total - (will_not_free + will_be_free)
 
         return {
             "will_not_free": will_not_free,
@@ -264,9 +258,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
                             else:
                                 will_not_free += 1
 
-            not_assigned_to_any_project = total - (
-                will_not_free + will_be_free
-            )
+            not_assigned_to_any_project = total - (will_not_free + will_be_free)
 
         return {
             "will_not_free": will_not_free,
@@ -274,6 +266,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
             "not_assigned_to_any_project": not_assigned_to_any_project,
             "total": total,
         }
+
     def get_supply_orifice(self, obj):
         will_not_free = 0
         will_be_free = 0
@@ -295,9 +288,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
                             else:
                                 will_not_free += 1
 
-            not_assigned_to_any_project = total - (
-                will_not_free + will_be_free
-            )
+            not_assigned_to_any_project = total - (will_not_free + will_be_free)
 
         return {
             "will_not_free": will_not_free,
@@ -305,8 +296,8 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
             "not_assigned_to_any_project": not_assigned_to_any_project,
             "total": total,
         }
+
     def get_bdd(self, obj):
-        
         will_not_free = 0
         will_be_free = 0
         not_assigned_to_any_project = 0
@@ -327,9 +318,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
                             else:
                                 will_not_free += 1
 
-            not_assigned_to_any_project = total - (
-                will_not_free + will_be_free
-            )
+            not_assigned_to_any_project = total - (will_not_free + will_be_free)
 
         return {
             "will_not_free": will_not_free,
@@ -338,8 +327,6 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
             "total": total,
         }
 
-
-    
     def get_general_part_data(self, obj):
         will_not_free = 0
         will_be_free = 0
@@ -361,9 +348,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
                             else:
                                 will_not_free += 1
 
-            not_assigned_to_any_project = total - (
-                will_not_free + will_be_free
-            )
+            not_assigned_to_any_project = total - (will_not_free + will_be_free)
 
         return {
             "will_not_free": will_not_free,
@@ -373,7 +358,6 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
         }
 
     def get_ttd(self, obj):
-
         will_not_free = 0
         will_be_free = 0
         not_assigned_to_any_project = 0
@@ -394,9 +378,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
                             else:
                                 will_not_free += 1
 
-            not_assigned_to_any_project = total - (
-                will_not_free + will_be_free
-            )
+            not_assigned_to_any_project = total - (will_not_free + will_be_free)
 
         return {
             "will_not_free": will_not_free,
@@ -404,8 +386,6 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
             "not_assigned_to_any_project": not_assigned_to_any_project,
             "total": total,
         }
-
-
 
     def get_calibration_stand(self, obj):
         will_not_free = 0
@@ -428,9 +408,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
                             else:
                                 will_not_free += 1
 
-            not_assigned_to_any_project = total - (
-                will_not_free + will_be_free
-            )
+            not_assigned_to_any_project = total - (will_not_free + will_be_free)
 
         return {
             "will_not_free": will_not_free,
@@ -438,7 +416,6 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
             "not_assigned_to_any_project": not_assigned_to_any_project,
             "total": total,
         }
-
 
     def get_swabmaster(self, obj):
         will_not_free = 0
@@ -461,9 +438,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
                             else:
                                 will_not_free += 1
 
-            not_assigned_to_any_project = total - (
-                will_not_free + will_be_free
-            )
+            not_assigned_to_any_project = total - (will_not_free + will_be_free)
 
         return {
             "will_not_free": will_not_free,
@@ -472,10 +447,13 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
             "total": total,
         }
 
-from equipment.serializers import (TTDWithIDSerializer,
-                                   CalibrationStandSerializer, 
-                                   SwabMasterSerializer,
-                                   BDDSerializer)
+
+from equipment.serializers import (
+    TTDWithIDSerializer,
+    CalibrationStandSerializer,
+    SwabMasterSerializer,
+    BDDSerializer,
+)
 from equipment.models import TTD, BDD, CALIBRATION_STAND, SwabMaster
 from equipment.serializers import TTDSerializers
 
@@ -486,7 +464,7 @@ class WarehouseEquipSerializer(serializers.Serializer):
     calibration_stand = serializers.SerializerMethodField()
     swab_master = serializers.SerializerMethodField()
     location_for_warehouse = serializers.SerializerMethodField()
-     
+
     def get_ids(self, date_obj, ttds=None, bdds=None, calis=None, swabs=None):
         if date_obj:
             ttd = set()
@@ -504,7 +482,7 @@ class WarehouseEquipSerializer(serializers.Serializer):
                         swab.add(s.id)
                     for c in p.calibration_stand.all():
                         cali.add(c.id)
-            
+
             if ttds == 1:
                 return ttd
             if bdds == 1:
@@ -513,155 +491,143 @@ class WarehouseEquipSerializer(serializers.Serializer):
                 return cali
             if swabs == 1:
                 return swab
-            
 
     def get_ttd(self, obj):
-        request = self.context.get('request')
-        id = request.query_params.get('id')
-        print(id)
-        pm_status = str(request.query_params.get('pm_status')).upper()
-        print(pm_status)
+        request = self.context.get("request")
+        id = request.query_params.get("id")
+        pm_status = str(request.query_params.get("pm_status")).upper()
         qs = TTD.objects.all()
-        search = str(request.query_params.get('search'))
-        date_str = request.GET.get('date')
-        request.GET.get('date')
-
+        search = str(request.query_params.get("search"))
+        date_str = request.GET.get("date")
+        request.GET.get("date")
 
         if id:
-            qs = qs.filter(location_for_warehouse = id)
+            qs = qs.filter(location_for_warehouse__slug=id)
 
-        if pm_status != "NONE":            
-            qs = qs.filter(pm_status = pm_status)
+        if pm_status != "NONE":
+            qs = qs.filter(pm_status=pm_status)
 
-        if search != 'None':
-            print(search)
-            print('search block ran')
-            
+        if search != "None":
             query = Q()
-            
-            query |= Q(abbreviation__icontains = search)
-            query |= Q(alternate_name__icontains = search)
-            query |= Q(serial_number__icontains = search)
-            query |= Q(asset_number__icontains = search)
-            query |= Q(packaging__icontains = search)
+
+            query |= Q(abbreviation__icontains=search)
+            query |= Q(alternate_name__icontains=search)
+            query |= Q(serial_number__icontains=search)
+            query |= Q(asset_number__icontains=search)
+            query |= Q(packaging__icontains=search)
             qs = qs.filter(query)
 
         if date_str:
-            date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
-            
-            ids = self.get_ids(date_obj,ttds=1)
-            print('ttd ids :',ids)
-            qs = qs.exclude(id__in = ids)
-        
+            date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
+
+            ids = self.get_ids(date_obj, ttds=1)
+            # print('ttd ids :',ids)
+            qs = qs.exclude(id__in=ids)
 
         serializer = TTDSerializers(qs, many=True)
         return serializer.data
 
-    
     def get_bdd(self, obj):
-        request = self.context.get('request')
-        id = request.query_params.get('id')
-        pm_status = str(request.query_params.get('pm_status')).upper()
+        request = self.context.get("request")
+        id = request.query_params.get("id")
+        pm_status = str(request.query_params.get("pm_status")).upper()
         qs = BDD.objects.all()
-        search = str(request.query_params.get('search'))
-        date_str = request.GET.get('date')
+        search = str(request.query_params.get("search"))
+        date_str = request.GET.get("date")
 
-        if search != 'None':
+        if search != "None":
             query = Q()
-            
-            query |= Q(abbreviation__icontains = search)
-            query |= Q(alternate_name__icontains = search)
-            query |= Q(serial_number__icontains = search)
-            query |= Q(asset_number__icontains = search)
-            query |= Q(packaging__icontains = search)
+
+            query |= Q(abbreviation__icontains=search)
+            query |= Q(alternate_name__icontains=search)
+            query |= Q(serial_number__icontains=search)
+            query |= Q(asset_number__icontains=search)
+            query |= Q(packaging__icontains=search)
             qs = qs.filter(query)
-        
+
         if id:
-            qs = qs.filter(location_for_warehouse = id)
+            qs = qs.filter(location_for_warehouse__slug=id)
 
         if pm_status != "NONE":
-            qs = qs.filter(pm_status = pm_status)
+            qs = qs.filter(pm_status=pm_status)
 
         if date_str:
             print("date ran")
-            date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
-            
-            ids = self.get_ids(date_obj,bdds=1)
-            print(' bdd ids :',ids)
-            qs = qs.exclude(id__in = ids)
+            date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
+
+            ids = self.get_ids(date_obj, bdds=1)
+            print(" bdd ids :", ids)
+            qs = qs.exclude(id__in=ids)
 
         serializer = BDDSerializer(qs, many=True)
         return serializer.data
 
-    
     def get_calibration_stand(self, obj):
-        request = self.context.get('request')
-        pm_status = str(request.query_params.get('pm_status')).upper()
+        request = self.context.get("request")
+        pm_status = str(request.query_params.get("pm_status")).upper()
         qs = CALIBRATION_STAND.objects.all()
-        id = request.query_params.get('id')
-        search = str(request.query_params.get('search'))
-        date_str = request.GET.get('date')
-        
+        id = request.query_params.get("id")
+        search = str(request.query_params.get("search"))
+        date_str = request.GET.get("date")
+
         if id:
-            qs = qs.filter(location_for_warehouse = id)
+            qs = qs.filter(location_for_warehouse__slug=id)
             print(qs)
         if pm_status != "NONE":
-            qs = qs.filter(pm_status = pm_status)
+            qs = qs.filter(pm_status=pm_status)
 
         if search != "None":
             query = Q()
-            
-            query |= Q(abbreviation__icontains = search)
-            query |= Q(alternate_name__icontains = search)
-            query |= Q(serial_number__icontains = search)
-            query |= Q(asset_number__icontains = search)
-            query |= Q(packaging__icontains = search)
+
+            query |= Q(abbreviation__icontains=search)
+            query |= Q(alternate_name__icontains=search)
+            query |= Q(serial_number__icontains=search)
+            query |= Q(asset_number__icontains=search)
+            query |= Q(packaging__icontains=search)
 
             qs = qs.filter(query)
-            
 
         if date_str:
-            date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
-            
-            ids = self.get_ids(date_obj,calis=1)
-            print('cali ids :',ids)
-            qs = qs.exclude(id__in = ids)
-            
+            date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
+
+            ids = self.get_ids(date_obj, calis=1)
+            print("cali ids :", ids)
+            qs = qs.exclude(id__in=ids)
+
         serializer = CalibrationStandSerializer(qs, many=True)
-        
+
         return serializer.data
-    
+
     def get_swab_master(self, obj):
-        request = self.context.get('request')
-        pm_status = str(request.query_params.get('pm_status')).upper()
-        
+        request = self.context.get("request")
+        pm_status = str(request.query_params.get("pm_status")).upper()
+
         qs = SwabMaster.objects.all()
-        id = request.query_params.get('id')
-        search = str(request.query_params.get('search'))
-        date_str = request.GET.get('date')
+        id = request.query_params.get("id")
+        search = str(request.query_params.get("search"))
+        date_str = request.GET.get("date")
 
         if search != "None":
             query = Q()
-            
-            query |= Q(abbreviation__icontains = search)
-            query |= Q(alternate_name__icontains = search)
-            query |= Q(serial_number__icontains = search)
-            query |= Q(asset_number__icontains = search)
-            query |= Q(packaging__icontains = search)
+
+            query |= Q(abbreviation__icontains=search)
+            query |= Q(alternate_name__icontains=search)
+            query |= Q(serial_number__icontains=search)
+            query |= Q(asset_number__icontains=search)
+            query |= Q(packaging__icontains=search)
             qs = qs.filter(query)
         if id:
-            qs = qs.filter(location_for_warehouse = id)
-            
+            qs = qs.filter(location_for_warehouse__slug=id)
+
         if pm_status != "NONE":
-            qs = qs.filter(pm_status = pm_status)
+            qs = qs.filter(pm_status=pm_status)
 
         if date_str:
-            date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
-            
-            ids = self.get_ids(date_obj,swabs=1)
-            print('swab ids :',ids)
-            qs = qs.exclude(id__in = ids)
+            date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
+
+            ids = self.get_ids(date_obj, swabs=1)
+            print("swab ids :", ids)
+            qs = qs.exclude(id__in=ids)
         serializer = SwabMasterSerializer(qs, many=True)
 
         return serializer.data
-
