@@ -5,20 +5,21 @@ import tube.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('tube', '0013_alter_warehouse_warehouse_contact'),
+        ("tube", "0013_alter_warehouse_warehouse_contact"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='warehouse',
-            name='slug',
+            model_name="warehouse",
+            name="slug",
             field=models.SlugField(blank=True, max_length=500, null=True, unique=True),
         ),
         migrations.AlterField(
-            model_name='warehouse',
-            name='warehouse_name',
-            field=models.CharField(blank=True, max_length=128, unique=True, validators=[tube.models.slugFieldValidator]),
+            model_name="warehouse",
+            name="warehouse_name",
+            field=models.CharField(
+                blank=True, max_length=128, validators=[tube.models.slugFieldValidator]
+            ),
         ),
     ]
