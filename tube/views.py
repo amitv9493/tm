@@ -1728,9 +1728,16 @@ class WarehouseAvailabilityView(generics.ListAPIView):
         qs = super().get_queryset()
 
         id = self.request.GET.get("id")
+        slug = self.request.GET.get("slug")
+
+        if slug:
+            return qs.filter(slug=slug)
+            
         if id:
             return qs.filter(id=id)
+        
         return qs
+
 
 
 from rest_framework import pagination
