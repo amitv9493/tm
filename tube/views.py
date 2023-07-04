@@ -1732,12 +1732,11 @@ class WarehouseAvailabilityView(generics.ListAPIView):
 
         if slug:
             return qs.filter(slug=slug)
-            
-        if id:
-            return qs.filter(id=id)
-        
-        return qs
 
+        if id:
+            return qs.filter(slug=id)
+
+        return qs
 
 
 from rest_framework import pagination

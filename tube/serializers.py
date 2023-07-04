@@ -459,13 +459,57 @@ from equipment.serializers import TTDSerializers
 
 
 class WarehouseEquipSerializer(serializers.Serializer):
+    """
+    This Serializer accepts id as slug for warehouse. Provide the `id= <slug of that warehouse>`
+
+
+    """
+
     ttd = serializers.SerializerMethodField()
     bdd = serializers.SerializerMethodField()
     calibration_stand = serializers.SerializerMethodField()
     swab_master = serializers.SerializerMethodField()
     location_for_warehouse = serializers.SerializerMethodField()
 
-    def get_ids(self, date_obj, ttds=None, bdds=None, calis=None, swabs=None):
+    def get_ids(
+        self,
+        date_obj,
+        ttds: int = None,
+        bdds: int = None,
+        calis: int = None,
+        swabs: int = None,
+    ) -> set:
+        """
+        Retrieve sets of IDs based on specified criteria.
+
+        Args:
+            date_obj: A date object representing the target date for comparison.
+            ttds: An optional integer flag (0 or 1) indicating whether to retrieve TTD IDs.
+                Default is None.
+            bdds: An optional integer flag (0 or 1) indicating whether to retrieve BDD IDs.
+                Default is None.
+            calis: An optional integer flag (0 or 1) indicating whether to retrieve CALI IDs.
+                Default is None.
+            swabs: An optional integer flag (0 or 1) indicating whether to retrieve SWAB IDs.
+                Default is None.
+
+        Returns:
+            A set of matching IDs based on the specified criteria. If multiple flags are set to 1,
+            the IDs for the corresponding criteria will be returned.
+
+        Raises:
+            Any exceptions that may occur during the execution of the method.
+
+        Example usage:
+            ids = get_ids(date_obj, ttds=1)  # Retrieve TTD IDs for the specified date
+
+        Note:
+            This method queries the Project model to retrieve sets of IDs based on the given criteria.
+            It compares the equipment delivery client date of each project with the provided date_obj
+            to determine the matching projects. Depending on the flags provided, it retrieves and returns
+            the IDs for the TTD, BDD, CALI, and/or SWAB criteria.
+        """
+
         if date_obj:
             ttd = set()
             bdd = set()

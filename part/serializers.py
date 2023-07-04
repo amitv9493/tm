@@ -305,7 +305,7 @@ class WarehousePartSerializer(serializers.Serializer):
             print(pm_status)
             qs = qs.filter(pm_status=pm_status)
         if id:
-            qs = qs.filter(location_for_warehouse=id)
+            qs = qs.filter(location_for_warehouse__slug=id)
         serializer = AllGeneralPartCreateSerializer(qs, many=True)
         return serializer.data
 
@@ -317,7 +317,7 @@ class WarehousePartSerializer(serializers.Serializer):
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
         if id:
-            qs = qs.filter(location_for_warehouse=id)
+            qs = qs.filter(location_for_warehouse__slug=id)
 
         serializer = SupplyOrificeCreateSerializer(qs, many=True)
         return serializer.data
@@ -330,7 +330,7 @@ class WarehousePartSerializer(serializers.Serializer):
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
         if id:
-            qs = qs.filter(location_for_warehouse=id)
+            qs = qs.filter(location_for_warehouse__slug=id)
 
         serializer = SupplyOrificeCreateSerializer(qs, many=True)
         return serializer.data
@@ -344,7 +344,7 @@ class WarehousePartSerializer(serializers.Serializer):
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
         if id:
-            qs = qs.filter(location_for_warehouse=id)
+            qs = qs.filter(location_for_warehouse__slug=id)
 
         serializer = TddTubesealrackCreateSerializer(qs, many=True)
         return serializer.data
@@ -359,7 +359,7 @@ class WarehousePartSerializer(serializers.Serializer):
             print(pm_status)
             qs = qs.filter(pm_status=pm_status)
         if id:
-            qs = qs.filter(location_for_warehouse=id)
+            qs = qs.filter(location_for_warehouse__slug=id)
 
         serializer = BDDTubeSealRackSerializer(qs, many=True)
         return serializer.data
@@ -372,7 +372,7 @@ class WarehousePartSerializer(serializers.Serializer):
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
         if id:
-            qs = qs.filter(location_for_warehouse=id)
+            qs = qs.filter(location_for_warehouse__slug=id)
 
         serializer = Calibration_orifice_serializer(qs, many=True)
         return serializer.data
@@ -386,7 +386,7 @@ class WarehousePartSerializer(serializers.Serializer):
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
         if id:
-            qs = qs.filter(location_for_warehouse=id)
+            qs = qs.filter(location_for_warehouse__slug=id)
 
         serializer = SwabMasterTSRSerializer(qs, many=True)
         return serializer.data
@@ -400,7 +400,7 @@ class WarehousePartSerializer(serializers.Serializer):
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
         if id:
-            qs = qs.filter(warehouse=id)
+            qs = qs.filter(warehouse__slug=id)
 
         serializer = DeviceHoseSerializer(qs, many=True)
         return serializer.data
@@ -414,7 +414,7 @@ class WarehousePartSerializer(serializers.Serializer):
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
         if id:
-            qs = qs.filter(warehouse=id)
+            qs = qs.filter(warehouse__slug=id)
 
         serializer = AirHoseSerializer(qs, many=True)
         return serializer.data

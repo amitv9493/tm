@@ -46,7 +46,7 @@ class SupplyOrificeViewPart(generics.ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
         ttd_id = self.request.GET.get("ttd_id")
-        warehouse_id = self.request.GET.get("warehouse_id")
+        warehouse = self.request.GET.get("warehouse")
         so = set()
 
         if ttd_id:
@@ -61,8 +61,8 @@ class SupplyOrificeViewPart(generics.ListAPIView):
 
         return (
             qs.exclude(id__in=so)
-            if not warehouse_id
-            else qs.exclude(id__in=so).filter(location_for_warehouse=warehouse_id)
+            if not warehouse
+            else qs.exclude(id__in=so).filter(location_for_warehouse__slug=warehouse)
         )
 
 
@@ -103,7 +103,7 @@ class PressureSensorViewPart(generics.ListAPIView):
             qs.exclude(id__in=pressure_sensor)
             if not warehouse_id
             else qs.exclude(id__in=pressure_sensor).filter(
-                location_for_warehouse=warehouse_id
+                location_for_warehouse__slug=warehouse_id
             )
         )
 
@@ -144,7 +144,7 @@ class TTDTubeSealRackViewPart(generics.ListAPIView):
         return (
             qs.exclude(id__in=so)
             if not warehouse_id
-            else qs.exclude(id__in=so).filter(location_for_warehouse=warehouse_id)
+            else qs.exclude(id__in=so).filter(location_for_warehouse__slug=warehouse_id)
         )
 
 
@@ -179,7 +179,7 @@ class BDDTubeSealRackViewPart(generics.ListAPIView):
         return (
             qs.exclude(id__in=so)
             if not warehouse_id
-            else qs.exclude(id__in=so).filter(location_for_warehouse=warehouse_id)
+            else qs.exclude(id__in=so).filter(location_for_warehouse__slug=warehouse_id)
         )
 
 
@@ -209,7 +209,7 @@ class SwabMasterTSRViewPart(generics.ListAPIView):
             qs.exclude(id__in=swabmaster_id)
             if not warehouse_id
             else qs.exclude(id__in=swabmaster_id).filter(
-                location_for_warehouse=warehouse_id
+                location_for_warehouse__slug=warehouse_id
             )
         )
 
@@ -272,7 +272,7 @@ class AirHoseViewPart(generics.ListAPIView):
             queryset = queryset.exclude(id__in=used_id)
 
         if warehouse:
-            queryset = queryset.filter(warehouse=warehouse)
+            queryset = queryset.filter(warehouse__slug=warehouse)
         return queryset
 
 
@@ -308,7 +308,7 @@ class CalibrationOrificeViewPart(generics.ListAPIView):
         return (
             qs.exclude(id__in=so)
             if not warehouse_id
-            else qs.exclude(id__in=so).filter(location_for_warehouse=warehouse_id)
+            else qs.exclude(id__in=so).filter(location_for_warehouse__slug=warehouse_id)
         )
 
 
