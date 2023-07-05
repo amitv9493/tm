@@ -231,6 +231,10 @@ urlpatterns = (
             name="getproject",
         ),
         path(
+            "api/update/project/<int:pk>/",
+            updateProject.as_view(),
+        ),
+        path(
             "api/alllist/patchproject/<int:pk>/",
             AallList_Id_Patch_Project.as_view(),
             name="alllistproject",
