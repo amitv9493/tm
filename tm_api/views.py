@@ -98,13 +98,13 @@ class ClientListView(ListAPIView):
 #            Unit API View
 ###################################################################################
 
-
+from client.serializers import UnitSerializers as clientUnitSerializer
 class UnitListView(ListAPIView):
     # permission_classes = [DjangoModelPermissions, IsAdminUser]
     # authentication_classes = [JWTAuthentication]
 
     queryset = Unit.objects.all()
-    serializer_class = UnitSerializer
+    serializer_class = clientUnitSerializer
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -112,6 +112,8 @@ class UnitListView(ListAPIView):
         start_date = convert_to_date(self.request.query_params.get("start_date"))
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
+        client = self.request.query_params.get("client")
+        
         if start_date and end_date:
             qs = Project.objects.filter(
                 equipment_prep__gte=start_date,
@@ -126,7 +128,8 @@ class UnitListView(ListAPIView):
                 unit.add(i.id)
         unit = list(unit)
         unit_qs = Unit.objects.exclude(id__in=unit)
-        return unit_qs
+        
+        return unit_qs if not client else unit_qs.filter(client = client)
 
 
 ###################################################################################
