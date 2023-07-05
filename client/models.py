@@ -55,7 +55,11 @@ class Client(models.Model):
 
     def clean_official_name(self):
         value = self.official_name
-        id = self.id
+        try:
+            id = self.id
+        except:
+            id = None
+
         qs = Client.objects.all()
         slugFieldValidator(value, qs, "Official Name", id)
 

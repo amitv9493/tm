@@ -99,6 +99,8 @@ class ClientListView(ListAPIView):
 ###################################################################################
 
 from client.serializers import UnitSerializers as clientUnitSerializer
+
+
 class UnitListView(ListAPIView):
     # permission_classes = [DjangoModelPermissions, IsAdminUser]
     # authentication_classes = [JWTAuthentication]
@@ -113,23 +115,24 @@ class UnitListView(ListAPIView):
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         client = self.request.query_params.get("client")
-        
+        project_qs = Project.objects.all()
+        print(project_qs)
+
         if start_date and end_date:
-            qs = Project.objects.filter(
+            project_qs = Project.objects.filter(
                 equipment_prep__gte=start_date,
                 equipment_delivery_tubemaster__lte=end_date,
             )
-        if pro_id:
-            qs = qs.exclude(id=pro_id)
 
-        unit = set()
-        for i in qs:
-            for i in i.unit.all():
-                unit.add(i.id)
-        unit = list(unit)
+        if pro_id:
+            project_qs = project_qs.exclude(id=pro_id)
+
+        unit = {j.id for i in project_qs if i.unit for j in i.unit.all()}
+        # ttd = list(ttd)
+
         unit_qs = Unit.objects.exclude(id__in=unit)
-        
-        return unit_qs if not client else unit_qs.filter(client = client)
+
+        return unit_qs if not client else unit_qs.filter(client=client)
 
 
 ###################################################################################

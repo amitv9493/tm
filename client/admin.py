@@ -231,16 +231,18 @@ class PlantAdmin(admin.ModelAdmin):
     #     return ("%s" % ','.join([name_of_unit.name_of_unit for name_of_unit in obj.name_of_unit.all()]))
     # list_of_units.short_description = 'Units'
     # form = SimpleForm
-    
+
     fieldsets = (
-        ("Plant Info", {
-            "fields": (
-                'client',
-                'plant_name',
-                'plant_common_name',
-                
-            ),
-        }),
+        (
+            "Plant Info",
+            {
+                "fields": (
+                    "client",
+                    "plant_name",
+                    "plant_common_name",
+                ),
+            },
+        ),
         (
             "Address Info",
             {
@@ -263,7 +265,6 @@ class PlantAdmin(admin.ModelAdmin):
             },
         ),
     )
-    
 
 
 admin.site.register(Plant, PlantAdmin)
@@ -308,7 +309,7 @@ from import_export.admin import ImportExportModelAdmin
 
 class ClientAdmin(ImportExportModelAdmin):
     list_filter = ["official_name", "parent_company"]
-    list_per_page = 5
+    # list_per_page = 5
     fieldsets = [
         (
             "Client Info",
@@ -321,7 +322,6 @@ class ClientAdmin(ImportExportModelAdmin):
                 ],
             },
         ),
-
     ]
 
     search_fields = ["official_name", "contact_person"]
