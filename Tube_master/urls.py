@@ -23,6 +23,8 @@ from equipment.views import *
 from client.views import *
 from tube.views import *
 
+from tm_api.views import UnitListView as tmAPIUnitView
+
 
 urlpatterns = (
     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
@@ -179,7 +181,7 @@ urlpatterns = (
         ###########################################`############################
         path("api/user/login/", LoginView.as_view(), name="loginview"),
         path("api/get/clientlist/", ClientListView.as_view(), name="clientview"),
-        path("api/get/unitlist/", UnitListView.as_view(), name="unitview"),
+        path("api/get/unitlist/", tmAPIUnitView.as_view(), name="unitview"),
         # NEW API
         path("api/get/scopeofwork/", ScopeOfWorkView.as_view(), name="scopeofwork"),
         path("api/get/ttd/", TtdView.as_view(), name="ttdview"),
