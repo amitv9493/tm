@@ -149,8 +149,13 @@ class Unit(models.Model):
     #     show_all=False,
     #     auto_choose=True,
     #     sort=True,related_name="unitcountry")
-    plant = GroupedForeignKey(
-        Plant, "client", related_name="unitplant", default="", blank=True, null=True
+    plant = models.ForeignKey(
+        Plant,
+        related_name="unitplant",
+        default="",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
     )
     name_of_unit = models.CharField(
         max_length=128, blank=True, verbose_name="Name Of Unit"
@@ -175,8 +180,12 @@ class Reactor(models.Model):
         related_name="reactorclient+",
     )
 
-    plant = GroupedForeignKey(
-        Plant, "client", blank=True, null=True, related_name="reactorplant+"
+    plant = models.ForeignKey(
+        Plant,
+        blank=True,
+        null=True,
+        related_name="reactorplant+",
+        on_delete=models.SET_NULL,
     )
 
     unit = models.ForeignKey(
