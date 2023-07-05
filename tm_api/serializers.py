@@ -524,6 +524,12 @@ class AirHoseSerializerProject(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class CreateProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = "__all__"
+
+
 class GET_Project_serializer(serializers.ModelSerializer):
     """equipments"""
 

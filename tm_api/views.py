@@ -1262,7 +1262,7 @@ class getlList_Id_Project(generics.RetrieveUpdateDestroyAPIView):
     # permission_classes = [DjangoModelPermissions, IsAdminUser]
     # authentication_classes= [ JWTAuthentication]
 
-    serializer_class = GET_Project_serializer
+    serializer_class = CreateProjectSerializer
     queryset = Project.objects.all()
 
 
