@@ -127,7 +127,12 @@ class UnitListView(ListAPIView):
         if pro_id:
             project_qs = project_qs.exclude(id=pro_id)
 
-        unit = {j.id for i in project_qs if i.unit for j in i.unit.all()}
+        unit = set()
+
+        for i in project_qs:
+            if i.unit is not None:
+                unit.add(i.unit)
+
         # ttd = list(ttd)
 
         unit_qs = Unit.objects.exclude(id__in=unit)
@@ -1265,7 +1270,7 @@ class getlList_Id_Project(generics.RetrieveUpdateDestroyAPIView):
     # permission_classes = [DjangoModelPermissions, IsAdminUser]
     # authentication_classes= [ JWTAuthentication]
 
-    serializer_class = CreateProjectSerializer
+    serializer_class = GET_Project_serializer
     queryset = Project.objects.all()
 
 
