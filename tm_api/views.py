@@ -131,7 +131,7 @@ class UnitListView(ListAPIView):
 
         for i in project_qs:
             if i.unit is not None:
-                unit.add(i.unit)
+                unit.add(i.unit.id)
 
         # ttd = list(ttd)
 
