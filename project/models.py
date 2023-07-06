@@ -27,7 +27,7 @@ class ProjectStatus(models.Model):
 # Create your models here.
 class Project(models.Model):
     project_name = models.CharField(
-        null=True, blank=True, max_length=128, verbose_name="Project Name"
+        null=True, blank=True, max_length=128, verbose_name="Project Name", unique=True
     )
     client = models.ForeignKey(
         "client.Client",
@@ -107,24 +107,31 @@ class Project(models.Model):
         blank=True,
         related_name="calibration_stand",
     )
-    
-    swabmaster_equip = models.ManyToManyField("equipment.SwabMaster", 
-                                        verbose_name=("Swab Master"), 
-                                        related_name='Swabmaster', 
-                                        blank=True)
-    
+
+    swabmaster_equip = models.ManyToManyField(
+        "equipment.SwabMaster",
+        verbose_name=("Swab Master"),
+        related_name="Swabmaster",
+        blank=True,
+    )
+
     # ====================PARTS==================================
-    part = models.ManyToManyField("part.Part", default="", blank=True, related_name='projects')
+    part = models.ManyToManyField(
+        "part.Part", default="", blank=True, related_name="projects"
+    )
     supply_orifice_part = models.ManyToManyField(
-        "part.Supply_orifice", default="", blank=True, verbose_name="Supply Orifice",
-        related_name='projects'
+        "part.Supply_orifice",
+        default="",
+        blank=True,
+        verbose_name="Supply Orifice",
+        related_name="projects",
     )
     pressure_sensor_part = models.ManyToManyField(
         "part.Pressure_sensor",
         default="",
         blank=True,
         verbose_name="Pressure Sensor",
-        related_name="projects"
+        related_name="projects",
     )
     # ttd_part = models.ManyToManyField("part.TTD_tube_seal_rack", default="", null=True,blank=True,verbose_name="TTD tube Seal Rack")
     # bdd_part = models.ManyToManyField("part.BDD_tube_seal_rack", default="", null=True,blank=True,verbose_name="BDD Tube Seal Rack")
@@ -133,18 +140,28 @@ class Project(models.Model):
         default="",
         blank=True,
         verbose_name="Calibration Orifice",
-        related_name="projects"
+        related_name="projects",
     )
     swabmaster_part = models.ManyToManyField(
-        "part.SwabMasterTSR", default="", blank=True, verbose_name="Swab Master TSR",
-        related_name='projects'
+        "part.SwabMasterTSR",
+        default="",
+        blank=True,
+        verbose_name="Swab Master TSR",
+        related_name="projects",
     )
     device_part = models.ManyToManyField(
-        "part.DeviceHose", default="", blank=True, verbose_name="Device Hose",
-        related_name="projects"
+        "part.DeviceHose",
+        default="",
+        blank=True,
+        verbose_name="Device Hose",
+        related_name="projects",
     )
     airhose_part = models.ManyToManyField(
-        "part.AirHose", default="", blank=True, verbose_name="Air Hose", related_name="projects"
+        "part.AirHose",
+        default="",
+        blank=True,
+        verbose_name="Air Hose",
+        related_name="projects",
     )
 
     comments = GenericRelation(Comment)

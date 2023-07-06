@@ -5,6 +5,7 @@ from smart_selects.db_fields import GroupedForeignKey
 from django_countries.fields import CountryField
 from project.validators import slugFieldValidator
 from django.utils.text import slugify
+from django.db.models import Q, F
 
 
 class Address(models.Model):
@@ -22,8 +23,6 @@ class Address(models.Model):
 
 
 CHOICES_TOP_DOME_REMOVABLE = ((True, ("yes")), (False, ("No")))
-
-from django.db.models import Q, F
 
 
 class Client(models.Model):
@@ -152,7 +151,6 @@ class Unit(models.Model):
     plant = models.ForeignKey(
         Plant,
         related_name="unitplant",
-        default="",
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
