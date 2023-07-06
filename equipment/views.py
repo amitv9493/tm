@@ -109,6 +109,8 @@ class TTDRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TTD.objects.all()
     serializer_class = TTDWithIDSerializer
 
+    lookup_field = "slug"
+
 
 ##################################################################
 #               BDD List-View

@@ -291,7 +291,7 @@ urlpatterns = (
         path("api/eq/listttd/", TTDListView.as_view(), name="ttdlistview"),
         path("api/eq/createttd/", TTDCreateView.as_view(), name="ttdcreateview"),
         path(
-            "api/eq/ttdretupddel/<int:pk>/",
+            "api/eq/ttdretupddel/<slug:slug>/",
             TTDRetUpdDelView.as_view(),
             name="ttdretupddelview",
         ),

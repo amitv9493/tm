@@ -50,7 +50,7 @@ class SupplyOrificeViewPart(generics.ListAPIView):
         so = set()
 
         if ttd_id:
-            for ttd in TTD.objects.exclude(id=ttd_id):
+            for ttd in TTD.objects.exclude(slug=ttd_id):
                 if ttd.supply_orifice_set:
                     so.add(ttd.supply_orifice_set.id)
 
@@ -90,7 +90,7 @@ class PressureSensorViewPart(generics.ListAPIView):
 
         pressure_sensor = set()
         if ttd_id:
-            for ttd in TTD.objects.exclude(id=ttd_id):
+            for ttd in TTD.objects.exclude(slug=ttd_id):
                 if ttd.pressure_sensor:
                     pressure_sensor.add(ttd.pressure_sensor.id)
 
@@ -133,7 +133,7 @@ class TTDTubeSealRackViewPart(generics.ListAPIView):
 
         so = set()  # Initialize the 'so' variable here
         if ttd_id:
-            for ttd in TTD.objects.exclude(id=ttd_id):
+            for ttd in TTD.objects.exclude(slug=ttd_id):
                 if ttd.TTD_tube_seal_rack:
                     so.add(ttd.TTD_tube_seal_rack.id)
         else:
