@@ -327,7 +327,7 @@ urlpatterns = (
             name="swabmastercreate",
         ),
         path(
-            "api/eq/swabmasterretupddel/<int:pk>/",
+            "api/eq/swabmasterretupddel/<slug:slug>/",
             SwabMasterRetUpdDelView.as_view(),
             name="swabmasterretupddel",
         ),
@@ -400,7 +400,7 @@ urlpatterns = (
             "api/part/airhosecreate/", AirHoseCreateView.as_view(), name="airhosecreate"
         ),
         path(
-            "api/part/airhoseretupddel/<int:pk>/",
+            "api/part/airhoseretupddel/<slug:slug>/",
             AirHoseRetUpdDelView.as_view(),
             name="airhoseretupddel",
         ),
@@ -415,7 +415,7 @@ urlpatterns = (
             name="devicehosecreate",
         ),
         path(
-            "api/part/devicehoseretupddel/<int:pk>/",
+            "api/part/devicehoseretupddel/<slug:slug>/",
             DeviceHoseRetUpdDelView.as_view(),
             name="devicehoseretupddel",
         ),
@@ -430,7 +430,7 @@ urlpatterns = (
             name="swabmastertsrcreate",
         ),
         path(
-            "api/part/swabmastertsrretupddrl/<int:pk>/",
+            "api/part/swabmastertsrretupddrl/<slug:slug>/",
             SwabMasterTSRRetUpdDelViewl.as_view(),
             name="swabmastertsrretupddrl",
         ),
@@ -445,7 +445,7 @@ urlpatterns = (
             name="calibrationorificecreate",
         ),
         path(
-            "api/part/calibrationorificeretupddrl/<int:pk>/",
+            "api/part/calibrationorificeretupddrl/<slug:slug>/",
             CalibrationOrificeRetUpdDelView.as_view(),
             name="calibrationorificeretupddrl",
         ),
@@ -460,7 +460,7 @@ urlpatterns = (
             name="bddtubesealrackcreate",
         ),
         path(
-            "api/part/bddtubesealrackretupddrl/<int:pk>/",
+            "api/part/bddtubesealrackretupddrl/<slug:slug>/",
             BddTubesealrackRetUpdDelView.as_view(),
             name="bddtubesealrackretupddrl",
         ),
@@ -475,7 +475,7 @@ urlpatterns = (
             name="tddtubesealrackcreate",
         ),
         path(
-            "api/part/tddtubesealrackretupddrl/<int:pk>/",
+            "api/part/tddtubesealrackretupddrl/<slug:slug>/",
             TddTubesealrackRetUpdDelView.as_view(),
             name="tddtubesealrackretupddrl",
         ),
@@ -490,7 +490,7 @@ urlpatterns = (
             name="pressuresensorcreate",
         ),
         path(
-            "api/part/pressuresensorretupddrl/<int:pk>/",
+            "api/part/pressuresensorretupddrl/<slug:slug>/",
             PressureSensorRetUpdDelView.as_view(),
             name="pressuresensorretupddrl",
         ),
@@ -505,7 +505,7 @@ urlpatterns = (
             name="supplyorificecreate",
         ),
         path(
-            "api/part/supplyorificeretupddrl/<int:pk>/",
+            "api/part/supplyorificeretupddrl/<slug:slug>/",
             SupplyOrificeRetUpdDelView.as_view(),
             name="supplyorificeretupddrl",
         ),
@@ -520,7 +520,7 @@ urlpatterns = (
             name="allgeneralpartcreate",
         ),
         path(
-            "api/part/allgeneralpartretupddel/<int:pk>/",
+            "api/part/allgeneralpartretupddel/<slug:slug>/",
             AllGeneralPartRetUpdDelView.as_view(),
             name="allgeneralpartretupddel",
         ),

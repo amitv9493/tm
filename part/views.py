@@ -337,6 +337,8 @@ class AirHoseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AirHoseCreSerializer
     queryset = AirHose.objects.all()
 
+    lookup_field = "slug"
+
 
 #######################################################################
 #                     DeviceHose-ListView
@@ -409,6 +411,8 @@ class DeviceHoseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
     serializer_class = DeviceHoseCreateSerializer
     queryset = DeviceHose.objects.all()
+
+    lookup_field = "slug"
 
 
 #######################################################################
@@ -485,6 +489,8 @@ class SwabMasterTSRRetUpdDelViewl(generics.RetrieveUpdateAPIView):
     serializer_class = SwabMasterTSRCreateSerializer
     queryset = SwabMasterTSR.objects.all()
 
+    lookup_field = "slug"
+
 
 #######################################################################
 #                     CalibrationOrifice-ListView
@@ -560,6 +566,8 @@ class CalibrationOrificeRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CalibratiobOrificeCreateSerializer
     queryset = Calibration_orifice.objects.all()
 
+    lookup_field = "slug"
+
 
 #######################################################################
 #                     BddTubesealrack-ListViewView
@@ -624,6 +632,8 @@ class BddTubesealrackRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BddTubesealrackCreateSerializer
     queryset = BDD_tube_seal_rack.objects.all()
 
+    lookup_field = "slug"
+
 
 #######################################################################
 #                     TddTubesealrack-ListViewView
@@ -687,6 +697,8 @@ class TddTubesealrackRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
     serializer_class = TddTubesealrackCreateSerializer
     queryset = TTD_tube_seal_rack.objects.all()
+
+    lookup_field = "slug"
 
 
 #######################################################################
@@ -764,6 +776,8 @@ class PressureSensorRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PressuresensorCreateSerializer
     queryset = Pressure_sensor.objects.all()
 
+    lookup_field = "slug"
+
 
 #######################################################################
 #                     SupplyOrificeListView-ListView
@@ -839,6 +853,8 @@ class SupplyOrificeRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SupplyOrificeCreateSerializer
     queryset = Supply_orifice.objects.all()
 
+    lookup_field = "slug"
+
 
 #######################################################################
 #                     AllgeneralPart-ListView
@@ -913,6 +929,8 @@ class AllGeneralPartRetUpdDelView(generics.RetrieveUpdateAPIView):
 
     serializer_class = AllGeneralPartCreateSerializer
     queryset = Part.objects.all()
+
+    lookup_field = "slug"
 
 
 @api_view(["GET"])

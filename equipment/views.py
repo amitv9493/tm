@@ -318,6 +318,8 @@ class SwabMasterRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     queryset = SwabMaster.objects.all()
     serializer_class = SwabMasterCreUpdSerializer
 
+    lookup_field = "slug"
+
 
 ###################################################################
 #              Warehouse-ListView
