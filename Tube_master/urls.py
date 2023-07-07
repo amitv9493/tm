@@ -22,10 +22,9 @@ from part.views import *
 from equipment.views import *
 from client.views import *
 from tube.views import *
-
 from tm_api.views import UnitListView as tmAPIUnitView
 
-
+handler404 = "project.views.my_custom_page_not_found_view"
 urlpatterns = (
     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
