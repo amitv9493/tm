@@ -296,7 +296,7 @@ class CalibrationOrificeViewPart(generics.ListAPIView):
         so = set()
 
         if cr_id:
-            for cr in CALIBRATION_STAND.objects.exclude(id=cr_id):
+            for cr in CALIBRATION_STAND.objects.exclude(slug=cr_id):
                 if cr.calibration_orifice_set:
                     so.add(cr.calibration_orifice_set.id)
 
@@ -919,6 +919,7 @@ class AllGeneralPartRetUpdDelView(generics.RetrieveUpdateAPIView):
 def warehouse_part_view(request):
     pagination_class = CustomPagination()
     print(request.query_params.get("pm_status"))
+
     serializer = WarehousePartSerializer(context={"request": request})
     part_data = serializer.get_general_part(None)
     supply_orifice_data = serializer.get_supply_orifice(None)

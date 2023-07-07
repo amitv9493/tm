@@ -302,10 +302,12 @@ class WarehousePartSerializer(serializers.Serializer):
         qs = Part.objects.all()
 
         if pm_status != "NONE":
-            print(pm_status)
             qs = qs.filter(pm_status=pm_status)
+
         if slug:
+            print("slug is not none")
             qs = qs.filter(location_for_warehouse__slug=slug)
+
         serializer = AllGeneralPartCreateSerializer(qs, many=True)
         return serializer.data
 
