@@ -1,21 +1,20 @@
 import logging
 from datetime import timedelta
 import os
-
-logger = logging.getLogger("django.db.backends")
-logger.setLevel(logging.DEBUG)
-logger.addHandler(logging.StreamHandler())
-
 from pathlib import Path
 import os
+import environ
 from django.contrib.messages import constants as messages
 
-DEBUG = os.environ.setdefault("debug", "False")
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = (BASE_DIR / "templates",)
 
 
+env = environ.Env()
+environ.Env.read_env()
+
+DEBUG = env("debug")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-g&$_)b9sp%z$!+&^%^g^wu(nlo28g25*n5fa)2p6uzs@kyt)1j"
 
