@@ -297,7 +297,7 @@ urlpatterns = (
         path("api/eq/bddlist/", BDDListView.as_view(), name="bddlistview"),
         path("api/eq/bddcreate/", BDDCreateView.as_view(), name="bddcreateview"),
         path(
-            "api/eq/bddretupddel/<int:pk>/",
+            "api/eq/bddretupddel/<slug:slug>/",
             BDDRetUpdDelView.as_view(),
             name="bddretupddelview",
         ),
