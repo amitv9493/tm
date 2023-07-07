@@ -3,19 +3,12 @@ from datetime import timedelta
 import os
 from pathlib import Path
 import os
-import environ
 from django.contrib.messages import constants as messages
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = (BASE_DIR / "templates",)
-
-
-env = environ.Env()
-environ.Env.read_env()
-
-DEBUG = env("debug")
-# SECURITY WARNING: keep the secret key used in production secret!
+DEBUG = False
 SECRET_KEY = "django-insecure-g&$_)b9sp%z$!+&^%^g^wu(nlo28g25*n5fa)2p6uzs@kyt)1j"
 
 # SECURITY WARNING: don't run with debug turned on in production!
