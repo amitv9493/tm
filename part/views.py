@@ -168,7 +168,7 @@ class BDDTubeSealRackViewPart(generics.ListAPIView):
         so = set()
 
         if bdd_id:
-            for bdd in BDD.objects.exclude(id=bdd_id):
+            for bdd in BDD.objects.exclude(slug=bdd_id):
                 if bdd.BDD_tube_seal_rack:
                     so.add(bdd.BDD_tube_seal_rack.id)
         else:
@@ -201,7 +201,7 @@ class SwabMasterTSRViewPart(generics.ListAPIView):
 
         swabmaster_id = set()
         if swab_id:
-            for swab in SwabMaster.objects.exclude(id=swab_id):
+            for swab in SwabMaster.objects.exclude(slug=swab_id):
                 if swab.Swab_Master_Tube_Seal_Rack:
                     swabmaster_id.add(swab.Swab_Master_Tube_Seal_Rack.id)
 
