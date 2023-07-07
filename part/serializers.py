@@ -297,124 +297,124 @@ class WarehousePartSerializer(serializers.Serializer):
 
     def get_general_part(self, obj):
         request = self.context.get("request")
-        id = request.query_params.get("id")
+        slug = request.query_params.get("slug")
         pm_status = str(request.query_params.get("pm_status")).upper()
         qs = Part.objects.all()
 
         if pm_status != "NONE":
             print(pm_status)
             qs = qs.filter(pm_status=pm_status)
-        if id:
-            qs = qs.filter(location_for_warehouse__slug=id)
+        if slug:
+            qs = qs.filter(location_for_warehouse__slug=slug)
         serializer = AllGeneralPartCreateSerializer(qs, many=True)
         return serializer.data
 
     def get_supply_orifice(self, obj):
         request = self.context.get("request")
-        id = request.query_params.get("id")
+        slug = request.query_params.get("slug")
         pm_status = str(request.query_params.get("pm_status")).upper()
         qs = Supply_orifice.objects.all()
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
-        if id:
-            qs = qs.filter(location_for_warehouse__slug=id)
+        if slug:
+            qs = qs.filter(location_for_warehouse__slug=slug)
 
         serializer = SupplyOrificeCreateSerializer(qs, many=True)
         return serializer.data
 
     def get_pressure_sensor(self, obj):
         request = self.context.get("request")
-        id = request.query_params.get("id")
+        slug = request.query_params.get("slug")
         pm_status = str(request.query_params.get("pm_status")).upper()
         qs = Pressure_sensor.objects.all()
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
-        if id:
-            qs = qs.filter(location_for_warehouse__slug=id)
+        if slug:
+            qs = qs.filter(location_for_warehouse__slug=slug)
 
         serializer = SupplyOrificeCreateSerializer(qs, many=True)
         return serializer.data
 
     def get_ttd_rack(self, obj):
         request = self.context.get("request")
-        id = request.query_params.get("id")
+        slug = request.query_params.get("slug")
         pm_status = str(request.query_params.get("pm_status")).upper()
         qs = TTD_tube_seal_rack.objects.all()
 
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
-        if id:
-            qs = qs.filter(location_for_warehouse__slug=id)
+        if slug:
+            qs = qs.filter(location_for_warehouse__slug=slug)
 
         serializer = TddTubesealrackCreateSerializer(qs, many=True)
         return serializer.data
 
     def get_bdd_rack(self, obj):
         request = self.context.get("request")
-        id = request.query_params.get("id")
+        slug = request.query_params.get("slug")
         pm_status = str(request.query_params.get("pm_status")).upper()
         qs = BDD_tube_seal_rack.objects.all()
 
         if pm_status != "NONE":
             print(pm_status)
             qs = qs.filter(pm_status=pm_status)
-        if id:
-            qs = qs.filter(location_for_warehouse__slug=id)
+        if slug:
+            qs = qs.filter(location_for_warehouse__slug=slug)
 
         serializer = BDDTubeSealRackSerializer(qs, many=True)
         return serializer.data
 
     def get_calibration_orifice(self, obj):
         request = self.context.get("request")
-        id = request.query_params.get("id")
+        slug = request.query_params.get("slug")
         pm_status = str(request.query_params.get("pm_status")).upper()
         qs = Calibration_orifice.objects.all()
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
-        if id:
-            qs = qs.filter(location_for_warehouse__slug=id)
+        if slug:
+            qs = qs.filter(location_for_warehouse__slug=slug)
 
         serializer = Calibration_orifice_serializer(qs, many=True)
         return serializer.data
 
     def get_swabmasterTSR(self, obj):
         request = self.context.get("request")
-        id = request.query_params.get("id")
+        slug = request.query_params.get("slug")
         pm_status = str(request.query_params.get("pm_status")).upper()
         qs = SwabMasterTSR.objects.all()
 
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
-        if id:
-            qs = qs.filter(location_for_warehouse__slug=id)
+        if slug:
+            qs = qs.filter(location_for_warehouse__slug=slug)
 
         serializer = SwabMasterTSRSerializer(qs, many=True)
         return serializer.data
 
     def get_devicehose(self, obj):
         request = self.context.get("request")
-        id = request.query_params.get("id")
+        slug = request.query_params.get("slug")
         pm_status = str(request.query_params.get("pm_status")).upper()
         qs = DeviceHose.objects.all()
 
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
-        if id:
-            qs = qs.filter(warehouse__slug=id)
+        if slug:
+            qs = qs.filter(warehouse__slug=slug)
 
         serializer = DeviceHoseSerializer(qs, many=True)
         return serializer.data
 
     def get_airhose(self, obj):
         request = self.context.get("request")
-        id = request.query_params.get("id")
+        slug = request.query_params.get("slug")
         pm_status = str(request.query_params.get("pm_status")).upper()
         qs = AirHose.objects.all()
 
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
-        if id:
-            qs = qs.filter(warehouse__slug=id)
+        if slug:
+            qs = qs.filter(warehouse__slug=slug)
 
         serializer = AirHoseSerializer(qs, many=True)
         return serializer.data
