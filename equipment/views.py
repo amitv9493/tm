@@ -184,6 +184,8 @@ class BDDRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
     queryset = BDD.objects.all()
     serializer_class = BDDCreateSerializer
 
+    lookup_field = "slug"
+
 
 ###################################################################
 #              CALIBRATION_STAND List-View
