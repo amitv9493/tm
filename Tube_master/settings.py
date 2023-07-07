@@ -10,7 +10,7 @@ from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
 
-
+DEBUG = os.environ.get("debug")
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = (BASE_DIR / "templates",)

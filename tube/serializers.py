@@ -538,15 +538,15 @@ class WarehouseEquipSerializer(serializers.Serializer):
 
     def get_ttd(self, obj):
         request = self.context.get("request")
-        id = request.query_params.get("id")
+        slug = request.query_params.get("slug")
         pm_status = str(request.query_params.get("pm_status")).upper()
         qs = TTD.objects.all()
         search = str(request.query_params.get("search"))
         date_str = request.GET.get("date")
         request.GET.get("date")
 
-        if id:
-            qs = qs.filter(location_for_warehouse__slug=id)
+        if slug:
+            qs = qs.filter(location_for_warehouse__slug=slug)
 
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
@@ -573,7 +573,7 @@ class WarehouseEquipSerializer(serializers.Serializer):
 
     def get_bdd(self, obj):
         request = self.context.get("request")
-        id = request.query_params.get("id")
+        slug = request.query_params.get("slug")
         pm_status = str(request.query_params.get("pm_status")).upper()
         qs = BDD.objects.all()
         search = str(request.query_params.get("search"))
@@ -589,8 +589,8 @@ class WarehouseEquipSerializer(serializers.Serializer):
             query |= Q(packaging__icontains=search)
             qs = qs.filter(query)
 
-        if id:
-            qs = qs.filter(location_for_warehouse__slug=id)
+        if slug:
+            qs = qs.filter(location_for_warehouse__slug=slug)
 
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
@@ -610,12 +610,12 @@ class WarehouseEquipSerializer(serializers.Serializer):
         request = self.context.get("request")
         pm_status = str(request.query_params.get("pm_status")).upper()
         qs = CALIBRATION_STAND.objects.all()
-        id = request.query_params.get("id")
+        slug = request.query_params.get("slug")
         search = str(request.query_params.get("search"))
         date_str = request.GET.get("date")
 
-        if id:
-            qs = qs.filter(location_for_warehouse__slug=id)
+        if slug:
+            qs = qs.filter(location_for_warehouse__slug=slug)
             print(qs)
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
@@ -647,7 +647,7 @@ class WarehouseEquipSerializer(serializers.Serializer):
         pm_status = str(request.query_params.get("pm_status")).upper()
 
         qs = SwabMaster.objects.all()
-        id = request.query_params.get("id")
+        slug = request.query_params.get("slug")
         search = str(request.query_params.get("search"))
         date_str = request.GET.get("date")
 
@@ -660,8 +660,8 @@ class WarehouseEquipSerializer(serializers.Serializer):
             query |= Q(asset_number__icontains=search)
             query |= Q(packaging__icontains=search)
             qs = qs.filter(query)
-        if id:
-            qs = qs.filter(location_for_warehouse__slug=id)
+        if slug:
+            qs = qs.filter(location_for_warehouse__slug=slug)
 
         if pm_status != "NONE":
             qs = qs.filter(pm_status=pm_status)
