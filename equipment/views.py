@@ -255,6 +255,7 @@ class CalibrationRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = CALIBRATION_STAND.objects.all()
     serializer_class = CalibrationCreUpdStandSerializer
+    lookup_field = "slug"
 
 
 ###################################################################

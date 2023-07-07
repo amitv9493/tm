@@ -312,7 +312,7 @@ urlpatterns = (
             name="calibrationcreate",
         ),
         path(
-            "api/eq/calibrationretupddel/<int:pk>/",
+            "api/eq/calibrationretupddel/<slug:slug>/",
             CalibrationRetUpdDelView.as_view(),
             name="calibrationretupddel",
         ),
