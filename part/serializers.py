@@ -9,6 +9,8 @@ from .models import *
 
 class SupplyOrificeSerializer(serializers.ModelSerializer):
     # location_for_warehouse = WarehouseLocationSerializer()
+    location_for_warehouse = serializers.StringRelatedField()
+
     class Meta:
         model = Supply_orifice
         fields = "__all__"
@@ -20,6 +22,8 @@ class SupplyOrificeSerializer(serializers.ModelSerializer):
 
 
 class PressureSensorSerializer(serializers.ModelSerializer):
+    location_for_warehouse = serializers.StringRelatedField()
+
     class Meta:
         model = Pressure_sensor
         fields = "__all__"
@@ -31,6 +35,8 @@ class PressureSensorSerializer(serializers.ModelSerializer):
 
 
 class TTDTubeSealRackSerializer(serializers.ModelSerializer):
+    location_for_warehouse = serializers.StringRelatedField()
+
     class Meta:
         model = TTD_tube_seal_rack
         fields = "__all__"
@@ -43,6 +49,8 @@ class TTDTubeSealRackSerializer(serializers.ModelSerializer):
 
 
 class BDDTubeSealRackSerializer(serializers.ModelSerializer):
+    location_for_warehouse = serializers.StringRelatedField()
+
     class Meta:
         model = BDD_tube_seal_rack
         fields = "__all__"
@@ -91,6 +99,8 @@ class AirHoseSerializer(serializers.ModelSerializer):
 
 
 class Calibration_orifice_serializer(serializers.ModelSerializer):
+    location_for_warehouse = serializers.StringRelatedField()
+
     class Meta:
         model = Calibration_orifice
         fields = "__all__"
@@ -246,6 +256,8 @@ class PressuresensorCreateSerializer(serializers.ModelSerializer):
 
 
 class SupplyOrificeListSerializer(serializers.ModelSerializer):
+    location_for_warehouse = serializers.StringRelatedField()
+
     class Meta:
         model = Supply_orifice
         fields = "__all__"
@@ -268,6 +280,8 @@ class SupplyOrificeCreateSerializer(serializers.ModelSerializer):
 
 
 class AllGeneralPartListSerializer(serializers.ModelSerializer):
+    location_for_warehouse = serializers.StringRelatedField()
+
     class Meta:
         model = Part
         fields = "__all__"
