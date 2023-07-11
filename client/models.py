@@ -49,7 +49,7 @@ class Client(models.Model):
         return self.official_name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.warehouse_name)
+        self.slug = slugify(self.official_name)
         print(self.slug)
         return super(Client, self).save(*args, **kwargs)
 
