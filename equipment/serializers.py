@@ -45,6 +45,10 @@ class TTDSerializers(serializers.ModelSerializer):
     pressure_sensor = serializers.StringRelatedField()
     TTD_tube_seal_rack = serializers.StringRelatedField()
 
+    status = serializers.SerializerMethodField()
+
+    project_ids = serializers.SerializerMethodField()
+
     class Meta:
         model = TTD
         # fields = "__all__"
@@ -66,8 +70,22 @@ class TTDSerializers(serializers.ModelSerializer):
             "frame",
             "image",
             "slug",
+            "status",
+            "project_ids",
         )
         # depth = 1
+
+    def get_status(self, obj):
+        ids = list(obj.ttd.all().values_list("id", flat=True))
+
+        if ids:
+            return 1
+        else:
+            return 0
+
+    def get_project_ids(self, obj):
+        ids = list(obj.ttd.all().values_list("id", flat=True))
+        return ids
 
 
 class TTDWithIDSerializer(serializers.ModelSerializer):
