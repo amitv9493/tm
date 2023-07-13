@@ -3,6 +3,8 @@ from .models import *
 from tube.models import *
 from part.models import *
 from rest_framework import serializers
+from datetime import datetime
+import pytz
 from django_countries import countries
 
 ##################################################################
@@ -76,16 +78,28 @@ class TTDSerializers(serializers.ModelSerializer):
         # depth = 1
 
     def get_status(self, obj):
-        ids = list(obj.ttd.all().values_list("id", flat=True))
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+        projects = obj.ttd.all()  # .values_list("id", flat=True))
+        if projects.count() > 0:
+            for project in projects:
+                if project.equipment_delivery_client > current_datetime:
+                    return 1
 
-        if ids:
-            return 1
         else:
             return 0
 
     def get_project_ids(self, obj):
-        ids = list(obj.ttd.all().values_list("id", flat=True))
-        return ids
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+        projects = obj.ttd.all()  # .values_list("id", flat=True))
+        if projects.count() > 0:
+            for project in projects:
+                print("for loop ran")
+                if project.equipment_delivery_client > current_datetime:
+                    print("I ran")
+                    return project.id
+
+        else:
+            return None
 
 
 class TTDWithIDSerializer(serializers.ModelSerializer):
@@ -102,10 +116,34 @@ class TTDWithIDSerializer(serializers.ModelSerializer):
 class BDDSerializer(serializers.ModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
     BDD_tube_seal_rack = serializers.StringRelatedField()
+    status = serializers.SerializerMethodField()
+    project_ids = serializers.SerializerMethodField()
 
     class Meta:
         model = BDD
         fields = "__all__"
+
+    def get_status(self, obj):
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+        projects = obj.bdd.all()  # .values_list("id", flat=True))
+        if projects.count() > 0:
+            for project in projects:
+                if project.equipment_delivery_client > current_datetime:
+                    return 1
+
+        else:
+            return 0
+
+    def get_project_ids(self, obj):
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+        projects = obj.bdd.all()  # .values_list("id", flat=True))
+        if projects.count() > 0:
+            for project in projects:
+                if project.equipment_delivery_client > current_datetime:
+                    return project.id
+
+        else:
+            return None
 
 
 ##################################################################
@@ -127,10 +165,34 @@ class BDDCreateSerializer(serializers.ModelSerializer):
 class CalibrationStandSerializer(serializers.ModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
     calibration_orifice_set = serializers.StringRelatedField()
+    status = serializers.SerializerMethodField()
+    project_ids = serializers.SerializerMethodField()
 
     class Meta:
         model = CALIBRATION_STAND
         fields = "__all__"
+
+    def get_status(self, obj):
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+        projects = obj.calibration_stand.all()  # .values_list("id", flat=True))
+        if projects.count() > 0:
+            for project in projects:
+                if project.equipment_delivery_client > current_datetime:
+                    return 1
+
+        else:
+            return 0
+
+    def get_project_ids(self, obj):
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+        projects = obj.calibration_stand.all()  # .values_list("id", flat=True))
+        if projects.count() > 0:
+            for project in projects:
+                if project.equipment_delivery_client > current_datetime:
+                    return project.id
+
+        else:
+            return None
 
 
 ##################################################################
@@ -152,10 +214,34 @@ class CalibrationCreUpdStandSerializer(serializers.ModelSerializer):
 class SwabMasterSerializer(serializers.ModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
     Swab_Master_Tube_Seal_Rack = serializers.StringRelatedField()
+    status = serializers.SerializerMethodField()
+    project_ids = serializers.SerializerMethodField()
 
     class Meta:
         model = SwabMaster
         fields = "__all__"
+
+    def get_status(self, obj):
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+        projects = obj.Swabmaster.all()  # .values_list("id", flat=True))
+        if projects.count() > 0:
+            for project in projects:
+                if project.equipment_delivery_client > current_datetime:
+                    return 1
+
+        else:
+            return 0
+
+    def get_project_ids(self, obj):
+        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+        projects = obj.Swabmaster.all()  # .values_list("id", flat=True))
+        if projects.count() > 0:
+            for project in projects:
+                if project.equipment_delivery_client > current_datetime:
+                    return project.id
+
+        else:
+            return None
 
 
 ##################################################################
