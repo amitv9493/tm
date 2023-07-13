@@ -95,9 +95,28 @@ class TTDSerializers(serializers.ModelSerializer):
 
 
 class TTDWithIDSerializer(serializers.ModelSerializer):
+    project_ids = serializers.SerializerMethodField()
+    status = serializers.SerializerMethodField()
+
     class Meta:
         model = TTD
         fields = "__all__"
+
+    def get_project_ids(self, obj):
+        current_datetime = datetime.now(
+            pytz.timezone("Asia/Kolkata")
+        ).date()  # .values_list("id", flat=True))
+        projects_id = list(
+            obj.ttd.all()
+            .filter(equipment_delivery_client__gt=current_datetime)
+            .values_list("id", flat=True)
+        )
+
+        return projects_id[0] if projects_id else None
+
+    def get_status(self, obj):
+        x = self.get_project_ids(obj)
+        return 1 if x else None
 
 
 ##################################################################
@@ -138,9 +157,28 @@ class BDDSerializer(serializers.ModelSerializer):
 
 
 class BDDCreateSerializer(serializers.ModelSerializer):
+    status = serializers.SerializerMethodField()
+    project_ids = serializers.SerializerMethodField()
+
     class Meta:
         model = BDD
         fields = "__all__"
+
+    def get_project_ids(self, obj):
+        current_datetime = datetime.now(
+            pytz.timezone("Asia/Kolkata")
+        ).date()  # .values_list("id", flat=True))
+        projects_id = list(
+            obj.bdd.all()
+            .filter(equipment_delivery_client__gt=current_datetime)
+            .values_list("id", flat=True)
+        )
+
+        return projects_id[0] if projects_id else None
+
+    def get_status(self, obj):
+        x = self.get_project_ids(obj)
+        return 1 if x else None
 
 
 ##################################################################
@@ -181,9 +219,28 @@ class CalibrationStandSerializer(serializers.ModelSerializer):
 
 
 class CalibrationCreUpdStandSerializer(serializers.ModelSerializer):
+    status = serializers.SerializerMethodField()
+    project_ids = serializers.SerializerMethodField()
+
     class Meta:
         model = CALIBRATION_STAND
         fields = "__all__"
+
+    def get_project_ids(self, obj):
+        current_datetime = datetime.now(
+            pytz.timezone("Asia/Kolkata")
+        ).date()  # .values_list("id", flat=True))
+        projects_id = list(
+            obj.calibration_stand.all()
+            .filter(equipment_delivery_client__gt=current_datetime)
+            .values_list("id", flat=True)
+        )
+
+        return projects_id[0] if projects_id else None
+
+    def get_status(self, obj):
+        x = self.get_project_ids(obj)
+        return 1 if x else None
 
 
 ##################################################################
@@ -224,9 +281,32 @@ class SwabMasterSerializer(serializers.ModelSerializer):
 
 
 class SwabMasterCreUpdSerializer(serializers.ModelSerializer):
+    status = serializers.SerializerMethodField()
+    project_ids = serializers.SerializerMethodField()
+
     class Meta:
         model = SwabMaster
         fields = "__all__"
+
+    class Meta:
+        model = SwabMaster
+        fields = "__all__"
+
+    def get_project_ids(self, obj):
+        current_datetime = datetime.now(
+            pytz.timezone("Asia/Kolkata")
+        ).date()  # .values_list("id", flat=True))
+        projects_id = list(
+            obj.Swabmaster.all()
+            .filter(equipment_delivery_client__gt=current_datetime)
+            .values_list("id", flat=True)
+        )
+
+        return projects_id[0] if projects_id else None
+
+    def get_status(self, obj):
+        x = self.get_project_ids(obj)
+        return 1 if x else None
 
 
 ##################################################################
