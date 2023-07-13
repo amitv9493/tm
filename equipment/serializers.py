@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.fields import empty
 from .models import *
 from tube.models import *
 from part.models import *
@@ -47,9 +48,8 @@ class TTDSerializers(serializers.ModelSerializer):
     pressure_sensor = serializers.StringRelatedField()
     TTD_tube_seal_rack = serializers.StringRelatedField()
 
-    status = serializers.SerializerMethodField()
-
     project_ids = serializers.SerializerMethodField()
+    status = serializers.SerializerMethodField()
 
     class Meta:
         model = TTD
@@ -77,29 +77,21 @@ class TTDSerializers(serializers.ModelSerializer):
         )
         # depth = 1
 
-    def get_status(self, obj):
-        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
-        projects = obj.ttd.all()  # .values_list("id", flat=True))
-        if projects.count() > 0:
-            for project in projects:
-                if project.equipment_delivery_client > current_datetime:
-                    return 1
-
-        else:
-            return 0
-
     def get_project_ids(self, obj):
-        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
-        projects = obj.ttd.all()  # .values_list("id", flat=True))
-        if projects.count() > 0:
-            for project in projects:
-                print("for loop ran")
-                if project.equipment_delivery_client > current_datetime:
-                    print("I ran")
-                    return project.id
+        current_datetime = datetime.now(
+            pytz.timezone("Asia/Kolkata")
+        ).date()  # .values_list("id", flat=True))
+        projects_id = list(
+            obj.ttd.all()
+            .filter(equipment_delivery_client__gt=current_datetime)
+            .values_list("id", flat=True)
+        )
 
-        else:
-            return None
+        return projects_id[0] if projects_id else None
+
+    def get_status(self, obj):
+        x = self.get_project_ids(obj)
+        return 1 if x else None
 
 
 class TTDWithIDSerializer(serializers.ModelSerializer):
@@ -123,27 +115,21 @@ class BDDSerializer(serializers.ModelSerializer):
         model = BDD
         fields = "__all__"
 
-    def get_status(self, obj):
-        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
-        projects = obj.bdd.all()  # .values_list("id", flat=True))
-        if projects.count() > 0:
-            for project in projects:
-                if project.equipment_delivery_client > current_datetime:
-                    return 1
-
-        else:
-            return 0
-
     def get_project_ids(self, obj):
-        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
-        projects = obj.bdd.all()  # .values_list("id", flat=True))
-        if projects.count() > 0:
-            for project in projects:
-                if project.equipment_delivery_client > current_datetime:
-                    return project.id
+        current_datetime = datetime.now(
+            pytz.timezone("Asia/Kolkata")
+        ).date()  # .values_list("id", flat=True))
+        projects_id = list(
+            obj.bdd.all()
+            .filter(equipment_delivery_client__gt=current_datetime)
+            .values_list("id", flat=True)
+        )
 
-        else:
-            return None
+        return projects_id[0] if projects_id else None
+
+    def get_status(self, obj):
+        x = self.get_project_ids(obj)
+        return 1 if x else None
 
 
 ##################################################################
@@ -172,27 +158,21 @@ class CalibrationStandSerializer(serializers.ModelSerializer):
         model = CALIBRATION_STAND
         fields = "__all__"
 
-    def get_status(self, obj):
-        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
-        projects = obj.calibration_stand.all()  # .values_list("id", flat=True))
-        if projects.count() > 0:
-            for project in projects:
-                if project.equipment_delivery_client > current_datetime:
-                    return 1
-
-        else:
-            return 0
-
     def get_project_ids(self, obj):
-        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
-        projects = obj.calibration_stand.all()  # .values_list("id", flat=True))
-        if projects.count() > 0:
-            for project in projects:
-                if project.equipment_delivery_client > current_datetime:
-                    return project.id
+        current_datetime = datetime.now(
+            pytz.timezone("Asia/Kolkata")
+        ).date()  # .values_list("id", flat=True))
+        projects_id = list(
+            obj.calibration_stand.all()
+            .filter(equipment_delivery_client__gt=current_datetime)
+            .values_list("id", flat=True)
+        )
 
-        else:
-            return None
+        return projects_id[0] if projects_id else None
+
+    def get_status(self, obj):
+        x = self.get_project_ids(obj)
+        return 1 if x else None
 
 
 ##################################################################
@@ -221,27 +201,21 @@ class SwabMasterSerializer(serializers.ModelSerializer):
         model = SwabMaster
         fields = "__all__"
 
-    def get_status(self, obj):
-        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
-        projects = obj.Swabmaster.all()  # .values_list("id", flat=True))
-        if projects.count() > 0:
-            for project in projects:
-                if project.equipment_delivery_client > current_datetime:
-                    return 1
-
-        else:
-            return 0
-
     def get_project_ids(self, obj):
-        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
-        projects = obj.Swabmaster.all()  # .values_list("id", flat=True))
-        if projects.count() > 0:
-            for project in projects:
-                if project.equipment_delivery_client > current_datetime:
-                    return project.id
+        current_datetime = datetime.now(
+            pytz.timezone("Asia/Kolkata")
+        ).date()  # .values_list("id", flat=True))
+        projects_id = list(
+            obj.Swabmaster.all()
+            .filter(equipment_delivery_client__gt=current_datetime)
+            .values_list("id", flat=True)
+        )
 
-        else:
-            return None
+        return projects_id[0] if projects_id else None
+
+    def get_status(self, obj):
+        x = self.get_project_ids(obj)
+        return 1 if x else None
 
 
 ##################################################################
