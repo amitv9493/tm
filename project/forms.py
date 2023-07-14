@@ -1,10 +1,9 @@
-
-
 from django import forms
 
 from equipment.models import BDD, CALIBRATION_STAND, TTD, SwabMaster
 from .models import Project
 from dal import autocomplete
+
 # class ProjectForm(forms.ModelForm):
 
 #     reactor = forms.ModelMultipleChoiceField(
@@ -17,24 +16,19 @@ from dal import autocomplete
 #             attrs={'data-placeholder': 'Search for reactor', 'data-width': '210px'},
 
 
-
-
 #         )
 #         )
 
 
-        #     model=Reactor,
-        #     queryset=Reactor.objects.all(),
-        #     search_fields=['reactor_name__icontains'],
-        #     dependent_fields = {'unit':'unit'},
-        #     attrs={'data-placeholder': 'Search for Reactor', 'data-width': '250px'},
-
-
-
-
+#     model=Reactor,
+#     queryset=Reactor.objects.all(),
+#     search_fields=['reactor_name__icontains'],
+#     dependent_fields = {'unit':'unit'},
+#     attrs={'data-placeholder': 'Search for Reactor', 'data-width': '250px'},
 
 
 class ProjectForm(forms.ModelForm):
+    # slug = forms.SlugField()
 
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)
@@ -42,18 +36,23 @@ class ProjectForm(forms.ModelForm):
         if self.instance.id and self.instance.swabmaster_equip:
             ids = []
 
-            for i in SwabMaster.objects.filter(Swabmaster__swabmaster_equip__isnull =True):
+            for i in SwabMaster.objects.filter(
+                Swabmaster__swabmaster_equip__isnull=True
+            ):
                 ids.append(i.id)
 
             for i in self.instance.swabmaster_equip.all():
                 ids.append(i.id)
 
-            self.fields["swabmaster_equip"].queryset = SwabMaster.objects.filter(id__in = ids) 
-        
+            self.fields["swabmaster_equip"].queryset = SwabMaster.objects.filter(
+                id__in=ids
+            )
+
         else:
             self.fields["swabmaster_equip"].queryset = SwabMaster.objects.filter(
-                Swabmaster__swabmaster_equip__isnull=True,)
-            
+                Swabmaster__swabmaster_equip__isnull=True,
+            )
+
         if self.instance.id and self.instance.ttd:
             ids = []
 
@@ -65,20 +64,20 @@ class ProjectForm(forms.ModelForm):
             print(len(ids))
             self.fields["ttd"].queryset = TTD.objects.filter(id__in=ids)
         else:
-            
             self.fields["ttd"].queryset = TTD.objects.filter(
-                ttd__ttd__isnull=True,)
+                ttd__ttd__isnull=True,
+            )
 
         if self.instance.id and self.instance.bdd:
             ids = []
-            
+
             for i in BDD.objects.filter(bdd__bdd__isnull=True):
                 ids.append(i.id)
-                
+
             for i in self.instance.bdd.all():
                 ids.append(i.id)
-                
-            self.fields["bdd"].queryset = BDD.objects.filter(id__in =ids)
+
+            self.fields["bdd"].queryset = BDD.objects.filter(id__in=ids)
 
         else:
             queryset_1 = BDD.objects.filter(bdd__bdd__isnull=True)
@@ -86,7 +85,7 @@ class ProjectForm(forms.ModelForm):
 
         if self.instance.id and self.instance.calibration_stand:
             ids = []
-            for i in  CALIBRATION_STAND.objects.filter(
+            for i in CALIBRATION_STAND.objects.filter(
                 calibration_stand__calibration_stand__isnull=True
             ):
                 ids.append(i.id)
@@ -94,7 +93,9 @@ class ProjectForm(forms.ModelForm):
             for i in self.instance.calibration_stand.all():
                 ids.append(i.id)
 
-            self.fields["calibration_stand"].queryset = CALIBRATION_STAND.objects.filter(id__in = ids)
+            self.fields[
+                "calibration_stand"
+            ].queryset = CALIBRATION_STAND.objects.filter(id__in=ids)
 
         else:
             queryset_1 = CALIBRATION_STAND.objects.filter(
@@ -112,19 +113,23 @@ class ProjectForm(forms.ModelForm):
 
         else:
             return cleaned_data
+
     # unit = forms.ModelChoiceField(queryset = Unit.objects.all(),required=False)
     # reactor = None
     class Meta:
         model = Project
-        fields = ('__all__')
+        fields = "__all__"
         widgets = {
-            
-            'reactor': autocomplete.ModelSelect2Multiple(url='reactor-autocomplete', forward=['client','unit'],attrs={'data-placeholder': 'Select Reactor'}),
-            'unit': autocomplete.ModelSelect2(url='unit-autocomplete', forward=['client'], attrs={'data=placeholder': 'Select unit'}),
+            "reactor": autocomplete.ModelSelect2Multiple(
+                url="reactor-autocomplete",
+                forward=["client", "unit"],
+                attrs={"data-placeholder": "Select Reactor"},
+            ),
+            "unit": autocomplete.ModelSelect2(
+                url="unit-autocomplete",
+                forward=["client"],
+                attrs={"data=placeholder": "Select unit"},
+            ),
             # "project_start":DatePickerInput(options={"format": "DD/MM/YYYY"}),
             # "project_end":DatePickerInput(options={"format": "DD/MM/YYYY"}, range_from='project_start'),
-
-
         }
-        
-    

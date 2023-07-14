@@ -3,11 +3,9 @@ import datetime
 from django.contrib.contenttypes.fields import GenericRelation
 from django.urls import reverse
 from comment.models import Comment
+from django.utils.text import slugify
 
-
-# import requests
-
-# from notifications.signals import notify
+from project.validators import slugFieldValidator
 
 
 class Scope_of_work(models.Model):
@@ -27,8 +25,9 @@ class ProjectStatus(models.Model):
 # Create your models here.
 class Project(models.Model):
     project_name = models.CharField(
-        null=True, blank=True, max_length=128, verbose_name="Project Name"
+        null=True, blank=True, max_length=128, verbose_name="Project Name", unique=True
     )
+    slug = models.SlugField(blank=True, null=True)
     client = models.ForeignKey(
         "client.Client",
         verbose_name="Client Name",
@@ -107,24 +106,31 @@ class Project(models.Model):
         blank=True,
         related_name="calibration_stand",
     )
-    
-    swabmaster_equip = models.ManyToManyField("equipment.SwabMaster", 
-                                        verbose_name=("Swab Master"), 
-                                        related_name='Swabmaster', 
-                                        blank=True)
-    
+
+    swabmaster_equip = models.ManyToManyField(
+        "equipment.SwabMaster",
+        verbose_name=("Swab Master"),
+        related_name="Swabmaster",
+        blank=True,
+    )
+
     # ====================PARTS==================================
-    part = models.ManyToManyField("part.Part", default="", blank=True, related_name='projects')
+    part = models.ManyToManyField(
+        "part.Part", default="", blank=True, related_name="projects"
+    )
     supply_orifice_part = models.ManyToManyField(
-        "part.Supply_orifice", default="", blank=True, verbose_name="Supply Orifice",
-        related_name='projects'
+        "part.Supply_orifice",
+        default="",
+        blank=True,
+        verbose_name="Supply Orifice",
+        related_name="projects",
     )
     pressure_sensor_part = models.ManyToManyField(
         "part.Pressure_sensor",
         default="",
         blank=True,
         verbose_name="Pressure Sensor",
-        related_name="projects"
+        related_name="projects",
     )
     # ttd_part = models.ManyToManyField("part.TTD_tube_seal_rack", default="", null=True,blank=True,verbose_name="TTD tube Seal Rack")
     # bdd_part = models.ManyToManyField("part.BDD_tube_seal_rack", default="", null=True,blank=True,verbose_name="BDD Tube Seal Rack")
@@ -133,32 +139,33 @@ class Project(models.Model):
         default="",
         blank=True,
         verbose_name="Calibration Orifice",
-        related_name="projects"
+        related_name="projects",
     )
     swabmaster_part = models.ManyToManyField(
-        "part.SwabMasterTSR", default="", blank=True, verbose_name="Swab Master TSR",
-        related_name='projects'
+        "part.SwabMasterTSR",
+        default="",
+        blank=True,
+        verbose_name="Swab Master TSR",
+        related_name="projects",
     )
     device_part = models.ManyToManyField(
-        "part.DeviceHose", default="", blank=True, verbose_name="Device Hose",
-        related_name="projects"
+        "part.DeviceHose",
+        default="",
+        blank=True,
+        verbose_name="Device Hose",
+        related_name="projects",
     )
     airhose_part = models.ManyToManyField(
-        "part.AirHose", default="", blank=True, verbose_name="Air Hose", related_name="projects"
+        "part.AirHose",
+        default="",
+        blank=True,
+        verbose_name="Air Hose",
+        related_name="projects",
     )
 
     comments = GenericRelation(Comment)
     # created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(null=True, blank=True, auto_now_add=True)
-
-    # class scope_of_work(models.TextChoices):
-    #   PD_TESTING='PD_TESTING',('PD_TESTING')
-    #   BD='BD',('BD')
-    #   TC='TC',('TC')
-    #   JAC='JAC',('JAC')
-    #   OLE='OLE',('OLE')
-    #   FULL_TURN_KEY='FULL_TURN_KEY',('FULL_TURN_KEY')
-    #   OTHER='OTHER',('OTHER')
 
     def get_absolute_url(self):
         return reverse("project-detail", kwargs={"pk": self.pk})
@@ -238,13 +245,6 @@ class Project(models.Model):
         else:
             return "-"
 
-    # def calibration_stands(self):
-    #     if self.calibration_stand:
-    #         return ",".join([str(i) for i in self.calibration_stand.all()])
-
-    #     else:
-    #         return "-"
-
     def calibration_orifice(self):
         if self.calibration_orifice_part:
             return ",".join([str(i) for i in self.calibration_orifice_part.all()])
@@ -280,31 +280,21 @@ class Project(models.Model):
         else:
             return "-"
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.project_name)
+        return super(Project, self).save(*args, **kwargs)
 
-# @receiver(post_save, sender=Project)
-# def Project_post_save_receiver(sender,instance,created, **kwargs):
-#   if created:
+    def clean_project_name(self):
+        value = self.project_name
+        try:
+            id = self.id
+        except:
+            id = None
 
-#     send_mail(
-#       'Confirmation Email',
-#       "Here is the message",
-#       settings.EMAIL_HOST_USER,
-#       [instance.created_by.email],
-#       fail_silently=True,
+        qs = Project.objects.all()
+        slugFieldValidator(value, qs, "Project Name", id)
 
-#     )
-#     print("email sent successfully")
-#   else:
-#     return
+    def clean(self):
+        super().clean()  # Call the parent's clean() method
 
-# @receiver(post_save, sender=Project)
-
-# def my_handler(sender, instance, created, **kwargs):
-#     notify.send(sender,
-#     recipient= instance.created_by,
-#     verb= instance.client,
-#     description = f"A new new project is created.",
-#     # timestamp = timezone.now()
-#     )
-
-# post_save.connect(my_handler, sender=Project)
+        self.clean_project_name()
