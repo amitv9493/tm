@@ -32,7 +32,7 @@ urlpatterns = (
         path("", front, name="front"),
         path("admin/", admin.site.urls),
         path("comment/", include("comment.urls")),
-        path("projectdetail/<int:pk>/", projectview, name="project-detail"),
+        path("projectdetail/<slug:slug>/", projectview, name="project-detail"),
         path(
             "reactor-autocomplete/",
             ReactorAutocomplete.as_view(),
@@ -220,21 +220,21 @@ urlpatterns = (
             name="createviewproject",
         ),
         path(
-            "api/alllist/project/<int:pk>/",
+            "api/alllist/project/<slug:slug>/",
             AallList_Id_Project.as_view(),
             name="alllistproject",
         ),
         path(
-            "api/get/project/<int:pk>/",
+            "api/get/project/<slug:slug>/",
             getlList_Id_Project.as_view(),
             name="getproject",
         ),
         path(
-            "api/update/project/<int:pk>/",
+            "api/update/project/<slug:slug>/",
             updateProject.as_view(),
         ),
         path(
-            "api/alllist/patchproject/<int:pk>/",
+            "api/alllist/patchproject/<slug:slug>/",
             AallList_Id_Patch_Project.as_view(),
             name="alllistproject",
         ),

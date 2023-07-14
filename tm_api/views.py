@@ -1259,7 +1259,8 @@ class AallList_Id_Project(generics.RetrieveUpdateDestroyAPIView):
 
     serializer_class = Add_Project_serializer
     queryset = Project.objects.all()
-
+    
+    lookup_field = "slug"
 
 ################################################################################
 #                           get 1 project with no depth View API Project
@@ -1273,11 +1274,13 @@ class getlList_Id_Project(generics.RetrieveAPIView):
     serializer_class = GET_Project_serializer
     queryset = Project.objects.all()
 
-
+    lookup_field = "slug"
+    
 class updateProject(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CreateProjectSerializer
     queryset = Project.objects.all()
-
+    
+    lookup_field = "slug"
 
 ################################################################################
 #                           UpddateAll View API Project
@@ -1290,3 +1293,5 @@ class AallList_Id_Patch_Project(generics.RetrieveUpdateAPIView):
 
     serializer_class = All_Project_Patch_serializer
     queryset = Project.objects.all()
+    
+    lookup_field = "slug"
