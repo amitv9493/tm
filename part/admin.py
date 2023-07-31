@@ -8,6 +8,8 @@ from part.models import Calibration_orifice
 import csv
 from django.http import HttpResponse
 
+from import_export.admin import ImportExportModelAdmin
+
 
 class ExportCsvMixin:
     def export_as_csv(self, request, queryset):
@@ -27,7 +29,7 @@ class ExportCsvMixin:
         export_as_csv.short_description = "Export Selected"
 
 
-class PartAdmin(admin.ModelAdmin, ExportCsvMixin):
+class PartAdmin(ImportExportModelAdmin):
     list_filter = ["part_name"]
     list_display = (
         "part_name",
