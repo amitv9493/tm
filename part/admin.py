@@ -102,7 +102,7 @@ admin.site.register(Part, PartAdmin)
 
 
 @admin.register(Supply_orifice)
-class Supply_orificeAdmin(admin.ModelAdmin):
+class Supply_orificeAdmin(ImportExportModelAdmin):
     radio_fields = {
         "dimension_unit": admin.HORIZONTAL,
         "weight_unit": admin.HORIZONTAL,
@@ -189,7 +189,7 @@ class Supply_orificeAdmin(admin.ModelAdmin):
 
 
 @admin.register(BDD_tube_seal_rack)
-class BDD_tube_seal_rackAdmin(admin.ModelAdmin):
+class BDD_tube_seal_rackAdmin(ImportExportModelAdmin):
     radio_fields = {
         "dimension_unit": admin.HORIZONTAL,
         "weight_unit": admin.HORIZONTAL,
@@ -267,7 +267,7 @@ class BDD_tube_seal_rackAdmin(admin.ModelAdmin):
 
 
 @admin.register(Pressure_sensor)
-class Pressure_sensorAdmin(admin.ModelAdmin):
+class Pressure_sensorAdmin(ImportExportModelAdmin):
     radio_fields = {
         "dimension_unit": admin.HORIZONTAL,
         "weight_unit": admin.HORIZONTAL,
@@ -296,7 +296,7 @@ class Pressure_sensorAdmin(admin.ModelAdmin):
         "serial_number",
         "range",
     ]
-    # class Pressure_sensorAdmin(admin.ModelAdmin):
+    # class Pressure_sensorAdmin(ImportExportModelAdmin):
 
     # def has_module_permission(self, request):
     #     return False
@@ -353,7 +353,7 @@ class Pressure_sensorAdmin(admin.ModelAdmin):
 
 
 @admin.register(TTD_tube_seal_rack)
-class TTD_tube_seal_rackAdmin(admin.ModelAdmin):
+class TTD_tube_seal_rackAdmin(ImportExportModelAdmin):
     radio_fields = {
         "dimension_unit": admin.HORIZONTAL,
         "weight_unit": admin.HORIZONTAL,
@@ -435,7 +435,7 @@ class TTD_tube_seal_rackAdmin(admin.ModelAdmin):
 
 
 @admin.register(Calibration_orifice)
-class Calibration_orificeAdmin(admin.ModelAdmin):
+class Calibration_orificeAdmin(ImportExportModelAdmin):
     radio_fields = {
         "dimension_unit": admin.HORIZONTAL,
         "weight_unit": admin.HORIZONTAL,
@@ -467,17 +467,17 @@ class Calibration_orificeAdmin(admin.ModelAdmin):
         "location_for_warehouse",
     ]
 
-    # class TTD_tube_seal_rackAdmin(admin.ModelAdmin):
+    # class TTD_tube_seal_rackAdmin(ImportExportModelAdmin):
 
     # def has_module_permission(self, request):
     #     return False
 
-    # class BDD_tube_seal_rackAdmin(admin.ModelAdmin):
+    # class BDD_tube_seal_rackAdmin(ImportExportModelAdmin):
 
     # def has_module_permission(self, request):
     #     return False
 
-    # class Calibration_orificeAdmin(admin.ModelAdmin):
+    # class Calibration_orificeAdmin(ImportExportModelAdmin):
 
     # def has_module_permission(self, request):
     #     return False
@@ -538,7 +538,7 @@ from .models import *
 
 
 @admin.register(SwabMasterTSR)
-class SwabMaster_TSRadmin(admin.ModelAdmin):
+class SwabMaster_TSRadmin(ImportExportModelAdmin):
     radio_fields = {
         "dimension_unit": admin.HORIZONTAL,
         "weight_unit": admin.HORIZONTAL,
@@ -618,7 +618,7 @@ class SwabMaster_TSRadmin(admin.ModelAdmin):
 
 
 @admin.register(DeviceHose)
-class DeviceHoseAdmin(admin.ModelAdmin):
+class DeviceHoseAdmin(ImportExportModelAdmin):
     radio_fields = {
         "dimension_unit": admin.HORIZONTAL,
         "weight_unit": admin.HORIZONTAL,
@@ -671,7 +671,7 @@ class DeviceHoseAdmin(admin.ModelAdmin):
 
 
 @admin.register(AirHose)
-class AirHosesAdmin(admin.ModelAdmin):
+class AirHosesAdmin(ImportExportModelAdmin):
     radio_fields = {
         "dimension_unit": admin.HORIZONTAL,
         "weight_unit": admin.HORIZONTAL,
