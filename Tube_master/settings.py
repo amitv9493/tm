@@ -8,7 +8,7 @@ from django.contrib.messages import constants as messages
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = (BASE_DIR / "templates",)
-DEBUG = True
+DEBUG = False
 SECRET_KEY = "django-insecure-g&$_)b9sp%z$!+&^%^g^wu(nlo28g25*n5fa)2p6uzs@kyt)1j"
 
 # SECURITY WARNING: don't run with debug turned on in production!

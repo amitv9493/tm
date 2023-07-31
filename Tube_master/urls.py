@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path
 from tube import views
 from django.conf import settings
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.conf.urls.i18n import i18n_patterns
@@ -29,8 +29,9 @@ urlpatterns = (
     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + [
-        path("", front, name="front"),
         path("admin/", admin.site.urls),
+        path("", front, name="front"),
+        #
         path("comment/", include("comment.urls")),
         path("projectdetail/<slug:slug>/", projectview, name="project-detail"),
         path(
@@ -547,6 +548,7 @@ urlpatterns = (
         # '''DASHBOARD ENDPOINTS'''
         ##########################################################################
         path("api/dashboard/", DashboardView.as_view()),
+        re_path(".*", front, name="front"),
     ]
 )
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))

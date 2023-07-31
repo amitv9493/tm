@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, HttpResponseRedirect
 from .models import Project
 from .serializers import DashboardSerializer
 from rest_framework import generics
@@ -37,4 +37,5 @@ class DashboardView(generics.ListAPIView):
 
 
 def my_custom_page_not_found_view(request, exception):
+    x = request.path
     return redirect("front")

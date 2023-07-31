@@ -444,6 +444,7 @@ class Add_Project_serializer(serializers.ModelSerializer):
         model = Project
         fields = (
             "id",
+            "slug",
             "project_name",
             "project_number",
             "equipment_prep",
