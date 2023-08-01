@@ -385,7 +385,7 @@ class DeviceHoseRListView(generics.ListAPIView):
             queryset = queryset.exclude(id__in=used_id)
 
         if warehouse:
-            queryset = queryset.filter(warehouse=warehouse)
+            queryset = queryset.filter(warehouse__slug=warehouse)
         return queryset
 
 
@@ -539,7 +539,7 @@ class CalibrationOrificeListView(generics.ListCreateAPIView):
             queryset = queryset.exclude(id__in=used_id)
 
         if warehouse:
-            queryset = queryset.filter(location_for_warehouse=warehouse)
+            queryset = queryset.filter(location_for_warehouse__slug=warehouse)
         return queryset
 
 
@@ -671,7 +671,7 @@ class TddTubesealrackList(generics.ListAPIView):
         queryset = TTD_tube_seal_rack.objects.all()
 
         if warehouse:
-            queryset = queryset.filter(location_for_warehouse=warehouse)
+            queryset = queryset.filter(location_for_warehouse__slug=warehouse)
         return queryset
 
 
@@ -903,7 +903,7 @@ class AllGeneralPartListView(generics.ListAPIView):
             queryset = queryset.exclude(id__in=used_id)
 
         if warehouse:
-            queryset = queryset.filter(location_for_warehouse=warehouse)
+            queryset = queryset.filter(location_for_warehouse__slug=warehouse)
         return queryset
 
 
