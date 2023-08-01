@@ -48,7 +48,7 @@ class TTDSerializers(serializers.ModelSerializer):
     pressure_sensor = serializers.StringRelatedField()
     TTD_tube_seal_rack = serializers.StringRelatedField()
 
-    project_ids = serializers.SerializerMethodField()
+    project_slug = serializers.SerializerMethodField()
     status = serializers.SerializerMethodField()
 
     class Meta:
@@ -73,24 +73,19 @@ class TTDSerializers(serializers.ModelSerializer):
             "image",
             "slug",
             "status",
-            "project_ids",
+            "project_slug",
         )
         # depth = 1
 
-    def get_project_ids(self, obj):
+    def get_project_slug(self, obj):
         current_datetime = datetime.now(
             pytz.timezone("Asia/Kolkata")
         ).date()  # .values_list("id", flat=True))
-        projects_id = list(
-            obj.ttd.all()
-            .filter(equipment_delivery_client__gt=current_datetime)
-            .values_list("id", flat=True)
-        )
-
-        return projects_id[0] if projects_id else None
+        projects = obj.ttd.all().filter(equipment_delivery_client__gt=current_datetime)
+        return projects[0].slug if projects else None
 
     def get_status(self, obj):
-        x = self.get_project_ids(obj)
+        x = self.get_project_slug(obj)
         return 1 if x else None
 
 
