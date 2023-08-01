@@ -329,11 +329,13 @@ class AirHoseCreateView(generics.ListCreateAPIView):
 #                     AirHose-RetUpdDelView
 #######################################################################
 
+from rest_framework.parsers import MultiPartParser, FormParser
+
 
 class AirHoseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [DjangoModelPermissions, IsAdminUser]
-    authentication_classes = [JWTAuthentication]
-
+    # permission_classes = [DjangoModelPermissions, IsAdminUser]
+    # authentication_classes = [JWTAuthentication]
+    parser_classes = [MultiPartParser, FormParser]
     serializer_class = AirHoseCreSerializer
     queryset = AirHose.objects.all()
 
