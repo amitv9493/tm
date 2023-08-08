@@ -425,6 +425,8 @@ class DeviceHoseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class SwabMasterTSRListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
+    queryset = SwabMasterTSR.objects.all()
+
     pagination_class = CustomPagination
     serializer_class = SwabMasterTSRSerializer
     filter_backends = [
@@ -445,25 +447,25 @@ class SwabMasterTSRListView(generics.ListAPIView):
     ]
 
     def get_queryset(self):
-        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+        # current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
         warehouse = self.request.query_params.get(
             "warehouse"
         )  # Get the warehouse ID from the request query parameters
-        queryset = SwabMasterTSR.objects.all()
         free = self.request.GET.get("free")
         if free:
-            used_id = set()
-            for i in Project.objects.all():
-                if i.equipment_delivery_client > current_datetime:
-                    if i.swabmaster_part:
-                        for j in i.swabmaster_part.all():
-                            used_id.add(j.id)
+            # used_id = set()
+            # for i in Project.objects.all():
+            #     if i.equipment_delivery_client > current_datetime:
+            #         if i.swabmaster_part:
+            #             for j in i.swabmaster_part.all():
+            #                 used_id.add(j.id)
 
-            queryset = queryset.exclude(id__in=used_id)
+            # queryset = queryset.exclude(id__in=used_id)
+            qs = qs.filter(swabmaster__isnull=True)
 
         if warehouse:
-            queryset = queryset.filter(location_for_warehouse=warehouse)
-        return queryset
+            qs = qs.filter(location_for_warehouse=warehouse)
+        return qs
 
 
 #######################################################################
@@ -712,6 +714,7 @@ class PressureSensorListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
+    queryset = Pressure_sensor.objects.all()
 
     serializer_class = PressuresensorListSerializer
     filter_backends = [
@@ -732,25 +735,25 @@ class PressureSensorListView(generics.ListAPIView):
     ]
 
     def get_queryset(self):
-        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
-        warehouse = self.request.query_params.get(
-            "warehouse"
-        )  # Get the warehouse ID from the request query parameters
-        queryset = Pressure_sensor.objects.all()
+        qs = super().get_queryset()
+
+        warehouse = self.request.query_params.get("warehouse")
         free = self.request.GET.get("free")
         if free:
-            used_id = set()
-            for i in Project.objects.all():
-                if i.equipment_delivery_client > current_datetime:
-                    if i.pressure_sensor_part:
-                        for j in i.pressure_sensor_part.all():
-                            used_id.add(j.id)
+            # used_id = set()
+            # for i in Project.objects.all():
+            #     if i.equipment_delivery_client > current_datetime:
+            #         if i.pressure_sensor_part:
+            #             for j in i.pressure_sensor_part.all():
+            #                 used_id.add(j.id)
 
-            queryset = queryset.exclude(id__in=used_id)
+            # queryset = queryset.exclude(id__in=used_id)
+            qs = qs.filter(TTD__isnull=True)
 
         if warehouse:
-            queryset = queryset.filter(location_for_warehouse=warehouse)
-        return queryset
+            qs = qs.filter(location_for_warehouse=warehouse)
+
+        return qs
 
 
 #######################################################################
@@ -788,6 +791,8 @@ class PressureSensorRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
 class SupplyOrificeListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
+    queryset = Supply_orifice.objects.all()
+
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     serializer_class = SupplyOrificeListSerializer
@@ -809,25 +814,25 @@ class SupplyOrificeListView(generics.ListAPIView):
     ]
 
     def get_queryset(self):
-        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
-        warehouse = self.request.query_params.get(
-            "warehouse"
-        )  # Get the warehouse ID from the request query parameters
-        queryset = Supply_orifice.objects.all()
+        qs = super().get_queryset()
+        # current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+        warehouse = self.request.query_params.get("warehouse")
         free = self.request.GET.get("free")
         if free:
-            used_id = set()
-            for i in Project.objects.all():
-                if i.equipment_delivery_client > current_datetime:
-                    if i.supply_orifice_part:
-                        for j in i.supply_orifice_part.all():
-                            used_id.add(j.id)
+            # used_id = set()
+            # for i in Project.objects.all():
+            #     if i.equipment_delivery_client > current_datetime:
+            #         if i.supply_orifice_part:
+            #             for j in i.supply_orifice_part.all():
+            #                 used_id.add(j.id)
 
-            queryset = queryset.exclude(id__in=used_id)
+            # queryset = queryset.exclude(id__in=used_id)
+            qs.filter(TTD__isnull=True)
 
         if warehouse:
-            queryset = queryset.filter(location_for_warehouse=warehouse)
-        return queryset
+            qs = qs.filter(location_for_warehouse=warehouse)
+
+        return qs
 
 
 #######################################################################

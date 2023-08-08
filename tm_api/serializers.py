@@ -539,10 +539,10 @@ class GET_Project_serializer(serializers.ModelSerializer):
     """parts"""
     # dont change below serializers
     part = AllGeneralPartListSerializer(many=True)  # dont change
-    supply_orifice_part = SupplyOrificeListSerializer(many=True)  # dont change
-    pressure_sensor_part = PressuresensorListSerializer(many=True)
+    # supply_orifice_part = SupplyOrificeListSerializer(many=True)  # dont change
+    # pressure_sensor_part = PressuresensorListSerializer(many=True)
     calibration_orifice_part = CalibratiobOrificeSerializer(many=True)
-    swabmaster_part = SwabMasterTSRSerializer(many=True)
+    # swabmaster_part = SwabMasterTSRSerializer(many=True)
     device_part = DeviceHoseListSerializer(many=True)
     airhose_part = AirHoseSerializerProject(many=True)
 
