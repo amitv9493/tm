@@ -10,11 +10,11 @@ from client.models import Unit
 
 # from client.forms import UnitModelForm
 
-# from .forms import ReactorForm, UnitForm
+from .forms import ReactorForm, UnitForm
 
 
 class UnitAdmin(admin.ModelAdmin):
-    # form = UnitForm
+    form = UnitForm
     # inlines = [
     #     LocaleTypeInline,
     # ]
@@ -58,7 +58,8 @@ admin.site.register(Unit, UnitAdmin)
 
 
 class ReactorAdmin(admin.ModelAdmin):
-    # form = ReactorForm
+    form = ReactorForm
+
     def ttd_id(self, obj):
         if obj.tube_id and obj.input_tubeid:
             return f"{obj.input_tubeid} {obj.tube_id}"
