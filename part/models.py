@@ -12,7 +12,7 @@ class Part(models.Model):
         max_length=128, blank=True, verbose_name="Abbreviation"
     )
     # alternate_name = models.CharField(max_length = 128,blank=True)
-    serial_number = models.CharField(max_length=128)
+    serial_number = models.CharField(max_length=128, unique=True)
     asset_number = models.CharField(max_length=128, blank=True)
 
     # part_image=models.ImageField(upload_to ='uploads/', null=True, blank=True)
@@ -121,7 +121,7 @@ class Part(models.Model):
 
 
 class Supply_orifice(models.Model):
-    serial_number = models.CharField(max_length=128)
+    serial_number = models.CharField(max_length=128, unique=True)
     size = models.CharField(max_length=128, blank=True)
     total_sets = models.CharField(max_length=128, blank=True)
     orifice_in_each_set = models.CharField(max_length=128, blank=True)
@@ -231,7 +231,7 @@ class Supply_orifice(models.Model):
 
 
 class Pressure_sensor(models.Model):
-    serial_number = models.CharField(max_length=128)
+    serial_number = models.CharField(max_length=128, unique=True)
     range = models.CharField(max_length=128, blank=True)
     quantity = models.CharField(max_length=128, blank=True)
     slug = models.SlugField(max_length=500, null=True, blank=True)
@@ -338,7 +338,7 @@ class Pressure_sensor(models.Model):
 
 
 class TTD_tube_seal_rack(models.Model):
-    serial_number = models.CharField(max_length=128)
+    serial_number = models.CharField(max_length=128, unique=True)
     slug = models.SlugField(max_length=500, null=True, blank=True)
     size = models.CharField(max_length=128, blank=True)
     qty_rack = models.CharField(max_length=128, blank=True)
@@ -446,7 +446,7 @@ class TTD_tube_seal_rack(models.Model):
 
 
 class BDD_tube_seal_rack(models.Model):
-    serial_number = models.CharField(max_length=128)
+    serial_number = models.CharField(max_length=128, unique=True)
     size = models.CharField(max_length=128, blank=True)
     slug = models.SlugField(max_length=500, null=True, blank=True)
     number_of_tubes = models.PositiveIntegerField(null=True, blank=True)
@@ -553,7 +553,7 @@ class BDD_tube_seal_rack(models.Model):
 
 
 class Calibration_orifice(models.Model):
-    serial_number = models.CharField(max_length=128)
+    serial_number = models.CharField(max_length=128, unique=True)
     size = models.CharField(max_length=128, blank=True)
     total_sets = models.CharField(max_length=128, blank=True)
     slug = models.SlugField(max_length=500, null=True, blank=True)
@@ -661,7 +661,7 @@ class Calibration_orifice(models.Model):
 
 
 class SwabMasterTSR(models.Model):
-    serial_number = models.CharField(max_length=128)
+    serial_number = models.CharField(max_length=128, unique=True)
     size = models.CharField(max_length=128, blank=True)
     qty_rack = models.CharField(max_length=128, blank=True)
     tube_seal_rack = models.CharField(max_length=128, blank=True)
@@ -768,7 +768,7 @@ class SwabMasterTSR(models.Model):
 
 
 class DeviceHose(models.Model):
-    serial_number = models.CharField(max_length=999)
+    serial_number = models.CharField(max_length=999, unique=True)
     length = models.DecimalField(
         max_digits=999, decimal_places=3, null=True, blank=True
     )
@@ -875,7 +875,7 @@ class DeviceHose(models.Model):
 
 
 class AirHose(models.Model):
-    serial_number = models.CharField(max_length=999)
+    serial_number = models.CharField(max_length=999, unique=True)
     colour_code = models.CharField(max_length=50, null=True, blank=True)
     slug = models.SlugField(max_length=500, null=True, blank=True)
     warehouse = models.ForeignKey(

@@ -11,23 +11,6 @@ from rest_framework.decorators import api_view
 from datetime import datetime
 import pytz
 from project.models import Project
-
-################################################################################
-#                UpddateAll View API Project/ SupplyOrificeViewPart
-################################################################################
-
-
-# class SupplyOrificeViewPart(generics.ListAPIView):
-#     permission_classes = [DjangoModelPermissions, IsAdminUser]
-#     authentication_classes= [ JWTAuthentication]
-
-#     serializer_class = SupplyOrificeSerializer
-#     queryset = Supply_orifice.objects.all()
-
-#     ttd = TTD_tube_seal_rack.objects.all()
-#     for a in ttd:
-#         ttd.exclude(id = queryset)
-#         retu
 from equipment.models import *
 
 
@@ -36,12 +19,7 @@ class SupplyOrificeViewPart(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     serializer_class = SupplyOrificeSerializer
     queryset = Supply_orifice.objects.all()
-    # def get_queryset(self):
-    #     so = set()
-    #     for ttd in TTD.objects.all():
-    #         so.add(ttd.supply_orifice_set.id)
-    #     so_qs = Supply_orifice.objects.exclude(id__in = so)
-    #     return so_qs
+
 
     def get_queryset(self):
         qs = super().get_queryset()
