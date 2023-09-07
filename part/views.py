@@ -447,6 +447,7 @@ class SwabMasterTSRListView(generics.ListAPIView):
     ]
 
     def get_queryset(self):
+        qs = super().get_queryset()
         # current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
         warehouse = self.request.query_params.get(
             "warehouse"
