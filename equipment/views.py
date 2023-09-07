@@ -95,8 +95,7 @@ class TTDCreateView(generics.ListCreateAPIView):
 
     queryset = TTD.objects.all()
     serializer_class = TTDWithIDSerializer
-
-
+    
 ##################################################################
 #       TTD RetrieveUpdateDelete-View
 ##################################################################

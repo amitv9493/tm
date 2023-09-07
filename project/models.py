@@ -36,7 +36,6 @@ class Project(models.Model):
         null=True,
         blank=True,
     )
-    # chemical=models.OneToOneField("client.Unit",verbose_name="Chemical Name",default="",on_delete=models.CASCADE,blank=True,null=True,related_name="Chemical Name+")
     unit = models.ForeignKey(
         "client.Unit",
         verbose_name="Unit Name",
@@ -49,7 +48,6 @@ class Project(models.Model):
     reactor = models.ManyToManyField(
         "client.Reactor", verbose_name="Reactor Name", blank=True
     )
-    # contact=models.ForeignKey(Contact,null=True,on_delete=models.SET_DEFAULT,default="",verbose_name="contact")
     project_number = models.IntegerField(
         default="1", blank=True, verbose_name="Project Number"
     )
@@ -118,22 +116,7 @@ class Project(models.Model):
     part = models.ManyToManyField(
         "part.Part", default="", blank=True, related_name="projects"
     )
-    # supply_orifice_part = models.ManyToManyField(
-    #     "part.Supply_orifice",
-    #     default="",
-    #     blank=True,
-    #     verbose_name="Supply Orifice",
-    #     related_name="projects",
-    # )
-    # pressure_sensor_part = models.ManyToManyField(
-    #     "part.Pressure_sensor",
-    #     default="",
-    #     blank=True,
-    #     verbose_name="Pressure Sensor",
-    #     related_name="projects",
-    # )
-    # ttd_part = models.ManyToManyField("part.TTD_tube_seal_rack", default="", null=True,blank=True,verbose_name="TTD tube Seal Rack")
-    # bdd_part = models.ManyToManyField("part.BDD_tube_seal_rack", default="", null=True,blank=True,verbose_name="BDD Tube Seal Rack")
+
     calibration_orifice_part = models.ManyToManyField(
         "part.Calibration_orifice",
         default="",
@@ -141,13 +124,7 @@ class Project(models.Model):
         verbose_name="Calibration Orifice",
         related_name="projects",
     )
-    # swabmaster_part = models.ManyToManyField(
-    #     "part.SwabMasterTSR",
-    #     default="",
-    #     blank=True,
-    #     verbose_name="Swab Master TSR",
-    #     related_name="projects",
-    # )
+
     device_part = models.ManyToManyField(
         "part.DeviceHose",
         default="",
@@ -229,35 +206,12 @@ class Project(models.Model):
         else:
             return "-"
 
-        # =======================================================
-
-        # def Supply_Orifice(self):
-        #     if self.supply_orifice_part:
-        #         return ",".join([str(i) for i in self.supply_orifice_part.all()])
-
-        #     else:
-        #         return "-"
-
-        # def Pressure_Sensor(self):
-        if self.pressure_sensor_part:
-            return ",".join([str(i) for i in self.pressure_sensor_part.all()])
-
-        else:
-            return "-"
-
     def calibration_orifice(self):
         if self.calibration_orifice_part:
             return ",".join([str(i) for i in self.calibration_orifice_part.all()])
 
         else:
             return "-"
-
-    # def swabmaster(self):
-    #     if self.swabmaster_part:
-    #         return ",".join([str(i) for i in self.swabmaster_part.all()])
-
-    #     else:
-    #         return "-"
 
     def device_Hose(self):
         if self.device_part:

@@ -29,7 +29,7 @@ urlpatterns = (
     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + [
-        path("admin", admin.site.urls),
+        path("admin/", admin.site.urls),
         path("", front, name="front"),
         #
         path("comment/", include("comment.urls")),
@@ -548,7 +548,7 @@ urlpatterns = (
         # '''DASHBOARD ENDPOINTS'''
         ##########################################################################
         path("api/dashboard/", DashboardView.as_view()),
-        re_path(".*", front, name="front"),
+        # re_path(".*", front, name="front"),
     ]
 )
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))

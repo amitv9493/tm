@@ -10,21 +10,6 @@ from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import *
 from .serializers import *
-from tm_api.paginator import CustomPagination
-
-# class ReactorAutocomplete(autocomplete.Select2QuerySetView):
-#     def get_queryset(self):
-#         # Don't forget to filter out results depending on the visitor !
-#         if not self.request.user.is_authenticated:
-#             return Reactor.objects.none()
-
-#         qs = Reactor.objects.all()
-
-#         if self.q:
-#             qs = qs.filter(name__istartswith=self.q)
-
-#         return qs
-# Create your views here.
 
 
 class ReactorAutocomplete(autocomplete.Select2QuerySetView):

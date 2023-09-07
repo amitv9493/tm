@@ -7,6 +7,7 @@ from rest_framework import serializers
 from datetime import datetime
 import pytz
 from django_countries import countries
+from project.validators import SerialValidator
 
 ##################################################################
 #       TTD Serializer
@@ -88,7 +89,6 @@ class TTDSerializers(serializers.ModelSerializer):
         x = self.get_project_slug(obj)
         return 1 if x else None
 
-
 class TTDWithIDSerializer(serializers.ModelSerializer):
     project_ids = serializers.SerializerMethodField()
     status = serializers.SerializerMethodField()
@@ -96,6 +96,7 @@ class TTDWithIDSerializer(serializers.ModelSerializer):
     class Meta:
         model = TTD
         fields = "__all__"
+        read_only_fields = ['slug']
 
     def get_project_ids(self, obj):
         current_datetime = datetime.now(
@@ -112,8 +113,17 @@ class TTDWithIDSerializer(serializers.ModelSerializer):
     def get_status(self, obj):
         x = self.get_project_ids(obj)
         return 1 if x else None
-
-
+    
+    
+    def create(self, validated_data):
+        SerialValidator(self, validated_data, "serial_number")
+        return super().create(validated_data)
+        
+    
+    def update(self, instance, validated_data):
+        
+        SerialValidator(self, validated_data, "serial_number", update=True)
+        return super().update(instance, validated_data)
 ##################################################################
 #       BDD Serializer
 ##################################################################
@@ -158,6 +168,7 @@ class BDDCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = BDD
         fields = "__all__"
+        read_only_fields = ['slug']
 
     def get_project_ids(self, obj):
         current_datetime = datetime.now(
@@ -175,7 +186,15 @@ class BDDCreateSerializer(serializers.ModelSerializer):
         x = self.get_project_ids(obj)
         return 1 if x else None
 
-
+    
+    def create(self, validated_data):
+        SerialValidator(self, validated_data, "serial_number")
+        return super().create(validated_data)
+    
+    def update(self, instance, validated_data):
+        SerialValidator(self, validated_data, "serial_number")
+        
+        return super().update(instance, validated_data)
 ##################################################################
 #       CALIBRATION_STAND Serializer
 ##################################################################
@@ -220,6 +239,7 @@ class CalibrationCreUpdStandSerializer(serializers.ModelSerializer):
     class Meta:
         model = CALIBRATION_STAND
         fields = "__all__"
+        read_only_fields = ['slug']
 
     def get_project_ids(self, obj):
         current_datetime = datetime.now(
@@ -237,7 +257,16 @@ class CalibrationCreUpdStandSerializer(serializers.ModelSerializer):
         x = self.get_project_ids(obj)
         return 1 if x else None
 
-
+    
+    def create(self, validated_data):
+        SerialValidator(self, validated_data, "serial_number")
+        
+        return super().create(validated_data)
+    
+    def update(self, instance, validated_data):
+        SerialValidator(self, validated_data, "serial_number")
+        
+        return super().update(instance, validated_data)
 ##################################################################
 #       SwabMaster Serializer
 ##################################################################
@@ -282,6 +311,7 @@ class SwabMasterCreUpdSerializer(serializers.ModelSerializer):
     class Meta:
         model = SwabMaster
         fields = "__all__"
+        read_only_fields = ['slug']
 
     class Meta:
         model = SwabMaster
@@ -303,6 +333,16 @@ class SwabMasterCreUpdSerializer(serializers.ModelSerializer):
         x = self.get_project_ids(obj)
         return 1 if x else None
 
+    
+    def create(self, validated_data):
+        SerialValidator(self, validated_data, "serial_number")
+        
+        return super().create(validated_data)
+    
+    def update(self, instance, validated_data):
+        SerialValidator(self, validated_data, "serial_number")
+        
+        return super().update(instance, validated_data)
 
 ##################################################################
 #       Warehouse Serializer
