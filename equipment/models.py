@@ -36,8 +36,8 @@ class TTD(models.Model):
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
         verbose_name="Location For Warehouse",
-        default="",
-        on_delete=models.CASCADE,
+        null=True, 
+        on_delete=models.SET_NULL,
         related_name="ttd",
     )
     location_for_storage = models.CharField(
@@ -71,8 +71,7 @@ class TTD(models.Model):
         verbose_name="Supply Orifice Set",
         blank=True,
         null=True,
-        on_delete=models.CASCADE,
-        default="",
+        on_delete=models.SET_NULL,
         related_name="TTD",
     )
     pressure_sensor = models.OneToOneField(
@@ -80,8 +79,7 @@ class TTD(models.Model):
         verbose_name="Pressure Sensor",
         blank=True,
         null=True,
-        on_delete=models.CASCADE,
-        default="",
+        on_delete=models.SET_NULL,
         related_name="TTD",
     )
     TTD_tube_seal_rack = models.OneToOneField(
@@ -89,8 +87,7 @@ class TTD(models.Model):
         verbose_name="TTD Tube Seal Rack",
         blank=True,
         null=True,
-        on_delete=models.CASCADE,
-        default="",
+        on_delete=models.SET_NULL,
         related_name="TTD",
     )
     frame = models.CharField(max_length=128, blank=True)
@@ -157,8 +154,7 @@ class BDD(models.Model):
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
         verbose_name="Location For Warehouse",
-        default="",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         related_name="bdd",
     )
@@ -192,7 +188,7 @@ class BDD(models.Model):
         verbose_name="BDD Tube Seal Rack",
         blank=True,
         null=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         default="",
         related_name="bdd",
     )
@@ -264,8 +260,8 @@ class CALIBRATION_STAND(models.Model):
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
         verbose_name="Location For Warehouse",
-        default="",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
         related_name="calibration_stand",
     )
     location_for_storage = models.CharField(
@@ -300,7 +296,7 @@ class CALIBRATION_STAND(models.Model):
         verbose_name="Calibration Orifice Set",
         blank=True,
         null=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         default="",
         related_name="calibration",
     )
@@ -348,8 +344,8 @@ class SwabMaster(models.Model):
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
         verbose_name="Location For Warehouse",
-        default="",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
         related_name="swabmaster",
     )
     location_for_storage = models.CharField(
@@ -404,7 +400,7 @@ class SwabMaster(models.Model):
         blank=True,
         null=True,
         verbose_name=("SwabMaster Tube Seal Rack"),
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name="swabmaster",
     )
     Generation_1 = models.CharField(

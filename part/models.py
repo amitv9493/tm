@@ -27,7 +27,7 @@ class Part(models.Model):
     )
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="part",
@@ -131,7 +131,7 @@ class Supply_orifice(models.Model):
         "tube.Warehouse",
         verbose_name="Location For Warehouse",
         default="",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="supply_orifice",
@@ -154,7 +154,6 @@ class Supply_orifice(models.Model):
     pm_status = models.CharField(
         max_length=20, choices=pm_status.choices, null=True, blank=True
     )
-    # location_for_warehouse=models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE, null=True, blank=True)
     location_for_storage = models.CharField(max_length=128, blank=True)
     packaging = models.CharField(max_length=128, blank=True)
     notes = models.TextField(blank=True, null=True)
@@ -239,8 +238,7 @@ class Pressure_sensor(models.Model):
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
         verbose_name="Location For Warehouse",
-        default="",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="pressure_sensor",
@@ -261,7 +259,6 @@ class Pressure_sensor(models.Model):
     pm_status = models.CharField(
         max_length=20, choices=pm_status.choices, null=True, blank=True
     )
-    # location_for_warehouse=models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE, null=True, blank=True)
     location_for_storage = models.CharField(max_length=128, blank=True)
     packaging = models.CharField(max_length=128, blank=True)
     notes = models.TextField(blank=True, null=True)
@@ -346,8 +343,7 @@ class TTD_tube_seal_rack(models.Model):
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
         verbose_name="Location For Warehouse",
-        default="",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="ttd_rack",
@@ -368,7 +364,6 @@ class TTD_tube_seal_rack(models.Model):
     pm_status = models.CharField(
         max_length=20, choices=pm_status.choices, null=True, blank=True
     )
-    # location_for_warehouse=models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE, null=True, blank=True)
     location_for_storage = models.CharField(max_length=128, blank=True)
     packaging = models.CharField(max_length=128, blank=True)
     notes = models.TextField(blank=True, null=True)
@@ -453,8 +448,7 @@ class BDD_tube_seal_rack(models.Model):
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
         verbose_name="Location For Warehouse",
-        default="",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="bdd_rack",
@@ -475,7 +469,6 @@ class BDD_tube_seal_rack(models.Model):
     pm_status = models.CharField(
         max_length=20, choices=pm_status.choices, null=True, blank=True
     )
-    # location_for_warehouse=models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE, null=True, blank=True)
     location_for_storage = models.CharField(max_length=128, blank=True)
     packaging = models.CharField(max_length=128, blank=True)
     notes = models.TextField(blank=True, null=True)
@@ -561,8 +554,7 @@ class Calibration_orifice(models.Model):
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
         verbose_name="Location For Warehouse",
-        default="",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="calibration_orifice",
@@ -583,7 +575,6 @@ class Calibration_orifice(models.Model):
     pm_status = models.CharField(
         max_length=20, choices=pm_status.choices, null=True, blank=True
     )
-    # location_for_warehouse=models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE, null=True, blank=True)
     location_for_storage = models.CharField(max_length=128, blank=True)
     packaging = models.CharField(max_length=128, blank=True)
     notes = models.TextField(blank=True, null=True)
@@ -669,8 +660,7 @@ class SwabMasterTSR(models.Model):
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
         verbose_name="Location For Warehouse",
-        default="",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="swabmasterTSR",
@@ -691,7 +681,6 @@ class SwabMasterTSR(models.Model):
     pm_status = models.CharField(
         max_length=20, choices=pm_status.choices, null=True, blank=True
     )
-    # location_for_warehouse=models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE, null=True, blank=True)
     location_for_storage = models.CharField(max_length=128, blank=True)
     packaging = models.CharField(max_length=128, blank=True)
     notes = models.TextField(blank=True, null=True)
@@ -776,7 +765,7 @@ class DeviceHose(models.Model):
     colour_code = models.CharField(max_length=50, null=True, blank=True)
     warehouse = models.ForeignKey(
         "tube.Warehouse",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="devicehose",
@@ -797,7 +786,6 @@ class DeviceHose(models.Model):
     pm_status = models.CharField(
         max_length=20, choices=pm_status.choices, null=True, blank=True
     )
-    # location_for_warehouse=models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE, null=True, blank=True)
     location_for_storage = models.CharField(max_length=128, blank=True)
     packaging = models.CharField(max_length=128, blank=True)
     notes = models.TextField(blank=True, null=True)
@@ -880,7 +868,7 @@ class AirHose(models.Model):
     slug = models.SlugField(max_length=500, null=True, blank=True)
     warehouse = models.ForeignKey(
         "tube.Warehouse",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="airhose",
@@ -901,7 +889,6 @@ class AirHose(models.Model):
     pm_status = models.CharField(
         max_length=20, choices=pm_status.choices, null=True, blank=True
     )
-    # location_for_warehouse=models.ForeignKey("tube.Warehouse", on_delete=models.CASCADE, null=True, blank=True)
     location_for_storage = models.CharField(max_length=128, blank=True)
     packaging = models.CharField(max_length=128, blank=True)
     notes = models.TextField(blank=True, null=True)

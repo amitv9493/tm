@@ -1,7 +1,6 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.validators import MaxLengthValidator
-from smart_selects.db_fields import GroupedForeignKey
 from django_countries.fields import CountryField
 from project.validators import slugFieldValidator
 from django.utils.text import slugify
@@ -23,7 +22,6 @@ class Address(models.Model):
 
 CHOICES_TOP_DOME_REMOVABLE = ((True, ("yes")), (False, ("No")))
 
-from django.db.models import Q, F
 
 
 class Client(models.Model):
@@ -50,7 +48,6 @@ class Client(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.official_name)
-        print(self.slug)
         return super(Client, self).save(*args, **kwargs)
 
     def clean_official_name(self):
@@ -190,7 +187,7 @@ class Reactor(models.Model):
 
     unit = models.ForeignKey(
         Unit,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="reactorunit+",
