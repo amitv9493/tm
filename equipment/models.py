@@ -92,7 +92,7 @@ class TTD(models.Model):
     )
     frame = models.CharField(max_length=128, blank=True)
     image = models.ImageField(upload_to="uploads/ttd/", default="", blank=True)
-    slug = models.SlugField(max_length=500)
+    slug = models.SlugField(max_length=500, null=True, blank=True)
 
     class Meta:
         verbose_name = "TTD"
@@ -194,7 +194,7 @@ class BDD(models.Model):
     )
     frame = models.CharField(max_length=128, blank=True)
     image = models.ImageField(upload_to="uploads/bdd/", default="", blank=True)
-    slug = models.SlugField(max_length=500)
+    slug = models.SlugField(max_length=500, null=True, blank=True)
 
     def __str__(self):
         return (
@@ -302,7 +302,7 @@ class CALIBRATION_STAND(models.Model):
     )
     frame = models.CharField(max_length=128, blank=True)
     image = models.ImageField(upload_to="uploads/cal_stand/", default="", blank=True)
-    slug = models.SlugField(max_length=500)
+    slug = models.SlugField(max_length=500, null=True, blank=True)
 
     def __str__(self):
         return (
@@ -373,7 +373,7 @@ class SwabMaster(models.Model):
         max_length=128, blank=True, null=True, verbose_name="Alternate Name"
     )
     serial_number = models.CharField(
-        max_length=128,verbose_name="Serial Number"
+        max_length=128, blank=True, null=True, verbose_name="Serial Number"
     )
     asset_number = models.CharField(
         max_length=128, blank=True, null=True, verbose_name="Asset Number"
@@ -409,7 +409,7 @@ class SwabMaster(models.Model):
     Generation_2 = models.CharField(
         choices=is_this_part_of_set.choices, max_length=3, null=True, blank=True
     )
-    slug = models.SlugField(max_length=500)
+    slug = models.SlugField(max_length=500, null=True, blank=True)
 
     def __str__(self):
         return f"{self.serial_number} {self.pm_status}"

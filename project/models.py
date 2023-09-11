@@ -4,11 +4,12 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.urls import reverse
 from comment.models import Comment
 from django.utils.text import slugify
+
 from project.validators import slugFieldValidator
 
 
 class Scope_of_work(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, default="")
 
     def __str__(self):
         return self.name
@@ -23,8 +24,10 @@ class ProjectStatus(models.Model):
 
 # Create your models here.
 class Project(models.Model):
-    project_name = models.CharField(max_length=128, verbose_name="Project Name", unique=True)
-    slug = models.SlugField()
+    project_name = models.CharField(
+        null=True, blank=True, max_length=128, verbose_name="Project Name", unique=True
+    )
+    slug = models.SlugField(blank=True, null=True)
     client = models.ForeignKey(
         "client.Client",
         verbose_name="Client Name",
