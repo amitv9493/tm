@@ -8,13 +8,12 @@ from django.utils.text import slugify
 class Warehouse(models.Model):
     warehouse_name = models.CharField(
         max_length=128,
-        blank=True,
     )
     warehouse_location = models.CharField(max_length=128, blank=True)
     warehouse_contact = models.CharField(max_length=128, blank=True)
     warehouse_email = models.EmailField(max_length=128, blank=True)
     warehouse_manager = models.CharField(max_length=128, blank=True)
-    slug = models.SlugField(max_length=500, null=True, blank=True)
+    slug = models.SlugField(max_length=500)
     # warehouse_equipments=models.ManyToManyField("Equipment",related_name="warehouse_equipments",default="")
     # warehouse_parts=models.ManyToManyField("Part",related_name="warehouse_parts",default="")
     date_created = models.DateField(auto_now_add=True, null=True, blank=True)
@@ -30,7 +29,11 @@ class Warehouse(models.Model):
 
     def clean_warehouse_name(self):
         value = self.warehouse_name
-        id = self.id
+        try:
+            id = self.id
+        except:
+            id = None
+            
         qs = Warehouse.objects.all()
         slugFieldValidator(value, qs, id)
 

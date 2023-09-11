@@ -597,34 +597,3 @@ class Reactor(models.Model):
     spring_drawing = models.FileField(
         upload_to="spring_drawing/", null=True, blank=True
     )
-
-
-# class DropdownModel(models.Model):
-
-#     CHOICES = (
-#         ('Today', 'Today'),
-#         ('Yesterday', 'Yesterday'),
-#         ('Last 7 Days', 'Last 7 Days'),
-#         ('Last 14 Days', 'Last 14 Days'),
-#         ('Last 30 Days', 'Last 30 Days'),
-#         ('Last 60 Days', 'Last 60 Days'),
-#         ('Last 90 Days', 'Last 90 Days'),
-#         ('This Year', 'This Year'),
-#         ('All Time', 'All Time'),
-#         ('Custom', 'Custom')
-#     )
-
-#     date_range = models.CharField(max_length=15)
-#     start_date = models.DateField()
-#     end_date = models.DateField()
-
-
-# class CategoryField(models.Model):
-
-#     class SELECT_FIELD_CHOICES(models.TextChoices):
-#       value1='value1',('value1')
-#       value2='value2',('value2')
-#       value3='value3',('value3')
-
-#     selectfield = models.IntegerField(choices=SELECT_FIELD_CHOICES.choices, default=1)
-#     verified = models.BooleanField(default=True, verbose_name='Required?')

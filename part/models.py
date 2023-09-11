@@ -6,17 +6,12 @@ from django.utils.text import slugify
 
 class Part(models.Model):
     part_name = models.CharField(max_length=128, blank=True)
-    # part_no = models.CharField(max_length=128,blank=True)
-    # part_function = models.CharField(max_length=128,blank=True)
     name_of_abbreviation = models.CharField(
         max_length=128, blank=True, verbose_name="Abbreviation"
     )
-    # alternate_name = models.CharField(max_length = 128,blank=True)
     serial_number = models.CharField(max_length=128, unique=True)
     asset_number = models.CharField(max_length=128, blank=True)
 
-    # part_image=models.ImageField(upload_to ='uploads/', null=True, blank=True)
-    # part_image= models.FileField(upload_to="uploads/", null=True, blank=True)
     class pm_status(models.TextChoices):
         RED = "RED", ("RED")
         BLUE = "BLUE", ("BLUE")
@@ -126,7 +121,7 @@ class Supply_orifice(models.Model):
     total_sets = models.CharField(max_length=128, blank=True)
     orifice_in_each_set = models.CharField(max_length=128, blank=True)
     storage_case = models.CharField(max_length=128, blank=True)
-    slug = models.SlugField(max_length=500, null=True, blank=True)
+    slug = models.SlugField(max_length=500)
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
         verbose_name="Location For Warehouse",
@@ -233,7 +228,7 @@ class Pressure_sensor(models.Model):
     serial_number = models.CharField(max_length=128, unique=True)
     range = models.CharField(max_length=128, blank=True)
     quantity = models.CharField(max_length=128, blank=True)
-    slug = models.SlugField(max_length=500, null=True, blank=True)
+    slug = models.SlugField(max_length=500)
 
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
@@ -336,7 +331,7 @@ class Pressure_sensor(models.Model):
 
 class TTD_tube_seal_rack(models.Model):
     serial_number = models.CharField(max_length=128, unique=True)
-    slug = models.SlugField(max_length=500, null=True, blank=True)
+    slug = models.SlugField(max_length=500)
     size = models.CharField(max_length=128, blank=True)
     qty_rack = models.CharField(max_length=128, blank=True)
     tube_seal_rack = models.CharField(max_length=128, blank=True)
@@ -443,7 +438,7 @@ class TTD_tube_seal_rack(models.Model):
 class BDD_tube_seal_rack(models.Model):
     serial_number = models.CharField(max_length=128, unique=True)
     size = models.CharField(max_length=128, blank=True)
-    slug = models.SlugField(max_length=500, null=True, blank=True)
+    slug = models.SlugField(max_length=500)
     number_of_tubes = models.PositiveIntegerField(null=True, blank=True)
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
@@ -549,7 +544,7 @@ class Calibration_orifice(models.Model):
     serial_number = models.CharField(max_length=128, unique=True)
     size = models.CharField(max_length=128, blank=True)
     total_sets = models.CharField(max_length=128, blank=True)
-    slug = models.SlugField(max_length=500, null=True, blank=True)
+    slug = models.SlugField(max_length=500)
     in_sets = models.CharField(max_length=128, blank=True)
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
@@ -656,7 +651,7 @@ class SwabMasterTSR(models.Model):
     size = models.CharField(max_length=128, blank=True)
     qty_rack = models.CharField(max_length=128, blank=True)
     tube_seal_rack = models.CharField(max_length=128, blank=True)
-    slug = models.SlugField(max_length=500, null=True, blank=True)
+    slug = models.SlugField(max_length=500)
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
         verbose_name="Location For Warehouse",
@@ -761,7 +756,7 @@ class DeviceHose(models.Model):
     length = models.DecimalField(
         max_digits=999, decimal_places=3, null=True, blank=True
     )
-    slug = models.SlugField(max_length=500, null=True, blank=True)
+    slug = models.SlugField(max_length=500)
     colour_code = models.CharField(max_length=50, null=True, blank=True)
     warehouse = models.ForeignKey(
         "tube.Warehouse",
@@ -865,7 +860,7 @@ class DeviceHose(models.Model):
 class AirHose(models.Model):
     serial_number = models.CharField(max_length=999, unique=True)
     colour_code = models.CharField(max_length=50, null=True, blank=True)
-    slug = models.SlugField(max_length=500, null=True, blank=True)
+    slug = models.SlugField(max_length=500)
     warehouse = models.ForeignKey(
         "tube.Warehouse",
         on_delete=models.SET_NULL,
