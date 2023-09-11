@@ -98,8 +98,7 @@ class TtdSerializer(serializers.ModelSerializer):
         super().__init__(*args, **kwargs)
 
         view_name = self.context.get("view").__class__.__name__
-        print(view_name)
-        print((self.fields["location_for_warehouse"].Meta.fields))
+        # print((self.fields["location_for_warehouse"].Meta.fields))
 
         if view_name == "TTDNewView":
             print("new endpoint")
@@ -484,7 +483,9 @@ class Add_Project_serializer(serializers.ModelSerializer):
     # def to_representation(self, instance):
     #     return model_to_dict(instance)
 
-
+    def validate(self, data):
+        SerialValidator(self, data, "project_name")
+        return super().validate(data)
 """################################################################################
 #            GET_Project_serializer Serializer
 ################################################################################"""
@@ -527,6 +528,9 @@ class CreateProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = "__all__"
 
+    def validate(self, data):
+        SerialValidator(self, data, "project_nmae")
+        return super().validate(data)
 
 class GET_Project_serializer(serializers.ModelSerializer):
     """equipments"""

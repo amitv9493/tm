@@ -115,15 +115,9 @@ class TTDWithIDSerializer(serializers.ModelSerializer):
         return 1 if x else None
     
     
-    def create(self, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        return super().create(validated_data)
-        
-    
-    def update(self, instance, validated_data):
-        
-        SerialValidator(self, validated_data, "serial_number", update=True)
-        return super().update(instance, validated_data)
+    def validate(self, data):
+        SerialValidator(self, data, "serial_number")
+        return super().validate(data)
 ##################################################################
 #       BDD Serializer
 ##################################################################
@@ -186,15 +180,10 @@ class BDDCreateSerializer(serializers.ModelSerializer):
         x = self.get_project_ids(obj)
         return 1 if x else None
 
-    
-    def create(self, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        return super().create(validated_data)
-    
-    def update(self, instance, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().update(instance, validated_data)
+
+    def validate(self, data):
+        SerialValidator(self, data, "serial_number")
+        return super().validate(data)
 ##################################################################
 #       CALIBRATION_STAND Serializer
 ##################################################################
@@ -257,16 +246,10 @@ class CalibrationCreUpdStandSerializer(serializers.ModelSerializer):
         x = self.get_project_ids(obj)
         return 1 if x else None
 
-    
-    def create(self, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().create(validated_data)
-    
-    def update(self, instance, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().update(instance, validated_data)
+
+    def validate(self, data):
+        SerialValidator(self, data, "serial_number")
+        return super().validate(data)
 ##################################################################
 #       SwabMaster Serializer
 ##################################################################
@@ -333,16 +316,11 @@ class SwabMasterCreUpdSerializer(serializers.ModelSerializer):
         x = self.get_project_ids(obj)
         return 1 if x else None
 
-    
-    def create(self, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
+
+    def validate(self, data):
+        SerialValidator(self, data, "serial_number")
         
-        return super().create(validated_data)
-    
-    def update(self, instance, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().update(instance, validated_data)
+        return super().validate(data)
 
 ##################################################################
 #       Warehouse Serializer

@@ -118,17 +118,9 @@ class AirHoseCreSerializer(serializers.ModelSerializer):
         model = AirHose
         fields = "__all__"
 
-    
-    def create(self, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().create(validated_data)
-    
-    def update(self, instance, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().update(instance, validated_data)
-
+    def validate(self, data):
+        SerialValidator(self, data, "serial_number")
+        return super().validate(data)
 ################################################################################
 #                DeviseHose Serializer
 ################################################################################
@@ -152,16 +144,10 @@ class DeviceHoseCreateSerializer(serializers.ModelSerializer):
         model = DeviceHose
         fields = "__all__"
 
-    
-    def create(self, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
+    def validate(self, data):
+        SerialValidator(self, data, "serial_number")
+        return super().validate(data)
         
-        return super().create(validated_data)
-    
-    def update(self, instance, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().update(instance, validated_data)
 ################################################################################
 #                Swabmastertsr Serializer
 ################################################################################
@@ -172,16 +158,11 @@ class SwabMasterTSRCreateSerializer(serializers.ModelSerializer):
         model = SwabMasterTSR
         fields = "__all__"
 
-    
-    def create(self, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
+
+    def validate(self, data):
+        SerialValidator(self, data, "serial_number")
         
-        return super().create(validated_data)
-    
-    def update(self, instance, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().update(instance, validated_data)
+        return super().validate(data)
 
 ################################################################################
 #                CalibrationOrifice Serializer
@@ -195,7 +176,9 @@ class CalibratiobOrificeSerializer(serializers.ModelSerializer):
         model = Calibration_orifice
         fields = "__all__"
 
-
+    def validate(self, data):
+        SerialValidator(self, data, "serial_number")
+        return super().validate(data)
 ################################################################################
 #                CalibrationOrificeCreate Serializer
 ################################################################################
@@ -205,18 +188,10 @@ class CalibratiobOrificeCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Calibration_orifice
         fields = "__all__"
-        
-    
-    def create(self, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().create(validated_data)
-    
-    def update(self, instance, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().update(instance, validated_data)
 
+    def validate(self, data):
+        SerialValidator(self, data, "serial_number")
+        return super().validate(data)
 
 ################################################################################
 #                BddTubesealrackList Serializer
@@ -241,16 +216,9 @@ class BddTubesealrackCreateSerializer(serializers.ModelSerializer):
         model = BDD_tube_seal_rack
         fields = "__all__"
 
-    
-    def create(self, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().create(validated_data)
-    
-    def update(self, instance, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().update(instance, validated_data)
+    def validate(self, data):
+        SerialValidator(self, data, "serial_number")
+        return super().validate(data)
 ################################################################################
 #                TddTubesealrackList Serializer
 ################################################################################
@@ -274,17 +242,11 @@ class TddTubesealrackCreateSerializer(serializers.ModelSerializer):
         model = TTD_tube_seal_rack
         fields = "__all__"
 
-    
-    def create(self, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().create(validated_data)
-    
-    def update(self, instance, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().update(instance, validated_data)
 
+    def validate(self, data):
+        SerialValidator(self, data, "serial_number")
+
+        return super().validate(data)
 
 ################################################################################
 #                PressuresensorList Serializer
@@ -308,17 +270,11 @@ class PressuresensorCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pressure_sensor
         fields = "__all__"
-    
-    def create(self, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().create(validated_data)
-    
-    def update(self, instance, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().update(instance, validated_data)
 
+    def validate(self, data):
+        SerialValidator(self, data, "serial_number")
+        
+        return super().validate(data)
 ################################################################################
 #                SupplyOrificeList Serializer
 ################################################################################
@@ -341,17 +297,10 @@ class SupplyOrificeCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Supply_orifice
         fields = "__all__"
-    
-    def create(self, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().create(validated_data)
-    
-    def update(self, instance, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().update(instance, validated_data)
 
+    def validate(self, data):
+        SerialValidator(self, data, "serial_number")
+        return super().validate(data)
 ################################################################################
 #                AllGeneralPartList Serializer
 ################################################################################
@@ -375,15 +324,10 @@ class AllGeneralPartCreateSerializer(serializers.ModelSerializer):
         model = Part
         fields = "__all__"
 
-    def create(self, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
+    def validate(self, data):
+        SerialValidator(self, data, "part_name")
+        return super().validate(data)
         
-        return super().create(validated_data)
-    
-    def update(self, instance, validated_data):
-        SerialValidator(self, validated_data, "serial_number")
-        
-        return super().update(instance, validated_data)
     
 class WarehousePartSerializer(serializers.Serializer):
     general_part = serializers.SerializerMethodField()
