@@ -28,7 +28,6 @@ class Client(models.Model):
     official_name = models.CharField(
         max_length=128,
         verbose_name="Client Name",
-        blank=True,
         unique=True,
     )
     comman_name = models.CharField(
@@ -41,7 +40,7 @@ class Client(models.Model):
         max_length=128, blank=True, verbose_name="Former Name"
     )
 
-    slug = models.SlugField(max_length=500, null=True, blank=True)
+    slug = models.SlugField(max_length=500)
 
     def __str__(self):
         return self.official_name

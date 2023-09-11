@@ -17,11 +17,20 @@ class ClientSerializers(serializers.ModelSerializer):
 #          Client-Create Serializers
 ###############################################################
 
+from project.validators import SerialValidator
 class ClientCreateSerializers(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields = "__all__"
-
+    
+    
+    def create(self, validated_data):
+        SerialValidator(self, validated_data, 'official_name')
+        return super().create(validated_data)
+    
+    def update(self, instance, validated_data):
+        SerialValidator(self, validated_data, 'official_name', update=True)
+        return super().update(instance, validated_data)
 ###############################################################
 #          Address Serializers
 ###############################################################

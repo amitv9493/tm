@@ -5,7 +5,7 @@ from part.models import *
 from equipment.models import *
 from tube.models import *
 from django_countries.serializers import CountryFieldMixin
-
+from project.validators import SerialValidator
 from part.serializers import (
     AllGeneralPartListSerializer,
     PressuresensorListSerializer,
@@ -575,14 +575,11 @@ class Create_Project_Serializer(serializers.ModelSerializer):
         model = Project
         fields = "__all__"
         # fields = ""
-
-
+        
+    def validate(self, data):
+        SerialValidator(self, data, 'project_name',)
+        return data
+    
 ################################################################################
 #            Project Patch Serializer
 ################################################################################
-
-
-class All_Project_Patch_serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Project
-        fields = "__all__"

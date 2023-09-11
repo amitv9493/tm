@@ -898,7 +898,7 @@ class AllList_Id_Patch_Project(generics.RetrieveUpdateAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
 
-    serializer_class = All_Project_Patch_serializer
+    serializer_class = Create_Project_Serializer
     queryset = Project.objects.all()
 
     lookup_field = "slug"
