@@ -1,4 +1,3 @@
-from datetime import datetime
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import Group
@@ -21,6 +20,14 @@ from project.models import *
 from .paginator import CustomPagination
 from .serializers import *  # noqa: F403
 from .serializers import LoginSerializer
+
+from datetime import datetime
+def convert_to_date(date_string: str):
+    if date_string:
+        date_obj = datetime.strptime(date_string, "%Y-%m-%d").date()
+        return date_obj
+    else:
+        return None
 
 
 class EquipAndPartGeneralView(ListAPIView):
@@ -103,13 +110,6 @@ class EquipAndPartGeneralView(ListAPIView):
             )
         )
 
-
-def convert_to_date(date_string: str):
-    if date_string:
-        date_obj = datetime.strptime(date_string, "%Y-%m-%d").date()
-        return date_obj
-    else:
-        return None
 
 
 # Create your views here.
