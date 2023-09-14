@@ -215,6 +215,7 @@ class Reactor(models.Model):
         verbose_name="Tube ID value",
         null=True,
         decimal_places=3,
+        max_digits=30,
     )
 
     # mm=models.PositiveIntegerField(blank=True,verbose_name='MM',null=True)
