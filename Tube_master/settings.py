@@ -66,9 +66,12 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     "EXCEPTION_HANDLER": "project.handlers.custom_exception_handler",
-    # 'DEFAULT_RENDERER_CLASSES': (
-    #     'rest_framework.renderers.JSONRenderer',
-    # ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    
+    
+    
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
@@ -384,3 +387,4 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
