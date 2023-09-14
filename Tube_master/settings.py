@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "django_countries",
     "django_filters",
     "django_extensions",
+    "drf_api_logger",
     # "import_export",
 ]
 
@@ -268,10 +269,12 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "admin_reorder.middleware.ModelAdminReorder",
+    "drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware",
 ]
 
 # GOOGLE_APIz_KEY = 'AIzaSyD--your-google-maps-key-SjQBE'
-
+DRF_API_LOGGER_DATABASE = True  # Default to False
+DRF_API_LOGGER_SLOW_API_ABOVE = 200
 
 ROOT_URLCONF = "Tube_master.urls"
 
