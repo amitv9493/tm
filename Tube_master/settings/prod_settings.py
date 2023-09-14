@@ -25,7 +25,7 @@ PASSWORD_RESET_TIMEOUT = 900
 
 # Static files (CSS, JavaScript, Images)
 STATIC_ROOT = "/home/arttecrt/public_html/Tube_master/static"
-STATIC_URL = "/staticgit/"
+STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 MEDIA_URL = "media/"
 MEDIA_ROOT = "media"
