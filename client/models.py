@@ -40,7 +40,7 @@ class Client(models.Model):
         max_length=128, blank=True, verbose_name="Former Name"
     )
 
-    slug = models.SlugField(max_length=500)
+    slug = models.SlugField(max_length=500,null=True)
 
     def __str__(self):
         return self.official_name
