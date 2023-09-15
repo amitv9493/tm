@@ -340,21 +340,7 @@ class WarehousePartSerializer(serializers.Serializer):
     devicehose = serializers.SerializerMethodField()
     airhose = serializers.SerializerMethodField()
 
-    def get_general_part(self, obj):
-        request = self.context.get("request")
-        slug = request.query_params.get("slug")
-        pm_status = str(request.query_params.get("pm_status")).upper()
-        qs = Part.objects.all()
 
-        if pm_status != "NONE":
-            qs = qs.filter(pm_status=pm_status)
-
-        if slug:
-            print("slug is not none")
-            qs = qs.filter(location_for_warehouse__slug=slug)
-
-        serializer = AllGeneralPartCreateSerializer(qs, many=True)
-        return serializer.data
 
     def get_supply_orifice(self, obj):
         request = self.context.get("request")

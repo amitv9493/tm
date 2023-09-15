@@ -915,10 +915,8 @@ class AllGeneralPartRetUpdDelView(generics.RetrieveUpdateAPIView):
 @api_view(["GET"])
 def warehouse_part_view(request):
     pagination_class = CustomPagination()
-    print(request.query_params.get("pm_status"))
 
     serializer = WarehousePartSerializer(context={"request": request})
-    part_data = serializer.get_general_part(None)
     supply_orifice_data = serializer.get_supply_orifice(None)
     pressure_sensor_data = serializer.get_pressure_sensor(None)
     ttd_rack_data = serializer.get_ttd_rack(None)
@@ -929,7 +927,6 @@ def warehouse_part_view(request):
     airhose_data = serializer.get_airhose(None)
 
     merged_data = (
-        part_data
         + supply_orifice_data
         + pressure_sensor_data
         + ttd_rack_data
@@ -943,7 +940,6 @@ def warehouse_part_view(request):
     paginated_data = pagination_class.paginate_queryset(merged_data, request)
 
     paginated_data_with_counts = {
-        "part_data": len(part_data),
         "supply_orifice_data": len(supply_orifice_data),
         "pressure_sensor_data": len(pressure_sensor_data),
         "ttd_rack_data": len(ttd_rack_data),
@@ -955,3 +951,23 @@ def warehouse_part_view(request):
         "results": paginated_data,
     }
     return pagination_class.get_paginated_response(paginated_data_with_counts)
+
+class AllGeneralPart(generics.ListAPIView):
+    queryset = Part.objects.all()
+    serializer_class = AllGeneralPartCreateSerializer
+    pagination_class = CustomPagination
+    
+    
+    def get_queryset(self):
+        qs = super().get_queryset()
+        
+        slug = self.request.query_params.get("slug")
+        pm_status = str(self.request.query_params.get("pm_status")).upper()
+
+        if pm_status != "NONE":
+            qs = qs.filter(pm_status=pm_status)
+
+        if slug:
+            qs = qs.filter(location_for_warehouse__slug=slug)
+        
+        return qs

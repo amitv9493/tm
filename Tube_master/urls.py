@@ -529,6 +529,7 @@ urlpatterns = (
         # path('api/equip/', WarehouseEquipmentView.as_view()),
         path("api/wef/", warehouse_equipment_view),
         path("api/wp/", warehouse_part_view),
+        path("api/wp/general-parts/",AllGeneralPart.as_view()),
         path("api/task/", TaskView.as_view()),
         # new equipments view
         path("api/get/new/ttd/", TTDNewView.as_view(), name="ttdnewview"),

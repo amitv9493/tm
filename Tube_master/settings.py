@@ -4,12 +4,12 @@ import os
 from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
-
+from dotenv import load_dotenv
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATE_DIR = (BASE_DIR / "templates",)
+
 DEBUG = os.environ.get("DEBUG", default=False)
-DEBUG=True
 SECRET_KEY = "django-insecure-g&$_)b9sp%z$!+&^%^g^wu(nlo28g25*n5fa)2p6uzs@kyt)1j"
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -104,7 +104,7 @@ JAZZMIN_SETTINGS = {
     "site_header": "Tube Master",
     "site_brand": "TM",
     "site_logo_classes": "img-thumbnail",
-    "site_icon": "/home/arttecrt/public_html/static/img/tm_logo.png",
+    "site_icon": "/img/tm_logo.png",
     # Add your own branding here
     "site_logo": "/img/tm_logo.png",
     "welcome_sign": "Welcome to the TubeMaster",
@@ -369,20 +369,8 @@ EMAIL_USE_SSL = False
 
 APPEND_SLASH = True
 
-if not DEBUG:
+if DEBUG:
 
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql', 
-            'NAME': os.environ.get('DB_NAME'),
-            'USER': os.environ.get('DB_USER'),
-            'PASSWORD': os.environ.get('DB_PASS'),
-            'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-            'PORT': '3306',
-        }
-    }
-
-else:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -390,7 +378,19 @@ else:
         }
     }
 
-if not DEBUG:
+else:
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql', 
+            'NAME': 'arttecrt_tubemaster_db', #os.environ.get('DB_NAME'),
+            'USER': 'arttecrt_tm', #os.environ.get('DB_USER'),
+            'PASSWORD': 'tubemastercrm', #os.environ.get('DB_PASS'),
+            'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+            'PORT': '3306',
+        }
+    }
+
 
     LOGGING = {
         'version': 1,
