@@ -272,6 +272,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "admin_reorder.middleware.ModelAdminReorder",
+    "tm_api.middleware.LogNon200ResponseMiddleware",
 ]
 
 # GOOGLE_APIz_KEY = 'AIzaSyD--your-google-maps-key-SjQBE'
