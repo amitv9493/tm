@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     "django_countries",
     "django_filters",
     "django_extensions",
-    "drf_api_logger",
     # "import_export",
 ]
 
@@ -273,7 +272,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "admin_reorder.middleware.ModelAdminReorder",
-    "drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware",
 ]
 
 # GOOGLE_APIz_KEY = 'AIzaSyD--your-google-maps-key-SjQBE'
