@@ -344,11 +344,11 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-STATIC_ROOT = "/home/arttecrt/public_html/Tube_master/static"
-STATIC_URL = "/staticgit/"
+STATIC_ROOT = "/home/arttecrt/public_html/static"
+STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static", os.path.join(BASE_DIR, "front", "static")]
 MEDIA_URL = "media/"
-MEDIA_ROOT = "media"
+MEDIA_ROOT = "/home/arttecrt/public_html/media"
 
 
 # Default primary key field type
@@ -387,3 +387,27 @@ DATABASES = {
     }
 }
 
+if not DEBUG:
+
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'verbose': {
+                'format': '{levelname} {asctime} {module} {message}',
+                'style': '{',
+            },
+        },
+        'handlers': {
+            'file': {
+                'level': 'ERROR',  # Set the desired log level (DEBUG, INFO, WARNING, ERROR, CRITICAL).
+                'class': 'logging.FileHandler',
+                'filename': 'logfile.log',  # Specify the path to your log file.
+                'formatter': 'verbose',  # Use the 'verbose' formatter defined above.
+            },
+        },
+        'root': {
+            'handlers': ['file'],  # Use the 'file' handler for the root logger.
+            'level': 'ERROR',  # Set the desired log level for the root logger.
+        },
+    }
