@@ -759,7 +759,7 @@ class SwabMasterTSR(models.Model):
 class DeviceHose(models.Model):
     serial_number = models.CharField(max_length=999, unique=True)
     length = models.DecimalField(
-        max_digits=999, decimal_places=3, null=True, blank=True
+        max_digits=30, decimal_places=3, null=True, blank=True
     )
     slug = models.SlugField(max_length=500, null=True, blank=True)
     colour_code = models.CharField(max_length=50, null=True, blank=True)

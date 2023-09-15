@@ -215,7 +215,7 @@ class Reactor(models.Model):
         verbose_name="Tube ID value",
         null=True,
         decimal_places=3,
-        max_digits=999,
+        max_digits=30,
     )
 
     # mm=models.PositiveIntegerField(blank=True,verbose_name='MM',null=True)
@@ -251,7 +251,7 @@ class Reactor(models.Model):
         verbose_name="ferrule length value",
         null=True,
         decimal_places=3,
-        max_digits=999,
+        max_digits=30,
     )
     # mm1 = models.PositiveIntegerField(blank=True,verbose_name='MM',null=True)
 
@@ -273,7 +273,7 @@ class Reactor(models.Model):
         verbose_name="Ferrule ID Value",
         null=True,
         decimal_places=3,
-        max_digits=999,
+        max_digits=30,
     )
     # mm2 = models.PositiveIntegerField(blank=True,verbose_name='MM',null=True)
 
@@ -309,7 +309,7 @@ class Reactor(models.Model):
     )
 
     input_tubespacing = models.DecimalField(
-        max_digits=999,
+        max_digits=30,
         decimal_places=3,
         blank=True,
         verbose_name="Tube Spacing or Pitch Value",
@@ -334,7 +334,7 @@ class Reactor(models.Model):
         verbose_name="Total Tube Length Value",
         null=True,
         decimal_places=3,
-        max_digits=999,
+        max_digits=30,
     )
     # mm4 = models.PositiveIntegerField(blank=True,verbose_name='MM',null=True)
 
@@ -355,7 +355,7 @@ class Reactor(models.Model):
         verbose_name="Top Tube Sheet Thickness Value",
         null=True,
         decimal_places=3,
-        max_digits=999,
+        max_digits=30,
     )
     # mm5 = models.PositiveIntegerField(blank=True,verbose_name='MM',null=True)
 
@@ -376,7 +376,7 @@ class Reactor(models.Model):
         verbose_name="Bottom Tube Sheet Thickness Value",
         null=True,
         decimal_places=3,
-        max_digits=999,
+        max_digits=30,
     )
     # mm6 = models.PositiveIntegerField(blank=True,verbose_name='MM',null=True)
 
@@ -410,7 +410,7 @@ class Reactor(models.Model):
         verbose_name=("Tube Protude Top Value"),
         null=True,
         decimal_places=3,
-        max_digits=999,
+        max_digits=30,
     )
     # mm7 = models.PositiveIntegerField(blank=True,verbose_name='MM',null=True)
 
@@ -444,7 +444,7 @@ class Reactor(models.Model):
         verbose_name="Tube Protude Out Of Bottom Tube Sheet Value",
         null=True,
         decimal_places=3,
-        max_digits=999,
+        max_digits=30,
     )
     # mm8 =  models.PositiveIntegerField(blank=True,verbose_name='MM',null=True)
 

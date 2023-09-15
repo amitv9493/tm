@@ -8,7 +8,8 @@ from django.contrib.messages import constants as messages
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = (BASE_DIR / "templates",)
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", default=False)
+DEBUG=True
 SECRET_KEY = "django-insecure-g&$_)b9sp%z$!+&^%^g^wu(nlo28g25*n5fa)2p6uzs@kyt)1j"
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     "django_countries",
     "django_filters",
     "django_extensions",
+    "drf_api_logger",
     # "import_export",
 ]
 
@@ -60,13 +62,16 @@ INSTALLED_APPS = [
 
 """
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ],
+    # "DEFAULT_AUTHENTICATION_CLASSES": [
+    #     "rest_framework_simplejwt.authentication.JWTAuthentication",
+    # ],
     "EXCEPTION_HANDLER": "project.handlers.custom_exception_handler",
-    # 'DEFAULT_RENDERER_CLASSES': (
-    #     'rest_framework.renderers.JSONRenderer',
-    # ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    
+    
+    
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
@@ -268,10 +273,12 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "admin_reorder.middleware.ModelAdminReorder",
+    "drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware",
 ]
 
 # GOOGLE_APIz_KEY = 'AIzaSyD--your-google-maps-key-SjQBE'
-
+DRF_API_LOGGER_DATABASE = True  # Default to False
+DRF_API_LOGGER_SLOW_API_ABOVE = 200
 
 ROOT_URLCONF = "Tube_master.urls"
 
@@ -298,12 +305,6 @@ WSGI_APPLICATION = "Tube_master.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
 
 
 # Password validation
@@ -346,7 +347,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_ROOT = "/home/arttecrt/public_html/Tube_master/static"
 STATIC_URL = "/staticgit/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [BASE_DIR / "static", os.path.join(BASE_DIR, "front", "static")]
 MEDIA_URL = "media/"
 MEDIA_ROOT = "media"
 
@@ -368,3 +369,22 @@ EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
 APPEND_SLASH = True
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql', 
+#         'NAME': os.environ.get('DB_NAME'),
+#         'USER': os.environ.get('DB_USER'),
+#         'PASSWORD': os.environ.get('DB_PASS'),
+#         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+#         'PORT': '3306',
+#     }
+# }
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
+
