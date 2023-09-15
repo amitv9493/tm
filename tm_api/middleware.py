@@ -34,11 +34,13 @@ class LogNon200ResponseMiddleware:
             timestamp = datetime.now().isoformat()
 
             logger.error(
+                '\n'
                 f"Timestamp: {timestamp}\n"
                 f"Non-200 response: {status_code} {request.method} {request.path} by user {request.user}\n"
                 f"Request Headers: {request_headers}\n"
                 f"Request Body: {request_body}\n"
                 f"Error Response: {response_content}"
+                '\n'
             )
 
         return response
