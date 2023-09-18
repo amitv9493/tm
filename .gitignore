@@ -66,6 +66,7 @@ instance/
 .webassets-cache
 
 # Scrapy stuff:
+.docker/
 .scrapy
 
 # Sphinx documentation

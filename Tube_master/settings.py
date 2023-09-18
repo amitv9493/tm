@@ -9,10 +9,11 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = os.environ.get("DEBUG", default=False)
-SECRET_KEY = "django-insecure-g&$_)b9sp%z$!+&^%^g^wu(nlo28g25*n5fa)2p6uzs@kyt)1j"
 
-# SECURITY WARNING: don't run with debug turned on in production!
+
+DEBUG=os.environ.get("debug")
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
@@ -370,48 +371,38 @@ EMAIL_USE_SSL = False
 
 APPEND_SLASH = True
 
-if DEBUG:
 
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME':  os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASS'),
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
-
-else:
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql', 
-            'NAME': 'arttecrt_tubemaster_db', #os.environ.get('DB_NAME'),
-            'USER': 'arttecrt_tm', #os.environ.get('DB_USER'),
-            'PASSWORD': 'tubemastercrm', #os.environ.get('DB_PASS'),
-            'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-            'PORT': '3306',
-        }
-    }
+}
 
 
-    LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'formatters': {
-            'verbose': {
-                'format': '{levelname} {asctime} {module} {message}',
-                'style': '{',
-            },
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
         },
-        'handlers': {
-            'file': {
-                'level': 'ERROR',  # Set the desired log level (DEBUG, INFO, WARNING, ERROR, CRITICAL).
-                'class': 'logging.FileHandler',
-                'filename': 'logfile.log',  # Specify the path to your log file.
-                'formatter': 'verbose',  # Use the 'verbose' formatter defined above.
-            },
+    },
+    'handlers': {
+        'file': {
+            'level': 'ERROR',  # Set the desired log level (DEBUG, INFO, WARNING, ERROR, CRITICAL).
+            'class': 'logging.FileHandler',
+            'filename': 'logfile.log',  # Specify the path to your log file.
+            'formatter': 'verbose',  # Use the 'verbose' formatter defined above.
         },
-        'root': {
-            'handlers': ['file'],  # Use the 'file' handler for the root logger.
-            'level': 'ERROR',  # Set the desired log level for the root logger.
-        },
-    }
+    },
+    'root': {
+        'handlers': ['file'],  # Use the 'file' handler for the root logger.
+        'level': 'ERROR',  # Set the desired log level for the root logger.
+    },
+}
