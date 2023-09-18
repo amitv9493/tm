@@ -4,9 +4,8 @@ from django import forms
 from project.validators import slugFieldValidator
 from django.utils.text import slugify
 
-
 class TTD(models.Model):
-    #  name=models.CharField(max_length=128,blank=True)
+    
     abbreviation = models.CharField(max_length=128, blank=True, null=True)
     alternate_name = models.CharField(
         max_length=128, verbose_name="Alternate Name", blank=True, null=True
@@ -124,6 +123,8 @@ class TTD(models.Model):
         super().clean()  # Call the parent's clean() method
 
         self.clean_serial_number()
+
+
 
 
 class BDD(models.Model):

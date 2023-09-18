@@ -441,28 +441,29 @@ class Add_Project_serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = (
-            "id",
-            "slug",
-            "project_name",
-            "project_number",
-            "equipment_prep",
-            "client",
-            "ttd",
-            "unit",
-            "scope_of_work",
-            "bdd",
-            "calibration_stand",
-            "part",
-            "reactor",
-            "calibration_orifice_part",
-            "device_part",
-            "airhose_part",
-            "project_start",
-            "project_end",
-        )
-        # fields = "_all_"
-        # fields = ("client", "unit")
+        # fields = (
+        #     "id",
+        #     "slug",
+        #     "project_name",
+        #     "project_number",
+        #     "equipment_prep",
+        #     "unit",
+        #     "scope_of_work",
+        #     "reactor",
+        #     "project_start",
+        #     "project_end",
+        #     "client",
+        #     "ttd",
+        #     "bdd",
+        #     "calibration_stand",
+        #     "part",
+        #     "airhose_part",
+        #     "device_part",
+        #     "calibration_orifice_part",
+        # )
+        fields = "__all__"
+        # exclude
+
         depth = 1
 
     # client = ClientSerializer()
