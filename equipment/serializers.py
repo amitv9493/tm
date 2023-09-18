@@ -90,7 +90,7 @@ class TTDSerializers(serializers.ModelSerializer):
         return 1 if x else None
     
     def get_pressure_sensor(self, obj):
-        return obj.pressure_sensor.range if obj.pressure_sensor.exists() else None
+        return obj.pressure_sensor.range if obj.pressure_sensor else None
 
 class TTDWithIDSerializer(serializers.ModelSerializer):
     project_ids = serializers.SerializerMethodField()
