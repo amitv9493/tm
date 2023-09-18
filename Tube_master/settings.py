@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "django_countries",
     "django_filters",
     "django_extensions",
+    "modelhistory",
     # "import_export",
 ]
 

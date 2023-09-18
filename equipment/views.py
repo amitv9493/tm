@@ -46,6 +46,7 @@ class TaskView(ListAPIView):
 class TTDListView(ListAPIView):
     # permission_classes = [DjangoModelPermissions, IsAdminUser]
     # authentication_classes = [JWTAuthentication]
+    serializer_class = TTDSerializers
     pagination_class = CustomPagination
     filter_backends = [
         DjangoFilterBackend,
@@ -81,7 +82,6 @@ class TTDListView(ListAPIView):
             queryset = queryset.filter(location_for_warehouse__slug=warehouse)
         return queryset
 
-    serializer_class = TTDSerializers
 
 
 ##################################################################
