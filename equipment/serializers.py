@@ -46,7 +46,7 @@ class TaskSerializer(serializers.ModelSerializer):
 class TTDSerializers(serializers.ModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
     supply_orifice_set = serializers.StringRelatedField()
-    pressure_sensor = serializers.StringRelatedField()
+    pressure_sensor = serializers.SerializerMethodField()
     TTD_tube_seal_rack = serializers.StringRelatedField()
 
     project_slug = serializers.SerializerMethodField()
@@ -88,6 +88,9 @@ class TTDSerializers(serializers.ModelSerializer):
     def get_status(self, obj):
         x = self.get_project_slug(obj)
         return 1 if x else None
+    
+    def get_pressure_sensor(self, obj):
+        return obj.pressure_sensor.range
 
 class TTDWithIDSerializer(serializers.ModelSerializer):
     project_ids = serializers.SerializerMethodField()
