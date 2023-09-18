@@ -10,7 +10,7 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
+IMPORT_EXPORT_USE_TRANSACTIONS = False
 DEBUG=os.environ.get("debug")
 SECRET_KEY = os.environ.get("SECRET_KEY")
 

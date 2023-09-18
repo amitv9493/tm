@@ -38,6 +38,7 @@ class WarehouseAdmin(ImportExportModelAdmin):
     import_export_change_list_template = "admin/tube/warehouse/change_list.html"
     list_filter = ["warehouse_location"]
     list_display = (
+        "id",
         "warehouse_name",
         "warehouse_location",
         "warehouse_contact",

@@ -15,6 +15,7 @@ from .forms import *
 class TTDAdmin(ImportExportModelAdmin):
     form = TTDForm
     list_filter = [
+        "id",
         "serial_number",
         "location_for_storage",
         "location_for_warehouse",
@@ -84,13 +85,6 @@ class TTDAdmin(ImportExportModelAdmin):
         "location_for_storage",
         "supply_orifice_set__size",
     ]
-    # def list_of_supply_orifice_set(self, obj):
-    #     return ("%s" % ','.join([supply_orifice_set.size for supply_orifice_set in obj.supply_orifice_set.all()]))
-    # list_of_supply_orifice_set.short_description = 'Supply Orifice Set'
-
-    # def has_module_permission(self, request):
-    #     return False
-
 
 admin.site.register(TTD, TTDAdmin)
 
@@ -100,6 +94,7 @@ class BDDAdmin(ImportExportModelAdmin):
     list_filter = ["serial_number", "location_for_storage", "location_for_warehouse"]
 
     list_display = (
+        "id",
         "abbreviation",
         "serial_number",
         "asset_number",
@@ -170,6 +165,7 @@ class CALIBRATION_STANDAdmin(ImportExportModelAdmin):
     list_filter = ["serial_number", "location_for_storage", "location_for_warehouse"]
 
     list_display = (
+        "id",
         "abbreviation",
         "serial_number",
         "asset_number",
@@ -247,6 +243,7 @@ admin.site.register(CALIBRATION_STAND, CALIBRATION_STANDAdmin)
 class SwabMasterAdmin(ImportExportModelAdmin):
     form = SwabMasterForm
     list_display = [
+        "id",
         "abbreviation",
         "serial_number",
         "asset_number",

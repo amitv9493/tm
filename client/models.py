@@ -148,7 +148,6 @@ class Unit(models.Model):
     plant = models.ForeignKey(
         Plant,
         related_name="unitplant",
-        default="",
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
@@ -402,7 +401,6 @@ class Reactor(models.Model):
         max_length=128,
         verbose_name=("Tube Protude Top Unit"),
         choices=select_tube_protude_top.choices,
-        default="",
     )
 
     input_tubeprotude_top = models.DecimalField(
@@ -436,7 +434,6 @@ class Reactor(models.Model):
         max_length=128,
         verbose_name=("Tube Protude Out Of Bottom Tube Sheet Unit"),
         choices=select_tube_protude_bottom.choices,
-        default="",
     )
 
     input_tubeprotude_bottom = models.DecimalField(

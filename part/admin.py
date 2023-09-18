@@ -32,6 +32,7 @@ class ExportCsvMixin:
 class PartAdmin(ImportExportModelAdmin):
     list_filter = ["part_name"]
     list_display = (
+        "id",
         "part_name",
         "name_of_abbreviation",
         "serial_number",
@@ -121,6 +122,7 @@ class Supply_orificeAdmin(ImportExportModelAdmin):
         "size",
     ]
     list_display = [
+        "id",
         "serial_number",
         "size",
         "total_sets",
@@ -207,6 +209,7 @@ class BDD_tube_seal_rackAdmin(ImportExportModelAdmin):
         "size",
     ]
     list_display = [
+        "id",
         "serial_number",
         "size",
         "number_of_tubes",
@@ -286,6 +289,7 @@ class Pressure_sensorAdmin(ImportExportModelAdmin):
     ]
 
     list_display = [
+        "id",
         "serial_number",
         "range",
         "Is_used",
@@ -372,6 +376,7 @@ class TTD_tube_seal_rackAdmin(ImportExportModelAdmin):
         "size",
     ]
     list_display = [
+        "id",
         "serial_number",
         "size",
         "Is_used",
@@ -461,6 +466,7 @@ class Calibration_orificeAdmin(ImportExportModelAdmin):
     ]
 
     list_display = [
+        "id",
         "serial_number",
         "size",
         "Is_used",
@@ -544,6 +550,7 @@ class SwabMaster_TSRadmin(ImportExportModelAdmin):
         "weight_unit": admin.HORIZONTAL,
     }
     list_display = [
+        "id",
         "serial_number",
         "size",
         "qty_rack",
@@ -619,6 +626,17 @@ class SwabMaster_TSRadmin(ImportExportModelAdmin):
 
 @admin.register(DeviceHose)
 class DeviceHoseAdmin(ImportExportModelAdmin):
+    list_display = [
+        "id",
+        "serial_number",
+        "length",
+        "colour_code",
+        "warehouse",
+        "part_name",
+        "name_of_abbreviation",
+        "asset_number",
+        
+    ]
     radio_fields = {
         "dimension_unit": admin.HORIZONTAL,
         "weight_unit": admin.HORIZONTAL,
@@ -730,4 +748,5 @@ class AirHosesAdmin(ImportExportModelAdmin):
         "colour_code",
         "warehouse",
     ]
-    list_display = ["serial_number", "length", "colour_code", "warehouse"]
+    list_display = ["id", "serial_number", "length", "colour_code", "warehouse"]
+

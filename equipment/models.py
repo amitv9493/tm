@@ -91,7 +91,7 @@ class TTD(models.Model):
         related_name="TTD",
     )
     frame = models.CharField(max_length=128, blank=True)
-    image = models.ImageField(upload_to="uploads/ttd/", default="", blank=True)
+    image = models.ImageField(upload_to="uploads/ttd/", blank=True)
     slug = models.SlugField(max_length=500, null=True, blank=True)
 
     class Meta:
@@ -189,7 +189,6 @@ class BDD(models.Model):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        default="",
         related_name="bdd",
     )
     frame = models.CharField(max_length=128, blank=True)
@@ -297,11 +296,10 @@ class CALIBRATION_STAND(models.Model):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        default="",
         related_name="calibration",
     )
     frame = models.CharField(max_length=128, blank=True)
-    image = models.ImageField(upload_to="uploads/cal_stand/", default="", blank=True)
+    image = models.ImageField(upload_to="uploads/cal_stand/", blank=True)
     slug = models.SlugField(max_length=500, null=True, blank=True)
 
     def __str__(self):

@@ -130,7 +130,6 @@ class Supply_orifice(models.Model):
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
         verbose_name="Location For Warehouse",
-        default="",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

@@ -31,7 +31,6 @@ class Project(models.Model):
     client = models.ForeignKey(
         "client.Client",
         verbose_name="Client Name",
-        default="",
         on_delete=models.CASCADE,
         null=True,
         blank=True,
@@ -39,7 +38,6 @@ class Project(models.Model):
     unit = models.ForeignKey(
         "client.Unit",
         verbose_name="Unit Name",
-        default="",
         on_delete=models.CASCADE,
         null=True,
         blank=True,
@@ -74,7 +72,6 @@ class Project(models.Model):
     equipment_info_remarks = models.CharField(
         max_length=128,
         verbose_name="Equipment Info Remarks",
-        default="",
         null=True,
         blank=True,
     )
@@ -114,12 +111,11 @@ class Project(models.Model):
 
     # ====================PARTS==================================
     part = models.ManyToManyField(
-        "part.Part", default="", blank=True, related_name="projects"
+        "part.Part", blank=True, related_name="projects"
     )
 
     calibration_orifice_part = models.ManyToManyField(
         "part.Calibration_orifice",
-        default="",
         blank=True,
         verbose_name="Calibration Orifice",
         related_name="projects",
@@ -127,14 +123,12 @@ class Project(models.Model):
 
     device_part = models.ManyToManyField(
         "part.DeviceHose",
-        default="",
         blank=True,
         verbose_name="Device Hose",
         related_name="projects",
     )
     airhose_part = models.ManyToManyField(
         "part.AirHose",
-        default="",
         blank=True,
         verbose_name="Air Hose",
         related_name="projects",
@@ -159,7 +153,6 @@ class Project(models.Model):
         max_length=128,
         verbose_name="Contract",
         choices=contract.choices,
-        default="",
         null=True,
         blank=True,
     )
@@ -169,7 +162,6 @@ class Project(models.Model):
     general_remarks = models.CharField(
         max_length=128,
         verbose_name="General Remarks",
-        default="",
         null=True,
         blank=True,
     )
