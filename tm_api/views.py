@@ -11,7 +11,7 @@ from rest_framework.response import Response  # noqa: F811
 from rest_framework.views import APIView  # noqa: F811
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from django.db.models import Q
 from client.serializers import UnitSerializers as clientUnitSerializer
 from equipment.models import *
 from part.models import *
@@ -72,12 +72,13 @@ class EquipAndPartGeneralView(ListAPIView):
 
     """
 
-    permission_classes = [DjangoModelPermissions, IsAdminUser]
-    authentication_classes = [JWTAuthentication]
+    # permission_classes = [DjangoModelPermissions, IsAdminUser]
+    # authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     filter_backends = [SearchFilter]
     model_relation_name = None
     queryset = None
+    model_warehouse_field = "location_for_warehouse"
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -101,12 +102,13 @@ class EquipAndPartGeneralView(ListAPIView):
         exclude_objects = set(
             project_qs.values_list(self.model_relation_name, flat=True)
         )
-
+        
         return (
-            qs.exclude(id__in=exclude_objects).order_by("location_for_warehouse__id")
+            qs.exclude(id__in=exclude_objects).order_by(f"{self.model_warehouse_field}__id")
             if not warehouse
-            else qs.exclude(id__in=exclude_objects).filter(
-                location_for_warehouse=warehouse
+            else qs.exclude(id__in=exclude_objects)\
+                .filter(
+                **{self.model_warehouse_field: warehouse}
             )
         )
 
@@ -718,11 +720,12 @@ class SwabMasterView(ListAPIView):
 
 class DeviceHoseNewView(EquipAndPartGeneralView):
     queryset = DeviceHose.objects.all()
-    permission_classes = [DjangoModelPermissions, IsAdminUser]
-    authentication_classes = [JWTAuthentication]
     serializer_class = DeviceHoseSerializer
     filter_backends = [SearchFilter]
     pagination_class = CustomPagination
+    model_relation_name = "device_part"
+    model_warehouse_field = "warehouse"
+    
     search_fields = [
         "serial_number",
         "part_name",
@@ -730,7 +733,6 @@ class DeviceHoseNewView(EquipAndPartGeneralView):
         "asset_number",
     ]
 
-    model_relation_name = "device_part"
 
 
 class DeviceHoseView(ListAPIView):
@@ -786,7 +788,7 @@ class AirHoseNewView(EquipAndPartGeneralView):
         "asset_number",
     ]
     model_relation_name = "airhose_part"
-
+    model_warehouse_field = "warehouse"
 
 class AirHoseView(ListAPIView):
     queryset = AirHose.objects.all()
