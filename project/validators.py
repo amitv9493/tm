@@ -52,12 +52,13 @@ def slugFieldValidator(value, qs, field_name=None, id=None):
 def SerialValidator(self, validated_data, field_name, update: bool = False):
     from rest_framework import serializers
     
-    field_name = validated_data[field_name]
-    slug = slugify(field_name)
-    if not self.instance:
-        l = set(self.Meta.model.objects.values_list("slug", flat=True))
-    else:
-        l = set(self.Meta.model.objects.exclude(id=self.instance.id).values_list("slug", flat=True))
-    if slug in l:
-        raise serializers.ValidationError(f"{field_name} must be unique")
-    
+    field_value = validated_data.get(field_name, None)
+    if field_value:
+        slug = slugify(field_name)
+        if not self.instance:
+            l = set(self.Meta.model.objects.values_list("slug", flat=True))
+        else:
+            l = set(self.Meta.model.objects.exclude(id=self.instance.id).values_list("slug", flat=True))
+        if slug in l:
+            raise serializers.ValidationError(f"{field_name} must be unique")
+        
