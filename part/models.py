@@ -52,7 +52,7 @@ class Part(models.Model):
         max_length=50,
         choices=WeightChoices.choices,
     )
-    weight = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
+    weight = models.FloatField(_("Weight"), null=True, blank=True)
 
     # Dimension
     class LengthDimensionChoices(models.TextChoices):
@@ -60,15 +60,15 @@ class Part(models.Model):
         MM = "MM"
         INCH = "INCH"
 
-    length = models.PositiveIntegerField(
+    length = models.FloatField(
         blank=True,
         null=True,
     )
-    breadth = models.PositiveIntegerField(
+    breadth = models.FloatField(
         blank=True,
         null=True,
     )
-    height = models.PositiveIntegerField(
+    height = models.FloatField(
         blank=True,
         null=True,
     )
@@ -172,7 +172,7 @@ class Supply_orifice(models.Model):
         max_length=50,
         choices=WeightChoices.choices,
     )
-    weight = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
+    weight = models.FloatField(_("Weight"), null=True, blank=True)
 
     # Dimension
     class LengthDimensionChoices(models.TextChoices):
@@ -180,15 +180,15 @@ class Supply_orifice(models.Model):
         MM = "MM"
         INCH = "INCH"
 
-    length = models.PositiveIntegerField(
+    length = models.FloatField(
         blank=True,
         null=True,
     )
-    breadth = models.PositiveIntegerField(
+    breadth = models.FloatField(
         blank=True,
         null=True,
     )
-    height = models.PositiveIntegerField(
+    height = models.FloatField(
         blank=True,
         null=True,
     )
@@ -276,7 +276,7 @@ class Pressure_sensor(models.Model):
         max_length=50,
         choices=WeightChoices.choices,
     )
-    weight = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
+    weight = models.FloatField(_("Weight"), null=True, blank=True)
     price = models.PositiveIntegerField(_("Price"), null=True, blank=True)
 
     # Dimension
@@ -285,15 +285,15 @@ class Pressure_sensor(models.Model):
         MM = "MM"
         INCH = "INCH"
 
-    length = models.PositiveIntegerField(
+    length = models.FloatField(
         blank=True,
         null=True,
     )
-    breadth = models.PositiveIntegerField(
+    breadth = models.FloatField(
         blank=True,
         null=True,
     )
-    height = models.PositiveIntegerField(
+    height = models.FloatField(
         blank=True,
         null=True,
     )
@@ -383,7 +383,7 @@ class TTD_tube_seal_rack(models.Model):
         max_length=50,
         choices=WeightChoices.choices,
     )
-    weight = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
+    weight = models.FloatField(_("Weight"), null=True, blank=True)
 
     # Dimension
     class LengthDimensionChoices(models.TextChoices):
@@ -391,15 +391,15 @@ class TTD_tube_seal_rack(models.Model):
         MM = "MM"
         INCH = "INCH"
 
-    length = models.PositiveIntegerField(
+    length = models.FloatField(
         blank=True,
         null=True,
     )
-    breadth = models.PositiveIntegerField(
+    breadth = models.FloatField(
         blank=True,
         null=True,
     )
-    height = models.PositiveIntegerField(
+    height = models.FloatField(
         blank=True,
         null=True,
     )
@@ -483,15 +483,15 @@ class BDD_tube_seal_rack(models.Model):
         MM = "MM"
         INCH = "INCH"
 
-    length = models.PositiveIntegerField(
+    length = models.FloatField(
         blank=True,
         null=True,
     )
-    breadth = models.PositiveIntegerField(
+    breadth = models.FloatField(
         blank=True,
         null=True,
     )
-    height = models.PositiveIntegerField(
+    height = models.FloatField(
         blank=True,
         null=True,
     )
@@ -515,7 +515,7 @@ class BDD_tube_seal_rack(models.Model):
         max_length=50,
         choices=WeightChoices.choices,
     )
-    weight = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
+    weight = models.FloatField(_("Weight"), null=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.serial_number)
@@ -589,15 +589,15 @@ class Calibration_orifice(models.Model):
         MM = "MM"
         INCH = "INCH"
 
-    length = models.PositiveIntegerField(
+    length = models.FloatField(
         blank=True,
         null=True,
     )
-    breadth = models.PositiveIntegerField(
+    breadth = models.FloatField(
         blank=True,
         null=True,
     )
-    height = models.PositiveIntegerField(
+    height = models.FloatField(
         blank=True,
         null=True,
     )
@@ -621,7 +621,7 @@ class Calibration_orifice(models.Model):
         max_length=50,
         choices=WeightChoices.choices,
     )
-    weight = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
+    weight = models.FloatField(_("Weight"), null=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.serial_number)
@@ -694,15 +694,15 @@ class SwabMasterTSR(models.Model):
         MM = "MM"
         INCH = "INCH"
 
-    length = models.PositiveIntegerField(
+    length = models.FloatField(
         blank=True,
         null=True,
     )
-    breadth = models.PositiveIntegerField(
+    breadth = models.FloatField(
         blank=True,
         null=True,
     )
-    height = models.PositiveIntegerField(
+    height = models.FloatField(
         blank=True,
         null=True,
     )
@@ -726,7 +726,7 @@ class SwabMasterTSR(models.Model):
         max_length=50,
         choices=WeightChoices.choices,
     )
-    weight = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
+    weight = models.FloatField(_("Weight"), null=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.serial_number)
@@ -800,15 +800,15 @@ class DeviceHose(models.Model):
         MM = "MM"
         INCH = "INCH"
 
-    length = models.PositiveIntegerField(
+    length = models.FloatField(
         blank=True,
         null=True,
     )
-    breadth = models.PositiveIntegerField(
+    breadth = models.FloatField(
         blank=True,
         null=True,
     )
-    height = models.PositiveIntegerField(
+    height = models.FloatField(
         blank=True,
         null=True,
     )
@@ -832,7 +832,7 @@ class DeviceHose(models.Model):
         max_length=50,
         choices=WeightChoices.choices,
     )
-    weight = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
+    weight = models.FloatField(_("Weight"), null=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.serial_number)
@@ -903,15 +903,15 @@ class AirHose(models.Model):
         MM = "MM"
         INCH = "INCH"
 
-    length = models.PositiveIntegerField(
+    length = models.FloatField(
         blank=True,
         null=True,
     )
-    breadth = models.PositiveIntegerField(
+    breadth = models.FloatField(
         blank=True,
         null=True,
     )
-    height = models.PositiveIntegerField(
+    height = models.FloatField(
         blank=True,
         null=True,
     )
@@ -935,7 +935,7 @@ class AirHose(models.Model):
         max_length=50,
         choices=WeightChoices.choices,
     )
-    weight = models.PositiveIntegerField(_("Weight"), null=True, blank=True)
+    weight = models.FloatField(_("Weight"), null=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.serial_number)
