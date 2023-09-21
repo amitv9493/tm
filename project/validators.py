@@ -54,7 +54,7 @@ def SerialValidator(self, validated_data, field_name, update: bool = False):
     
     field_value = validated_data.get(field_name, None)
     if field_value:
-        slug = slugify(field_name)
+        slug = slugify(field_value)
         if not self.instance:
             l = set(self.Meta.model.objects.values_list("slug", flat=True))
         else:

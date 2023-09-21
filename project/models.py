@@ -4,6 +4,10 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.urls import reverse
 from comment.models import Comment
 from django.utils.text import slugify
+from django.dispatch import receiver
+from django.db.models.signals import post_save, pre_save, pre_delete, post_delete
+from modelhistory.models import EquipmentPartHistory
+
 
 from project.validators import slugFieldValidator
 
@@ -244,3 +248,18 @@ class Project(models.Model):
         super().clean()  # Call the parent's clean() method
 
         self.clean_project_name()
+
+
+
+
+# @receiver(post_save, sender=Project)
+# def create_ttd(sender, instance, created, **kwargs):
+#     if created:
+#         if instance.ttd:
+#             for ttd in instance.ttd.all():
+#                 EquipmentPartHistory.objects.create(
+#                     user=request.user,
+#                     content_object=ttd,
+#                     action_flag=1,
+#                 )
+#         pass
