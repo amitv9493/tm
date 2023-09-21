@@ -3,14 +3,18 @@ from project.models import Project
 from datetime import datetime, timedelta
 from equipment.models import *
 from part.models import *
+import pytz
 
 
 class Command(BaseCommand):
+    
     help = "If the project has expired and it has more than 24 hours, the parts will be set to RED"
 
     def handle(self, *args, **options):
+        from django.utils import timezone
+        now = timezone.localdate()
         projects = Project.objects.filter(
-            equipment_delivery_tubemaster__lte=datetime.now().date() - timedelta(days=1)
+            equipment_delivery_tubemaster__lte = now - timedelta(days=1)
         )
 
         if projects.exists():
