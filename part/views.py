@@ -19,7 +19,8 @@ class SupplyOrificeViewPart(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     serializer_class = SupplyOrificeSerializer
     queryset = Supply_orifice.objects.all()
-
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["location_for_warehouse"]
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -127,7 +128,8 @@ class BDDTubeSealRackViewPart(generics.ListAPIView):
 
     serializer_class = BDDTubeSealRackSerializer
     queryset = BDD_tube_seal_rack.objects.all()
-
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["location_for_warehouse"]
     def get_queryset(self):
         qs = super().get_queryset()
         bdd_id = self.request.GET.get("bdd_id")
@@ -161,6 +163,8 @@ class SwabMasterTSRViewPart(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     queryset = SwabMasterTSR.objects.all()
     serializer_class = SwabMasterTSRSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["location_for_warehouse"]
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -255,6 +259,8 @@ class CalibrationOrificeViewPart(generics.ListAPIView):
 
     serializer_class = Calibration_orifice_serializer
     queryset = Calibration_orifice.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["location_for_warehouse"]
 
     def get_queryset(self):
         qs = super().get_queryset()
