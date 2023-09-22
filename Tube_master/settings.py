@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     "django_countries",
     "django_filters",
     "django_extensions",
-    "modelhistory",
+    "modelhistory.apps.ModelhistoryConfig",
     # "import_export",
 ]
 

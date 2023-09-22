@@ -54,12 +54,8 @@ class PressureSensorViewPart(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     queryset = Pressure_sensor.objects.all()
     serializer_class = PressureSensorSerializer
-    # def get_queryset(self):
-    #     so = set()
-    #     for ttd in TTD.objects.all():
-    #         so.add(ttd.pressure_sensor.id)
-    #     so_qs = Pressure_sensor.objects.exclude(id__in = so)
-    #     return so_qs
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["location_for_warehouse"]
 
     def get_queryset(self):
         qs = super().get_queryset()
