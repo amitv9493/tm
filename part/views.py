@@ -929,7 +929,7 @@ def warehouse_part_view(request):
     airhose_data = serializer.get_airhose(None)
 
     merged_data = (
-        + supply_orifice_data
+        supply_orifice_data
         + pressure_sensor_data
         + ttd_rack_data
         + bdd_rack_data

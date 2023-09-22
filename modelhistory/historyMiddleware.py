@@ -14,7 +14,6 @@ class SimpleMiddleware:
 
         response = self.get_response(request)
         
-        @receiver(post_save, sender=Project)
         # Code to be executed for each request/response after
         # the view is called.
 
