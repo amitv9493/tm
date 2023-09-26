@@ -23,12 +23,35 @@ from equipment.views import *
 from client.views import *
 from tube.views import *
 from tm_api.views import UnitListView as tmAPIUnitView
+from django.urls import re_path
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+...
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Snippets API",
+      default_version='v1',
+      description="Test description",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="contact@snippets.local"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
+)
+
 
 handler404 = "project.views.my_custom_page_not_found_view"
 urlpatterns = (
     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + [
+        path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+        path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+        path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
         path("admin", admin.site.urls),
         path("", front, name="front"),
         #
@@ -549,7 +572,7 @@ urlpatterns = (
         # '''DASHBOARD ENDPOINTS'''
         ##########################################################################
         path("api/dashboard/", DashboardView.as_view()),
+        re_path(r"^.*", front, name="front"),
     ]
 )
 # if settings.DEBUG:
-urlpatterns += re_path(r"^.*", front, name="front"),
