@@ -23,10 +23,7 @@ admin.site.register(ProjectStatus, ProjectStatusAdmin)
 
 
 class Scope_of_workAdmin(admin.ModelAdmin):
-    list_display = ("name",)
-
-    def has_module_permission(self, request):
-        return False
+    list_display = ("id", "name",)
 
 
 admin.site.register(Scope_of_work, Scope_of_workAdmin)
