@@ -549,8 +549,7 @@ urlpatterns = (
         # '''DASHBOARD ENDPOINTS'''
         ##########################################################################
         path("api/dashboard/", DashboardView.as_view()),
-        re_path(".*", front, name="front"),
     ]
 )
-urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 # if settings.DEBUG:
+urlpatterns += re_path(r"^.*", front, name="front"),

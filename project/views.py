@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render, HttpResponseRedirect
+from django.shortcuts import redirect, render
 from .models import Project
 from .serializers import DashboardSerializer
 from rest_framework import generics

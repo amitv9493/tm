@@ -11,7 +11,6 @@ from rest_framework.response import Response  # noqa: F811
 from rest_framework.views import APIView  # noqa: F811
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.db.models import Q
 from client.serializers import UnitSerializers as clientUnitSerializer
 from equipment.models import *
 from part.models import *

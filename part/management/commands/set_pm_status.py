@@ -1,9 +1,8 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from project.models import Project
-from datetime import datetime, timedelta
+from datetime import timedelta
 from equipment.models import *
 from part.models import *
-import pytz
 
 
 class Command(BaseCommand):
@@ -12,7 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         from django.utils import timezone
-        now = timezone.localdate()
+        now = timezone.now()
         projects = Project.objects.filter(
             equipment_delivery_tubemaster__lte = now - timedelta(days=1)
         )
@@ -47,6 +46,8 @@ class Command(BaseCommand):
             )
             DeviceHose.objects.filter(id__in=device_part).update(pm_status="RED")
             AirHose.objects.filter(id__in=airhose_part).update(pm_status="RED")
+
+            self.stdout.write(self.style.SUCCESS(f"Successfully ran job on : {now}"))
 
             self.stdout.write(self.style.SUCCESS(f"Updated ttds: {len(ttds)}"))
             self.stdout.write(self.style.SUCCESS(f"Updated bdds: {len(bdds)}"))
