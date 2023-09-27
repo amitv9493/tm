@@ -51,10 +51,13 @@ INSTALLED_APPS = [
     "django_filters",
     "django_extensions",
     "modelhistory.apps.ModelhistoryConfig",
+    "drf_yasg",
     # "import_export",
 ]
 
 """
+
+
 ===============================================================================
         
                     REST_FRAMEWORK + SIMPLE JWT + CORS SETTINGS

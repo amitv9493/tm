@@ -5,7 +5,7 @@ info:
   description: Your project description
 servers:
   - url: http://localhost:8000/
-  - url: https://tubemastercrm.com/crm/
+  - url: https://tubemastercrm.com
 paths:
   /api/alllist/patchproject/{id}/:
     get:
