@@ -85,8 +85,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1 * 24 * 60 * 5),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
 }
 
 PASSWORD_RESET_TIMEOUT = 900
