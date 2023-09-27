@@ -543,7 +543,6 @@ class WarehouseEquipSerializer(serializers.Serializer):
         qs = TTD.objects.all()
         search = str(request.query_params.get("search"))
         date_str = request.GET.get("date")
-        request.GET.get("date")
 
         if slug:
             qs = qs.filter(location_for_warehouse__slug=slug)
