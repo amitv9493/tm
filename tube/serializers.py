@@ -519,7 +519,7 @@ class WarehouseEquipSerializer(serializers.Serializer):
             for p in p_qs:
                 if p.equipment_delivery_client > date_obj:
                     for t in p.ttd.all():
-                        ttd.add(p.id)
+                        ttd.add(t.id)
                     for b in p.bdd.all():
                         bdd.add(b.id)
                     for s in p.swabmaster_equip.all():
