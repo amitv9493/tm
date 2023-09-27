@@ -5,7 +5,7 @@ from rest_framework import generics
 import pytz
 from datetime import datetime
 from tm_api.paginator import CustomPagination
-
+from django.utils import timezone
 
 def projectview(request, pk):
     context = {"obj": Project.objects.get(id=pk)}
@@ -16,13 +16,13 @@ class DashboardView(generics.ListAPIView):
     queryset = Project.objects.all()
     serializer_class = DashboardSerializer
     pagination_class = CustomPagination
-    current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+    current_datetime = timezone.now().date()
 
     def get_queryset(self):
         print(self.current_datetime)
 
         qs = super().get_queryset()
-        status = self.request.GET.get("status")
+        status = self.request.GET.get("status", None)
 
         if status == "0":  # ongoing
             qs = qs.filter(
