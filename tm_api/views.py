@@ -33,32 +33,32 @@ class EquipAndPartGeneralView(ListAPIView):
     """
     This View returns the available Parts or the Equipments
     in the given time range `start_date` and `end_date`,
-    which is useful when selecting an air hose for a new project.
+    which is useful when selecting an part/equipment for a new project.
 
     Provide the `start_date` and `end_date`, and it will
     check if the Parts or the Equipments
     is available or not for the given date range.
 
-    To update the Air hose in an already created Project,
+    To update the a part/equip in an already created Project,
     you need to provide the `pro_id`.
     The value of the `pro_id` should be the ID
     of the project being modified.
 
     Query Parameters:
         - `start_date` (str): Start date of the
-            time range to check for air hose availability.
+            time range to check for part/equip availability.
         - `end_date` (str): End date of the
-            time range to check for air hose availability.
+            time range to check for part/equip availability.
         - `proid` (int): ID of the project to
-            exclude when checking air hose availability.
-        - `warehouse` (str): Filter air hoses by warehouse location.
+            exclude when checking part/equip availability.
+        - `warehouse` (str): Filter part/equips by warehouse location.
 
     Filters:
-        - `serial_number` (str): Search air hoses by serial number.
-        - `color_code` (str): Search air hoses by colour code.
-        - `part_name` (str): Search air hoses by part name.
-        - `name_of_abbreviation` (str): Search air hoses by name or abbreviation.
-        - `asset_number` (str): Search air hoses by asset number.
+        - `serial_number` (str): Search part/equip by serial number.
+        - `color_code` (str): Search part/equip by colour code.
+        - `part_name` (str): Search part/equip by part name.
+        - `name_of_abbreviation` (str): Search part/equip by name or abbreviation.
+        - `asset_number` (str): Search part/equip by asset number.
 
     Pagination:
         - Uses a custom pagination class.
@@ -71,8 +71,8 @@ class EquipAndPartGeneralView(ListAPIView):
 
     """
 
-    # permission_classes = [DjangoModelPermissions, IsAdminUser]
-    # authentication_classes = [JWTAuthentication]
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     filter_backends = [SearchFilter]
     model_relation_name = None
@@ -745,7 +745,7 @@ class DeviceHoseView(ListAPIView):
 
         start_date = convert_to_date(self.request.query_params.get("start_date"))
         end_date = convert_to_date(self.request.query_params.get("end_date"))
-        pro_id = self.request.query_params.get("proid")
+        pro_id = self.request.query_params.get("proid", None)
         # Q()
         warehouse = self.request.query_params.get("warehouse")
 
@@ -874,8 +874,8 @@ class AallList_Id_Project(generics.RetrieveUpdateDestroyAPIView):
 
 
 class getlList_Id_Project(generics.RetrieveAPIView):
-    # permission_classes = [DjangoModelPermissions, IsAdminUser]
-    # authentication_classes= [ JWTAuthentication]
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes= [ JWTAuthentication]
 
     serializer_class = GET_Project_serializer
     queryset = Project.objects.all()
