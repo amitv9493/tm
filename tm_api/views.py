@@ -84,8 +84,8 @@ class EquipAndPartGeneralView(ListAPIView):
 
         start_date = convert_to_date(self.request.query_params.get("start_date"))
         end_date = convert_to_date(self.request.query_params.get("end_date"))
-        pro_id = self.request.query_params.get("proid")
-        warehouse = self.request.query_params.get("warehouse")
+        project_slug = self.request.query_params.get("proid", None)
+        warehouse = self.request.query_params.get("warehouse", None)
 
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
@@ -95,8 +95,8 @@ class EquipAndPartGeneralView(ListAPIView):
             equipment_delivery_tubemaster__gt=end_date,
             equipment_prep__lt=end_date,
         )
-        if pro_id:
-            project_qs = project_qs.exclude(id=pro_id)
+        if project_slug:
+            project_qs = project_qs.exclude(slug=project_slug)
 
         exclude_objects = set(
             project_qs.values_list(self.model_relation_name, flat=True)

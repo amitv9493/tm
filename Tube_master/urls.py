@@ -6,7 +6,6 @@ from django.conf import settings
 from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-from django.conf.urls.i18n import i18n_patterns
 from client.views import (
     ReactorAutocomplete,
     UnitAutocomplete,
@@ -70,8 +69,6 @@ urlpatterns = (
         ),
         # path('unit-autocomplete/', UnitAutocomplete.as_view(), name='unit-autocomplete'),
         # path('',views.login,name='login'),
-        path("logout/", views.logout, name="logout"),
-        path("register/", views.register, name="register"),
         path("accounts/", include("django.contrib.auth.urls")),  # new
         path(
             "change-password/",
@@ -101,102 +98,13 @@ urlpatterns = (
         ),
         # path('change-password/', auth_views.PasswordChangeView.as_view()),
         path("tube/", include("tube.urls")),
-        path("users/", views.users, name="users"),
-        path("user_profile/", views.user_profile, name="user_profile"),
-        path("search_clients/", views.search_clients, name="search_clients"),
-        path("search_plants/", views.search_plants, name="search_plants"),
-        path("search_units/", views.search_units, name="search_units"),
-        path("search_reactors/", views.search_reactors, name="search_reactors"),
-        path("search_warehouse/", views.search_warehouse, name="search_warehouse"),
-        path("search_ttd/", views.search_ttd, name="search_ttd"),
-        path("search_bdd/", views.search_bdd, name="search_bdd"),
-        path("search_calstand/", views.search_calstand, name="search_calstand"),
-        path("clients/", views.clients, name="clients"),
-        path("projects/", views.projects, name="projects"),
-        path("client_profile/", views.client_profile, name="client_profile"),
-        path("project_detail/", views.project_detail, name="project_detail"),
-        path("update/<int:id>", views.update, name="update"),
-        path("update/updaterecord/<int:id>", views.updaterecord, name="updaterecord"),
-        path("delete/<int:id>", views.delete, name="delete"),
-        path("show/<int:client_id>", views.show, name="show"),
-        path("warehouse/", views.warehouse, name="warehouse"),
-        path("warehouse_detail/", views.warehouse_detail, name="warehouse_detail"),
-        path("updatewarehouse/<int:id>", views.updatewarehouse, name="updatewarehouse"),
-        path(
-            "updatewarehouse/updatewarehouserecord/<int:id>",
-            views.updatewarehouserecord,
-            name="updatewarehouserecord",
-        ),
-        path("updatettd/<int:id>", views.updatettd, name="updatettd"),
-        path(
-            "updatettd/updatettdrecord/<int:id>",
-            views.updatettdrecord,
-            name="updatettdrecord",
-        ),
-        path("updateproject/<int:id>", views.updateproject, name="updateproject"),
-        path(
-            "updateproject/updateprojectrecord/<int:id>",
-            views.updateprojectrecord,
-            name="updateprojectrecord",
-        ),
-        path("updatebdd/<int:id>", views.updatebdd, name="updatebdd"),
-        path(
-            "updatebdd/updatebddrecord/<int:id>",
-            views.updatebddrecord,
-            name="updatebddrecord",
-        ),
-        path("updatecalstand/<int:id>", views.updatecalstand, name="updatecalstand"),
-        path(
-            "updatecalstand/updatecalstandrecord/<int:id>",
-            views.updatecalstandrecord,
-            name="updatecalstandrecord",
-        ),
-        path("deletewarehouse/<int:id>", views.deletewarehouse, name="deletewarehouse"),
-        path(
-            "showwarehouse/<int:warehouse_id>",
-            views.showwarehouse,
-            name="showwarehouse",
-        ),
-        path("showproject/<int:project_id>", views.showproject, name="showproject"),
-        path("deleteplant/<int:id>", views.deleteplant, name="deleteplant"),
-        path("deleteunit/<int:id>", views.deleteunit, name="deleteunit"),
-        path("deletereactor/<int:id>", views.deletereactor, name="deletereactor"),
-        path("deletettd/<int:id>", views.deletettd, name="deletettd"),
-        path("deleteproject/<int:id>", views.deleteproject, name="deleteproject"),
-        path("showplant/<int:id>", views.showplant, name="showplant"),
-        path("updateplant/<int:id>", views.updateplant, name="updateplant"),
-        path(
-            "updateplant/updateplantrecord/<int:id>",
-            views.updateplantrecord,
-            name="updateplantrecord",
-        ),
-        path("updateunit/<int:id>", views.updateunit, name="updateunit"),
-        path(
-            "updateunit/updateunitrecord/<int:id>",
-            views.updateunitrecord,
-            name="updateunitrecord",
-        ),
-        path("updatereactor/<int:id>", views.updatereactor, name="updatereactor"),
-        path(
-            "updatereactor/updatereactorrecord/<int:id>",
-            views.updatereactorrecord,
-            name="updatereactorrecord",
-        ),
-        path("contacts/", views.contacts, name="contacts"),
-        path("equipments/", views.equipments, name="equipments"),
-        path("plants/", views.plants, name="plants"),
-        path("units/", views.units, name="units"),
-        # path('parts/',views.parts,name='parts'),
-        path("reactors/", views.reactors, name="reactors"),
-        path("index/", views.index, name="index"),
-        path("i18n/", include("django.conf.urls.i18n")),
-        path("address/", views.address, name="address"),
-        path("", include("tube.urls")),
-        path("insert/", views.insert, name="insert"),
+
         # url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
         # path('inbox/',notification, name='unread-notifications'),
         # url(r'^chaining/', include('smart_selects.urls')),
         # path("select2/", include("django_select2.urls")),
+        
+        
         #######################################################################
         #                       Project API ENDPOINTS
         ###########################################`############################
