@@ -166,7 +166,7 @@ class AddressRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class PlantListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
     queryset = Plant.objects.all()
     serializer_class = PlantSerializers
 
@@ -205,7 +205,7 @@ class PlantRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class ReactorListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
     queryset = Reactor.objects.all()
     serializer_class = ReactorSerializer
 
@@ -244,7 +244,7 @@ class ReactorRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 class UnitListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-
+    pagination_class = CustomPagination
     queryset = Unit.objects.all()
     serializer_class = UnitSerializers
 
