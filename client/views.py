@@ -81,10 +81,12 @@ def notification(request):
 #                   Client List-View
 ###############################################################
 
-
+from tm_api.paginator import CustomPagination
 class ClientListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
+    pagination_class = CustomPagination
+    
 
     queryset = Client.objects.all()
     serializer_class = ClientSerializers
