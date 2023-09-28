@@ -517,7 +517,9 @@ class WarehouseEquipSerializer(serializers.Serializer):
             swab = set()
             p_qs = Project.objects.all()
             for p in p_qs:
+                print(date_obj, p.equipment_delivery_client)
                 if p.equipment_delivery_client > date_obj:
+                    
                     for t in p.ttd.all():
                         ttd.add(t.id)
                     for b in p.bdd.all():

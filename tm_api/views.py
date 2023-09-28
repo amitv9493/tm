@@ -165,7 +165,7 @@ class LoginView(APIView):
 
 
 class ClientListView(ListAPIView):
-    # pagination_class = CustomPagination
+    pagination_class = CustomPagination
     # permission_classes = [DjangoModelPermissions, IsAdminUser]
     # authentication_classes= [ JWTAuthentication]
     queryset = Client.objects.all()
