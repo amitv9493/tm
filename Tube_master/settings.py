@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "modelhistory.apps.ModelhistoryConfig",
     "drf_yasg",
+    "silk",
     # "import_export",
 ]
 
@@ -267,6 +268,7 @@ ADMIN_REORDER = (
 """
 
 MIDDLEWARE = [
+    
     "corsheaders.middleware.CorsMiddleware",
     "django_currentuser.middleware.ThreadLocalUserMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -278,6 +280,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "admin_reorder.middleware.ModelAdminReorder",
     "tm_api.middleware.LogNon200ResponseMiddleware",
+    "silk.middleware.SilkyMiddleware",
 ]
 
 # GOOGLE_APIz_KEY = 'AIzaSyD--your-google-maps-key-SjQBE'

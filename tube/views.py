@@ -89,7 +89,7 @@ def warehouse_equipment_view(request):
         )
         
     
-    p_qs = Project.objects.only("id", "ttd", "bdd", "calibration_stand", "swabmaster_equip", 'equipment_delivery_client')
+    p_qs = Project.objects.only("ttd", "bdd", "calibration_stand", "swabmaster_equip", 'equipment_delivery_client')
     
     if date_str:
         p_qs = p_qs.filter(equipment_delivery_client__gt=date_str)
