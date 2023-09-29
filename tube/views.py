@@ -60,35 +60,49 @@ class WarehouseAvailabilityView(generics.ListAPIView):
             return qs.filter(slug=id)
 
         return qs
-
-
-
-
-class WarehouseEquipmentView(generics.ListAPIView):
-    serializer_class = WarehouseEquipSerializer
-    queryset = Warehouse.objects.all()
-    pagination_class = CustomPagination
-
-    def get_queryset(self):
-        qs = super().get_queryset()
-        id = self.request.GET.get("id")
-        if id:
-            return qs.filter(id=id)
-
-        return qs
-
+    
+from tm_api.utils import filter_equipment_by_criteria
 
 @api_view(["GET"])
 def warehouse_equipment_view(request):
+    slug = request.query_params.get("slug")
+    pm_status = str(request.query_params.get("pm_status")).upper()
+    search = str(request.query_params.get("search"))
+    date_obj = request.query_params.get("date")
+
     pagination_class = CustomPagination()
 
-    serializer = WarehouseEquipSerializer(context={"request": request})
 
-    ttd_data = serializer.get_ttd(None)
-    bdd_data = serializer.get_bdd(None)
-    calibration_stand_data = serializer.get_calibration_stand(None)
-    swab_master_data = serializer.get_swab_master(None)
+    def get_ttd():
 
+        qs = filter_equipment_by_criteria(TTD, date_obj, slug, pm_status, search, {'ttds': 1})
+
+        serializer = TTDSerializers(qs, many=True)
+        return serializer.data
+
+    def get_bdd():
+        
+        qs = filter_equipment_by_criteria(BDD, date_obj, slug, pm_status, search, {'bdds': 1})
+        serializer = BDDSerializer(qs, many=True)
+        return serializer.data
+
+    def get_calibration_stand():
+        
+        qs = filter_equipment_by_criteria(CALIBRATION_STAND, date_obj, slug, pm_status, search, {'cali': 1})
+        serializer = CalibrationStandSerializer(qs, many=True)
+        return serializer.data
+
+    def get_swab_master():
+        
+        qs = filter_equipment_by_criteria(SwabMaster, date_obj, slug, pm_status, search, {'swab': 1})
+        serializer = SwabMasterSerializer(qs, many=True)
+        return serializer.data
+    
+    ttd_data = get_ttd()
+    bdd_data = get_bdd()
+    calibration_stand_data = get_calibration_stand()
+    swab_master_data = get_swab_master()
+    
     ttd_count = len(ttd_data)
     bdd_count = len(bdd_data)
     calibration_stand_count = len(calibration_stand_data)

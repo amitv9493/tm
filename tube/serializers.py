@@ -1,15 +1,19 @@
 from rest_framework import serializers
 from .models import Warehouse
-from rest_framework.decorators import api_view
 from django_countries.serializers import CountryFieldMixin
 from django_countries.serializer_fields import CountryField
 from datetime import datetime
 import pytz
 from project.models import Project
-from rest_framework.pagination import PageNumberPagination
-from rest_framework.response import Response
-
-from django.db.models import Count, Q
+from django.utils import timezone
+from django.db.models import Q, F
+from equipment.serializers import (
+    CalibrationStandSerializer,
+    SwabMasterSerializer,
+    BDDSerializer,
+)
+from equipment.models import TTD, BDD, CALIBRATION_STAND, SwabMaster
+from equipment.serializers import TTDSerializers
 
 
 class WarehouseSerializer(CountryFieldMixin, serializers.ModelSerializer):
@@ -53,7 +57,7 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
         total = 0
         request = self.context.get("request")
         warehouse_id = request.query_params.get("id")
-        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+        current_datetime = timezone.now().date()
         if warehouse_id:
             warehouse = Warehouse.objects.get(id=warehouse_id)
             if warehouse.calibration_stand:
@@ -446,233 +450,5 @@ class WarehouseAvailableSerializer(CountryFieldMixin, serializers.ModelSerialize
             "not_assigned_to_any_project": not_assigned_to_any_project,
             "total": total,
         }
-
-
-from equipment.serializers import (
-    TTDWithIDSerializer,
-    CalibrationStandSerializer,
-    SwabMasterSerializer,
-    BDDSerializer,
-)
-from equipment.models import TTD, BDD, CALIBRATION_STAND, SwabMaster
-from equipment.serializers import TTDSerializers
-
-
-class WarehouseEquipSerializer(serializers.Serializer):
-    """
-    This Serializer accepts id as slug for warehouse. Provide the `id= <slug of that warehouse>`
-
-
-    """
-
-    ttd = serializers.SerializerMethodField()
-    bdd = serializers.SerializerMethodField()
-    calibration_stand = serializers.SerializerMethodField()
-    swab_master = serializers.SerializerMethodField()
-    location_for_warehouse = serializers.SerializerMethodField()
-
-    def get_ids(
-        self,
-        date_obj,
-        ttds: int = None,
-        bdds: int = None,
-        calis: int = None,
-        swabs: int = None,
-    ) -> set:
-        """
-        Retrieve sets of IDs based on specified criteria.
-
-        Args:
-            date_obj: A date object representing the target date for comparison.
-            ttds: An optional integer flag (0 or 1) indicating whether to retrieve TTD IDs.
-                Default is None.
-            bdds: An optional integer flag (0 or 1) indicating whether to retrieve BDD IDs.
-                Default is None.
-            calis: An optional integer flag (0 or 1) indicating whether to retrieve CALI IDs.
-                Default is None.
-            swabs: An optional integer flag (0 or 1) indicating whether to retrieve SWAB IDs.
-                Default is None.
-
-        Returns:
-            A set of matching IDs based on the specified criteria. If multiple flags are set to 1,
-            the IDs for the corresponding criteria will be returned.
-
-        Raises:
-            Any exceptions that may occur during the execution of the method.
-
-        Example usage:
-            ids = get_ids(date_obj, ttds=1)  # Retrieve TTD IDs for the specified date
-
-        Note:
-            This method queries the Project model to retrieve sets of IDs based on the given criteria.
-            It compares the equipment delivery client date of each project with the provided date_obj
-            to determine the matching projects. Depending on the flags provided, it retrieves and returns
-            the IDs for the TTD, BDD, CALI, and/or SWAB criteria.
-        """
-
-        if date_obj:
-            ttd = set()
-            bdd = set()
-            cali = set()
-            swab = set()
-            p_qs = Project.objects.all()
-            for p in p_qs:
-                print(date_obj, p.equipment_delivery_client)
-                if p.equipment_delivery_client > date_obj:
-                    
-                    for t in p.ttd.all():
-                        ttd.add(t.id)
-                    for b in p.bdd.all():
-                        bdd.add(b.id)
-                    for s in p.swabmaster_equip.all():
-                        swab.add(s.id)
-                    for c in p.calibration_stand.all():
-                        cali.add(c.id)
-
-            if ttds == 1:
-                return ttd
-            if bdds == 1:
-                return bdd
-            if calis == 1:
-                return cali
-            if swabs == 1:
-                return swab
-
-    def get_ttd(self, obj):
-        request = self.context.get("request")
-        slug = request.query_params.get("slug")
-        pm_status = str(request.query_params.get("pm_status")).upper()
-        qs = TTD.objects.all()
-        search = str(request.query_params.get("search"))
-        date_str = request.GET.get("date")
-
-        if slug:
-            qs = qs.filter(location_for_warehouse__slug=slug)
-
-        if pm_status != "NONE":
-            qs = qs.filter(pm_status=pm_status)
-
-        if search != "None":
-            query = Q()
-
-            query |= Q(abbreviation__icontains=search)
-            query |= Q(alternate_name__icontains=search)
-            query |= Q(serial_number__icontains=search)
-            query |= Q(asset_number__icontains=search)
-            query |= Q(packaging__icontains=search)
-            qs = qs.filter(query)
-
-        if date_str:
-            date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
-
-            ids = self.get_ids(date_obj, ttds=1)
-            # print('ttd ids :',ids)
-            qs = qs.exclude(id__in=ids)
-
-        serializer = TTDSerializers(qs, many=True)
-        return serializer.data
-
-    def get_bdd(self, obj):
-        request = self.context.get("request")
-        slug = request.query_params.get("slug")
-        pm_status = str(request.query_params.get("pm_status")).upper()
-        qs = BDD.objects.all()
-        search = str(request.query_params.get("search"))
-        date_str = request.GET.get("date")
-
-        if search != "None":
-            query = Q()
-
-            query |= Q(abbreviation__icontains=search)
-            query |= Q(alternate_name__icontains=search)
-            query |= Q(serial_number__icontains=search)
-            query |= Q(asset_number__icontains=search)
-            query |= Q(packaging__icontains=search)
-            qs = qs.filter(query)
-
-        if slug:
-            qs = qs.filter(location_for_warehouse__slug=slug)
-
-        if pm_status != "NONE":
-            qs = qs.filter(pm_status=pm_status)
-
-        if date_str:
-            print("date ran")
-            date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
-
-            ids = self.get_ids(date_obj, bdds=1)
-            print(" bdd ids :", ids)
-            qs = qs.exclude(id__in=ids)
-
-        serializer = BDDSerializer(qs, many=True)
-        return serializer.data
-
-    def get_calibration_stand(self, obj):
-        request = self.context.get("request")
-        pm_status = str(request.query_params.get("pm_status")).upper()
-        qs = CALIBRATION_STAND.objects.all()
-        slug = request.query_params.get("slug")
-        search = str(request.query_params.get("search"))
-        date_str = request.GET.get("date")
-
-        if slug:
-            qs = qs.filter(location_for_warehouse__slug=slug)
-            print(qs)
-        if pm_status != "NONE":
-            qs = qs.filter(pm_status=pm_status)
-
-        if search != "None":
-            query = Q()
-
-            query |= Q(abbreviation__icontains=search)
-            query |= Q(alternate_name__icontains=search)
-            query |= Q(serial_number__icontains=search)
-            query |= Q(asset_number__icontains=search)
-            query |= Q(packaging__icontains=search)
-
-            qs = qs.filter(query)
-
-        if date_str:
-            date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
-
-            ids = self.get_ids(date_obj, calis=1)
-            print("cali ids :", ids)
-            qs = qs.exclude(id__in=ids)
-
-        serializer = CalibrationStandSerializer(qs, many=True)
-
-        return serializer.data
-
-    def get_swab_master(self, obj):
-        request = self.context.get("request")
-        pm_status = str(request.query_params.get("pm_status")).upper()
-
-        qs = SwabMaster.objects.all()
-        slug = request.query_params.get("slug")
-        search = str(request.query_params.get("search"))
-        date_str = request.GET.get("date")
-
-        if search != "None":
-            query = Q()
-
-            query |= Q(abbreviation__icontains=search)
-            query |= Q(alternate_name__icontains=search)
-            query |= Q(serial_number__icontains=search)
-            query |= Q(asset_number__icontains=search)
-            query |= Q(packaging__icontains=search)
-            qs = qs.filter(query)
-        if slug:
-            qs = qs.filter(location_for_warehouse__slug=slug)
-
-        if pm_status != "NONE":
-            qs = qs.filter(pm_status=pm_status)
-
-        if date_str:
-            date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
-
-            ids = self.get_ids(date_obj, swabs=1)
-            print("swab ids :", ids)
-            qs = qs.exclude(id__in=ids)
-        serializer = SwabMasterSerializer(qs, many=True)
-
-        return serializer.data
+        
+        
