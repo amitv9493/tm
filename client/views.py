@@ -162,13 +162,15 @@ class AddressRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 #                   plant List-View
 ###############################################################
 
-
+from django_filters.rest_framework import DjangoFilterBackend
 class PlantListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
     queryset = Plant.objects.all()
     serializer_class = PlantSerializers
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['client']
 
 
 ###############################################################
@@ -208,6 +210,8 @@ class ReactorListView(generics.ListAPIView):
     pagination_class = CustomPagination
     queryset = Reactor.objects.all()
     serializer_class = ReactorSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['client']
 
 
 ################################################################
@@ -247,7 +251,8 @@ class UnitListView(generics.ListAPIView):
     pagination_class = CustomPagination
     queryset = Unit.objects.all()
     serializer_class = UnitSerializers
-
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['client']
 
 ################################################################
 #                   Unit Create-View

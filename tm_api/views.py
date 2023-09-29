@@ -176,13 +176,15 @@ class ClientListView(ListAPIView):
 #            Unit API View
 ###################################################################################
 
-
+from django_filters.rest_framework import DjangoFilterBackend
 class UnitListView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
 
     queryset = Unit.objects.all()
     serializer_class = clientUnitSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['client']
 
     def get_queryset(self):
         qs = super().get_queryset()
