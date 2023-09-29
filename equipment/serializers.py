@@ -8,6 +8,7 @@ from datetime import datetime
 import pytz
 from django_countries import countries
 from project.validators import SerialValidator
+from django.utils import timezone
 
 ##################################################################
 #       TTD Serializer
@@ -51,10 +52,11 @@ class TTDSerializers(serializers.ModelSerializer):
 
     project_slug = serializers.SerializerMethodField()
     status = serializers.SerializerMethodField()
+    
+
 
     class Meta:
         model = TTD
-        # fields = "__all__"
         fields = (
             "id",
             "abbreviation",
@@ -79,9 +81,7 @@ class TTDSerializers(serializers.ModelSerializer):
         # depth = 1
 
     def get_project_slug(self, obj):
-        current_datetime = datetime.now(
-            pytz.timezone("Asia/Kolkata")
-        ).date()  # .values_list("id", flat=True))
+        current_datetime = timezone.now().date()  # .values_list("id", flat=True))
         projects = obj.ttd.all().filter(equipment_delivery_client__gt=current_datetime)
         return projects[0].slug if projects else None
 

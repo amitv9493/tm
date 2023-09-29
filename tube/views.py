@@ -62,9 +62,13 @@ class WarehouseAvailabilityView(generics.ListAPIView):
         return qs
 
 
+import time
+from silk.profiling.profiler import silk_profile
 
+@silk_profile(name='warehouse_equipment_view')
 @api_view(["GET"])
 def warehouse_equipment_view(request):
+    
     slug =  request.query_params.get("slug")
     pm_status= str(request.query_params.get("pm_status")).upper()
     search= str(request.query_params.get("search"))
@@ -94,43 +98,49 @@ def warehouse_equipment_view(request):
     if date_str:
         p_qs = p_qs.filter(equipment_delivery_client__gt=date_str)        
 
-    ttd_data = TTD.objects.filter(query)\
+    ttd_qs = TTD.objects.filter(query)\
     .select_related("location_for_warehouse",
                     "TTD_tube_seal_rack",
                     "pressure_sensor",
                     "supply_orifice_set",
                     )
-    print(ttd_data.query)
-    bdd_data = BDD.objects.filter(query)\
+    bdd_qs = BDD.objects.filter(query)\
     .select_related("location_for_warehouse",
                     "BDD_tube_seal_rack",
                     )
-    cali_data = CALIBRATION_STAND.objects.filter(query)\
+    cali_qs = CALIBRATION_STAND.objects.filter(query)\
     .select_related("location_for_warehouse",
                     "calibration_orifice_set",
                     )
-    swab_data = SwabMaster.objects.filter(query)\
+    swab_qs = SwabMaster.objects.filter(query)\
     .select_related("location_for_warehouse",
                     "Swab_Master_Tube_Seal_Rack",
                     )
+    
     if date_str:
-        ttd_data = ttd_data.exclude(id__in = get_ids(p_qs, ttds= 1))
-        bdd_data = bdd_data.exclude(id__in = get_ids(p_qs, bdds = 1))
-        cali_data = cali_data.exclude(id__in =get_ids(p_qs,calis = 1))
-        swab_data = swab_data.exclude(id__in = get_ids(p_qs, swabs= 1))
+        ttd_qs = ttd_qs.exclude(id__in = get_ids(p_qs, ttds= 1))
+        bdd_qs = bdd_qs.exclude(id__in = get_ids(p_qs, bdds = 1))
+        cali_qs = cali_qs.exclude(id__in =get_ids(p_qs,calis = 1))
+        swab_qs = swab_qs.exclude(id__in = get_ids(p_qs, swabs= 1))
         
+    ttd_data = TTDSerializers(ttd_qs, many=True).data
+    bdd_data = BDDSerializer(bdd_qs, many=True).data
+    cali_data = CalibrationStandSerializer(cali_qs, many=True).data
+    swab_data = SwabMasterSerializer(swab_qs, many=True).data
+    
+    ttd_count = (ttd_qs).count()
+    bdd_count = (bdd_qs).count()
+    calibration_stand_count = (cali_qs).count()
+    swab_master_count = swab_qs.count()
 
-    ttd_serializer = TTDSerializers(ttd_data, many=True)
-    bdd_serializer = BDDSerializer(bdd_data, many=True)
-    cali_serializer = CalibrationStandSerializer(cali_data, many=True)
-    swab_serializer = SwabMasterSerializer(swab_data, many=True)
-
-    ttd_count = (ttd_data).count()
-    bdd_count = (bdd_data).count()
-    calibration_stand_count = (cali_data).count()
-    swab_master_count = swab_data.count()
-
-    merged_data = ttd_serializer.data + bdd_serializer.data + cali_serializer.data + swab_serializer.data
+    # w =  swab_serializer.data # less time
+    # z = cali_serializer.data # less time
+    # y =  bdd_serializer.data # more time
+    # x = ttd_serializer.data # more time
+    # start = time.time()
+    # print("time taken", time.time() - start)
+        
+    merged_data = ttd_data + swab_data + bdd_data + cali_data
     
     pagination_class = CustomPagination()
 
@@ -143,5 +153,7 @@ def warehouse_equipment_view(request):
         "swab_master_count": swab_master_count,
         "results": paginated_data,
     }
+    
+    
     return pagination_class.get_paginated_response(paginated_data_with_counts)
     
