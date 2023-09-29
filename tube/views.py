@@ -63,7 +63,7 @@ class WarehouseAvailabilityView(generics.ListAPIView):
 
 
 
-
+from itertools import chain
 @api_view(["GET"])
 def warehouse_equipment_view(request):
     slug =  request.query_params.get("slug")
@@ -101,40 +101,25 @@ def warehouse_equipment_view(request):
         "date_obj":date_str,
     }
 
-    def get_ttd():
-        qs = filter_equipment_by_criteria(flags={"ttds": 1},model_class=TTD, **params)
-        
-        serializer = TTDSerializers(qs, many=True)
-        return serializer.data
 
-    def get_bdd():
-        qs = filter_equipment_by_criteria(flags={"bdds": 1},model_class=BDD, **params)
-        
-        serializer = BDDSerializer(qs, many=True)
-        return serializer.data
+    ttd_data = filter_equipment_by_criteria(flags={"ttds": 1},model_class=TTD, **params)
+    bdd_data = filter_equipment_by_criteria(flags={"bdds": 1},model_class=BDD, **params)
+    cali_data = filter_equipment_by_criteria(flags={"calis": 1},model_class=CALIBRATION_STAND, **params)
+    swab_data = filter_equipment_by_criteria(flags={"swabs": 1},model_class=SwabMaster, **params)
+    
+    ttd_serializer = TTDSerializers(ttd_data, many=True)
+    bdd_serializer = BDDSerializer(bdd_data, many=True)
+    cali_serializer = CalibrationStandSerializer(cali_data, many=True)
+    swab_serializer = SwabMasterSerializer(swab_data, many=True)
 
-    def get_calibration_stand():
-        qs = filter_equipment_by_criteria(flags={"calis": 1},model_class=CALIBRATION_STAND, **params)
-        serializer = CalibrationStandSerializer(qs, many=True)
-        return serializer.data
+    ttd_count = (ttd_data).count()
+    bdd_count = (bdd_data).count()
+    calibration_stand_count = (cali_data).count()
+    swab_master_count = swab_data.count()
 
-    def get_swab_master():
-        qs = filter_equipment_by_criteria(flags={"swabs": 1},model_class=SwabMaster, **params)
-        serializer = SwabMasterSerializer(qs, many=True)
-        return serializer.data
-
-    ttd_data = get_ttd()
-    bdd_data = get_bdd()
-    calibration_stand_data = get_calibration_stand()
-    swab_master_data = get_swab_master()
-
-    ttd_count = len(ttd_data)
-    bdd_count = len(bdd_data)
-    calibration_stand_count = len(calibration_stand_data)
-    swab_master_count = len(swab_master_data)
-
-    merged_data = ttd_data + bdd_data + calibration_stand_data + swab_master_data
-
+    merged_data = ttd_serializer.data + bdd_serializer.data + cali_serializer.data + swab_serializer.data
+    
+    
     pagination_class = CustomPagination()
 
     paginated_data = pagination_class.paginate_queryset(merged_data, request)
@@ -147,3 +132,4 @@ def warehouse_equipment_view(request):
         "results": paginated_data,
     }
     return pagination_class.get_paginated_response(paginated_data_with_counts)
+    
