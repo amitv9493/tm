@@ -63,7 +63,6 @@ class WarehouseAvailabilityView(generics.ListAPIView):
 
 
 
-from itertools import chain
 @api_view(["GET"])
 def warehouse_equipment_view(request):
     slug =  request.query_params.get("slug")
@@ -89,24 +88,38 @@ def warehouse_equipment_view(request):
         )
         
     
-    p_qs = Project.objects.only("ttd", "bdd", "calibration_stand", "swabmaster_equip", 'equipment_delivery_client')
+    p_qs = Project.objects.values("ttd", "bdd", "calibration_stand", "swabmaster_equip", 'equipment_delivery_client')
+    
     
     if date_str:
-        p_qs = p_qs.filter(equipment_delivery_client__gt=date_str)
-    
-    
-    params = {
-        "p_qs":p_qs,
-        "query":query,
-        "date_obj":date_str,
-    }
+        p_qs = p_qs.filter(equipment_delivery_client__gt=date_str)        
 
+    ttd_data = TTD.objects.filter(query)\
+    .select_related("location_for_warehouse",
+                    "TTD_tube_seal_rack",
+                    "pressure_sensor",
+                    "supply_orifice_set",
+                    )
+    print(ttd_data.query)
+    bdd_data = BDD.objects.filter(query)\
+    .select_related("location_for_warehouse",
+                    "BDD_tube_seal_rack",
+                    )
+    cali_data = CALIBRATION_STAND.objects.filter(query)\
+    .select_related("location_for_warehouse",
+                    "calibration_orifice_set",
+                    )
+    swab_data = SwabMaster.objects.filter(query)\
+    .select_related("location_for_warehouse",
+                    "Swab_Master_Tube_Seal_Rack",
+                    )
+    if date_str:
+        ttd_data = ttd_data.exclude(id__in = get_ids(p_qs, ttds= 1))
+        bdd_data = bdd_data.exclude(id__in = get_ids(p_qs, bdds = 1))
+        cali_data = cali_data.exclude(id__in =get_ids(p_qs,calis = 1))
+        swab_data = swab_data.exclude(id__in = get_ids(p_qs, swabs= 1))
+        
 
-    ttd_data = filter_equipment_by_criteria(flags={"ttds": 1},model_class=TTD, **params)
-    bdd_data = filter_equipment_by_criteria(flags={"bdds": 1},model_class=BDD, **params)
-    cali_data = filter_equipment_by_criteria(flags={"calis": 1},model_class=CALIBRATION_STAND, **params)
-    swab_data = filter_equipment_by_criteria(flags={"swabs": 1},model_class=SwabMaster, **params)
-    
     ttd_serializer = TTDSerializers(ttd_data, many=True)
     bdd_serializer = BDDSerializer(bdd_data, many=True)
     cali_serializer = CalibrationStandSerializer(cali_data, many=True)
@@ -118,7 +131,6 @@ def warehouse_equipment_view(request):
     swab_master_count = swab_data.count()
 
     merged_data = ttd_serializer.data + bdd_serializer.data + cali_serializer.data + swab_serializer.data
-    
     
     pagination_class = CustomPagination()
 

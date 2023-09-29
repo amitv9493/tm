@@ -3,7 +3,9 @@ from project.models import Project
 from django.db.models.query import QuerySet
 
 def filter_equipment_by_criteria(model_class, date_obj, p_qs, query, flags) -> QuerySet:
-    qs = model_class.objects.filter(query)
+    qs = model_class.objects.filter(query)\
+        .select_related("location_for_warehouse",
+                        )
 
     if date_obj:
         ids = get_ids(p_qs, **flags)
