@@ -66,7 +66,6 @@ class WarehouseAvailabilityView(generics.ListAPIView):
 
 @api_view(["GET"])
 def warehouse_equipment_view(request):
-    p_qs = Project.objects.all()
     slug =  request.query_params.get("slug")
     pm_status= str(request.query_params.get("pm_status")).upper()
     search= str(request.query_params.get("search"))
@@ -90,6 +89,7 @@ def warehouse_equipment_view(request):
         )
         
     
+    p_qs = Project.objects.only("id", "ttd", "bdd", "calibration_stand", "swabmaster_equip", 'equipment_delivery_client')
     
     if date_str:
         p_qs = p_qs.filter(equipment_delivery_client__gt=date_str)

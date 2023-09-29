@@ -109,7 +109,7 @@ urlpatterns = (
         #                       Project API ENDPOINTS
         ###########################################`############################
         path("api/user/login/", LoginView.as_view(), name="loginview"),
-        path("api/get/clientlist/", ClientListView.as_view(), name="clientview"),
+        path("api/get/clientlist/", ClientListViewWithPagination.as_view(), name="clientview"),
         path("api/get/unitlist/", tmAPIUnitView.as_view(), name="unitview"),
         # NEW API
         path("api/get/scopeofwork/", ScopeOfWorkView.as_view(), name="scopeofwork"),
@@ -478,6 +478,7 @@ urlpatterns = (
         # '''DASHBOARD ENDPOINTS'''
         ##########################################################################
         path("api/dashboard/", DashboardView.as_view()),
+        path('silk/', include('silk.urls', namespace='silk')),
         re_path(".*", front, name="front"),
         # re_path(r"^.*", front, name="front"),
     ]

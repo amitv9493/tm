@@ -159,18 +159,6 @@ class LoginView(APIView):
         return Response(serializer.errors, status=status.HTTP_401_UNAUTHORIZED)
 
 
-###################################################################################
-#            Client API View
-###################################################################################
-
-
-class ClientListView(ListAPIView):
-    pagination_class = CustomPagination
-    # permission_classes = [DjangoModelPermissions, IsAdminUser]
-    # authentication_classes= [ JWTAuthentication]
-    queryset = Client.objects.all()
-    serializer_class = ClientSerializer
-
 
 ###################################################################################
 #            Unit API View
