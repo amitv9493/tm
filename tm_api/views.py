@@ -92,7 +92,7 @@ class EquipAndPartGeneralView(ListAPIView):
 
         project_qs = Project.objects.filter(
             # equipment_prep__gt=start_date,
-            equipment_delivery_tubemaster__gt=start_date,
+            equipment_delivery_tubemaster__gte=start_date,
             # equipment_prep__lt=start_date,
         )
         

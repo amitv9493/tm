@@ -12,6 +12,7 @@ from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from tm_api.utils import filter_equipment_by_criteria, get_ids
 
+
 class WarehouseView(generics.ListCreateAPIView):
     queryset = Warehouse.objects.all()
     serializer_class = WarehouseSerializer
@@ -65,17 +66,17 @@ class WarehouseAvailabilityView(generics.ListAPIView):
 import time
 from silk.profiling.profiler import silk_profile
 
-@silk_profile(name='warehouse_equipment_view')
+
+@silk_profile(name="warehouse_equipment_view")
 @api_view(["GET"])
 def warehouse_equipment_view(request):
-    
-    slug =  request.query_params.get("slug")
-    pm_status= str(request.query_params.get("pm_status")).upper()
-    search= str(request.query_params.get("search"))
-    date_str =  request.query_params.get("date")
-    
+    slug = request.query_params.get("slug")
+    pm_status = str(request.query_params.get("pm_status")).upper()
+    search = str(request.query_params.get("search"))
+    date_str = request.query_params.get("date")
+
     query = Q()
-        
+
     if slug:
         query &= Q(location_for_warehouse__slug=slug)
 
@@ -90,44 +91,53 @@ def warehouse_equipment_view(request):
             | Q(asset_number__icontains=search)
             | Q(packaging__icontains=search)
         )
-        
-    
-    p_qs = Project.objects.values("ttd", "bdd", "calibration_stand", "swabmaster_equip", 'equipment_delivery_client')
-    
-    
-    if date_str:
-        p_qs = p_qs.filter(equipment_delivery_client__gt=date_str)        
 
-    ttd_qs = TTD.objects.filter(query)\
-    .select_related("location_for_warehouse",
-                    "TTD_tube_seal_rack",
-                    "pressure_sensor",
-                    "supply_orifice_set",
-                    )
-    bdd_qs = BDD.objects.filter(query)\
-    .select_related("location_for_warehouse",
-                    "BDD_tube_seal_rack",
-                    )
-    cali_qs = CALIBRATION_STAND.objects.filter(query)\
-    .select_related("location_for_warehouse",
-                    "calibration_orifice_set",
-                    )
-    swab_qs = SwabMaster.objects.filter(query)\
-    .select_related("location_for_warehouse",
-                    "Swab_Master_Tube_Seal_Rack",
-                    )
-    
+    p_qs = Project.objects.values(
+        "ttd",
+        "bdd",
+        "calibration_stand",
+        "swabmaster_equip",
+        "equipment_delivery_tubemaster",
+    )
+
     if date_str:
-        ttd_qs = ttd_qs.exclude(id__in = get_ids(p_qs, ttds= 1))
-        bdd_qs = bdd_qs.exclude(id__in = get_ids(p_qs, bdds = 1))
-        cali_qs = cali_qs.exclude(id__in =get_ids(p_qs,calis = 1))
-        swab_qs = swab_qs.exclude(id__in = get_ids(p_qs, swabs= 1))
-        
+        p_qs = p_qs.filter(
+            # equipment_prep__gt=start_date,
+            equipment_delivery_tubemaster__gte=date_str,
+            # equipment_prep__lt=start_date,
+        )
+        # p_qs = p_qs.filter(equipment_delivery_client__gt=date_str)
+
+    ttd_qs = TTD.objects.filter(query).select_related(
+        "location_for_warehouse",
+        "TTD_tube_seal_rack",
+        "pressure_sensor",
+        "supply_orifice_set",
+    )
+    bdd_qs = BDD.objects.filter(query).select_related(
+        "location_for_warehouse",
+        "BDD_tube_seal_rack",
+    )
+    cali_qs = CALIBRATION_STAND.objects.filter(query).select_related(
+        "location_for_warehouse",
+        "calibration_orifice_set",
+    )
+    swab_qs = SwabMaster.objects.filter(query).select_related(
+        "location_for_warehouse",
+        "Swab_Master_Tube_Seal_Rack",
+    )
+
+    if date_str:
+        ttd_qs = ttd_qs.exclude(id__in=get_ids(p_qs, ttds=1))
+        bdd_qs = bdd_qs.exclude(id__in=get_ids(p_qs, bdds=1))
+        cali_qs = cali_qs.exclude(id__in=get_ids(p_qs, calis=1))
+        swab_qs = swab_qs.exclude(id__in=get_ids(p_qs, swabs=1))
+
     ttd_data = TTDSerializers(ttd_qs, many=True).data
     bdd_data = BDDSerializer(bdd_qs, many=True).data
     cali_data = CalibrationStandSerializer(cali_qs, many=True).data
     swab_data = SwabMasterSerializer(swab_qs, many=True).data
-    
+
     ttd_count = (ttd_qs).count()
     bdd_count = (bdd_qs).count()
     calibration_stand_count = (cali_qs).count()
@@ -139,9 +149,9 @@ def warehouse_equipment_view(request):
     # x = ttd_serializer.data # more time
     # start = time.time()
     # print("time taken", time.time() - start)
-        
+
     merged_data = ttd_data + swab_data + bdd_data + cali_data
-    
+
     pagination_class = CustomPagination()
 
     paginated_data = pagination_class.paginate_queryset(merged_data, request)
@@ -153,7 +163,5 @@ def warehouse_equipment_view(request):
         "swab_master_count": swab_master_count,
         "results": paginated_data,
     }
-    
-    
+
     return pagination_class.get_paginated_response(paginated_data_with_counts)
-    
