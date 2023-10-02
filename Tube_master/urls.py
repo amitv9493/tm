@@ -267,7 +267,7 @@ urlpatterns = (
         path("api/cl/clientlist/", ClientListView.as_view(), name="clientlist"),
         path("api/cl/clientcreate/", ClientCreateView.as_view(), name="clientcreate"),
         path(
-            "api/cl/clientretupddel/<int:pk>/",
+            "api/cl/clientretupddel/<slug:slug>/",
             ClientRetUpddel.as_view(),
             name="clientretupddel",
         ),

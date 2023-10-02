@@ -121,7 +121,8 @@ class ClientRetUpddel(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Client.objects.all()
     serializer_class = ClientCreateSerializers
-
+    
+    lookup_field = 'slug'
 
 ###############################################################
 #                   Address List-View
