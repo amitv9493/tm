@@ -91,7 +91,7 @@ class EquipAndPartGeneralView(ListAPIView):
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(
-            equipment_prep__gt=start_date,
+            # equipment_prep__gt=start_date,
             equipment_delivery_tubemaster__gt=end_date,
             equipment_prep__lt=end_date,
         )
