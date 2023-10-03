@@ -822,7 +822,7 @@ class AirHoseView(ListAPIView):
 
 
 class ProjectAllListView(generics.ListAPIView):
-    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter, DjangoFilterBackend]
     ordering_fields = [
         "created_at",
     ]
@@ -841,7 +841,8 @@ class ProjectAllListView(generics.ListAPIView):
     queryset = Project.objects.all()
     serializer_class = Add_Project_serializer
     pagination_class = CustomPagination
-
+    
+    filterset_fields = ['client',]
 
 ################################################################################
 #                        All Create View API Project
