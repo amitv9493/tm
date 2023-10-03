@@ -326,7 +326,7 @@ class SwabMasterRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 #              Warehouse-ListView
 ###################################################################
 
-
+from rest_framework import filters
 class WarehouseListView(generics.ListAPIView):
     pagination_class = CustomPagination
     permission_classes = [DjangoModelPermissions, IsAdminUser]
@@ -336,7 +336,7 @@ class WarehouseListView(generics.ListAPIView):
     serializer_class = WarehouseSerializer
     filter_backends = [filters.SearchFilter]
 
-    search_filter = [
+    search_fields = [
         "warehouse_name",
         "warehouse_location",
         "warehouse_contact",
