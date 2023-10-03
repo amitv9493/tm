@@ -83,7 +83,6 @@ class TTDListView(ListAPIView):
         return queryset
 
 
-
 ##################################################################
 #       TTD Create-View
 ##################################################################
@@ -95,7 +94,8 @@ class TTDCreateView(generics.ListCreateAPIView):
 
     queryset = TTD.objects.all()
     serializer_class = TTDWithIDSerializer
-    
+
+
 ##################################################################
 #       TTD RetrieveUpdateDelete-View
 ##################################################################
@@ -329,11 +329,21 @@ class SwabMasterRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
 class WarehouseListView(generics.ListAPIView):
     pagination_class = CustomPagination
-    # permission_classes = [DjangoModelPermissions, IsAdminUser]
-    # authentication_classes = [JWTAuthentication]
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
 
     queryset = Warehouse.objects.all()
     serializer_class = WarehouseSerializer
+    filter_backends = [filters.SearchFilter]
+
+    search_filter = [
+        "warehouse_name",
+        "warehouse_location",
+        "warehouse_contact",
+        "warehouse_email",
+        "warehouse_manager",
+        "date_created",
+    ]
 
 
 ###################################################################

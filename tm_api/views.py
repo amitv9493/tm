@@ -822,9 +822,20 @@ class AirHoseView(ListAPIView):
 
 
 class ProjectAllListView(generics.ListAPIView):
-    filter_backends = [filters.OrderingFilter]
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
     ordering_fields = [
         "created_at",
+    ]
+    
+    search_fields = [
+        "project_name",
+        "project_number",
+        "project_start",
+        "project_end",
+        "client__official_name",
+        "equipment_delivery_tubemaster",
+        "unit__name_of_unit",
+        
     ]
     ordering = ["created_at"]
     queryset = Project.objects.all()

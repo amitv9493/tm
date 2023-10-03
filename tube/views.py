@@ -63,13 +63,13 @@ class WarehouseAvailabilityView(generics.ListAPIView):
         return qs
 
 
-import time
 from silk.profiling.profiler import silk_profile
 
 
 @silk_profile(name="warehouse_equipment_view")
 @api_view(["GET"])
 def warehouse_equipment_view(request):
+    
     slug = request.query_params.get("slug")
     pm_status = str(request.query_params.get("pm_status")).upper()
     search = str(request.query_params.get("search"))
@@ -99,7 +99,7 @@ def warehouse_equipment_view(request):
         "swabmaster_equip",
         "equipment_delivery_tubemaster",
     )
-
+    
     if date_str:
         p_qs = p_qs.filter(
             # equipment_prep__gt=start_date,

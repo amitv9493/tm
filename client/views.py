@@ -11,6 +11,8 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import *
 from .serializers import *
 
+from rest_framework import filters
+
 
 class ReactorAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -82,19 +84,32 @@ def notification(request):
 ###############################################################
 
 from tm_api.paginator import CustomPagination
+
+
 class ClientListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
-    
+
     pagination_class = CustomPagination
     queryset = Client.objects.all()
     serializer_class = ClientSerializers
+
+    filter_backends = [filters.SearchFilter]
+
+    search_fields = [
+        "official_name",
+        "comman_name",
+        "parent_company",
+        "former_name",
+    ]
+
 
 class ClientListViewWithPagination(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     queryset = Client.objects.all()
     serializer_class = ClientSerializers
+
 
 ###############################################################
 #                   Client Create-View
@@ -121,8 +136,9 @@ class ClientRetUpddel(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Client.objects.all()
     serializer_class = ClientCreateSerializers
-    
-    lookup_field = 'slug'
+
+    lookup_field = "slug"
+
 
 ###############################################################
 #                   Address List-View
@@ -168,6 +184,8 @@ class AddressRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 ###############################################################
 
 from django_filters.rest_framework import DjangoFilterBackend
+
+
 class PlantListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
@@ -175,7 +193,7 @@ class PlantListView(generics.ListAPIView):
     queryset = Plant.objects.all()
     serializer_class = PlantSerializers
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['client']
+    filterset_fields = ["client"]
 
 
 ###############################################################
@@ -216,7 +234,7 @@ class ReactorListView(generics.ListAPIView):
     queryset = Reactor.objects.all()
     serializer_class = ReactorSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['client']
+    filterset_fields = ["client"]
 
 
 ################################################################
@@ -257,7 +275,8 @@ class UnitListView(generics.ListAPIView):
     queryset = Unit.objects.all()
     serializer_class = UnitSerializers
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['client']
+    filterset_fields = ["client"]
+
 
 ################################################################
 #                   Unit Create-View
