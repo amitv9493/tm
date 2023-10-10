@@ -1,4 +1,7 @@
 from rest_framework import serializers
+from project.validators import SerialValidator
+from django_countries.serializer_fields import CountryField as DjangoCountryField
+
 from .models import *
 
 
@@ -17,7 +20,6 @@ class ClientSerializers(serializers.ModelSerializer):
 #          Client-Create Serializers
 ###############################################################
 
-from project.validators import SerialValidator
 class ClientCreateSerializers(serializers.ModelSerializer):
     class Meta:
         model = Client
@@ -52,7 +54,6 @@ class AddressCreateSerializers(serializers.ModelSerializer):
 ###############################################################
 #          Plant-Serializers
 ###############################################################
-from django_countries.serializer_fields import CountryField as DjangoCountryField
 
 class CountryField(DjangoCountryField):
     def to_representation(self, value):
@@ -104,11 +105,6 @@ class PlantSerializers(serializers.ModelSerializer):
 
 class PlantSerializersupdate(serializers.ModelSerializer):
     country = CountryField(default="")
-    # client = ClientSerializers(read_only=True)
-    # country = CountryField(default="", read_only=True)
-    # official_address = AddressSerializers(many=True, read_only=True)
-    # shipping_address = AddressSerializers(many=True, read_only=True)
-    # plantentrance_address = AddressSerializers(many=True, read_only=True)
 
     class Meta:
         model = Plant
@@ -132,6 +128,13 @@ class ReactorCreateSerializer(serializers.ModelSerializer):
         model = Reactor
         fields = "__all__"
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['client'] = instance.client.__str__()
+        data["plant"] = instance.plant.__str__()
+        data["unit"] = instance.unit.__str__()
+        
+        return data
 ##################################################################
 #                Unit Serializers
 ##################################################################
