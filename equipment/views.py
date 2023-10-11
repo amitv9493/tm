@@ -46,6 +46,7 @@ class TaskView(ListAPIView):
 class TTDListView(ListAPIView):
     # permission_classes = [DjangoModelPermissions, IsAdminUser]
     # authentication_classes = [JWTAuthentication]
+    queryset = TTD.objects.all().order_by("-id")
     serializer_class = TTDSerializers
     pagination_class = CustomPagination
     filter_backends = [
@@ -62,11 +63,11 @@ class TTDListView(ListAPIView):
     ]
 
     def get_queryset(self):
+        queryset = super().get_queryset()
         current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
         warehouse = self.request.query_params.get(
             "warehouse"
         )  # Get the warehouse ID from the request query parameters
-        queryset = TTD.objects.all()
         free = self.request.GET.get("free")
         if free:
             used_id = set()
@@ -327,6 +328,8 @@ class SwabMasterRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 ###################################################################
 
 from rest_framework import filters
+
+
 class WarehouseListView(generics.ListAPIView):
     pagination_class = CustomPagination
     permission_classes = [DjangoModelPermissions, IsAdminUser]
@@ -388,8 +391,22 @@ class WarehouseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
 
 class WarehouseNewListView(generics.RetrieveAPIView):
     pagination_class = CustomPagination
-    # permission_classes = [DjangoModelPermissions, IsAdminUser]
-    # authentication_classes = [JWTAuthentication]
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
 
-    queryset = Warehouse.objects.all()
+    queryset = Warehouse.objects.values(
+        "part",
+        "ttd",
+        "bdd",
+        "calibration_stand",
+        "swabmaster",
+        "supply_orifice",
+        "pressure_sensor",
+        "ttd_rack",
+        "bdd_rack",
+        "calibration_orifice",
+        "swabmasterTSR",
+        "devicehose",
+        "airhose",
+    )
     serializer_class = WarehouseNewSerializer
