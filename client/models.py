@@ -5,9 +5,9 @@ from django_countries.fields import CountryField
 from project.validators import slugFieldValidator
 from django.utils.text import slugify
 
+CHOICES_TOP_DOME_REMOVABLE = ((True, ("yes")), (False, ("No")))
 
 class Address(models.Model):
-    # client= models.ForeignKey(Client,on_delete=models.SET_NULL,null=True,related_name="Client Address+")
     addressline1 = models.CharField(max_length=128, blank=True)
     addressline2 = models.CharField(max_length=128, blank=True)
     addressline3 = models.CharField(max_length=128, blank=True)
@@ -20,7 +20,6 @@ class Address(models.Model):
         return f"{self.City} {self.addressline2} {self.addressline3}"
 
 
-CHOICES_TOP_DOME_REMOVABLE = ((True, ("yes")), (False, ("No")))
 
 
 
@@ -131,20 +130,6 @@ class Unit(models.Model):
         blank=True,
         related_name="clientunit+",
     )
-    # plant= models.ForeignKey(Plant,on_delete=models.SET_NULL,null=True,related_name="plantunit+")
-    # plant = ChainedForeignKey(
-    #     Plant,
-    #     chained_field="client",
-    #     chained_model_field="client",
-    #     related_name="plantunit"
-    #     )
-    # country = ChainedForeignKey(
-    #     Plant,
-    #     chained_field="client",
-    #     chained_model_field="client",
-    #     show_all=False,
-    #     auto_choose=True,
-    #     sort=True,related_name="unitcountry")
     plant = models.ForeignKey(
         Plant,
         related_name="unitplant",
@@ -160,8 +145,6 @@ class Unit(models.Model):
         blank=True,
         verbose_name="Chemical Being Manufactured By This Unit",
     )
-    # reactor_per_each_unit=models.ManyToManyField("Reactor",related_name="Unit Reactor+")
-
     def __str__(self):
         return self.name_of_unit
 
@@ -235,8 +218,6 @@ class Reactor(models.Model):
         INCH = "INCH", ("INCH")
         MM = "MM", ("MM")
 
-    # ferrule_length=models.DecimalField(decimal_places=3,max_digits=10,blank=True,null=True)
-
     ferrule_length = models.CharField(
         max_length=128,
         null=True,
@@ -252,13 +233,11 @@ class Reactor(models.Model):
         decimal_places=3,
         max_digits=30,
     )
-    # mm1 = models.PositiveIntegerField(blank=True,verbose_name='MM',null=True)
 
     class ferrule_id(models.TextChoices):
         INCH = "INCH", ("INCH")
         MM = "MM", ("MM")
 
-    # ferrule_id=models.DecimalField(decimal_places=3,max_digits=10,blank=True,null=True)
     ferrule_id = models.CharField(
         max_length=128,
         null=True,
@@ -314,7 +293,6 @@ class Reactor(models.Model):
         verbose_name="Tube Spacing or Pitch Value",
         null=True,
     )
-    # mm3 = models.PositiveIntegerField(blank=True,verbose_name='MM',null=True)
 
     class total_tube_length(models.TextChoices):
         INCH = "INCH", ("INCH")
@@ -335,7 +313,6 @@ class Reactor(models.Model):
         decimal_places=3,
         max_digits=30,
     )
-    # mm4 = models.PositiveIntegerField(blank=True,verbose_name='MM',null=True)
 
     class top_tube_sheet_thickness(models.TextChoices):
         INCH = "INCH", ("INCH")
@@ -356,8 +333,6 @@ class Reactor(models.Model):
         decimal_places=3,
         max_digits=30,
     )
-    # mm5 = models.PositiveIntegerField(blank=True,verbose_name='MM',null=True)
-
     class bottom_tube_sheet_thickness(models.TextChoices):
         INCH = "INCH", ("INCH")
         MM = "MM", ("MM")
@@ -377,8 +352,6 @@ class Reactor(models.Model):
         decimal_places=3,
         max_digits=30,
     )
-    # mm6 = models.PositiveIntegerField(blank=True,verbose_name='MM',null=True)
-
     class CHOICES_TUBE_PROTUDE_OUT_OF_TOP_TUBE_SHEET(models.TextChoices):
         YES = "YES", ("YES")
         NO = "NO", ("NO")
@@ -488,12 +461,6 @@ class Reactor(models.Model):
         max_length=128,
     )
 
-    # def validate_geeks_mail(value):
-    #  if "text" in value:
-    #     return value
-    #  else:
-    #     raise ValidationError("This field accepts Only Text value.")
-
     tube_sheet_material = models.CharField(
         max_length=128, blank=True, verbose_name="Tube Sheet Material"
     )
@@ -594,34 +561,3 @@ class Reactor(models.Model):
     spring_drawing = models.FileField(
         upload_to="spring_drawing/", null=True, blank=True
     )
-
-
-# class DropdownModel(models.Model):
-
-#     CHOICES = (
-#         ('Today', 'Today'),
-#         ('Yesterday', 'Yesterday'),
-#         ('Last 7 Days', 'Last 7 Days'),
-#         ('Last 14 Days', 'Last 14 Days'),
-#         ('Last 30 Days', 'Last 30 Days'),
-#         ('Last 60 Days', 'Last 60 Days'),
-#         ('Last 90 Days', 'Last 90 Days'),
-#         ('This Year', 'This Year'),
-#         ('All Time', 'All Time'),
-#         ('Custom', 'Custom')
-#     )
-
-#     date_range = models.CharField(max_length=15)
-#     start_date = models.DateField()
-#     end_date = models.DateField()
-
-
-# class CategoryField(models.Model):
-
-#     class SELECT_FIELD_CHOICES(models.TextChoices):
-#       value1='value1',('value1')
-#       value2='value2',('value2')
-#       value3='value3',('value3')
-
-#     selectfield = models.IntegerField(choices=SELECT_FIELD_CHOICES.choices, default=1)
-#     verified = models.BooleanField(default=True, verbose_name='Required?')

@@ -1,12 +1,8 @@
 from rest_framework import serializers
-from rest_framework.fields import empty
 from .models import *
 from tube.models import *
 from part.models import *
 from rest_framework import serializers
-from datetime import datetime
-import pytz
-from django_countries import countries
 from project.validators import SerialValidator
 from django.utils import timezone
 
@@ -21,18 +17,6 @@ class CustomCountryField(serializers.Field):
 
     def to_internal_value(self, data):
         return data
-
-
-# class TTDLocSerializers(serializers.ModelSerializer):
-# 	class Meta:
-# 		model = Warehouse
-# 		# fields = ["id", "official_name", "country"]
-# 		# fields = "_all_"
-# 		fields = ['warehouse_name']
-# 		read_only_fields = ['warehouse_name']
-
-# 	def to_representation(self, instance):
-# 		return instance.warehouse_name
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -102,9 +86,7 @@ class TTDWithIDSerializer(serializers.ModelSerializer):
         read_only_fields = ['slug']
 
     def get_project_ids(self, obj):
-        current_datetime = datetime.now(
-            pytz.timezone("Asia/Kolkata")
-        ).date()  # .values_list("id", flat=True))
+        current_datetime = timezone.now().date() # .values_list("id", flat=True))
         projects_id = list(
             obj.ttd.all()
             .filter(equipment_delivery_client__gt=current_datetime)
@@ -137,9 +119,7 @@ class BDDSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_project_ids(self, obj):
-        current_datetime = datetime.now(
-            pytz.timezone("Asia/Kolkata")
-        ).date()  # .values_list("id", flat=True))
+        current_datetime = timezone.now().date() # .values_list("id", flat=True))
         projects_id = list(
             obj.bdd.all()
             .filter(equipment_delivery_client__gt=current_datetime)
@@ -168,9 +148,7 @@ class BDDCreateSerializer(serializers.ModelSerializer):
         read_only_fields = ['slug']
 
     def get_project_ids(self, obj):
-        current_datetime = datetime.now(
-            pytz.timezone("Asia/Kolkata")
-        ).date()  # .values_list("id", flat=True))
+        current_datetime = timezone.now().date() # .values_list("id", flat=True))
         projects_id = list(
             obj.bdd.all()
             .filter(equipment_delivery_client__gt=current_datetime)
@@ -203,9 +181,7 @@ class CalibrationStandSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_project_ids(self, obj):
-        current_datetime = datetime.now(
-            pytz.timezone("Asia/Kolkata")
-        ).date()  # .values_list("id", flat=True))
+        current_datetime = timezone.now().date()
         projects_id = list(
             obj.calibration_stand.all()
             .filter(equipment_delivery_client__gt=current_datetime)
@@ -234,9 +210,7 @@ class CalibrationCreUpdStandSerializer(serializers.ModelSerializer):
         read_only_fields = ['slug']
 
     def get_project_ids(self, obj):
-        current_datetime = datetime.now(
-            pytz.timezone("Asia/Kolkata")
-        ).date()  # .values_list("id", flat=True))
+        current_datetime = timezone.now().date() # .values_list("id", flat=True))
         projects_id = list(
             obj.calibration_stand.all()
             .filter(equipment_delivery_client__gt=current_datetime)
@@ -269,9 +243,7 @@ class SwabMasterSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_project_ids(self, obj):
-        current_datetime = datetime.now(
-            pytz.timezone("Asia/Kolkata")
-        ).date()  # .values_list("id", flat=True))
+        current_datetime = timezone.now().date() # .values_list("id", flat=True))
         projects_id = list(
             obj.Swabmaster.all()
             .filter(equipment_delivery_client__gt=current_datetime)
@@ -304,9 +276,7 @@ class SwabMasterCreUpdSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_project_ids(self, obj):
-        current_datetime = datetime.now(
-            pytz.timezone("Asia/Kolkata")
-        ).date()  # .values_list("id", flat=True))
+        current_datetime = timezone.now().date() # .values_list("id", flat=True))
         projects_id = list(
             obj.Swabmaster.all()
             .filter(equipment_delivery_client__gt=current_datetime)

@@ -1,23 +1,11 @@
 from django.contrib import admin
-
-from client.models import Address
-from client.models import Client
-from client.models import Reactor
-from client.models import Plant
-
-# from client.models import Contact
-from client.models import Unit
-
-# from client.forms import UnitModelForm
-
+from client.models import Address, Client, Reactor, Plant, Unit
 from .forms import ReactorForm, UnitForm
-
+from import_export.admin import ImportExportModelAdmin
 
 class UnitAdmin(admin.ModelAdmin):
     form = UnitForm
-    # inlines = [
-    #     LocaleTypeInline,
-    # ]
+    
     list_filter = ["client", "plant"]
     list_display = (
         "client",
@@ -32,28 +20,11 @@ class UnitAdmin(admin.ModelAdmin):
     )
 
     search_fields = ["name_of_unit"]
-    # def label_from_instance(self, obj):
-    #      return "Plant: {}".format(obj.plant)
 
     class Media:
         # this path may be any you want,
         # just put it in your static folder
         js = ("js/admin/placeholder.js",)
-
-    # def formfield_for_foreignkey(self, db_field, request, **kwargs):
-    #     if db_field.client == "plant":
-    #         kwargs["queryset"] = Plant.objects.filter(plant__in=['God', 'Demi God'])
-    #     return super().formfield_for_foreignkey(db_field, request, **kwargs)
-    # list_filter = (('client', admin.ChoiceDropdownFilter),)
-    # list_filter = (('client', admin.DropdownFilter),)
-
-    # def list_of_plant(self, obj):
-    #     return ("%s" % ','.join([plant.plant_location for plant in obj.plant.all()]))
-    # list_of_reactors.short_description = 'Reactors'
-    # def has_module_permission(self, request):
-    #     return False
-
-
 admin.site.register(Unit, UnitAdmin)
 
 
@@ -218,20 +189,11 @@ class ReactorAdmin(admin.ModelAdmin):
     }
 
     search_fields = ["reactor_name"]
-    # def has_module_permission(self, request):
-    #     return False
-
-
 admin.site.register(Reactor, ReactorAdmin)
 
 
 class PlantAdmin(admin.ModelAdmin):
     list_display = ("client", "plant_name", "plant_common_name")
-
-    # def list_of_units(self, obj):
-    #     return ("%s" % ','.join([name_of_unit.name_of_unit for name_of_unit in obj.name_of_unit.all()]))
-    # list_of_units.short_description = 'Units'
-    # form = SimpleForm
 
     fieldsets = (
         (
@@ -267,7 +229,6 @@ class PlantAdmin(admin.ModelAdmin):
         ),
     )
 
-
 admin.site.register(Plant, PlantAdmin)
 
 
@@ -287,13 +248,6 @@ class ContactAdmin(admin.ModelAdmin):
         # just put it in your static folder
         js = ("js/admin/placeholder.js",)
 
-
-#     def has_module_permission(self, request):
-#         return False
-
-# admin.site.register(Contact,ContactAdmin)
-
-
 class AddressAdmin(admin.ModelAdmin):
     list_display = ("City", "State", "Country", "Zipcode")
     search_fields = ["City"]
@@ -305,12 +259,10 @@ class AddressAdmin(admin.ModelAdmin):
 admin.site.register(Address, AddressAdmin)
 
 
-from import_export.admin import ImportExportModelAdmin
 
 
 class ClientAdmin(ImportExportModelAdmin):
     list_filter = ["official_name", "parent_company"]
-    # list_per_page = 5
     fieldsets = [
         (
             "Client Info",
@@ -326,7 +278,6 @@ class ClientAdmin(ImportExportModelAdmin):
     ]
 
     search_fields = ["official_name", "contact_person"]
-    # list_filter=['contact_person']
 
 
 admin.site.register(Client, ClientAdmin)

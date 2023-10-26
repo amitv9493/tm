@@ -5,13 +5,14 @@ from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
 from dotenv import load_dotenv
+
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 IMPORT_EXPORT_USE_TRANSACTIONS = False
-DEBUG=os.environ.get("debug")
+DEBUG = os.environ.get("debug")
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 ALLOWED_HOSTS = ["*"]
@@ -36,15 +37,12 @@ INSTALLED_APPS = [
     "equipment",
     "part",
     "sorl.thumbnail",
-    "ajax_datatable",
     "smart_selects",
     "admin_reorder",
     "django_select2",
     "import_export",
     # 'notifications',
     "comment",
-    "schedule",
-    "bootstrap_datepicker_plus",
     "rest_framework",
     "rest_framework_simplejwt",
     "django_countries",
@@ -71,13 +69,8 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     "EXCEPTION_HANDLER": "project.handlers.custom_exception_handler",
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-    ),
-    
-    
-    
-    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
 }
 
 # CORS_ALLOWED_ORIGINS = ['http://tubemastercrm.com/']
@@ -268,7 +261,6 @@ ADMIN_REORDER = (
 """
 
 MIDDLEWARE = [
-    
     "corsheaders.middleware.CorsMiddleware",
     "django_currentuser.middleware.ThreadLocalUserMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -313,7 +305,6 @@ WSGI_APPLICATION = "Tube_master.wsgi.application"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -344,7 +335,7 @@ MESSAGE_TAGS = {
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'America/New_York'
+TIME_ZONE = "America/New_York"
 
 USE_I18N = True
 
@@ -379,36 +370,36 @@ APPEND_SLASH = True
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME':  os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASS'),
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASS"),
+        "HOST": "localhost",  # Or an IP Address that your DB is hosted on
+        "PORT": "3306",
     }
 }
 
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {message}',
-            'style': '{',
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {message}",
+            "style": "{",
         },
     },
-    'handlers': {
-        'file': {
-            'level': 'ERROR',  # Set the desired log level (DEBUG, INFO, WARNING, ERROR, CRITICAL).
-            'class': 'logging.FileHandler',
-            'filename': 'logfile.log',  # Specify the path to your log file.
-            'formatter': 'verbose',  # Use the 'verbose' formatter defined above.
+    "handlers": {
+        "file": {
+            "level": "ERROR",  # Set the desired log level (DEBUG, INFO, WARNING, ERROR, CRITICAL).
+            "class": "logging.FileHandler",
+            "filename": "logfile.log",  # Specify the path to your log file.
+            "formatter": "verbose",  # Use the 'verbose' formatter defined above.
         },
     },
-    'root': {
-        'handlers': ['file'],  # Use the 'file' handler for the root logger.
-        'level': 'ERROR',  # Set the desired log level for the root logger.
+    "root": {
+        "handlers": ["file"],  # Use the 'file' handler for the root logger.
+        "level": "ERROR",  # Set the desired log level for the root logger.
     },
 }

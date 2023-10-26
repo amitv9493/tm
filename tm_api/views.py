@@ -1,4 +1,3 @@
-
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import Group
 from rest_framework import generics  # noqa: F811
@@ -21,6 +20,8 @@ from .serializers import *  # noqa: F403
 from .serializers import LoginSerializer
 
 from datetime import datetime
+
+
 def convert_to_date(date_string: str):
     if date_string:
         date_obj = datetime.strptime(date_string, "%Y-%m-%d").date()
@@ -95,23 +96,23 @@ class EquipAndPartGeneralView(ListAPIView):
             equipment_delivery_tubemaster__gte=start_date,
             # equipment_prep__lt=start_date,
         )
-        
+
         if project_slug:
             project_qs = project_qs.exclude(slug=project_slug)
 
         exclude_objects = set(
             project_qs.values_list(self.model_relation_name, flat=True)
         )
-        
+
         return (
-            qs.exclude(id__in=exclude_objects).order_by(f"{self.model_warehouse_field}__id")
+            qs.exclude(id__in=exclude_objects).order_by(
+                f"{self.model_warehouse_field}__id"
+            )
             if not warehouse
-            else qs.exclude(id__in=exclude_objects)\
-                .filter(
+            else qs.exclude(id__in=exclude_objects).filter(
                 **{self.model_warehouse_field: warehouse}
             )
         )
-
 
 
 # Create your views here.
@@ -160,12 +161,13 @@ class LoginView(APIView):
         return Response(serializer.errors, status=status.HTTP_401_UNAUTHORIZED)
 
 
-
 ###################################################################################
 #            Unit API View
 ###################################################################################
 
 from django_filters.rest_framework import DjangoFilterBackend
+
+
 class UnitListView(ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
@@ -173,7 +175,7 @@ class UnitListView(ListAPIView):
     queryset = Unit.objects.all()
     serializer_class = clientUnitSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['client']
+    filterset_fields = ["client"]
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -715,14 +717,13 @@ class DeviceHoseNewView(EquipAndPartGeneralView):
     pagination_class = CustomPagination
     model_relation_name = "device_part"
     model_warehouse_field = "warehouse"
-    
+
     search_fields = [
         "serial_number",
         "part_name",
         "name_of_abbreviation",
         "asset_number",
     ]
-
 
 
 class DeviceHoseView(ListAPIView):
@@ -780,6 +781,7 @@ class AirHoseNewView(EquipAndPartGeneralView):
     model_relation_name = "airhose_part"
     model_warehouse_field = "warehouse"
 
+
 class AirHoseView(ListAPIView):
     queryset = AirHose.objects.all()
     permission_classes = [DjangoModelPermissions, IsAdminUser]
@@ -822,11 +824,15 @@ class AirHoseView(ListAPIView):
 
 
 class ProjectAllListView(generics.ListAPIView):
-    filter_backends = [filters.OrderingFilter, filters.SearchFilter, DjangoFilterBackend]
+    filter_backends = [
+        filters.OrderingFilter,
+        filters.SearchFilter,
+        DjangoFilterBackend,
+    ]
     ordering_fields = [
         "created_at",
     ]
-    
+
     search_fields = [
         "project_name",
         "project_number",
@@ -835,14 +841,16 @@ class ProjectAllListView(generics.ListAPIView):
         "client__official_name",
         "equipment_delivery_tubemaster",
         "unit__name_of_unit",
-        
     ]
     ordering = ["created_at"]
     queryset = Project.objects.all()
     serializer_class = Add_Project_serializer
     pagination_class = CustomPagination
-    
-    filterset_fields = ['client',]
+
+    filterset_fields = [
+        "client",
+    ]
+
 
 ################################################################################
 #                        All Create View API Project
@@ -878,7 +886,7 @@ class AallList_Id_Project(generics.RetrieveUpdateDestroyAPIView):
 
 class getlList_Id_Project(generics.RetrieveAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
-    authentication_classes= [ JWTAuthentication]
+    authentication_classes = [JWTAuthentication]
 
     serializer_class = GET_Project_serializer
     queryset = Project.objects.all()
@@ -906,3 +914,16 @@ class AllList_Id_Patch_Project(generics.RetrieveUpdateAPIView):
     queryset = Project.objects.all()
 
     lookup_field = "slug"
+
+
+from .serializers import DynamicReactorSerializer
+
+
+class ProjectRecordView(generics.RetrieveAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectRecordSerializer
+
+    # def get_serializer(self, *args, **kwargs):
+    #     serializer = super().get_serializer(*args, **kwargs)
+    #     serializer.fields ["id"]
+    #     return serializer

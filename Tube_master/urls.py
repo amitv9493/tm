@@ -28,16 +28,16 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="Snippets API",
-      default_version='v1',
-      description="Test description",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="contact@snippets.local"),
-      license=openapi.License(name="BSD License"),
-   ),
-   public=True,
-   permission_classes=(permissions.AllowAny,),
+    openapi.Info(
+        title="Snippets API",
+        default_version="v1",
+        description="Test description",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@snippets.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
 )
 
 
@@ -46,9 +46,19 @@ urlpatterns = (
     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + [
-        path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-        path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-        path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+        path(
+            "swagger<format>/",
+            schema_view.without_ui(cache_timeout=0),
+            name="schema-json",
+        ),
+        path(
+            "swagger/",
+            schema_view.with_ui("swagger", cache_timeout=0),
+            name="schema-swagger-ui",
+        ),
+        path(
+            "redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
+        ),
         path("admin", admin.site.urls),
         path("", front, name="front"),
         #
@@ -98,18 +108,19 @@ urlpatterns = (
         ),
         # path('change-password/', auth_views.PasswordChangeView.as_view()),
         path("tube/", include("tube.urls")),
-
         # url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
         # path('inbox/',notification, name='unread-notifications'),
         # url(r'^chaining/', include('smart_selects.urls')),
         # path("select2/", include("django_select2.urls")),
-        
-        
         #######################################################################
         #                       Project API ENDPOINTS
         ###########################################`############################
         path("api/user/login/", LoginView.as_view(), name="loginview"),
-        path("api/get/clientlist/", ClientListViewWithPagination.as_view(), name="clientview"),
+        path(
+            "api/get/clientlist/",
+            ClientListViewWithPagination.as_view(),
+            name="clientview",
+        ),
         path("api/get/unitlist/", tmAPIUnitView.as_view(), name="unitview"),
         # NEW API
         path("api/get/scopeofwork/", ScopeOfWorkView.as_view(), name="scopeofwork"),
@@ -458,7 +469,7 @@ urlpatterns = (
         # path('api/equip/', WarehouseEquipmentView.as_view()),
         path("api/wef/", warehouse_equipment_view),
         path("api/wp/", warehouse_part_view),
-        path("api/wp/general-parts/",AllGeneralPart.as_view()),
+        path("api/wp/general-parts/", AllGeneralPart.as_view()),
         path("api/task/", TaskView.as_view()),
         # new equipments view
         path("api/get/new/ttd/", TTDNewView.as_view(), name="ttdnewview"),
@@ -476,9 +487,10 @@ urlpatterns = (
         path("api/get/new/calibration-orifice/", CalibrationOrificeNewView.as_view()),
         ##########################################################################
         # '''DASHBOARD ENDPOINTS'''
-        ##########################################################################
+        ##########################################################################""
+        path("project-reports/<int:pk>/", ProjectRecordView.as_view()),
         path("api/dashboard/", DashboardView.as_view()),
-        path('silk/', include('silk.urls', namespace='silk')),
+        path("silk/", include("silk.urls", namespace="silk")),
         re_path(".*", front, name="front"),
         # re_path(r"^.*", front, name="front"),
     ]

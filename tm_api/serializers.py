@@ -17,6 +17,19 @@ from part.serializers import (
 )
 
 
+class DynamicModelSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        fields = kwargs.pop("fields", None)
+        print("fields", fields)
+        super().__init__(*args, **kwargs)
+        print(self.fields)
+        if fields is not None:
+            allowed = set(fields)
+            existing = set(self.fields)
+            for field_name in existing - allowed:
+                self.fields.pop(field_name)
+
+
 ################################################################################
 #            Login API Serializer
 ################################################################################
@@ -487,6 +500,8 @@ class Add_Project_serializer(serializers.ModelSerializer):
     def validate(self, data):
         SerialValidator(self, data, "project_name")
         return super().validate(data)
+
+
 """################################################################################
 #            GET_Project_serializer Serializer
 ################################################################################"""
@@ -532,6 +547,7 @@ class CreateProjectSerializer(serializers.ModelSerializer):
     def validate(self, data):
         SerialValidator(self, data, "project_nmae")
         return super().validate(data)
+
 
 class GET_Project_serializer(serializers.ModelSerializer):
     """equipments"""
@@ -580,11 +596,53 @@ class Create_Project_Serializer(serializers.ModelSerializer):
         model = Project
         fields = "__all__"
         # fields = ""
-        
+
     def validate(self, data):
-        SerialValidator(self, data, 'project_name',)
+        SerialValidator(
+            self,
+            data,
+            "project_name",
+        )
         return data
-    
+
+
 ################################################################################
 #            Project Patch Serializer
 ################################################################################
+
+from equipment.serializers import (
+    TTDSerializers,
+    BDDSerializer,
+    CalibrationStandSerializer,
+    SwabMasterSerializer,
+)
+
+
+class DynamicReactorSerializer(DynamicModelSerializer):
+    class Meta:
+        model = Reactor
+        fields = "__all__"
+
+
+from part.serializers import AirHoseSerializer
+
+
+class ProjectRecordSerializer(serializers.ModelSerializer):
+    client = serializers.StringRelatedField()
+    unit = serializers.StringRelatedField()
+    reactor = DynamicReactorSerializer()
+    plant = serializers.StringRelatedField()
+    ttd = TTDSerializers(many=True)
+    bdd = BDDSerializer(many=True)
+    calibration_stand = CalibrationStandSerializer(many=True)
+    swabmaster_equip = SwabMasterSerializer(many=True)
+
+    part = AllGeneralPartListSerializer(many=True)
+
+    calibration_orifice_part = SupplyOrificeListSerializer(many=True)
+    device_part = DeviceHoseSerializer(many=True)
+    airhose_part = AirHoseSerializer(many=True)
+
+    class Meta:
+        model = Project
+        fields = "__all__"

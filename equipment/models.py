@@ -58,13 +58,7 @@ class TTD(models.Model):
     if_yes_how_many_in_a_set = models.CharField(
         max_length=128, blank=True, verbose_name="If Yes How Many In A Set?"
     )
-    #  class  is_it_an_assembly(models.TextChoices):
-    #      YES='YES',('YES')
-    #      NO='NO',('NO')
-    #  is_it_an_assembly=models.CharField(max_length=128,blank=True,choices=is_it_an_assembly.choices,default=is_it_an_assembly.YES)
 
-    #  allow_to_add_sub_parts=models.ManyToManyField("Part",verbose_name="Allowed To Add Sub Parts")
-    #  TTD_SN = models.CharField(max_length=128,blank=True)
     supply_orifice_set = models.OneToOneField(
         "part.Supply_orifice",
         verbose_name="Supply Orifice Set",
@@ -128,7 +122,6 @@ class TTD(models.Model):
 
 
 class BDD(models.Model):
-    #  name=models.CharField(max_length=128,blank=True)
     abbreviation = models.CharField(max_length=128, blank=True)
     alternate_name = models.CharField(
         max_length=128, blank=True, verbose_name="Alternate Name"
@@ -178,12 +171,6 @@ class BDD(models.Model):
     if_yes_how_many_in_a_set = models.CharField(
         max_length=128, blank=True, verbose_name="If Yes How Many In A Set?"
     )
-    #  class  is_it_an_assembly(models.TextChoices):
-    #      YES='YES',('YES')
-    #      NO='NO',('NO')
-    #  is_it_an_assembly=models.CharField(max_length=128,blank=True,choices=is_it_an_assembly.choices,default=is_it_an_assembly.YES)
-    #  allow_to_add_sub_parts=models.ManyToManyField("Part",verbose_name="Allowed To Add Sub Parts")
-    #  BDD_SN = models.CharField(max_length=128,blank=True)
     BDD_tube_seal_rack = models.OneToOneField(
         "part.BDD_tube_seal_rack",
         verbose_name="BDD Tube Seal Rack",
@@ -230,7 +217,6 @@ class BDD(models.Model):
 
 
 class CALIBRATION_STAND(models.Model):
-    #  name=models.CharField(max_length=128,blank=True)
     abbreviation = models.CharField(max_length=128, blank=True)
     alternate_name = models.CharField(
         max_length=128, blank=True, verbose_name="Alternate Name"
@@ -256,7 +242,6 @@ class CALIBRATION_STAND(models.Model):
     )
     remarks = models.CharField(blank=True, null=True, max_length=999)
 
-    # warehouse_location=models.OneToOneField("Warehouse",verbose_name="Warehouse Location",default="",on_delete=models.SET_NULL,null=True)
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
         verbose_name="Location For Warehouse",
@@ -283,11 +268,6 @@ class CALIBRATION_STAND(models.Model):
     if_yes_how_many_in_a_set = models.CharField(
         max_length=128, blank=True, verbose_name="If Yes How Many In A Set?"
     )
-    #  class  is_it_an_assembly(models.TextChoices):
-    #      YES='YES',('YES')
-    #      NO='NO',('NO')
-    #  is_it_an_assembly=models.CharField(max_length=128,blank=True,choices=is_it_an_assembly.choices,default=is_it_an_assembly.YES)
-    #  allow_to_add_sub_parts=models.ManyToManyField("Part",verbose_name="Allowed To Add Sub Parts")
     cal_stand_size = models.CharField(
         max_length=128, blank=True, verbose_name="Calibration Stand Size"
     )
@@ -435,10 +415,3 @@ class SwabMaster(models.Model):
 
     class Meta:
         verbose_name = "Swab Master"
-
-
-class EquipmentCollection(models.Model):
-    ttd = models.ForeignKey(TTD, on_delete=models.CASCADE)
-    bdd = models.ForeignKey(BDD, on_delete=models.CASCADE)
-    calibratopn_stand = models.ForeignKey(CALIBRATION_STAND, on_delete=models.CASCADE)
-    swabmaster = models.ForeignKey(SwabMaster, on_delete=models.CASCADE)
