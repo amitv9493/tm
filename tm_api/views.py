@@ -922,6 +922,7 @@ from .serializers import DynamicReactorSerializer
 class ProjectRecordView(generics.RetrieveAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectRecordSerializer
+    lookup_field = "slug"
 
     # def get_serializer(self, *args, **kwargs):
     #     serializer = super().get_serializer(*args, **kwargs)
