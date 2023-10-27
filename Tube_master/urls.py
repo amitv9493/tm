@@ -488,7 +488,7 @@ urlpatterns = (
         ##########################################################################
         # '''DASHBOARD ENDPOINTS'''
         ##########################################################################""
-        path("project-reports/<slug:slug>/", ProjectRecordView.as_view()),
+        path("api/project-reports/<slug:slug>/", ProjectRecordView.as_view()),
         path("api/dashboard/", DashboardView.as_view()),
         path("silk/", include("silk.urls", namespace="silk")),
         re_path(".*", front, name="front"),
