@@ -5,6 +5,7 @@ from part.models import *
 from rest_framework import serializers
 from project.validators import SerialValidator
 from django.utils import timezone
+from core.serializers import DynamicModelSerializer
 
 ##################################################################
 #       TTD Serializer
@@ -28,7 +29,7 @@ class TaskSerializer(serializers.ModelSerializer):
         ]
 
 
-class TTDSerializers(serializers.ModelSerializer):
+class TTDSerializers(DynamicModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
     supply_orifice_set = serializers.StringRelatedField()
     pressure_sensor = serializers.SerializerMethodField()
@@ -36,8 +37,6 @@ class TTDSerializers(serializers.ModelSerializer):
 
     project_slug = serializers.SerializerMethodField()
     status = serializers.SerializerMethodField()
-    
-
 
     class Meta:
         model = TTD
@@ -72,9 +71,10 @@ class TTDSerializers(serializers.ModelSerializer):
     def get_status(self, obj):
         x = self.get_project_slug(obj)
         return 1 if x else None
-    
+
     def get_pressure_sensor(self, obj):
         return obj.pressure_sensor.range if obj.pressure_sensor else None
+
 
 class TTDWithIDSerializer(serializers.ModelSerializer):
     project_ids = serializers.SerializerMethodField()
@@ -83,10 +83,10 @@ class TTDWithIDSerializer(serializers.ModelSerializer):
     class Meta:
         model = TTD
         fields = "__all__"
-        read_only_fields = ['slug']
+        read_only_fields = ["slug"]
 
     def get_project_ids(self, obj):
-        current_datetime = timezone.now().date() # .values_list("id", flat=True))
+        current_datetime = timezone.now().date()  # .values_list("id", flat=True))
         projects_id = list(
             obj.ttd.all()
             .filter(equipment_delivery_client__gt=current_datetime)
@@ -98,11 +98,12 @@ class TTDWithIDSerializer(serializers.ModelSerializer):
     def get_status(self, obj):
         x = self.get_project_ids(obj)
         return 1 if x else None
-    
-    
+
     def validate(self, data):
         SerialValidator(self, data, "serial_number")
         return super().validate(data)
+
+
 ##################################################################
 #       BDD Serializer
 ##################################################################
@@ -119,7 +120,7 @@ class BDDSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_project_ids(self, obj):
-        current_datetime = timezone.now().date() # .values_list("id", flat=True))
+        current_datetime = timezone.now().date()  # .values_list("id", flat=True))
         projects_id = list(
             obj.bdd.all()
             .filter(equipment_delivery_client__gt=current_datetime)
@@ -145,10 +146,10 @@ class BDDCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = BDD
         fields = "__all__"
-        read_only_fields = ['slug']
+        read_only_fields = ["slug"]
 
     def get_project_ids(self, obj):
-        current_datetime = timezone.now().date() # .values_list("id", flat=True))
+        current_datetime = timezone.now().date()  # .values_list("id", flat=True))
         projects_id = list(
             obj.bdd.all()
             .filter(equipment_delivery_client__gt=current_datetime)
@@ -161,10 +162,11 @@ class BDDCreateSerializer(serializers.ModelSerializer):
         x = self.get_project_ids(obj)
         return 1 if x else None
 
-
     def validate(self, data):
         SerialValidator(self, data, "serial_number")
         return super().validate(data)
+
+
 ##################################################################
 #       CALIBRATION_STAND Serializer
 ##################################################################
@@ -207,10 +209,10 @@ class CalibrationCreUpdStandSerializer(serializers.ModelSerializer):
     class Meta:
         model = CALIBRATION_STAND
         fields = "__all__"
-        read_only_fields = ['slug']
+        read_only_fields = ["slug"]
 
     def get_project_ids(self, obj):
-        current_datetime = timezone.now().date() # .values_list("id", flat=True))
+        current_datetime = timezone.now().date()  # .values_list("id", flat=True))
         projects_id = list(
             obj.calibration_stand.all()
             .filter(equipment_delivery_client__gt=current_datetime)
@@ -223,10 +225,11 @@ class CalibrationCreUpdStandSerializer(serializers.ModelSerializer):
         x = self.get_project_ids(obj)
         return 1 if x else None
 
-
     def validate(self, data):
         SerialValidator(self, data, "serial_number")
         return super().validate(data)
+
+
 ##################################################################
 #       SwabMaster Serializer
 ##################################################################
@@ -243,7 +246,7 @@ class SwabMasterSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_project_ids(self, obj):
-        current_datetime = timezone.now().date() # .values_list("id", flat=True))
+        current_datetime = timezone.now().date()  # .values_list("id", flat=True))
         projects_id = list(
             obj.Swabmaster.all()
             .filter(equipment_delivery_client__gt=current_datetime)
@@ -269,14 +272,14 @@ class SwabMasterCreUpdSerializer(serializers.ModelSerializer):
     class Meta:
         model = SwabMaster
         fields = "__all__"
-        read_only_fields = ['slug']
+        read_only_fields = ["slug"]
 
     class Meta:
         model = SwabMaster
         fields = "__all__"
 
     def get_project_ids(self, obj):
-        current_datetime = timezone.now().date() # .values_list("id", flat=True))
+        current_datetime = timezone.now().date()  # .values_list("id", flat=True))
         projects_id = list(
             obj.Swabmaster.all()
             .filter(equipment_delivery_client__gt=current_datetime)
@@ -289,11 +292,11 @@ class SwabMasterCreUpdSerializer(serializers.ModelSerializer):
         x = self.get_project_ids(obj)
         return 1 if x else None
 
-
     def validate(self, data):
         SerialValidator(self, data, "serial_number")
-        
+
         return super().validate(data)
+
 
 ##################################################################
 #       Warehouse Serializer

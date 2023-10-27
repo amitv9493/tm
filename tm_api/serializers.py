@@ -6,6 +6,7 @@ from equipment.models import *
 from tube.models import *
 from django_countries.serializers import CountryFieldMixin
 from project.validators import SerialValidator
+from core.serializers import DynamicModelSerializer
 from part.serializers import (
     AllGeneralPartListSerializer,
     PressuresensorListSerializer,
@@ -15,19 +16,6 @@ from part.serializers import (
     DeviceHoseListSerializer,
     AirHoseSerializer,
 )
-
-
-class DynamicModelSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        fields = kwargs.pop("fields", None)
-        print("fields", fields)
-        super().__init__(*args, **kwargs)
-        print(self.fields)
-        if fields is not None:
-            allowed = set(fields)
-            existing = set(self.fields)
-            for field_name in existing - allowed:
-                self.fields.pop(field_name)
 
 
 ################################################################################
@@ -630,9 +618,13 @@ from part.serializers import AirHoseSerializer
 class ProjectRecordSerializer(serializers.ModelSerializer):
     client = serializers.StringRelatedField()
     unit = serializers.StringRelatedField()
-    reactor = DynamicReactorSerializer()
+    reactor = DynamicReactorSerializer(
+        many=True,
+    )
     plant = serializers.StringRelatedField()
-    ttd = TTDSerializers(many=True)
+    ttd = TTDSerializers(
+        many=True,
+    )
     bdd = BDDSerializer(many=True)
     calibration_stand = CalibrationStandSerializer(many=True)
     swabmaster_equip = SwabMasterSerializer(many=True)
