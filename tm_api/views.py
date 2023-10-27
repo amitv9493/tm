@@ -916,15 +916,17 @@ class AllList_Id_Patch_Project(generics.RetrieveUpdateAPIView):
     lookup_field = "slug"
 
 
-from .serializers import DynamicReactorSerializer
+from silk.profiling.profiler import silk_profile
+from django.db.models import Prefetch
+from django_auto_prefetching import AutoPrefetchViewSetMixin
 
 
-class ProjectRecordView(generics.RetrieveAPIView):
+class ProjectRecordView(AutoPrefetchViewSetMixin, generics.RetrieveAPIView):
     queryset = Project.objects.all()
+
     serializer_class = ProjectRecordSerializer
     lookup_field = "slug"
 
-    # def get_serializer(self, *args, **kwargs):
-    #     serializer = super().get_serializer(*args, **kwargs)
-    #     serializer.fields ["id"]
-    #     return serializer
+    @silk_profile(name="reports")
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)

@@ -613,15 +613,15 @@ class DynamicReactorSerializer(DynamicModelSerializer):
 
 
 from part.serializers import AirHoseSerializer
+from client.serializers import ReactorCreateSerializer
 
 
 class ProjectRecordSerializer(serializers.ModelSerializer):
     client = serializers.StringRelatedField()
     unit = serializers.StringRelatedField()
-    reactor = DynamicReactorSerializer(
+    reactor = ReactorCreateSerializer(
         many=True,
     )
-    plant = serializers.StringRelatedField()
     ttd = TTDSerializers(
         many=True,
     )

@@ -127,7 +127,7 @@ class PlantSerializersupdate(serializers.ModelSerializer):
 #                Reactor Serializers
 ##################################################################
 
-from tm_api.serializers import DynamicModelSerializer
+from core.serializers import DynamicModelSerializer
 
 
 class ReactorSerializer(DynamicModelSerializer):
@@ -141,7 +141,7 @@ class ReactorSerializer(DynamicModelSerializer):
 ##################################################################
 
 
-class ReactorCreateSerializer(serializers.ModelSerializer):
+class ReactorCreateSerializer(DynamicModelSerializer):
     class Meta:
         model = Reactor
         fields = "__all__"
