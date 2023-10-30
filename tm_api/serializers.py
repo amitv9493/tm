@@ -382,7 +382,7 @@ class SwabMasterSerializer(serializers.ModelSerializer):
 ################################################################################
 #            deviceair
 ################################################################################
-class DeviceHoseSerializer(serializers.ModelSerializer):
+class DeviceHoseSerializer(DynamicModelSerializer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -408,7 +408,7 @@ class DeviceHoseSerializer(serializers.ModelSerializer):
 ################################################################################
 #            airhose
 ################################################################################
-class AirHoseSerializer(serializers.ModelSerializer):
+class AirHoseSerializer(DynamicModelSerializer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -624,6 +624,12 @@ class ProjectRecordSerializer(serializers.ModelSerializer):
     )
     ttd = TTDSerializers(
         many=True,
+        exclude=(
+            "image",
+            "slug",
+            "status",
+            "project_slug",
+        ),
     )
     bdd = BDDSerializer(many=True)
     calibration_stand = CalibrationStandSerializer(many=True)
@@ -637,4 +643,19 @@ class ProjectRecordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = "__all__"
+        fields = (
+            "id",
+            "project_name",
+            "project_start",
+            "client",
+            "unit",
+            "reactor",
+            "ttd",
+            "bdd",
+            "calibration_stand",
+            "swabmaster_equip",
+            "part",
+            "calibration_orifice_part",
+            "device_part",
+            "airhose_part",
+        )

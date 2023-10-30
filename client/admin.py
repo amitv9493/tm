@@ -2,10 +2,12 @@ from django.contrib import admin
 from client.models import Address, Client, Reactor, Plant, Unit
 from .forms import ReactorForm, UnitForm
 from import_export.admin import ImportExportModelAdmin
+from django.forms import widgets
+
 
 class UnitAdmin(admin.ModelAdmin):
     form = UnitForm
-    
+
     list_filter = ["client", "plant"]
     list_display = (
         "client",
@@ -25,6 +27,8 @@ class UnitAdmin(admin.ModelAdmin):
         # this path may be any you want,
         # just put it in your static folder
         js = ("js/admin/placeholder.js",)
+
+
 admin.site.register(Unit, UnitAdmin)
 
 
@@ -71,6 +75,7 @@ class ReactorAdmin(admin.ModelAdmin):
                     "input_ferrulelength",
                     "ferrule_id",
                     "input_ferruleid",
+                    "tube_seal_type",
                 ),
             },
         ),
@@ -81,6 +86,7 @@ class ReactorAdmin(admin.ModelAdmin):
                     "tube_material_of_tubes",
                     "tube_material_of_raws",
                     "tube_material_of_thermo",
+                    "thermo_couple_test",
                     "tube_material_of_supports",
                     "tube_material_of_plugs",
                     "tube_material_of_coolent_tubes",
@@ -168,6 +174,19 @@ class ReactorAdmin(admin.ModelAdmin):
                 ),
             },
         ),
+        (
+            "Testing Speicification",
+            {
+                "fields": (
+                    "supply_orifice_size",
+                    "cal_orifice_size",
+                    "pressure_sensor",
+                    "expected_pressure_drop",
+                    "calibrate_TTD_to",
+                    "supply_pressure",
+                ),
+            },
+        ),
     )
 
     radio_fields = {
@@ -186,9 +205,12 @@ class ReactorAdmin(admin.ModelAdmin):
         "top_inlet_impingment_plate": admin.HORIZONTAL,
         "select_tube_protude_top": admin.HORIZONTAL,
         "select_tube_protude_bottom": admin.HORIZONTAL,
+        "thermo_couple_test": admin.HORIZONTAL,
     }
 
     search_fields = ["reactor_name"]
+
+
 admin.site.register(Reactor, ReactorAdmin)
 
 
@@ -229,6 +251,7 @@ class PlantAdmin(admin.ModelAdmin):
         ),
     )
 
+
 admin.site.register(Plant, PlantAdmin)
 
 
@@ -248,6 +271,7 @@ class ContactAdmin(admin.ModelAdmin):
         # just put it in your static folder
         js = ("js/admin/placeholder.js",)
 
+
 class AddressAdmin(admin.ModelAdmin):
     list_display = ("City", "State", "Country", "Zipcode")
     search_fields = ["City"]
@@ -257,8 +281,6 @@ class AddressAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Address, AddressAdmin)
-
-
 
 
 class ClientAdmin(ImportExportModelAdmin):

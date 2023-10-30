@@ -109,7 +109,7 @@ class TTDWithIDSerializer(serializers.ModelSerializer):
 ##################################################################
 
 
-class BDDSerializer(serializers.ModelSerializer):
+class BDDSerializer(DynamicModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
     BDD_tube_seal_rack = serializers.StringRelatedField()
     status = serializers.SerializerMethodField()
@@ -172,7 +172,7 @@ class BDDCreateSerializer(serializers.ModelSerializer):
 ##################################################################
 
 
-class CalibrationStandSerializer(serializers.ModelSerializer):
+class CalibrationStandSerializer(DynamicModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
     calibration_orifice_set = serializers.StringRelatedField()
     status = serializers.SerializerMethodField()
@@ -235,7 +235,7 @@ class CalibrationCreUpdStandSerializer(serializers.ModelSerializer):
 ##################################################################
 
 
-class SwabMasterSerializer(serializers.ModelSerializer):
+class SwabMasterSerializer(DynamicModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
     Swab_Master_Tube_Seal_Rack = serializers.StringRelatedField()
     status = serializers.SerializerMethodField()

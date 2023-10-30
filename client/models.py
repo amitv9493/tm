@@ -7,6 +7,7 @@ from django.utils.text import slugify
 
 CHOICES_TOP_DOME_REMOVABLE = ((True, ("yes")), (False, ("No")))
 
+
 class Address(models.Model):
     addressline1 = models.CharField(max_length=128, blank=True)
     addressline2 = models.CharField(max_length=128, blank=True)
@@ -18,9 +19,6 @@ class Address(models.Model):
 
     def __str__(self):
         return f"{self.City} {self.addressline2} {self.addressline3}"
-
-
-
 
 
 class Client(models.Model):
@@ -39,7 +37,7 @@ class Client(models.Model):
         max_length=128, blank=True, verbose_name="Former Name"
     )
 
-    slug = models.SlugField(max_length=500,null=True)
+    slug = models.SlugField(max_length=500, null=True)
 
     def __str__(self):
         return self.official_name
@@ -145,6 +143,7 @@ class Unit(models.Model):
         blank=True,
         verbose_name="Chemical Being Manufactured By This Unit",
     )
+
     def __str__(self):
         return self.name_of_unit
 
@@ -333,6 +332,7 @@ class Reactor(models.Model):
         decimal_places=3,
         max_digits=30,
     )
+
     class bottom_tube_sheet_thickness(models.TextChoices):
         INCH = "INCH", ("INCH")
         MM = "MM", ("MM")
@@ -352,6 +352,7 @@ class Reactor(models.Model):
         decimal_places=3,
         max_digits=30,
     )
+
     class CHOICES_TUBE_PROTUDE_OUT_OF_TOP_TUBE_SHEET(models.TextChoices):
         YES = "YES", ("YES")
         NO = "NO", ("NO")
@@ -560,4 +561,34 @@ class Reactor(models.Model):
     spring_height = models.CharField(max_length=128, blank=True)
     spring_drawing = models.FileField(
         upload_to="spring_drawing/", null=True, blank=True
+    )
+
+    tube_seal_type = models.CharField(max_length=128, blank=True, null=True)
+    thermo_couple_test = models.CharField(
+        max_length=10,
+        choices=CHOICES_TOP_INLET_IMPINGMENT_PLATE.choices,
+        null=True,
+        blank=True,
+    )
+    # TESTING SPECIFICATION
+
+    supply_orifice_size = models.DecimalField(
+        max_digits=5, decimal_places=2, default=0.00, blank=True, null=True
+    )
+
+    cal_orifice_size = models.DecimalField(
+        max_digits=5, decimal_places=2, default=0.00, blank=True, null=True
+    )
+
+    pressure_sensor = models.DecimalField(
+        max_digits=5, decimal_places=2, default=0.00, blank=True, null=True
+    )
+    expected_pressure_drop = models.DecimalField(
+        max_digits=5, decimal_places=2, default=0.00, blank=True, null=True
+    )
+    calibrate_TTD_to = models.DecimalField(
+        max_digits=5, decimal_places=2, default=0.00, blank=True, null=True
+    )
+    supply_pressure = models.DecimalField(
+        max_digits=5, decimal_places=2, default=0.00, blank=True, null=True
     )
