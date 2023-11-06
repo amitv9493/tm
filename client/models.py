@@ -573,22 +573,22 @@ class Reactor(models.Model):
     # TESTING SPECIFICATION
 
     supply_orifice_size = models.DecimalField(
-        max_digits=5, decimal_places=2, default=0.00, blank=True, null=True
+        max_digits=6, decimal_places=3, default=0.00, blank=True, null=True
     )
 
     cal_orifice_size = models.DecimalField(
-        max_digits=5, decimal_places=2, default=0.00, blank=True, null=True
+        max_digits=6, decimal_places=3, default=0.00, blank=True, null=True
     )
 
     pressure_sensor = models.DecimalField(
-        max_digits=5, decimal_places=2, default=0.00, blank=True, null=True
+        max_digits=6, decimal_places=3, default=0.00, blank=True, null=True
     )
     expected_pressure_drop = models.DecimalField(
-        max_digits=5, decimal_places=2, default=0.00, blank=True, null=True
+        max_digits=6, decimal_places=3, default=0.00, blank=True, null=True
     )
     calibrate_TTD_to = models.DecimalField(
-        max_digits=5, decimal_places=2, default=0.00, blank=True, null=True
+        max_digits=6, decimal_places=3, default=0.00, blank=True, null=True
     )
     supply_pressure = models.DecimalField(
-        max_digits=5, decimal_places=2, default=0.00, blank=True, null=True
+        max_digits=6, decimal_places=3, default=0.00, blank=True, null=True
     )

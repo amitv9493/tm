@@ -387,7 +387,6 @@ class DeviceHoseSerializer(DynamicModelSerializer):
         super().__init__(*args, **kwargs)
 
         view_name = self.context.get("view").__class__.__name__
-        print(view_name)
 
         if view_name == "DeviceHoseNewView":
             (self.fields["warehouse"].Meta.fields) = "__all__"
