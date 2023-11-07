@@ -889,7 +889,7 @@ class AllGeneralPartListView(generics.ListAPIView):
         )
         
         exclude_objects = set(
-            project_qs.values_list(self.part, flat=True)
+            project_qs.values_list("part", flat=True)
         )
 
         qs = qs.exclude(id__in=exclude_objects)
