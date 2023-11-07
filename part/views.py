@@ -846,7 +846,8 @@ class AllGeneralPartListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
-    queryset = Part.objects.all()
+    queryset = Part.objects.select_related(
+        "location_for_warehouse")
 
     serializer_class = AllGeneralPartListSerializer
     filter_backends = [
@@ -869,7 +870,7 @@ class AllGeneralPartListView(generics.ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
         current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
-        start_date = self.request.GET.get("date")
+        start_date = self.request.query_params.get("date")
         warehouse = self.request.query_params.get(
             "warehouse"
         )  # Get the warehouse ID from the request query parameters
@@ -884,15 +885,16 @@ class AllGeneralPartListView(generics.ListAPIView):
 
             queryset = queryset.exclude(id__in=used_id)
         
-        project_qs = Project.objects.filter(
-            equipment_delivery_tubemaster__gte=start_date,
-        )
+        if start_date:
+            project_qs = Project.objects.filter(
+                equipment_delivery_tubemaster__gte=start_date,
+            )
         
-        exclude_objects = set(
-            project_qs.values_list("part", flat=True)
-        )
+            exclude_objects = set(
+                project_qs.values_list("part", flat=True)
+            )
 
-        qs = qs.exclude(id__in=exclude_objects)
+            qs = qs.exclude(id__in=exclude_objects)
             
         if warehouse:
             qs = qs.filter(location_for_warehouse__slug=warehouse)
