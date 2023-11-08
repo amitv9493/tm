@@ -11,6 +11,8 @@ from rest_framework.decorators import api_view
 from datetime import datetime
 import pytz
 from project.models import Project
+from django.db.models import Q
+
 from equipment.models import *
 
 
@@ -94,7 +96,6 @@ class TTDTubeSealRackViewPart(generics.ListAPIView):
     queryset = TTD_tube_seal_rack.objects.all()
     serializer_class = TTDTubeSealRackSerializer
 
-
     def get_queryset(self):
         qs = super().get_queryset()
         ttd_id = self.request.GET.get("ttd_id")
@@ -130,6 +131,7 @@ class BDDTubeSealRackViewPart(generics.ListAPIView):
     queryset = BDD_tube_seal_rack.objects.all()
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["location_for_warehouse"]
+
     def get_queryset(self):
         qs = super().get_queryset()
         bdd_id = self.request.GET.get("bdd_id")
@@ -846,8 +848,7 @@ class AllGeneralPartListView(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     authentication_classes = [JWTAuthentication]
     pagination_class = CustomPagination
-    queryset = Part.objects.select_related(
-        "location_for_warehouse")
+    queryset = Part.objects.select_related("location_for_warehouse")
 
     serializer_class = AllGeneralPartListSerializer
     filter_backends = [
@@ -876,29 +877,26 @@ class AllGeneralPartListView(generics.ListAPIView):
         )  # Get the warehouse ID from the request query parameters
         free = self.request.GET.get("free")
         if free:
-            used_id = set()
-            for i in qs:
-                if i.equipment_delivery_client > current_datetime:
-                    if i.part:
-                        for j in i.part.all():
-                            used_id.add(j.id)
+            project_qs = Project.objects.filter(
+                equipment_delivery_tubemaster__gt=start_date,
+            )
 
-            queryset = queryset.exclude(id__in=used_id)
-        
+            used_id = set(project_qs.values_list("part", flat=True))
+
+            qs = qs.exclude(id__in=used_id)
+
+        if warehouse:
+            qs = qs.filter(location_for_warehouse__slug=warehouse)
+
         if start_date:
             project_qs = Project.objects.filter(
                 equipment_delivery_tubemaster__gte=start_date,
             )
-        
-            exclude_objects = set(
-                project_qs.values_list("part", flat=True)
-            )
+
+            exclude_objects = set(project_qs.values_list("part", flat=True))
 
             qs = qs.exclude(id__in=exclude_objects)
-            
-        if warehouse:
-            qs = qs.filter(location_for_warehouse__slug=warehouse)
-            
+
         return qs
 
 
@@ -919,6 +917,8 @@ class AllGeneralPartCreateView(generics.ListCreateAPIView):
 #                     AllgeneralPart-RetUpdDelView
 #######################################################################
 
+from core.utils import get_exclude_objects
+
 
 class AllGeneralPartRetUpdDelView(generics.RetrieveUpdateAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
@@ -934,15 +934,55 @@ class AllGeneralPartRetUpdDelView(generics.RetrieveUpdateAPIView):
 def warehouse_part_view(request):
     pagination_class = CustomPagination()
 
-    serializer = WarehousePartSerializer(context={"request": request})
-    supply_orifice_data = serializer.get_supply_orifice(None)
-    pressure_sensor_data = serializer.get_pressure_sensor(None)
-    ttd_rack_data = serializer.get_ttd_rack(None)
-    bdd_rack_data = serializer.get_bdd_rack(None)
-    calibration_orifice_data = serializer.get_calibration_orifice(None)
-    swabmaster_data = serializer.get_swabmasterTSR(None)
-    devicehose_data = serializer.get_devicehose(None)
-    airhose_data = serializer.get_airhose(None)
+    slug = request.query_params.get("slug")
+    pm_status = str(request.query_params.get("pm_status")).upper()
+    start_date = request.query_params.get("start_date")
+
+    common_query = Q()
+    exception_query = Q()
+    if pm_status != "NONE":
+        common_query &= Q(pm_status=pm_status)
+        exception_query &= Q(pm_status=pm_status)
+
+    if slug:
+        exception_query &= Q(warehouse__slug=slug)
+        common_query &= Q(location_for_warehouse__slug=slug)
+
+    supply_orifice_data = SupplyOrificeCreateSerializer(
+        Supply_orifice.objects.filter(common_query),
+        many=True,
+    ).data
+    
+    pressure_sensor_data = PressureSensorSerializer(
+        Pressure_sensor.objects.filter(common_query),
+        many=True,
+    ).data
+    ttd_rack_data = TddTubesealrackCreateSerializer(
+        TTD_tube_seal_rack.objects.filter(common_query), many=True
+    ).data
+    bdd_rack_data = BDDTubeSealRackSerializer(
+        BDD_tube_seal_rack.objects.filter(common_query), many=True
+    ).data
+    
+    swabmaster_data = SwabMasterTSRSerializer(
+        SwabMasterTSR.objects.filter(common_query), many=True
+    ).data
+    
+    # =============================================
+
+    devicehose_data = DeviceHoseSerializer(
+        DeviceHose.objects.filter(exception_query).exclude(
+            id__in = get_exclude_objects(start_date, "device_part")), many=True
+    ).data
+    airhose_data = AirHoseSerializer(
+        AirHose.objects.filter(exception_query)
+            .exclude(id__in = get_exclude_objects(start_date, "airhose_part")),
+            many=True
+    ).data
+    calibration_orifice_data = Calibration_orifice_serializer(
+        Calibration_orifice.objects.filter(common_query).exclude(
+            id__in = get_exclude_objects(start_date, 'calibration_orifice_part')), many=True
+    ).data
 
     merged_data = (
         supply_orifice_data
@@ -970,15 +1010,15 @@ def warehouse_part_view(request):
     }
     return pagination_class.get_paginated_response(paginated_data_with_counts)
 
+
 class AllGeneralPart(generics.ListAPIView):
     queryset = Part.objects.all()
     serializer_class = AllGeneralPartCreateSerializer
     pagination_class = CustomPagination
-    
-    
+
     def get_queryset(self):
         qs = super().get_queryset()
-        
+
         slug = self.request.query_params.get("slug")
         pm_status = str(self.request.query_params.get("pm_status")).upper()
 
@@ -987,5 +1027,5 @@ class AllGeneralPart(generics.ListAPIView):
 
         if slug:
             qs = qs.filter(location_for_warehouse__slug=slug)
-        
+
         return qs

@@ -88,7 +88,7 @@ class EquipAndPartGeneralView(ListAPIView):
         project_slug = self.request.query_params.get("proid", None)
         warehouse = self.request.query_params.get("warehouse", None)
 
-        if not start_date or not end_date:
+        if not start_date:
             raise ValidationError("Both start_date and end_date are required.")
 
         project_qs = Project.objects.filter(

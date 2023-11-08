@@ -352,7 +352,14 @@ class WarehousePartSerializer(serializers.Serializer):
     swabmasterTSR = serializers.SerializerMethodField()
     devicehose = serializers.SerializerMethodField()
     airhose = serializers.SerializerMethodField()
+    # Query_params 
 
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.get_query_params(self.context.get("request"))
+        
+    
     def get_supply_orifice(self, obj):
         request = self.context.get("request")
         slug = request.query_params.get("slug")
@@ -366,16 +373,18 @@ class WarehousePartSerializer(serializers.Serializer):
         serializer = SupplyOrificeCreateSerializer(qs, many=True)
         return serializer.data
 
-    def get_pressure_sensor(self, obj):
-        request = self.context.get("request")
-        slug = request.query_params.get("slug")
-        pm_status = str(request.query_params.get("pm_status")).upper()
-        qs = Pressure_sensor.objects.all()
-        if pm_status != "NONE":
-            qs = qs.filter(pm_status=pm_status)
-        if slug:
-            qs = qs.filter(location_for_warehouse__slug=slug)
 
+    
+    def get_part_data(self,qs):
+        
+        if self.pm_status != "NONE":
+            qs = qs.filter(pm_status=self.pm_status)
+        if self.slug:
+            qs = qs.filter(location_for_warehouse__slug=self.slug)
+        
+    def get_pressure_sensor(self, obj):
+        qs = Pressure_sensor.objects.all()
+        
         serializer = SupplyOrificeCreateSerializer(qs, many=True)
         return serializer.data
 
