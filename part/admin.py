@@ -30,7 +30,8 @@ class ExportCsvMixin:
 
 
 class PartAdmin(ImportExportModelAdmin):
-    list_filter = ["part_name"]
+    list_filter = ["part_name", 'location_for_warehouse']
+    
     list_display = (
         "id",
         "part_name",
