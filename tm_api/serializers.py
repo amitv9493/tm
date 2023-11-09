@@ -342,6 +342,7 @@ class CalibrationOrificeSerializer(serializers.ModelSerializer):
             "total_sets",
             "in_sets",
             "location_for_warehouse",
+            "pm_status",
         ]
 
 
@@ -401,7 +402,13 @@ class DeviceHoseSerializer(DynamicModelSerializer):
 
     class Meta:
         model = DeviceHose
-        fields = ("id", "serial_number", "length", "colour_code", "warehouse")
+        fields = ("id",
+                  "serial_number",
+                  "length",
+                  "colour_code",
+                  "warehouse",
+                  "pm_status",
+                  )
 
 
 ################################################################################
