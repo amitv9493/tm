@@ -12,11 +12,12 @@ from equipment.serializers import (
     SwabMasterSerializer,
     BDDSerializer,
 )
+from core.serializers import DynamicModelSerializer
 from equipment.models import TTD, BDD, CALIBRATION_STAND, SwabMaster
 from equipment.serializers import TTDSerializers
 
 
-class WarehouseSerializer(CountryFieldMixin, serializers.ModelSerializer):
+class WarehouseSerializer(CountryFieldMixin, DynamicModelSerializer):
     country = CountryField(country_dict=True)
 
     class Meta:

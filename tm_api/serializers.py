@@ -16,6 +16,7 @@ from part.serializers import (
     DeviceHoseListSerializer,
     AirHoseSerializer,
 )
+from tube.serializers import WarehouseSerializer
 
 
 ################################################################################
@@ -504,35 +505,39 @@ class Add_Project_serializer(serializers.ModelSerializer):
 
 
 class TTDSerialzerProject(serializers.ModelSerializer):
-    location_for_warehouse = serializers.StringRelatedField()
+    location_for_warehouse = WarehouseSerializer(fields=('id','warehouse_name', 'warehouse_location',))
     class Meta:
         model = TTD
         fields = "__all__"
         
 class BDDSerializerProject(serializers.ModelSerializer):
-    location_for_warehouse = serializers.StringRelatedField()
+    location_for_warehouse = WarehouseSerializer(fields=('id','warehouse_name', 'warehouse_location',))
+    
     class Meta:
         model = BDD
         fields = "__all__"
 
 
 class CALIBRATION_STANDSerializerProject(serializers.ModelSerializer):
-    location_for_warehouse = serializers.StringRelatedField()
+    location_for_warehouse = WarehouseSerializer(fields=('id','warehouse_name', 'warehouse_location',))
+    
+    
     class Meta:
         model = CALIBRATION_STAND
         fields = "__all__"
 
 
 class SwabMasterTSRSerializerProject(serializers.ModelSerializer):
-    location_for_warehouse = serializers.StringRelatedField()
+    location_for_warehouse = WarehouseSerializer(fields=('id','warehouse_name', 'warehouse_location',))
+    
+    
     class Meta:
         model = SwabMaster
         fields = "__all__"
 
 
 class AirHoseSerializerProject(serializers.ModelSerializer):
-    warehouse = serializers.StringRelatedField()
-
+    warehouse = WarehouseSerializer(fields=('id','warehouse_name', 'warehouse_location',))
     class Meta:
         model = AirHose
         fields = "__all__"
