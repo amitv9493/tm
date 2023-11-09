@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from tube.serializers import WarehouseSerializer
 from .models import *
 from project.validators import SerialValidator
 from core.serializers import DynamicModelSerializer
@@ -130,7 +132,8 @@ class AirHoseCreSerializer(serializers.ModelSerializer):
 
 
 class DeviceHoseListSerializer(serializers.ModelSerializer):
-    warehouse = serializers.StringRelatedField()
+    warehouse = WarehouseSerializer(fields=('id','warehouse_name', 'warehouse_location',))
+
 
     class Meta:
         model = DeviceHose
@@ -172,14 +175,20 @@ class SwabMasterTSRCreateSerializer(serializers.ModelSerializer):
 #                CalibrationOrifice Serializer
 ################################################################################
 
-
+from tube.serializers import WarehouseSerializer
 class CalibratiobOrificeSerializer(serializers.ModelSerializer):
-    location_for_warehouse = serializers.StringRelatedField()
 
     class Meta:
         model = Calibration_orifice
         fields = "__all__"
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data["location_for_warehouse"] = WarehouseSerializer(
+            instance.location_for_warehouse,
+            fields=("id", "warehouse_name", "warehouse_location"),
+            ).data
+        return data
     def validate(self, data):
         SerialValidator(self, data, "serial_number")
         return super().validate(data)
@@ -320,7 +329,7 @@ class SupplyOrificeCreateSerializer(serializers.ModelSerializer):
 
 
 class AllGeneralPartListSerializer(DynamicModelSerializer):
-    location_for_warehouse = serializers.StringRelatedField()
+    location_for_warehouse = WarehouseSerializer(fields=('id','warehouse_name', 'warehouse_location',))
 
     class Meta:
         model = Part
