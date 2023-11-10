@@ -409,6 +409,8 @@ class DeviceHoseSerializer(DynamicModelSerializer):
                   "colour_code",
                   "warehouse",
                   "pm_status",
+                  "notes",
+                  "part_name",
                   )
 
 
