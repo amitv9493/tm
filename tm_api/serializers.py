@@ -505,39 +505,36 @@ class Add_Project_serializer(serializers.ModelSerializer):
 
 
 class TTDSerialzerProject(serializers.ModelSerializer):
-    location_for_warehouse = WarehouseSerializer(fields=('id','warehouse_name', 'warehouse_location',))
+    location_for_warehouse = serializers.StringRelatedField()
     class Meta:
         model = TTD
         fields = "__all__"
-        
+
+
 class BDDSerializerProject(serializers.ModelSerializer):
-    location_for_warehouse = WarehouseSerializer(fields=('id','warehouse_name', 'warehouse_location',))
-    
+    location_for_warehouse = serializers.StringRelatedField()
     class Meta:
         model = BDD
         fields = "__all__"
 
 
 class CALIBRATION_STANDSerializerProject(serializers.ModelSerializer):
-    location_for_warehouse = WarehouseSerializer(fields=('id','warehouse_name', 'warehouse_location',))
-    
-    
+    location_for_warehouse = serializers.StringRelatedField()
     class Meta:
         model = CALIBRATION_STAND
         fields = "__all__"
 
 
 class SwabMasterTSRSerializerProject(serializers.ModelSerializer):
-    location_for_warehouse = WarehouseSerializer(fields=('id','warehouse_name', 'warehouse_location',))
-    
-    
+    location_for_warehouse = serializers.StringRelatedField()
     class Meta:
         model = SwabMaster
         fields = "__all__"
 
 
 class AirHoseSerializerProject(serializers.ModelSerializer):
-    warehouse = WarehouseSerializer(fields=('id','warehouse_name', 'warehouse_location',))
+    warehouse = serializers.StringRelatedField()
+
     class Meta:
         model = AirHose
         fields = "__all__"
@@ -571,7 +568,6 @@ class GET_Project_serializer(serializers.ModelSerializer):
     device_part = DeviceHoseListSerializer(many=True)
     airhose_part = AirHoseSerializerProject(many=True)
 
-    
     class Meta:
         model = Project
         # fields = ('id','project_name','project_number','equipment_prep','client','ttd','unit','scope_of_work','bdd','calibration_stand','part','supply_orifice_part','reactor','pressure_sensor_part','calibration_orifice_part','swabmaster_part','device_part','airhose_part')
