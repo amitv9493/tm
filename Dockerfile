@@ -12,6 +12,6 @@ RUN apt-get update && \
 COPY requirements-dev.txt .
 RUN pip install -r requirements-dev.txt
 COPY . .
-
+EXPOSE 8000
 
 
