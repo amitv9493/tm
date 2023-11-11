@@ -1,0 +1,61 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'tm'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'tm'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'tubemastercrm'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      # <Port exposed> : <MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - my-db:/var/lib/mysql
+      
+      
+  tubemaster:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+      
+    volumes:
+      - /home/tm/:/app/tm/:ro    
+      
+    ports:
+      - 8000:8000
+      
+    image: tm:latest
+    
+    container_name: tm_container
+
+    command: sh -c 'python manage.py makemigrations --noinput && python manage.py migrate --no-input && python manage.py runserver 0.0.0.0:8000'
+
+      
+    env_file:
+      - ./.env
+    
+    environment:
+      - DEBUG=True
+      - SECRET_KEY=django-insecure-g&$_)b9sp%z$!+&^%^g^wu(nlo28g25*n5fa)2p6uzs@kyt)1j
+      - DB_NAME=tm
+      - DB_USER=tm
+      - DB_PASS=tubemastercrm
+      - localhost=db
+      
+    depends_on:
+      - db
+
+# Names our volume
+volumes:
+  my-db:
