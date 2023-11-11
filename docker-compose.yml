@@ -39,7 +39,7 @@ services:
     
     container_name: tm_container
 
-    command: sh -c 'python manage.py makemigrations --noinput && python manage.py migrate --no-input && python manage.py runserver 0.0.0.0:8000'
+    command: sh -c 'python manage.py makemigrations --noinput && python manage.py migrate --no-input && python manage.py createsuperuser && python manage.py runserver 0.0.0.0:8000'
 
       
     env_file:
