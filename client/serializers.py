@@ -1,10 +1,10 @@
-from rest_framework import serializers
-from rest_framework.fields import empty
-from project.validators import SerialValidator
 from django_countries.serializer_fields import CountryField as DjangoCountryField
+from rest_framework import serializers
 
-from .models import *
+from core.serializers import DynamicModelSerializer
+from project.validators import SerialValidator
 
+from .models import Address, Client, Plant, Reactor, Unit
 
 ###############################################################
 #          Client Serializers
@@ -126,8 +126,6 @@ class PlantSerializersupdate(serializers.ModelSerializer):
 ##################################################################
 #                Reactor Serializers
 ##################################################################
-
-from core.serializers import DynamicModelSerializer
 
 
 class ReactorSerializer(DynamicModelSerializer):

@@ -1,11 +1,11 @@
-from django.db import models
-
 from django import forms
-from project.validators import slugFieldValidator
+from django.db import models
 from django.utils.text import slugify
 
+from project.validators import slugFieldValidator
+
+
 class TTD(models.Model):
-    
     abbreviation = models.CharField(max_length=128, blank=True, null=True)
     alternate_name = models.CharField(
         max_length=128, verbose_name="Alternate Name", blank=True, null=True
@@ -35,7 +35,7 @@ class TTD(models.Model):
     location_for_warehouse = models.ForeignKey(
         "tube.Warehouse",
         verbose_name="Location For Warehouse",
-        null=True, 
+        null=True,
         on_delete=models.SET_NULL,
         related_name="ttd",
     )
@@ -107,7 +107,7 @@ class TTD(models.Model):
         value = self.serial_number
         try:
             id = self.id
-        except:
+        except Exception:
             id = None
 
         qs = TTD.objects.all()
@@ -117,8 +117,6 @@ class TTD(models.Model):
         super().clean()  # Call the parent's clean() method
 
         self.clean_serial_number()
-
-
 
 
 class BDD(models.Model):
@@ -197,7 +195,7 @@ class BDD(models.Model):
         value = self.serial_number
         try:
             id = self.id
-        except:
+        except Exception:
             id = None
 
         qs = BDD.objects.all()
@@ -304,7 +302,7 @@ class CALIBRATION_STAND(models.Model):
         value = self.serial_number
         try:
             id = self.id
-        except:
+        except Exception:
             id = None
 
         qs = CALIBRATION_STAND.objects.all()
@@ -402,7 +400,7 @@ class SwabMaster(models.Model):
         value = self.serial_number
         try:
             id = self.id
-        except:
+        except Exception:
             id = None
 
         qs = SwabMaster.objects.all()

@@ -1,17 +1,25 @@
 from dal import autocomplete
-from django.shortcuts import render
 from django.db.models import Q
-from rest_framework import generics
-from client.models import Reactor
-from client.models import Unit
+from django.shortcuts import render
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters, generics
 from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from client.models import *
-from client.serializers import *
-from rest_framework import filters
-from client.models import Plant
+
+from client.models import Address, Client, Plant, Reactor, Unit
+from client.serializers import (
+    AddressCreateSerializers,
+    AddressSerializers,
+    ClientCreateSerializers,
+    ClientSerializers,
+    PlantSerializers,
+    PlantSerializersupdate,
+    ReactorCreateSerializer,
+    ReactorSerializer,
+    UnitCreateSerializers,
+    UnitSerializers,
+)
 from tm_api.paginator import CustomPagination
-from django_filters.rest_framework import DjangoFilterBackend
 
 
 class ReactorAutocomplete(autocomplete.Select2QuerySetView):

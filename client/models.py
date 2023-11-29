@@ -1,9 +1,10 @@
-from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
 from django.core.validators import MaxLengthValidator
-from django_countries.fields import CountryField
-from project.validators import slugFieldValidator
+from django.db import models
 from django.utils.text import slugify
+from django_countries.fields import CountryField
+from phonenumber_field.modelfields import PhoneNumberField
+
+from project.validators import slugFieldValidator
 
 CHOICES_TOP_DOME_REMOVABLE = ((True, ("yes")), (False, ("No")))
 

@@ -1,15 +1,16 @@
 from django.contrib import admin
-
-# Register your models here.
-
-
-# Register your models here.
-
-from equipment.models import TTD, SwabMaster
-from equipment.models import BDD
-from equipment.models import CALIBRATION_STAND
 from import_export.admin import ImportExportModelAdmin
-from .forms import *
+
+# Register your models here.
+# Register your models here.
+from equipment.models import BDD, CALIBRATION_STAND, TTD, SwabMaster
+
+from .forms import (
+    BDDForm,
+    CALIBRATION_STANDForm,
+    SwabMasterForm,
+    TTDForm,
+)
 
 
 class TTDAdmin(ImportExportModelAdmin):
@@ -85,6 +86,7 @@ class TTDAdmin(ImportExportModelAdmin):
         "location_for_storage",
         "supply_orifice_set__size",
     ]
+
 
 admin.site.register(TTD, TTDAdmin)
 

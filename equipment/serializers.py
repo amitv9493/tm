@@ -1,11 +1,10 @@
-from rest_framework import serializers
-from .models import *
-from tube.models import *
-from part.models import *
-from rest_framework import serializers
-from project.validators import SerialValidator
 from django.utils import timezone
+from rest_framework import serializers
+
 from core.serializers import DynamicModelSerializer
+from part.models import Part
+from project.validators import SerialValidator
+from tube.models import BDD, CALIBRATION_STAND, TTD, SwabMaster, Warehouse
 
 ##################################################################
 #       TTD Serializer
@@ -273,10 +272,6 @@ class SwabMasterCreUpdSerializer(serializers.ModelSerializer):
         model = SwabMaster
         fields = "__all__"
         read_only_fields = ["slug"]
-
-    class Meta:
-        model = SwabMaster
-        fields = "__all__"
 
     def get_project_ids(self, obj):
         current_datetime = timezone.now().date()  # .values_list("id", flat=True))
