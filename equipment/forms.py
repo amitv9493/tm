@@ -1,18 +1,7 @@
 from django import forms
 from django.db.models import Q
 
-from equipment.models import (
-    BDD,
-    CALIBRATION_STAND,
-    TTD,
-    BDD_tube_seal_rack,
-    Calibration_orifice,
-    Pressure_sensor,
-    Supply_orifice,
-    SwabMaster,
-    SwabMasterTSR,
-    TTD_tube_seal_rack,
-)
+from equipment.models import *
 
 
 class TTDForm(forms.ModelForm):

@@ -2,9 +2,10 @@ from django.utils import timezone
 from rest_framework import serializers
 
 from core.serializers import DynamicModelSerializer
-from part.models import Part
+from equipment.models import *
+from part.models import *
 from project.validators import SerialValidator
-from tube.models import BDD, CALIBRATION_STAND, TTD, SwabMaster, Warehouse
+from tube.models import *
 
 ##################################################################
 #       TTD Serializer
