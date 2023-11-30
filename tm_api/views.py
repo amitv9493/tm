@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime as dt
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import Group
@@ -28,7 +28,8 @@ from .serializers import LoginSerializer
 
 def convert_to_date(date_string: str):
     if date_string:
-        date_obj = datetime.strptime(date_string, "%Y-%m-%d").date()
+        date_obj = dt.strptime(date_string, "%Y-%m-%d").date()
+
         return date_obj
     else:
         return None
@@ -88,7 +89,6 @@ class EquipAndPartGeneralView(ListAPIView):
         qs = super().get_queryset()
 
         start_date = convert_to_date(self.request.query_params.get("start_date"))
-        convert_to_date(self.request.query_params.get("end_date"))
         project_slug = self.request.query_params.get("proid", None)
         warehouse = self.request.query_params.get("warehouse", None)
 
