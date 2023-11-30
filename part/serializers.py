@@ -26,8 +26,8 @@ class SupplyOrificeSerializer(serializers.ModelSerializer):
 
 
 class PressureSensorSerializer(serializers.ModelSerializer):
-    location_for_warehouse = serializers.SerializerMethodField()
-    part_type = serializers.StringRelatedField()
+    location_for_warehouse = serializers.StringRelatedField()
+    part_type = serializers.SerializerMethodField()
 
     class Meta:
         model = Pressure_sensor
