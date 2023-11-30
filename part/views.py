@@ -725,7 +725,7 @@ class PressureSensorListView(generics.ListAPIView):
             qs = qs.filter(TTD__isnull=True)
 
         if warehouse:
-            qs = qs.filter(location_for_warehouse=warehouse)
+            qs = qs.filter(location_for_warehouse__slug=warehouse)
 
         return qs
 
