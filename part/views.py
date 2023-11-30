@@ -1,19 +1,19 @@
-from rest_framework import generics
+from datetime import datetime
+
+import pytz
+from django.db.models import Q
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters, generics
+from rest_framework.decorators import api_view
 from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from .models import *
-from .serializers import *
-from tm_api.paginator import CustomPagination
-from rest_framework import filters
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters
-from rest_framework.decorators import api_view
-from datetime import datetime
-import pytz
-from project.models import Project
-from django.db.models import Q
 
 from equipment.models import *
+from project.models import Project
+from tm_api.paginator import CustomPagination
+
+from .models import *
+from .serializers import *
 
 
 class SupplyOrificeViewPart(generics.ListAPIView):
@@ -305,7 +305,7 @@ class AirHoseCreateView(generics.ListCreateAPIView):
 #                     AirHose-RetUpdDelView
 #######################################################################
 
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import FormParser, MultiPartParser
 
 
 class AirHoseRetUpdDelView(generics.RetrieveUpdateDestroyAPIView):
@@ -577,13 +577,11 @@ class BddTubesealrackList(generics.ListAPIView):
     ]
 
     def get_queryset(self):
-        warehouse = self.request.query_params.get(
-            "warehouse"
-        )  # Get the warehouse ID from the request query parameters
+        warehouse = self.request.query_params.get("warehouse")
         queryset = BDD_tube_seal_rack.objects.all()
 
         if warehouse:
-            queryset = queryset.filter(location_for_warehouse=warehouse)
+            queryset = queryset.filter(location_for_warehouse__slug=warehouse)
         return queryset
 
 
@@ -870,7 +868,7 @@ class AllGeneralPartListView(generics.ListAPIView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        current_datetime = datetime.now(pytz.timezone("Asia/Kolkata")).date()
+        datetime.now(pytz.timezone("Asia/Kolkata")).date()
         start_date = self.request.query_params.get("date")
         warehouse = self.request.query_params.get(
             "warehouse"
@@ -952,7 +950,7 @@ def warehouse_part_view(request):
         Supply_orifice.objects.filter(common_query),
         many=True,
     ).data
-    
+
     pressure_sensor_data = PressureSensorSerializer(
         Pressure_sensor.objects.filter(common_query),
         many=True,
@@ -963,25 +961,30 @@ def warehouse_part_view(request):
     bdd_rack_data = BDDTubeSealRackSerializer(
         BDD_tube_seal_rack.objects.filter(common_query), many=True
     ).data
-    
+
     swabmaster_data = SwabMasterTSRSerializer(
         SwabMasterTSR.objects.filter(common_query), many=True
     ).data
-    
+
     # =============================================
 
     devicehose_data = DeviceHoseSerializer(
         DeviceHose.objects.filter(exception_query).exclude(
-            id__in = get_exclude_objects(start_date, "device_part")), many=True
+            id__in=get_exclude_objects(start_date, "device_part")
+        ),
+        many=True,
     ).data
     airhose_data = AirHoseSerializer(
-        AirHose.objects.filter(exception_query)
-            .exclude(id__in = get_exclude_objects(start_date, "airhose_part")),
-            many=True
+        AirHose.objects.filter(exception_query).exclude(
+            id__in=get_exclude_objects(start_date, "airhose_part")
+        ),
+        many=True,
     ).data
     calibration_orifice_data = Calibration_orifice_serializer(
         Calibration_orifice.objects.filter(common_query).exclude(
-            id__in = get_exclude_objects(start_date, 'calibration_orifice_part')), many=True
+            id__in=get_exclude_objects(start_date, "calibration_orifice_part")
+        ),
+        many=True,
     ).data
 
     merged_data = (
