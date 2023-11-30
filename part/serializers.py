@@ -1,9 +1,10 @@
 from rest_framework import serializers
 
-from tube.serializers import WarehouseSerializer
-from .models import *
-from project.validators import SerialValidator
 from core.serializers import DynamicModelSerializer
+from project.validators import SerialValidator
+from tube.serializers import WarehouseSerializer
+
+from .models import *
 
 ################################################################################
 #                SupplySerializer
@@ -26,10 +27,14 @@ class SupplyOrificeSerializer(serializers.ModelSerializer):
 
 class PressureSensorSerializer(serializers.ModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
+    part_type = serializers.StringRelatedField()
 
     class Meta:
         model = Pressure_sensor
         fields = "__all__"
+
+    def get_part_type(self, obj):
+        return "Pressure_sensor"
 
 
 ################################################################################
@@ -53,10 +58,14 @@ class TTDTubeSealRackSerializer(serializers.ModelSerializer):
 
 class BDDTubeSealRackSerializer(serializers.ModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
+    part_type = serializers.StringRelatedField()
 
     class Meta:
         model = BDD_tube_seal_rack
         fields = "__all__"
+
+    def get_part_type(self, obj):
+        return "BDD_tube_seal_rack"
 
 
 ################################################################################
@@ -66,10 +75,14 @@ class BDDTubeSealRackSerializer(serializers.ModelSerializer):
 
 class SwabMasterTSRSerializer(serializers.ModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
+    part_type = serializers.StringRelatedField()
 
     class Meta:
         model = SwabMasterTSR
         fields = "__all__"
+
+    def get_part_type(self, obj):
+        return "SwabMasterTSR"
 
 
 ################################################################################
@@ -78,9 +91,14 @@ class SwabMasterTSRSerializer(serializers.ModelSerializer):
 
 
 class DeviceHoseSerializer(serializers.ModelSerializer):
+    part_type = serializers.StringRelatedField()
+
     class Meta:
         model = DeviceHose
         fields = "__all__"
+
+    def get_part_type(self, obj):
+        return "DeviceHose"
 
 
 ################################################################################
@@ -90,10 +108,14 @@ class DeviceHoseSerializer(serializers.ModelSerializer):
 
 class AirHoseSerializer(serializers.ModelSerializer):
     warehouse = serializers.StringRelatedField()
+    part_type = serializers.StringRelatedField()
 
     class Meta:
         model = AirHose
         fields = "__all__"
+
+    def get_part_type(self, obj):
+        return "AirHose"
 
 
 ################################################################################
@@ -103,10 +125,14 @@ class AirHoseSerializer(serializers.ModelSerializer):
 
 class Calibration_orifice_serializer(serializers.ModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
+    part_type = serializers.StringRelatedField()
 
     class Meta:
         model = Calibration_orifice
         fields = "__all__"
+
+    def get_part_type(self, obj):
+        return "Calibration_orifice"
 
 
 ################################################################################
@@ -132,8 +158,13 @@ class AirHoseCreSerializer(serializers.ModelSerializer):
 
 
 class DeviceHoseListSerializer(serializers.ModelSerializer):
-    warehouse = WarehouseSerializer(fields=('id','warehouse_name', 'warehouse_location',))
-
+    warehouse = WarehouseSerializer(
+        fields=(
+            "id",
+            "warehouse_name",
+            "warehouse_location",
+        )
+    )
 
     class Meta:
         model = DeviceHose
@@ -176,8 +207,9 @@ class SwabMasterTSRCreateSerializer(serializers.ModelSerializer):
 ################################################################################
 
 from tube.serializers import WarehouseSerializer
-class CalibratiobOrificeSerializer(serializers.ModelSerializer):
 
+
+class CalibratiobOrificeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Calibration_orifice
         fields = "__all__"
@@ -187,8 +219,9 @@ class CalibratiobOrificeSerializer(serializers.ModelSerializer):
         data["location_for_warehouse"] = WarehouseSerializer(
             instance.location_for_warehouse,
             fields=("id", "warehouse_name", "warehouse_location"),
-            ).data
+        ).data
         return data
+
     def validate(self, data):
         SerialValidator(self, data, "serial_number")
         return super().validate(data)
@@ -256,6 +289,8 @@ class TddTubesealrackListSerializer(serializers.ModelSerializer):
 
 
 class TddTubesealrackCreateSerializer(serializers.ModelSerializer):
+    part_type = serializers.StringRelatedField()
+
     class Meta:
         model = TTD_tube_seal_rack
         fields = "__all__"
@@ -264,6 +299,9 @@ class TddTubesealrackCreateSerializer(serializers.ModelSerializer):
         SerialValidator(self, data, "serial_number")
 
         return super().validate(data)
+
+    def get_part_type(self, obj):
+        return "TTD_tube_seal_rack"
 
 
 ################################################################################
@@ -314,6 +352,8 @@ class SupplyOrificeListSerializer(DynamicModelSerializer):
 
 
 class SupplyOrificeCreateSerializer(serializers.ModelSerializer):
+    part_type = serializers.StringRelatedField()
+
     class Meta:
         model = Supply_orifice
         fields = "__all__"
@@ -322,6 +362,9 @@ class SupplyOrificeCreateSerializer(serializers.ModelSerializer):
         SerialValidator(self, data, "serial_number")
         return super().validate(data)
 
+    def get_part_type(self, obj):
+        return "Supply_orifice"
+
 
 ################################################################################
 #                AllGeneralPartList Serializer
@@ -329,7 +372,13 @@ class SupplyOrificeCreateSerializer(serializers.ModelSerializer):
 
 
 class AllGeneralPartListSerializer(DynamicModelSerializer):
-    location_for_warehouse = WarehouseSerializer(fields=('id','warehouse_name', 'warehouse_location',))
+    location_for_warehouse = WarehouseSerializer(
+        fields=(
+            "id",
+            "warehouse_name",
+            "warehouse_location",
+        )
+    )
 
     class Meta:
         model = Part
@@ -361,14 +410,12 @@ class WarehousePartSerializer(serializers.Serializer):
     swabmasterTSR = serializers.SerializerMethodField()
     devicehose = serializers.SerializerMethodField()
     airhose = serializers.SerializerMethodField()
-    # Query_params 
+    # Query_params
 
-    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.get_query_params(self.context.get("request"))
-        
-    
+
     def get_supply_orifice(self, obj):
         request = self.context.get("request")
         slug = request.query_params.get("slug")
@@ -382,18 +429,15 @@ class WarehousePartSerializer(serializers.Serializer):
         serializer = SupplyOrificeCreateSerializer(qs, many=True)
         return serializer.data
 
-
-    
-    def get_part_data(self,qs):
-        
+    def get_part_data(self, qs):
         if self.pm_status != "NONE":
             qs = qs.filter(pm_status=self.pm_status)
         if self.slug:
             qs = qs.filter(location_for_warehouse__slug=self.slug)
-        
+
     def get_pressure_sensor(self, obj):
         qs = Pressure_sensor.objects.all()
-        
+
         serializer = SupplyOrificeCreateSerializer(qs, many=True)
         return serializer.data
 
