@@ -100,7 +100,7 @@ class ClientListView(generics.ListAPIView):
     ]
 
     def paginate_queryset(self, queryset):
-        if self.request.query_params.get("paginate", None).lower() == "false":
+        if self.request.query_params.get("paginate", None) == "false":
             return None
         return super().paginate_queryset(queryset)
 
