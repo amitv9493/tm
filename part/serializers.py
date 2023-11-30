@@ -26,7 +26,7 @@ class SupplyOrificeSerializer(serializers.ModelSerializer):
 
 
 class PressureSensorSerializer(serializers.ModelSerializer):
-    location_for_warehouse = serializers.StringRelatedField()
+    location_for_warehouse = serializers.SerializerMethodField()
     part_type = serializers.StringRelatedField()
 
     class Meta:
@@ -58,7 +58,7 @@ class TTDTubeSealRackSerializer(serializers.ModelSerializer):
 
 class BDDTubeSealRackSerializer(serializers.ModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
-    part_type = serializers.StringRelatedField()
+    part_type = serializers.SerializerMethodField()
 
     class Meta:
         model = BDD_tube_seal_rack
@@ -91,7 +91,7 @@ class SwabMasterTSRSerializer(serializers.ModelSerializer):
 
 
 class DeviceHoseSerializer(serializers.ModelSerializer):
-    part_type = serializers.StringRelatedField()
+    part_type = serializers.SerializerMethodField()
 
     class Meta:
         model = DeviceHose
@@ -108,7 +108,7 @@ class DeviceHoseSerializer(serializers.ModelSerializer):
 
 class AirHoseSerializer(serializers.ModelSerializer):
     warehouse = serializers.StringRelatedField()
-    part_type = serializers.StringRelatedField()
+    part_type = serializers.SerializerMethodField()
 
     class Meta:
         model = AirHose
@@ -125,7 +125,7 @@ class AirHoseSerializer(serializers.ModelSerializer):
 
 class Calibration_orifice_serializer(serializers.ModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
-    part_type = serializers.StringRelatedField()
+    part_type = serializers.SerializerMethodField()
 
     class Meta:
         model = Calibration_orifice
@@ -289,7 +289,7 @@ class TddTubesealrackListSerializer(serializers.ModelSerializer):
 
 
 class TddTubesealrackCreateSerializer(serializers.ModelSerializer):
-    part_type = serializers.StringRelatedField()
+    part_type = serializers.SerializerMethodField()
 
     class Meta:
         model = TTD_tube_seal_rack
@@ -352,7 +352,7 @@ class SupplyOrificeListSerializer(DynamicModelSerializer):
 
 
 class SupplyOrificeCreateSerializer(serializers.ModelSerializer):
-    part_type = serializers.StringRelatedField()
+    part_type = serializers.SerializerMethodField()
 
     class Meta:
         model = Supply_orifice
