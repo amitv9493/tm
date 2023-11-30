@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import Group
 from rest_framework import generics  # noqa: F811
@@ -10,6 +12,7 @@ from rest_framework.response import Response  # noqa: F811
 from rest_framework.views import APIView  # noqa: F811
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
+
 from client.serializers import UnitSerializers as clientUnitSerializer
 from equipment.models import *
 from part.models import *
@@ -18,8 +21,6 @@ from project.models import *
 from .paginator import CustomPagination
 from .serializers import *  # noqa: F403
 from .serializers import LoginSerializer
-
-from datetime import datetime
 
 
 def convert_to_date(date_string: str):
@@ -84,7 +85,7 @@ class EquipAndPartGeneralView(ListAPIView):
         qs = super().get_queryset()
 
         start_date = convert_to_date(self.request.query_params.get("start_date"))
-        end_date = convert_to_date(self.request.query_params.get("end_date"))
+        convert_to_date(self.request.query_params.get("end_date"))
         project_slug = self.request.query_params.get("proid", None)
         warehouse = self.request.query_params.get("warehouse", None)
 
@@ -675,13 +676,13 @@ class SwabMasterView(ListAPIView):
     serializer_class = SwabMasterSerializer
 
     def get_queryset(self):
-        qs = super().get_queryset()
+        super().get_queryset()
 
         start_date = convert_to_date(self.request.query_params.get("start_date"))
         end_date = convert_to_date(self.request.query_params.get("end_date"))
         pro_id = self.request.query_params.get("proid")
         # Q()
-        warehouse = self.request.query_params.get("warehouse")
+        self.request.query_params.get("warehouse")
 
         if not start_date or not end_date:
             raise ValidationError("Both start_date and end_date are required.")
@@ -847,9 +848,7 @@ class ProjectAllListView(generics.ListAPIView):
     serializer_class = Add_Project_serializer
     pagination_class = CustomPagination
 
-    filterset_fields = [
-        "client",
-    ]
+    filterset_fields = ["client", "project_start" "project_end"]
 
 
 ################################################################################
@@ -916,9 +915,8 @@ class AllList_Id_Patch_Project(generics.RetrieveUpdateAPIView):
     lookup_field = "slug"
 
 
-from silk.profiling.profiler import silk_profile
-from django.db.models import Prefetch
 from django_auto_prefetching import AutoPrefetchViewSetMixin
+from silk.profiling.profiler import silk_profile
 
 
 class ProjectRecordView(AutoPrefetchViewSetMixin, generics.RetrieveAPIView):
