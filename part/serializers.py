@@ -34,7 +34,7 @@ class PressureSensorSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_part_type(self, obj):
-        return "Pressure_sensor"
+        return "Pressure sensor"
 
 
 ################################################################################
@@ -65,7 +65,7 @@ class BDDTubeSealRackSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_part_type(self, obj):
-        return "BDD_tube_seal_rack"
+        return "BDD tube seal rack"
 
 
 ################################################################################
@@ -82,7 +82,7 @@ class SwabMasterTSRSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_part_type(self, obj):
-        return "SwabMasterTSR"
+        return "SM Tube Seal Rack"
 
 
 ################################################################################
@@ -98,7 +98,7 @@ class DeviceHoseSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_part_type(self, obj):
-        return "DeviceHose"
+        return "Device Hose"
 
 
 ################################################################################
@@ -115,7 +115,7 @@ class AirHoseSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_part_type(self, obj):
-        return "AirHose"
+        return "Air Hose"
 
 
 ################################################################################
@@ -132,7 +132,7 @@ class Calibration_orifice_serializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_part_type(self, obj):
-        return "Calibration_orifice"
+        return "Calibration orifice"
 
 
 ################################################################################
@@ -301,7 +301,7 @@ class TddTubesealrackCreateSerializer(serializers.ModelSerializer):
         return super().validate(data)
 
     def get_part_type(self, obj):
-        return "TTD_tube_seal_rack"
+        return "TTD tube seal rack"
 
 
 ################################################################################
@@ -363,7 +363,7 @@ class SupplyOrificeCreateSerializer(serializers.ModelSerializer):
         return super().validate(data)
 
     def get_part_type(self, obj):
-        return "Supply_orifice"
+        return "Supply orifice"
 
 
 ################################################################################
