@@ -99,6 +99,11 @@ class ClientListView(generics.ListAPIView):
         "former_name",
     ]
 
+    def paginate_queryset(self, queryset):
+        if self.request.query_params.get("paginate", None).lower() == "false":
+            return None
+        return super().paginate_queryset(queryset)
+
 
 class ClientListViewWithPagination(generics.ListAPIView):
     permission_classes = [DjangoModelPermissions, IsAdminUser]
