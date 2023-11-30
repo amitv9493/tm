@@ -440,7 +440,7 @@ class SwabMasterTSRListView(generics.ListAPIView):
             qs = qs.filter(swabmaster__isnull=True)
 
         if warehouse:
-            qs = qs.filter(location_for_warehouse=warehouse)
+            qs = qs.filter(location_for_warehouse__slug=warehouse)
         return qs
 
 
