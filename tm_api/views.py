@@ -2,8 +2,11 @@ from datetime import datetime
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import Group
-from rest_framework import generics  # noqa: F811
-from rest_framework import filters, status
+from rest_framework import (
+    filters,
+    generics,  # noqa: F811
+    status,
+)
 from rest_framework.exceptions import ValidationError
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListAPIView
@@ -848,7 +851,7 @@ class ProjectAllListView(generics.ListAPIView):
     serializer_class = Add_Project_serializer
     pagination_class = CustomPagination
 
-    filterset_fields = ["client", "project_start" "project_end"]
+    filterset_fields = ["client", "project_start", "project_end"]
 
 
 ################################################################################
