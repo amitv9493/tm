@@ -313,7 +313,8 @@ class PressureSensorSerializer(serializers.ModelSerializer):
 #            calibration
 ################################################################################
 class CalibrationOrificeSerializer(serializers.ModelSerializer):
-    part_type = serializers.SerializerMethodField()
+    location_for_warehouse = WarehouseLocationSerializer()
+    part_type = serializers.SerializerMethodField(read_only=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -329,9 +330,8 @@ class CalibrationOrificeSerializer(serializers.ModelSerializer):
                 "id",
                 "warehouse_location",
                 "country",
+                "part_type",
             ]
-
-    location_for_warehouse = WarehouseLocationSerializer()
 
     def get_part_type(self, obj):
         return "Calibration Orifice"
@@ -346,6 +346,7 @@ class CalibrationOrificeSerializer(serializers.ModelSerializer):
             "in_sets",
             "location_for_warehouse",
             "pm_status",
+            "part_type",
         ]
 
 
