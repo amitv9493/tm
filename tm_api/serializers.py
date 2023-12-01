@@ -1,23 +1,20 @@
-from rest_framework import serializers
 from django.contrib.auth.models import User
-from client.models import *
-from part.models import *
-from equipment.models import *
-from tube.models import *
 from django_countries.serializers import CountryFieldMixin
-from project.validators import SerialValidator
-from core.serializers import DynamicModelSerializer
-from part.serializers import (
-    AllGeneralPartListSerializer,
-    PressuresensorListSerializer,
-    CalibratiobOrificeSerializer,
-    SupplyOrificeListSerializer,
-    SwabMasterTSRSerializer,
-    DeviceHoseListSerializer,
-    AirHoseSerializer,
-)
-from tube.serializers import WarehouseSerializer
+from rest_framework import serializers
 
+from client.models import *
+from core.serializers import DynamicModelSerializer
+from equipment.models import *
+from part.models import *
+from part.serializers import (
+    AirHoseSerializer,
+    AllGeneralPartListSerializer,
+    CalibratiobOrificeSerializer,
+    DeviceHoseListSerializer,
+    SupplyOrificeListSerializer,
+)
+from project.validators import SerialValidator
+from tube.models import *
 
 ################################################################################
 #            Login API Serializer
@@ -316,6 +313,8 @@ class PressureSensorSerializer(serializers.ModelSerializer):
 #            calibration
 ################################################################################
 class CalibrationOrificeSerializer(serializers.ModelSerializer):
+    part_type = serializers.SerializerMethodField()
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -333,6 +332,9 @@ class CalibrationOrificeSerializer(serializers.ModelSerializer):
             ]
 
     location_for_warehouse = WarehouseLocationSerializer()
+
+    def get_part_type(self, obj):
+        return "Calibration Orifice"
 
     class Meta:
         model = Calibration_orifice
@@ -403,15 +405,16 @@ class DeviceHoseSerializer(DynamicModelSerializer):
 
     class Meta:
         model = DeviceHose
-        fields = ("id",
-                  "serial_number",
-                  "length",
-                  "colour_code",
-                  "warehouse",
-                  "pm_status",
-                  "notes",
-                  "part_name",
-                  )
+        fields = (
+            "id",
+            "serial_number",
+            "length",
+            "colour_code",
+            "warehouse",
+            "pm_status",
+            "notes",
+            "part_name",
+        )
 
 
 ################################################################################
@@ -508,6 +511,7 @@ class Add_Project_serializer(serializers.ModelSerializer):
 
 class TTDSerialzerProject(serializers.ModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
+
     class Meta:
         model = TTD
         fields = "__all__"
@@ -515,6 +519,7 @@ class TTDSerialzerProject(serializers.ModelSerializer):
 
 class BDDSerializerProject(serializers.ModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
+
     class Meta:
         model = BDD
         fields = "__all__"
@@ -522,6 +527,7 @@ class BDDSerializerProject(serializers.ModelSerializer):
 
 class CALIBRATION_STANDSerializerProject(serializers.ModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
+
     class Meta:
         model = CALIBRATION_STAND
         fields = "__all__"
@@ -529,6 +535,7 @@ class CALIBRATION_STANDSerializerProject(serializers.ModelSerializer):
 
 class SwabMasterTSRSerializerProject(serializers.ModelSerializer):
     location_for_warehouse = serializers.StringRelatedField()
+
     class Meta:
         model = SwabMaster
         fields = "__all__"
@@ -614,10 +621,10 @@ class Create_Project_Serializer(serializers.ModelSerializer):
 ################################################################################
 
 from equipment.serializers import (
-    TTDSerializers,
     BDDSerializer,
     CalibrationStandSerializer,
     SwabMasterSerializer,
+    TTDSerializers,
 )
 
 
@@ -627,8 +634,8 @@ class DynamicReactorSerializer(DynamicModelSerializer):
         fields = "__all__"
 
 
-from part.serializers import AirHoseSerializer
 from client.serializers import ReactorCreateSerializer
+from part.serializers import AirHoseSerializer
 
 
 class ProjectRecordSerializer(serializers.ModelSerializer):
